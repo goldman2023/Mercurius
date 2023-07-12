@@ -1,0 +1,58 @@
+pipeline {
+    agent none
+    environment {
+            BRANCH = "${env.BRANCH_NAME == "development" ? "dev" : "test"}"
+            EC2_HOST = "${env.BRANCH_NAME == "development" ? "3.13.254.87" : "ec2-52-14-8-217.us-east-2.compute.amazonaws.com"}"
+    }
+
+    stages {
+        stage("BUILD AND MOVE JAR")
+        {
+            agent {
+                docker {
+                    image 'maven:3.8.1-adoptopenjdk-11'
+            }
+        }
+            steps {
+                slackSend message: "Starting build number ${env.BUILD_NUMBER} of java-${BRANCH}"
+                echo "Building jar file"
+                sh 'mvn -B -DskipTests clean package'
+                sh 'cd target && mv spring-boot-security-jwt-0.0.1-SNAPSHOT.jar ../STLinesSpringApi.jar'
+            }
+        }
+        stage("BUILD/PUSH DOCKER IMAGE")
+        {
+            agent any
+            steps {
+                echo "Building docker image"
+                sh "docker build -t java-${BRANCH}:latest ."
+
+                echo "pushing docker image to ECR"
+                script {
+                    docker.withRegistry('https://274428758712.dkr.ecr.us-east-2.amazonaws.com', 'ecr:us-east-2:aws_credentials') {
+                            docker.image("java-${BRANCH}").push('latest')
+                        }
+                }
+            }
+        }
+        stage("PULL/RUN DOCKER IMAGE")
+        {
+            agent any
+            steps {
+                echo "connecting to DEV EC2 instance"
+                withCredentials([sshUserPrivateKey(credentialsId: "23b415d8-23c3-458c-9a32-c1cdd2b427d3", keyFileVariable: 'keyfile')]) {
+                    sh 'ssh -i ${keyfile} ubuntu@${EC2_HOST} "sudo aws ecr get-login-password --region us-east-2 --profile davismercier | docker login --username AWS --password-stdin 274428758712.dkr.ecr.us-east-2.amazonaws.com"'
+                    sh 'ssh -i ${keyfile} ubuntu@${EC2_HOST} "sudo docker pull 274428758712.dkr.ecr.us-east-2.amazonaws.com/java-${BRANCH}:latest"'
+                    sh 'ssh -i ${keyfile} ubuntu@${EC2_HOST} "sudo docker rm -f stlines-java-container"'
+                    sh 'ssh -i ${keyfile} ubuntu@${EC2_HOST} "sudo docker run -d -p 2020:2020 --name stlines-java-container --restart always 274428758712.dkr.ecr.us-east-2.amazonaws.com/java-${BRANCH}:latest"'
+                    }
+            }
+        }
+    }
+    post {
+        always {
+            slackSend message: "Java-${BRANCH} build result: ${currentBuild.currentResult}"
+        }
+    }
+}
+

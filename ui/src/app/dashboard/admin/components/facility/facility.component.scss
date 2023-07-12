@@ -1,0 +1,202 @@
+.admin-table-wrapper {
+  .top-bar {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    .mat-raised-button {
+      border-radius: 20px;
+      color: #fff;
+      min-width: 145px;
+      padding: 3px 16px;
+      background-color: #ff6700;
+      box-shadow: 1px 1px 1px 1px #ffaa00;
+      .add-button {
+        p {
+          margin: 0px;
+          font-size: 18px;
+          padding: 0 10px;
+          color: #fff;
+        }
+      }
+    }
+  }
+  .list {
+    margin: 0 auto;
+    width: 100%;
+
+    table {
+      overflow: auto;
+      width: 100%;
+      box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+      -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+      -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+      .mat-header-row {
+        height: 47px;
+
+        .mat-header-cell {
+          background-color: #f7aa05;
+          font-size: 18px;
+          .mat-select {
+            display: block;
+          }
+        }
+      }
+
+      tr {
+        td {
+          .action {
+            gap: 5px;
+            display: flex;
+            justify-content: center;
+
+            .mat-menu-item {
+              line-height: 30px;
+              margin: 0 10px;
+              line-height: 37px;
+              height: 37px;
+
+              &:hover {
+                color: #ff6700;
+              }
+            }
+
+            .manageArea {
+                color: #fff;
+                background-color: #ff6700;
+                border-radius: 20px;
+                width: 150px;
+                text-align: center;
+                margin: 0 10px;
+            }
+          }
+          .mat-button {
+            font-size: 16px;
+            line-height: 30px;
+          }
+        }
+        .mat-column-action {
+          text-align: center;
+        }
+      }
+
+      .mat-row:nth-child(even) {
+        background-color: #f7f7f7;
+      }
+
+      .mat-row:nth-child(odd) {
+        background-color: #fff;
+      }
+    }
+    .mat-paginator {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+.top-bar ::ng-deep .mat-radio-label{
+  margin-right: 10px;
+}
+.top-bar ::ng-deep .mat-radio-label-content{
+  font-size: 18px;
+}
+.admin-table-wrapper ::ng-deep .mat-sort-header-arrow {
+  color: #000;
+}
+
+.admin-table-wrapper ::ng-deep.mat-paginator-page-size-select {
+  border: 1px solid rgb(102, 102, 102);
+  border-radius: 6px;
+}
+
+.admin-table-wrapper
+  ::ng-deep
+  .mat-form-field-appearance-legacy
+  .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.admin-table-wrapper ::ng-deep .mat-form-field-infix {
+  border: none;
+  padding: 0px 5px;
+}
+
+.admin-table-wrapper ::ng-deep .mat-paginator-page-size {
+  align-items: center;
+}
+.admin-table-wrapper ::ng-deep .mat-icon-button {
+  height: 33px;
+  line-height: 32px;
+}
+
+.admin-table-wrapper ::ng-deep .mat-paginator,
+.admin-table-wrapper ::ng-deep .mat-paginator-page-size .mat-select-trigger {
+  margin: 11px auto;
+  font-size: 17px;
+}
+
+.admin-table-wrapper
+  ::ng-deep
+  .mat-form-field-appearance-legacy
+  .mat-form-field-underline {
+  display: none;
+}
+
+.admin-table-wrapper ::ng-deep .mat-paginator-range-label {
+  margin: 0 10px 0 10px;
+  word-spacing: 9px;
+}
+
+.admin-table-wrapper ::ng-deep .mat-select {
+  display: block;
+}
+
+.admin-table-wrapper ::ng-deep .mat-select-value {
+  text-align: center;
+}
+.admin-table-wrapper ::ng-deep .mat-paginator-page-size .mat-select-trigger {
+  display: block;
+  margin: 11px auto;
+  font-size: 17px;
+}
+
+.admin-table-wrapper ::ng-deep .mat-form-field-infix {
+  width: auto;
+}
+
+
+.admin-table-wrapper  :ng-deep .mat-menu-item {
+  line-height: 30px;
+  margin: 0 10px;
+
+}
+.admin-table-wrapper  :ng-deep .mat-menu-item:hover {
+  color: #ff6700;
+}
+
+.manageArea {
+  color: #fff;
+  background-color: #ff6700;
+  border-radius: 20px;
+  width: 150px;
+  text-align: center;
+  margin: 0 10px;
+  margin-top:10px ;
+  line-height: 37px;
+  height: 37px;
+}
+.manageArea:hover{
+  color: #ff6700;
+}
+.admin-table-wrapper ::ng-deep.mat-sort-header-container{
+  justify-content: center;
+}
+::ng-deep button.mat-menu-item{
+  height: 36px;
+  line-height: 36px;
+}
+::ng-deep .mat-menu-panel {
+  min-height: 52px;
+}

@@ -1,0 +1,472 @@
+
+
+<ion-content
+  style="--height: 100% !important; position: fixed"
+  class="app-background-mercurius-primary-color"
+>
+  <ion-grid class="app-background-mercurius-primary-color">
+    <ion-row class="ion-justify-content-center align-items-center text-center">
+      <ion-col size="1"></ion-col>
+      <ion-col sizeLg="3" sizeMd="5" sizeSm="11">
+        <ion-img
+          alt="StraightLines.io"
+          style="width: 100% !important"
+          src="assets/img/StraightLines-tagline.png"
+        ></ion-img>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid
+    class="app-background-mercurius-primary-color"
+    style="
+      margin-top: -5px;
+      z-index: -1 !important;
+      position: absolute;
+      padding: 100px 0px 0px 0px !important;
+      width: 100% !important;
+    "
+  >
+  </ion-grid>
+
+  <div class="d-flex justify-content-center row">
+    <ion-grid
+      class="p-5 col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4"
+      style="
+        z-index: 2 !important;
+        position: relative;
+        margin-left: 0px !important;
+        margin-right: 0px;
+        margin-top: 50px !important;
+      "
+    >
+      <ion-grid
+        class="data app-font-primary-color ion-text-center ion-justify-content-center"
+        style="
+          height: 100% auto;
+          margin-left: 0px 10px !important;
+          z-index: 10 !important;
+          margin-top: -100px !important;
+          position: relative !important ;
+        "
+      >
+        <ion-card class="shadow" style="border-radius: 15px">
+          <div class="w-100 container">
+            <app-blank-header></app-blank-header>
+          </div>
+          <form [formGroup]="registrationForm">
+            <!-- Username -->
+
+            <ion-grid class="ion-justify-content-center ion-text-center">
+              <!-- <ion-row id="Sign-Up-title">
+                <ion-col size="12" class="ion-text-center">
+                  <ion-label
+                    ><b
+                      class="app-font-primary-color app-title"
+                      style="font-size: 32px"
+                      >Sign Up</b
+                    ></ion-label
+                  >
+                </ion-col>
+              </ion-row> -->
+              <!-- Fullname -->
+              <ion-item
+                id="register-input-ion-item"
+                class="app-font-primary-color align-items-stretch"
+                lines="none"
+              >
+                <ion-row class="row">
+                  <ion-col class="col-12 col-sm-6">
+                    <ion-label position="stacked" class="text-dark"
+                      >First Name</ion-label
+                    >
+                    <ion-input
+                      type="text"
+                      :clear-input="true"
+                      (keyup.enter)="gotoNextField(lastName)"
+                      style="border-radius: 5px; margin-top: 5px"
+                      class="ion-no-margin ion-border-1px-mercurius-secondary-color ion-no-padding app-font-primary-color px-2"
+                      formControlName="firstname"
+                      name="firstname"
+                      [class.is-invalid]="firstname?.invalid && firstname?.touched"
+                      required
+                    ></ion-input>
+                    <div
+                      class="content-data app-font-red-color"
+                      style="text-align: left"
+                      *ngIf="firstname?.touched && firstname?.errors"
+                    >
+                      <p
+                        class="app-font-red-color"
+                        *ngIf="firstname?.errors?.required "
+                      >
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        Firstname is required!
+                      </p>
+                      <p
+                        class="app-font-red-color"
+                        *ngIf="firstname?.errors?.minlength "
+                      >
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        Firstname must be at least 2 characters long!
+                      </p>
+                      <p
+                        class="app-font-red-color"
+                        *ngIf="firstname?.errors?.maxlength "
+                      >
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        Firstname can't be longer than 64 characters!
+                      </p>
+                    </div>
+                  </ion-col>
+                  <ion-col class="col-12 col-sm-6">
+                    <ion-label position="stacked" class="text-dark"
+                      >Last Name</ion-label
+                    >
+                    <ion-input
+                      type="text"
+                      :clear-input="true"
+                      (keyup.enter)="gotoNextField(emAil)"
+                      #lastName
+                      style="border-radius: 5px; margin-top: 5px"
+                      class="ion-no-margin ion-border-1px-mercurius-secondary-color ion-no-padding app-font-primary-color px-2"
+                      formControlName="lastname"
+                      name="lastname"
+                      [class.is-invalid]="lastname?.invalid && lastname?.touched"
+                      required
+                    ></ion-input>
+                    <div
+                      class="content-data app-font-red-color"
+                      style="text-align: left"
+                      *ngIf="lastname?.touched && lastname?.errors"
+                    >
+                      <p
+                        class="app-font-red-color"
+                        *ngIf="lastname?.errors?.required "
+                      >
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        Lastname is required!
+                      </p>
+                      <p
+                        class="app-font-red-color"
+                        *ngIf="lastname?.errors?.minlength "
+                      >
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        Lastname must be at least 2 characters long!
+                      </p>
+                      <p
+                        class="app-font-red-color"
+                        *ngIf="lastname?.errors?.maxlength "
+                      >
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        Lastname can't be longer than 64 characters!
+                      </p>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+
+              <!-- Email -->
+              <ion-item
+                id="register-input-ion-item"
+                lines="none"
+                class="app-font-primary-color"
+              >
+                <ion-label position="stacked" class="text-dark"
+                  >Email</ion-label
+                >
+                <ion-input
+                  type="email"
+                  clear-input="true"
+                  (focusout)="emailFocusOut()"
+                  (keyup.enter)="gotoNextField(pHone)"
+                  #emAil
+                  style="border-radius: 5px; margin-top: 5px"
+                  class="ion-no-margin ion-border-1px-mercurius-secondary-color ion-no-padding app-font-primary-color px-2"
+                  formControlName="email"
+                  name="email"
+                  [class.is-invalid]="email?.invalid && email?.touched"
+                  required
+                ></ion-input>
+                <div
+                  class="content-data app-font-red-color"
+                  style="text-align: left"
+                  *ngIf="email?.touched && email?.errors"
+                >
+                  <p
+                    class="app-font-red-color"
+                    *ngIf="email?.errors?.required "
+                  >
+                    <ion-icon name="alert-circle-outline"></ion-icon> Email is
+                    required!
+                  </p>
+                  <p
+                    class="app-font-red-color"
+                    *ngIf="email?.errors?.minlength "
+                  >
+                    <ion-icon name="alert-circle-outline"></ion-icon> Email must
+                    be at least 6 characters long!
+                  </p>
+
+                  <p class="app-font-red-color" *ngIf="email?.errors?.pattern ">
+
+                    <ion-icon name="alert-circle-outline"></ion-icon> Enter a
+                    valid email!
+                  </p>
+                </div>
+                <div
+                  class="content-data app-font-red-color"
+                  style="text-align: left"
+                >
+                  <p class="app-font-red-color" *ngIf="emailValid==true">
+                    <ion-icon name="alert-circle-outline"></ion-icon>Account
+                    already exists!!
+                  </p>
+                </div>
+              </ion-item>
+              <!-- Phone -->
+              <ion-item
+                lines="none"
+                id="register-input-ion-item"
+                class="app-font-primary-color"
+              >
+                <ion-label position="stacked" class="text-dark"
+                  >Phone</ion-label
+                >
+                <ion-input
+                  type="number"
+                  :clear-input="true"
+                  (focusout)="phoneFocusOut()"
+                  (keyup)="changePhoneValue()"
+                  (keyup.enter)="gotoNextField(paSSword)"
+                  #pHone
+                  class="ion-no-margin ion-border-1px-mercurius-secondary-color ion-no-padding px-2"
+                  style="
+                    border-radius: 5px;
+                    margin-top: 5px;
+                    --background: white;
+                  "
+                  formControlName="phone"
+                  name="phone"
+                  [class.is-invalid]="phone?.invalid "
+                ></ion-input>
+                <div
+                  class="content-data app-font-red-color"
+                  style="text-align: left"
+                  *ngIf=" phone?.errors"
+                >
+                  <p class="app-font-red-color" *ngIf="phone?.errors?.pattern ">
+                    <ion-icon name="alert-circle-outline"></ion-icon> Enter a
+                    valid phone!
+                  </p>
+                  <p
+                    class="app-font-red-color"
+                    *ngIf="phone?.errors?.minlength "
+                  >
+                    <ion-icon name="alert-circle-outline"></ion-icon> Phone must
+                    be at least 10 characters long!
+                  </p>
+                  <p
+                    class="app-font-red-color"
+                    *ngIf="phone?.errors?.maxlength "
+                  >
+                    <ion-icon name="alert-circle-outline"></ion-icon> Phone must
+                    be at least 10 characters long!
+                  </p>
+                </div>
+                <div
+                  class="content-data app-font-red-color"
+                  style="text-align: left"
+                >
+                  <p class="app-font-red-color" *ngIf="phoneValid">
+                    <ion-icon name="alert-circle-outline"></ion-icon>Phone
+                    number already exists!!
+                  </p>
+                </div>
+              </ion-item>
+              <!-- Password -->
+              <ion-item
+                id="register-input-ion-item"
+                lines="none"
+                class="app-font-primary-color"
+              >
+                <ion-label position="stacked" class="text-dark"
+                  >Password</ion-label
+                >
+                <ion-input
+                  type="text"
+                  [class]="passWordClass(classId) "
+                  class="px-2"
+                  (focusin)="clearInputPassword($event)"
+                  (keyup.enter)="gotoNextField(conPass)"
+                  #paSSword
+                  style="
+                    border-radius: 5px;
+                    margin-top: 5px;
+                    position: relative;
+                    z-index: -1;
+                  "
+                  formControlName="password"
+                  name="password"
+                  required
+                >
+                </ion-input>
+                <ion-icon
+                  *ngIf="hidePassword"
+                  class="app-font-primary-color"
+                  style="
+                    position: absolute;
+                    right: 6%;
+                    font-size: 20px;
+                    bottom: 10px;
+                    z-index: 1;
+                  "
+                  (click)="passWord()"
+                  name="eye-off-outline"
+                ></ion-icon>
+                <ion-icon
+                  *ngIf="!hidePassword"
+                  class="app-font-primary-color"
+                  style="
+                    position: absolute;
+                    right: 6%;
+                    font-size: 20px;
+                    bottom: 10px;
+                    z-index: 1;
+                  "
+                  (click)="passWord()"
+                  name="eye-outline"
+                ></ion-icon>
+              </ion-item>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left; margin-left: 15px"
+                *ngIf="password?.touched && password?.errors"
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="password?.errors?.required "
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Password is
+                  required!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="password?.errors?.minlength "
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Password
+                  must be at least 2 characters!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="password?.errors?.maxlength "
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Password
+                  must be maximum 64 characters!
+                </p>
+              </div>
+              <!-- Confirm-Password -->
+              <ion-item
+                id="register-input-ion-item"
+                lines="none"
+                class="app-font-primary-color"
+              >
+                <ion-label position="stacked" class="text-dark"
+                  >Confirm Password</ion-label
+                >
+                <ion-input
+                  type="text"
+                  (focusin)="clearInputCoPassword($event)"
+                  class="px-2"
+                  [class]="confirmPassWordClass(confirmClassId) "
+                  #conPass
+                  style="
+                    border-radius: 5px;
+                    margin-top: 5px;
+                    position: relative;
+                    z-index: -1;
+                  "
+                  name="confirm-password"
+                  formControlName="confirm_password"
+                  required
+                ></ion-input>
+                <ion-icon
+                  *ngIf="hideConfirmPassword"
+                  class="app-font-primary-color"
+                  style="
+                    position: absolute;
+                    right: 6%;
+                    font-size: 20px;
+                    bottom: 10px;
+                    z-index: 1;
+                  "
+                  (click)="confirm_Password()"
+                  name="eye-off-outline"
+                ></ion-icon>
+                <ion-icon
+                  *ngIf="!hideConfirmPassword"
+                  class="app-font-primary-color"
+                  style="
+                    position: absolute;
+                    right: 6%;
+                    font-size: 20px;
+                    bottom: 10px;
+                    z-index: 1;
+                  "
+                  (click)="confirm_Password()"
+                  name="eye-outline"
+                ></ion-icon>
+              </ion-item>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left; margin-left: 15px"
+                *ngIf="confirm_password.touched && confirm_password.invalid"
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="confirm_password.errors.required"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Confirm
+                  Password is required.
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="confirm_password.errors.confirmedValidator"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Password and
+                  Confirm Password must be match.
+                </p>
+              </div>
+            </ion-grid>
+            <ion-row class="ion-justify-content-center data" id="sign-in">
+              <ion-label style="margin-left: 2%"
+                >Already have an account?
+                <a class="link link-dark fw-bold" routerLink="/login"
+                  >Sign In</a
+                ></ion-label
+              >
+            </ion-row>
+            <ion-row class="d-flex justify-content-evenly px-4" id="button">
+              <ion-button
+                shape="round"
+                (click)="clearForm()"
+                class="app-button-primary col-4"
+              >
+                Reset
+              </ion-button>
+              <ion-button
+                shape="round"
+                (click)="onSubmit(registrationForm)"
+                class="col-4"
+                [ngClass]="registrationForm?.invalid || emailValid==true || phoneValid==true ? 'app-button-disabled' : 'app-button-primary'"
+                id="get-start"
+                [disabled]="registrationForm?.invalid || emailValid==true || phoneValid==true"
+                >Submit
+              </ion-button>
+            </ion-row>
+          </form>
+        </ion-card>
+      </ion-grid>
+    </ion-grid>
+  </div>
+</ion-content>

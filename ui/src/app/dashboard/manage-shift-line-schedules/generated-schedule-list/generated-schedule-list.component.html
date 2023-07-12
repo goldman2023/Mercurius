@@ -1,0 +1,71 @@
+<ion-grid class="h-100 container" (click)="disablePopup()">
+  <ion-grid id="top">
+    <ion-row>
+      <ion-col size="12" class="text-right">
+        <div [ngClass]="getPermission('Add New Shiftline Schedule') ? '' : 'disabled'">
+          <!-- <div title="Add New Shiftline Schedule" class="float-right cursor-pointer" (click)="addNewSchedule()" [ngClass]="getPermission('Add New Shiftline Schedule') ? '' : 'disabled'">
+            <ion-icon name="add-circle" class="app-font-mercurius-secondary-color app-font-size-28 pe-none"></ion-icon>
+          </div>
+          <div class="float-right me-1">
+            <b class="font-normal text-normal app-font-size-14px neg-mt-5">
+              Add New <span class="d-none-sm">Shiftline Schedule </span>
+            </b>
+          </div> -->
+          <div title="Add New Shiftline Schedule" class="float-right cursor-pointer" (click)="addNewSchedule()" >
+            <ion-icon name="add-circle" class="app-font-mercurius-secondary-color app-font-size-28 pe-none"></ion-icon>
+          </div>
+          <div class="float-right me-1">
+            <b class="font-normal  text-normal app-font-size-14px neg-mt-5">
+              Add New <span class="d-none-sm">Shiftline Schedule </span>
+            </b>
+          </div>
+        </div>
+        <div class="float-left">
+          <b class="font-normal data text-normal app-font-size-14px neg-mt-5">Total Shiftline Schedules: {{ all_schedule.length }}</b>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+    <ion-grid id="list" class="p-0 m-0" *ngIf="all_schedule.length>0;else elseBlock">
+      <ion-row>
+        <ion-col size="12" class="d-flex justify-content-center heading-font-size pb-4"><b>Shiftline Schedules</b></ion-col>
+        <ion-col *ngFor="let aS of all_schedule;let i=index" size-lg="4" size-md="6" size-xs="12" class="content-data-14px text-align-left flex-basis-auto">
+          <ion-row class="ion-no-padding text-align-left ps-2 pe-1 ion-border-1px-ligth-gray-color border-rounded-10 height-40px d-flex align-items-center">
+                <ion-col size="11.25" (click)="myFunction(i)" class="popup text-align-left" style="padding-left: 0%;padding-right: 0%;margin-right: 0%;  ">
+                <ion-row class="ion-no-padding ">
+                  <ion-col size="12" class="ion-no-padding">
+                    <div style=" white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;">
+                      {{ aS.schedulename }}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <span class="popuptext" id="myPopup{{i}}"> {{aS.schedulename   }}</span>
+
+                </ion-col>
+                <ion-col  size="0.75" class="ion-no-padding" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;">
+                  <ion-grid style="margin: auto !important;padding: auto !important;">
+                    <p (click)="presentActionSheetForEditDelete(aS, $event)" class="cursor-pointer" style="margin-top: auto !important;margin-bottom: auto;margin-top: 11px;" title="Edit, Export or Delete Schedule">
+                      <ion-icon class="app-font-mercurius-secondary-color pe-none" name="ellipsis-vertical-outline" style="font-size:18px"></ion-icon></p>
+                  </ion-grid>
+
+                </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+    <ng-template #elseBlock>
+      <ion-grid>
+        <ion-row class="ion-text-center app-font-primary-color content-data main">
+          <ion-col size="12">
+            <ion-label>There are no records! </ion-label><br>
+            <ion-label>Please click on <mat-icon style="font-size: 16px;margin-top: 10px;padding-top: 10px;" (click)="addNewSchedule()">add_circle</mat-icon> to generate the new schedule.</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ng-template>
+
+  </ion-grid>

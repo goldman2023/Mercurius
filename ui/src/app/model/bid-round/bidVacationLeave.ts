@@ -1,0 +1,19 @@
+export class BidVacationLeave{
+  vacationid
+  bidstatus
+  windowstatus
+  bidschidref
+  bidschename
+  empidref
+  initials
+  roundseq_id
+  vcationhours
+  vacationstartdate
+  vacationenddat
+  actualvacationstartdate
+  actualvacationenddate
+  rdos
+  vacation_hours_remain
+  vacation_seq_no
+  shift_vacation_hours
+}

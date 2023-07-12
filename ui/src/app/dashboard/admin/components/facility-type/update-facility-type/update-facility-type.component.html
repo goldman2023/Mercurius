@@ -1,0 +1,199 @@
+<div class="add-dialog">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>Update {{ editName }}</h2>
+    <mat-icon mat-dialog-close (click)="close()"> close </mat-icon>
+  </div>
+  <form
+    [formGroup]="FacilityTypeForm"
+    (ngSubmit)="updateFacilityType()"
+    *ngIf="editName === 'Facility Type'"
+  >
+    <mat-dialog-content
+      class="mat-typography"
+      *ngIf="editName === 'Facility Type'"
+    >
+      <div class="from-part">
+        <div class="level">
+          <label for="facilitytype_name"
+            ><span class="required-asterisk">*</span> {{ editName }} Name:
+          </label>
+        </div>
+
+        <div class="level">
+          <input
+            id="facilitytype_name"
+            role_name="facilitytype_name"
+            type="text"
+            formControlName="facilitytype_name"
+            placeholder="Enter {{ editName }} Name"
+            required
+            [ngClass]="{
+              warning_input:
+                (facility_type_facilityName.invalid &&
+                  (facility_type_facilityName.dirty ||
+                    facility_type_facilityName.touched)) ||
+                (facility_type_facilityName.errors &&
+                  facility_type_facilityName.touched)
+            }"
+          />
+          <div
+            *ngIf="
+              facility_type_facilityName.invalid &&
+              (facility_type_facilityName.dirty ||
+                facility_type_facilityName.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="facility_type_facilityName.errors">
+              Facility Type Name is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="from-part">
+        <div class="level">
+          <label for="facilitytype_desc"
+            ><span class="required-asterisk">*</span>
+            {{ editName }} Description:
+          </label>
+        </div>
+        <div class="level">
+          <input
+            id="facilitytype_desc"
+            type="text"
+            formControlName="facilitytype_desc"
+            placeholder="Enter Description"
+            required
+            [ngClass]="{
+              warning_input:
+                (facility_type_facility_desc.invalid &&
+                  (facility_type_facility_desc.dirty ||
+                    facility_type_facility_desc.touched)) ||
+                (facility_type_facility_desc.errors &&
+                  facility_type_facility_desc.touched)
+            }"
+          />
+          <div
+            *ngIf="
+              facility_type_facility_desc.invalid &&
+              (facility_type_facility_desc.dirty ||
+                facility_type_facility_desc.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="facility_type_facility_desc.errors">
+              Facility Description is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="start_date"
+            ><span class="required-asterisk">*</span> Effective Start Date:
+          </label>
+        </div>
+        <div class="level" (click)="picker.open()">
+          <div class="d-flex align-items-center" (click)="picker.open()">
+            <input
+              id="start_date"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="start_date"
+              required
+              [matDatepicker]="picker"
+              [ngClass]="{
+                warning_input:
+                  (facility_type_facility_start_date.invalid &&
+                    (facility_type_facility_start_date.dirty ||
+                      facility_type_facility_start_date.touched)) ||
+                  (facility_type_facility_start_date.errors &&
+                    facility_type_facility_start_date.touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+          <div
+            *ngIf="
+              facility_type_facility_start_date.invalid &&
+              (facility_type_facility_start_date.dirty ||
+                facility_type_facility_start_date.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="facility_type_facility_start_date.errors">
+              Effective Start Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="end_date"
+            ><span class="required-asterisk">*</span> Expiration Date:
+          </label>
+        </div>
+        <div class="level" (click)="picker1.open()">
+          <div class="d-flex align-items-center" (click)="picker1.open()">
+            <input
+              id="last-name"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="end_date"
+              required
+              [min]="FacilityTypeForm.value.start_date"
+              [max]=""
+              [matDatepicker]="picker1"
+              [ngClass]="{
+                warning_input:
+                  (facility_type_facility_end_date.invalid &&
+                    (facility_type_facility_end_date.dirty ||
+                      facility_type_facility_end_date.touched)) ||
+                  (facility_type_facility_end_date.errors &&
+                    facility_type_facility_end_date.touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker1></mat-datepicker>
+          </div>
+          <div
+            *ngIf="
+              facility_type_facility_end_date.invalid &&
+              (facility_type_facility_end_date.dirty ||
+                facility_type_facility_end_date.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="facility_type_facility_end_date.errors">
+              Expiration Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-success" *ngIf="updateSuccess">
+        <p>Facility Type been updated successfully !!</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button
+        mat-button
+        mat-raised-button
+        type="submit"
+        [disabled]="FacilityTypeForm.invalid || !FacilityTypeForm.touched"
+      >
+        Save
+      </button>
+      <button
+        mat-button
+        mat-raised-button
+        type="button"
+        (click)="resetcf()"
+        dkFocusInitial
+      >
+        Reset
+      </button>
+    </mat-dialog-actions>
+  </form>
+  </div>

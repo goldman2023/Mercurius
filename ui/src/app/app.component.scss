@@ -1,0 +1,11 @@
+.ion-header-title {
+  font-size: 64px solid black;
+}
+
+ion-app {
+  font-size: 25px;
+  overflow: auto !important;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+} 

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="d-flex align-items-center justify-content-between p-2">
+      <div class="d-flex align-items-center gap-2">
+        <ion-img
+          class="web-header-logo"
+          routerLink="/sTlines-dashboard"
+          alt="Mercurius Logo"
+          src="assets/img/mlogo.png"
+        ></ion-img>
+        <span class="fs-5">Mercurius Inc.</span>
+      </div>
+      <ion-buttons class="d-flex align-items-center justify-content-end">
+        <ion-button (click)="home()">
+          <ion-icon slot="icon-only" name="home" role="img" class="fs-3"></ion-icon>
+        </ion-button>
+        <ion-button>
+          <ion-icon
+            routerLink="/"
+            slot="icon-only"
+            name="notifications"
+            class="fs-3"
+            role="img"
+          ></ion-icon>
+        </ion-button>
+        <div class="d-flex justify-content-center align-items-center">
+          <div>
+            <p class="user-name">{{user_data.fname}} {{user_data.lname}}</p>
+            <p class="user-name fac-are" *ngIf="user_data.facilityname && user_data.areaname">{{user_data.facilityname}} - {{user_data.areaname}}</p>
+          </div>
+          <ion-button
+          slot="icon-only"
+          (click)="presentPopover($event)"
+          class="text-uppercase rounded-circle bg-dark text-light"
+        >
+          {{ initials }}
+        </ion-button>
+        </div>
+        <!-- <div class="nav-item vertical-align-middle cursor-pointer"> -->
+        <!-- <button mat-button [matMenuTriggerFor]="beforeMenu">RA</button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <button">
+            <ion-icon style="color: black">input</ion-icon>Logout
+          </button>
+        </mat-menu> -->
+
+        <!-- <div class="nav-link vertical-align-middle"   (click)="logOut()"><div style="float: left;padding-top: 3px;"><mat-icon style="color:black;">input</mat-icon></div>
+          <div class="app-font-primary-color" style="float: left;padding-top: 1px;" >LogOut</div><br style="clear:both" />
+        </div> -->
+        <!-- </div>. -->
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+</ion-header>

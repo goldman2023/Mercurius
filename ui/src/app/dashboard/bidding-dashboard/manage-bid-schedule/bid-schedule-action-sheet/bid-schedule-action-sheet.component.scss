@@ -1,0 +1,12 @@
+@media screen and (min-width: 769px) {
+  ion-item {
+    --min-height: 16px;
+    --inner-padding-start: auto;
+    --inner-padding-end: auto;
+    --padding-start: auto;
+  }
+}
+.action-modal-cross {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

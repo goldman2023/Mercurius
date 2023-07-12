@@ -1,0 +1,268 @@
+<ion-content  style="background-color: gray;" (click)="disablepopup()" class="ion-no-padding">
+  <div class="container position-relative">
+    <div class="edit-shift-lines-card">
+    <ion-card class="m-1 p-2 expandable"
+              [ngClass]="maximizeCard ? 'maximize' : ''"
+    >
+      <ion-row  class="ion-justify-content-center  ion-no-margin-bottom ion-no-padding-bottom">
+
+      <ion-col size="5" style="text-align: right;padding-bottom: auto;padding-top: auto;" class="app-font-black-color ion-no-padding ion-no-margin">
+        <mat-icon
+            *ngIf="!maximizeCard"
+            class="d-none d-md-block shadow-sm rounded border expand-icon cursor-pointer font-size-28px"
+            (click)="maximize()"
+            title="Expand"
+            >fullscreen</mat-icon
+          >
+          <mat-icon
+            *ngIf="maximizeCard"
+            class="d-none d-md-block shadow-sm rounded border expand-icon cursor-pointer font-size-28px"
+            (click)="minimize()"
+            title="Minmize"
+            >fullscreen_exit</mat-icon
+          >
+      </ion-col>
+      <ion-col size="2" style="padding-bottom: 0%;margin-bottom: 0%;text-align: left;" class=" ion-no-padding ion-no-margin">
+        <ion-input [readonly]="true" class="app-font-primary-color app-border-black-color app-background-mercurius-primary-color ion-no-padding circled-count" id="total-workforce" value="{{totalCount}}" ></ion-input>
+      </ion-col>
+      <ion-col size="5"></ion-col>
+      </ion-row>
+
+      <ion-row   class="ion-justify-content-center ion-no-padding  ion-no-margin" style="padding-top:3px">
+        <ion-col  size="3" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom" style="text-align: left;">
+          <div class="popup" (click)="myFunction()">
+            <ion-icon class="ion-no-margin-bottom app-font-mercurius-secondary-color ion-no-padding-bottom pe-none" name="information-circle-outline" style="font-size: 20px;text-align: right;margin-bottom: 0%;" (click)="showLegends()"></ion-icon>
+            <span class="popuptext"  id="myPopup">
+
+            <ion-row   class="ion-justify-content-center  ion-no-margin ion-no-padding" style="margin-bottom: 0%;padding-bottom: 0%;width: 100% !important;">
+              <ion-col  class=" ion-justify-content-center ion-text-center" style="width:100%" size="6.5"><div style="margin-top:3%;height: 10px;width: 10px;border-radius:50%;float: left;margin-right: 1%;background-color: red;"></div><p  class=" font-size-10" style="float:left;margin-bottom: 0%;">Business rules not met</p></ion-col>
+              <ion-col   class=" ion-justify-content-center ion-text-center" style="width:100%" size="5.5"><div class="colors-mon-tue" style="height: 10px;margin-top:3%;width: 10px;float: left;border-radius:50%;margin-right: 1%;" class="app-green-background-color"></div><p  class="  font-size-10" style="float:left;margin-bottom: 0%;">Business rules met</p></ion-col>
+            </ion-row>
+            </span>
+          </div>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center" *ngIf="shiftline_schedule_name!=undefined && shiftline_schedule_name!=null"><ion-label class="fs-6 fw-bold data">{{shiftline_schedule_name}} </ion-label>
+          <div class="popupShiftDuration" *ngIf="currentShiftlineScheduleShiftDuration==8 || currentShiftlineScheduleShiftDuration==10" style="display: inline-block !important;" ><ion-icon name="information-circle" class="app-font-mercurius-primary-color popup pe-none" style="font-size: 16px;margin-left: 1px;display: inline-block;margin-bottom: -4px;" (click)="popupShiftDuration()"></ion-icon>
+            <span class="popuptextShiftDuration"  id="popupShiftDuration">
+
+              <ion-row   class="ion-justify-content-center  ion-no-margin ion-no-padding" style="margin-bottom: 0%;padding-bottom: 0%;width: 100% !important;">
+                <ion-col  class=" ion-justify-content-center ion-text-center" style="width:100%" size="12">
+                  <b class="font-normal" >{{currentShiftlineScheduleShiftDuration}}-Hours Shiftline Schedule</b>
+                </ion-col>
+              </ion-row>
+              </span>
+          </div>
+        </ion-col>
+        <ion-col  size="3" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom text-right">
+          <div class="float-right cursor-pointer" (click)="addNewShiftLine()" title="Add New Shiftline">
+            <ion-icon name="add-circle" class="app-font-mercurius-secondary-color app-font-size-28 pe-none"></ion-icon>
+          </div>
+          <div  class="me-1" style="float: right;padding-top: 3px;"> <b class="font-normal data text-normal" style="font-size: 14px;"> Add New <span class="d-none-sm">Shiftline </span></b></div>
+        </ion-col>
+        <ion-col size="12" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-text-center ion-no-margin-bottom">
+          <div *ngIf="three_generated_schedule" style="padding: 0%;margin-bottom: 0%;">
+            <ol style="margin: 0%;padding: 0%;">
+              <li [class]="getIndicatorClass(0)" (click)="schedule(0)"></li>
+              <li [class]="getIndicatorClass(1)" (click)="schedule(1)"></li>
+              <li [class]="getIndicatorClass(2)" (click)="schedule(2)"></li>
+            </ol>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-grid class="ion-no-padding-top ion-no-margin-bottom ion-no-margin-top ion-no-padding-bottom ion-no-padding ion-no-margin" >
+      <ion-grid class="content-data-primary-color ion-no-padding-top mb-2 ion-no-margin-top ion-no-padding-bottom" >
+      <ion-row class="ion-no-padding-top ion-no-margin-bottom ion-no-margin-top ion-no-padding-bottom ion-no-margin ion-text-center" >
+      <ion-col size="0.65"></ion-col>
+      <ion-col size="1.21" *ngFor="let item of dateset let i =index"><div class="ion-border-round-width-25 colors-{{item.color}}">{{item.title.charAt(0)}}<span class="d-none-sm">{{item.title.slice(1)}}</span></div></ion-col>
+      <ion-col  size="2.1" class="app-font-primary-color">Pattern</ion-col>
+      <ion-col size="0.75"></ion-col>
+  </ion-row>
+  </ion-grid>
+  </ion-grid>
+
+  <ion-content id="shift-lines-data"  >
+    <div *ngIf="scheduleShift.length>0 ;else elseBlock1">
+
+      <ion-card  class="height-40px my-1 mx-0 text-center"  *ngFor="let d of scheduleShift;let expandShiftlineId=index" >
+        <ion-grid [class]="expandlistSlide(d.SL,d.seq_id+1,d.shiftdurationc,d.seq+1)" id="ion-item-position">
+          <ion-row class="ion-no-padding ion-no-margin d-flex align-items-center">
+            <ion-col size="0.65"  [ngClass]="getColorClass(d.SL)" class="ion-no-padding pt-1" style="padding-left: 0%;padding-right: 0%;padding-bottom: 0%;">
+              <app-shift   [shiftLabel]="d.SL" [seq]="d.seq" [shiftdurationc]="d.shiftdurationc"></app-shift>
+            </ion-col>
+        <ng-container *ngFor="let day of dateset">
+          <ion-col
+            [ngClass]="d.BMLRule=== true ? 'app-font-green-color' :d.BMLRule === false? 'app-font-red-color': 'app-font-secondary-color'"
+            style=" margin-top: auto !important;
+                    margin-bottom: auto;
+                    padding-top: auto !important;
+                    padding-bottom: auto;
+                    padding-left: 0px !important;
+                    padding-right: 0px !important;"
+          >
+            <p style="margin-top: auto !important; margin-bottom: auto">
+              <b class="font-normal">{{ convertRDOtoShiftDefintion(d[day.title], d.shiftdurationc) }}</b>
+            </p>
+          </ion-col>
+        </ng-container>
+        <ion-col size="2.1"  class="ion-text-center" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;">
+          <div [ngClass]="getColorClass(d.SL)" style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">
+            {{d.Pattern}}
+          </div>
+      </ion-col>
+        <ion-col size="0.75" (click)="edit(d)" class="cursor-pointer" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;">
+          <p style="margin-top: auto !important;margin-bottom: auto;">
+            <ion-icon name="chevron-forward-outline" *ngIf="expand_shiftlineid!=expandShiftlineId;else elseBlock"  class=" app-font-mercurius-secondary-color" style="font-size: 18px;margin-top: 7px;"></ion-icon></p>
+        </ion-col>
+      </ion-row>
+      </ion-grid>
+      </ion-card>
+    </div>
+    <ng-template #elseBlock1>
+      <mat-grid-list  cols="1" rowHeight="400px">
+        <mat-grid-tile>
+          <img class="loader" src="../../../../assets/img/loading.gif" alt="" />
+        </mat-grid-tile>
+      </mat-grid-list>
+    </ng-template>
+
+    <!-- Schedule -->
+  <ng-template #elseBlock ><ion-icon name="chevron-down-outline" style="font-size: 18px;color: #ffaa00;font-weight: 900;margin-top:12px"></ion-icon></ng-template>
+  </ion-content>
+  </ion-card>
+
+    <ion-row class="p-0">
+      <ion-col size-lg="4.1" size-xs="12" class="p-0">
+        <ion-card class="p-2 m-1 height-xl-205px overflow-inherit">
+          <!-- RDO Details -->
+          <ion-row>
+            <ion-col size="12">
+              <ion-label class="app-font-black-color font-bold-size ion-text-center"><b>RDOs</b></ion-label>
+            </ion-col>
+          </ion-row>
+          <div class="d-flex align-items-center h-75">
+            <ion-grid class="ion-text-center ion-no-padding">
+                <ion-grid style="display: inline-block;width:50px;" *ngFor="let rdo of rdosArr;let r=index">
+                  <div id="RDO-details-number" [class]="rdoColors(rdo.rdo)"  >
+                    <div class="popuprdo" (click)="rdoInfo(r)"> {{rdo.rdo}}
+                      <span class="popuptextrdo"  id="popupRdo{{r}}">{{rdo.rdoInfo}}</span>
+                    </div>
+                  </div>
+                  <p> {{ rdo.count}}</p>
+                </ion-grid>
+            </ion-grid>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col size-lg="7.9" size-xs="12" class="p-0">
+        <ion-card class="p-2 m-1 height-xl-205px">
+          <div  id="workloadd-data-report-generate" class="ion-no-margin-bottom ion-no-padding-bottom"  >
+          <ion-row  class="app-font-black-color font-bold-size ion-text-center ion-justify-content-center ion-no-margin-top  ion-no-padding-bottom" style="margin-top:1%" >
+
+
+            <ion-col size="11" class="text-align-left font-bold-size" style="padding-top: 0%;margin-top: 0%;">
+              <!-- <p class="  ion-header-title" style="padding-left: 2%;"> -->
+                <b>Summary</b>
+                  <!-- </p> -->
+              </ion-col><ion-col size="1" style="padding-top: 0%;padding-bottom:0%;margin-top: 0%;margin-bottom: 0%;">
+                <div class="popupsummaryInfo" (click)="summaryInfo()">
+                  <ion-icon class="ion-no-margin-bottom app-font-mercurius-secondary-color ion-no-padding-bottom pe-none" name="information-circle-outline" style="font-size: 20px;text-align: right;margin-bottom: 0%;margin-right: 10px;" (click)="showLegends()"></ion-icon>
+                  <span class="popuptextsummaryInfo"  id="myPopupsummaryInfo">
+
+                  <ion-row   class="ion-justify-content-center  ion-no-margin ion-no-padding" style="margin-bottom: 0%;padding-bottom: 0%;width: 100% !important;">
+                    <!-- <ion-col size="0.5"></ion-col>
+                    <ion-col  class=" ion-justify-content-center ion-text-center    ion-no-padding-bottom" style="width:100%" size="11.5"><p  class=" font-size-10" style="float:left;margin-bottom: 0%;">Required / Generated Workload (Ex. " 4/5 " )</p></ion-col> -->
+                    <ion-col size="0.5"></ion-col>
+                    <ion-col  class=" ion-justify-content-center ion-text-center ion-no-margin-top" style="width:100%" size="5.5"><div style="margin-top:3%;height: 10px;width: 10px;border-radius:50%;float: left;margin-right: 7px;background-color: red;"></div><p  class=" font-size-10" style="float:left;margin-bottom: 0%;">Less Than</p></ion-col>
+                    <ion-col   class=" ion-justify-content-center ion-text-center ion-no-margin-top" style="width:100%" size="5.5"><div class="colors-mon-tue" style="height: 10px;margin-top:3%;width: 10px;float: left;border-radius:50%;margin-right: 7px;" class="app-green-background-color"></div><p  class="  font-size-10" style="float:left;margin-bottom: 0%;">Greater Than</p></ion-col>
+                    <ion-col size="0.5"></ion-col>
+                  </ion-row>
+                  </span>
+                </div>
+              </ion-col>
+          </ion-row>
+          <ion-row  class="content-data-primary-color  ion-text-center ion-no-margin-bottom ion-no-padding-bottom">
+            <ion-col size="0.9"></ion-col>
+            <ion-col class="ion-no-padding-top" *ngFor="let item of dateset let i=index" ><div class="ion-border-round-width-25 colors-{{item.color}} cursor-pointer" (click)="daySummary(summary_days[i])">{{item.title.charAt(0)}}<span class="d-none-sm">{{item.title.slice(1)}}</span></div></ion-col>
+            <ion-col size="0.2"></ion-col>
+        </ion-row>
+              <ion-row class="content-data-primary-color ion-no-padding ion-no-margin" >
+            <ion-col size="0.9" class="ion-no-padding" >
+              <div style="padding:2% 0% 2% 0%" >
+                <ion-row id="summary-data" class="ion-text-center ion-justify-content-center ion-no-padding-bottom" >
+                  <ion-img (click)="midShiftsDetails()" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"  alt="MID" style="width: 100%;height: 100%;position:relative;" src="assets/img/night.png"></ion-img>
+                </ion-row>
+                <ion-row id="summary-data" *ngIf="hideSplitShiftMidDay" class="ion-text-center ion-justify-content-center ion-no-padding-bottom" >
+                  <ion-img class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"  alt="M/D" style="width: 100%;height: 100%;position:relative;" src="assets/img/night-morning.png"></ion-img>
+                </ion-row>
+                <ion-row id="summary-data" class="ion-text-center ion-justify-content-center ion-no-padding-bottom">
+                  <ion-img (click)="dayShiftsDetails()" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"  alt="DAY" style="width: 100%;height: 100%;position:relative;" src="assets/img/morning.png"></ion-img>
+                </ion-row>
+                <ion-row id="summary-data" *ngIf="hideSplitShiftDayEve" class="ion-text-center ion-justify-content-center ion-no-padding-bottom">
+                  <ion-img class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"  alt="D/E" style="width: 100%;height: 100%;position:relative;" src="assets/img/morning-evening.png"></ion-img>
+                </ion-row>
+                <ion-row id="summary-data" class="ion-text-center ion-justify-content-center ion-no-padding-bottom" >
+                  <ion-img (click)="eveShiftsDetails()" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"  alt="EVE" style="width: 100%;height: 100%;position:relative;" src="assets/img/evening.png"></ion-img>
+                </ion-row>
+                <ion-row id="summary-data" *ngIf="hideSplitShiftEveMid"  class="ion-text-center ion-justify-content-center ion-no-padding-bottom" >
+                  <ion-img class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"  alt="E/M" style="width: 100%;height: 100%;position:relative;" src="assets/img/evening-night.png"></ion-img>
+                </ion-row>
+              </div>
+            </ion-col>
+            <ng-container *ngFor="let dayData of day_generate; let i = index">
+              <ion-col class="ion-no-padding" style="padding:0% 1% 0% 1%">
+                <div class="border-05-lightgray">
+                  <ng-container *ngFor="let row of dayData.data; let j = index">
+                    <ng-container *ngIf="(j === 1 || j === 3 || j === 5) ? (i === 0 && hideSplitShiftMidDay) || (i === 1 && hideSplitShiftDayEve) || (i === 2 && hideSplitShiftEveMid) : true">
+                      <ion-row id="summary-data" class="ion-text-center ion-justify-content-center ion-no-padding-bottom">
+                        <b class="font-normal font-size-10" [ngClass]="{
+                          'app-font-primary-color': row === 0,
+                          'app-font-dark-green-color': row > 0,
+                          'app-font-red-color': row < 0
+                        }">{{dayData.title[dayData.id[j]]}}</b>
+                      </ion-row>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </ion-col>
+            </ng-container>
+          <ion-col size="0.2">
+          </ion-col>
+        </ion-row>
+                <ion-row style="margin-top: 1%;">
+                  <ion-col size="0.9" class="ion-no-margin ion-no-padding ion-no-padding-bottom content-data-black-color"  style="margin-bottom:0%;">
+                  </ion-col>
+                  <ng-container *ngFor="let dayData of total_day_generate; let i = index">
+                    <ion-col class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-top ion-no-padding-bottom content-data-black-color">
+                      <div class="title-background-color ion-justify-content-center" style="border-radius: 10%;">
+                            <ion-row id="summary-data" class="ion-text-center ion-justify-content-center ion-no-padding-bottom">
+                              <b  [ngClass]="{
+                                'app-font-primary-color': dayData.diff === 0,
+                                'app-font-dark-green-color': dayData.diff > 0,
+                                'app-font-red-color': dayData.diff < 0
+                              }">{{dayData.total}}</b>
+                            </ion-row>
+                      </div>
+                    </ion-col>
+                  </ng-container>
+                <ion-col size="0.2"></ion-col>
+                </ion-row>
+            </div>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+    </div>
+
+  <ion-grid class="edit-shift-line-btn-group p-0 position-absolute bottom-0">
+
+    <ion-row size="12" class="ion-justify-content-center" >
+      <ion-col class="ion-text-center">
+        <ion-card class="ion-no-margin">
+          <ion-button class="app-button w-auto mt-2 mx-1" shape="round" (click)="export()" style="margin-top:1%;" id="export">Export</ion-button>
+          <ion-button class="app-button w-auto mt-2 mx-1" shape="round" (click)="openMenu()" style="margin-top:1%;" id="export">Save</ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+    <ng-template #shiftName>X</ng-template>
+  </div>
+</ion-content>

@@ -1,0 +1,735 @@
+<ion-header *ngIf="isModal">
+  <ion-row class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative">
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label class="app-font-primary-color app-font-size-14px ion-text-center"><b>Bid Rounds</b></ion-label>
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label style="cursor: pointer; font-size: 12px" class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="close()"><b>Close</b></ion-label>
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-grid (click)="disablePopup()" class="ion-no-margin" style="width: 100%; overflow-y: auto; z-index: -1">
+  <ion-grid class="ion-no-margin">
+    <form [formGroup]="setUpBidParametersForm">
+      <div class="w-100" *ngIf="!isModal">
+        <ion-item lines="none" class="app-font-primary-color ion-justify-content-start">
+          <ion-row style="width: 100%" class="justify-content-start align-items-end">
+            <ion-col sizeMd="2.5">
+              <!-- [matDatepickerFilter]="weekendsDatesFilter" -->
+              <ion-label position="stacked" class="app-font-primary-color data">Bidding Start Date</ion-label>
+              <input [matDatepicker]="select" [matDatepickerFilter]="weekendsDatesFilter" (click)="select.open()"
+                matSuffix [min]="minDate" id="sbp-input" (dateChange)="newOnChange()" formControlName="SBP_start_date"
+                name="SBP_start_date" displayFormat="MM/DD/YYYY"
+                class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color"
+                style="border-radius: 5px" [class.is-invalid]="
+                  SBP_start_date?.invalid && SBP_start_date?.touched
+                " required />
+              <mat-datepicker #select></mat-datepicker>
+              <div class="content-data app-font-red-color" style="text-align: left" *ngIf="
+                  (setUpBidParametersForm
+                    .get('SBP_start_date')
+                    .hasError('required') &&
+                    SBP_start_date?.touched) ||
+                  dateValidation == true
+                ">
+                <p class="app-font-red-color" *ngIf="
+                    setUpBidParametersForm
+                      .get('SBP_start_date')
+                      .hasError('required')
+                  ">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Start date is
+                  required!
+                </p>
+                <p class="app-font-red-color" *ngIf="dateValidation == true">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Please select
+                  another date!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col sizeMd="2.5">
+              <ion-label position="stacked" class="app-font-primary-color data">Timezones</ion-label>
+              <ion-select id="sbp-input" [selectOptions]="{ cssClass: 'wider-popover' }" (ionChange)="onChangeTimeZone()"
+                formControlName="SBP_timeZone" name="SBP_timeZone"
+                class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color ion-no-margin"
+                style="border-radius: 5px; min-width: 100% !important" required interface="popover">
+                <ion-select-option *ngFor="let tz of allTimeZone" value="{{ tz.location }}">{{ tz.acronym }} - {{
+                  tz.location }}</ion-select-option>
+
+                <div class="content-data app-font-red-color" style="text-align: left"
+                  *ngIf="SBP_timeZone?.errors && SBP_timeZone?.touched">
+                  <p class="app-font-red-color" *ngIf="SBP_timeZone?.errors?.required">
+                    <ion-icon name="alert-circle-outline"></ion-icon> Timezone is
+                    required!
+                  </p>
+                </div>
+              </ion-select>
+            </ion-col>
+            <ion-col size="1"></ion-col>
+            <ion-col size="2" class="ion-text-center data p-2">
+              <ion-row class="ion-no-padding ion-no-margin">
+                <ion-col class="ion-no-padding ion-no-margin" size="12"><ion-label>Total Vacation Opportunities
+                  </ion-label></ion-col>
+                <ion-col class="ion-no-padding ion-no-margin" size="12">{{ totalCreatedVacationHours }}
+                  <b class="font-normal" *ngIf="totalCreatedVacationHours > 1; else hourBlock">Hours</b><ng-template
+                    #hourBlock><b class="font-normal">Hour</b></ng-template></ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center data p-2">
+              <ion-row class="ion-no-padding ion-no-margin">
+                <ion-col class="ion-no-padding ion-no-margin" size="12"><ion-label>Total Leave Accrued </ion-label></ion-col>
+                <ion-col class="ion-no-padding ion-no-margin" size="12">{{ totalRequiredVacationHours }}
+                  <b class="font-normal" *ngIf="totalRequiredVacationHours > 1; else hourBlock">Hours</b><ng-template
+                    #hourBlock><b class="font-normal">Hour</b></ng-template></ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center data p-2">
+              <ion-row class="ion-no-padding ion-no-margin">
+                <ion-col class="ion-no-padding ion-no-margin" size="12"><ion-label>Total Leave Accumulated </ion-label></ion-col>
+                <ion-col class="ion-no-padding ion-no-margin" size="12">{{ totalAccumulatedLeaves }}
+                  <b class="font-normal" *ngIf="totalAccumulatedLeaves > 1; else hourBlock">Hours</b><ng-template
+                    #hourBlock><b class="font-normal">Hour</b></ng-template></ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+          <ion-row class="w-100 justify-content-start">
+            <ion-col sizeMd="12" sizeXs="12" style="
+                    padding-top: 17px;
+                    --padding-left: auto !important;
+                    --padding-right: auto !important;
+                    vertical-align: middle !important;
+                  " class="data">
+              <mat-radio-group aria-label="Select an option" class="d-flex w-100 align-items-center flex-wrap gap-3">
+                <mat-radio-button class="data" value="same" (change)="setSameForAll()" [checked]="sameTimeForAll">
+                  Same Start and End Time for ALL Rounds
+                </mat-radio-button>
+                <mat-radio-button class="data" value="different" (change)="setDifferentTimeforAll()" [checked]="!sameTimeForAll">
+                  Different Start and End Time for EACH Round
+                </mat-radio-button>
+                <mat-radio-button class="data" value="none" (change)="setNoStartEndTime()" [checked]="noTimeForAny">
+                  No Start and End Time for ANY Round
+                </mat-radio-button>
+                <mat-checkbox (change)="chageInclueExclude()" class="data" name="checkIncludeExclude"
+                formControlName="checkIncludeExclude">Exclude Weekends</mat-checkbox>
+                <mat-checkbox (change)="includeIntervals()" formControlName="checkIncludeIntervals" class="data" name="checkIncludeIntervals">Include Intervals</mat-checkbox>
+                <div *ngIf="hasInterval" class="d-flex gap-3 col-4">
+                  <div class="w-50">
+                    Interval Start Time
+                    <ion-datetime (ionFocus)="onIntervalFocus()" (ionChange)="onIntervalTimeChange()" [disabled]="!hasInterval" displayFormat="h:mm A" pickerFormat="hh:mm A"
+                      id="sbp-input" name="intervalStart" formControlName="intervalStart"
+                      class="form-control app-font-primary-color ion-no-margin ion-border-1px-mercurius-secondary-color"
+                      style="border-radius: 5px; margin-top: auto" required="!sameTimeForAll"></ion-datetime>
+                  </div>
+                  <div class="w-50">
+                    Interval Duration
+                    <mat-select *ngIf="hasInterval" formControlName="intervalDuration" (selectionChange)="changeIntervalDuration()"
+                      class="p-2 form-control ion-border-1px-mercurius-secondary-color rounded">
+                      <mat-option value="00:00:00">Select Duration</mat-option>
+                      <mat-option value="00:30:00">30 minutes</mat-option>
+                      <mat-option value="01:00:00">60 minutes</mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+              </mat-radio-group>
+            </ion-col>
+          </ion-row>
+        <ion-item lines="none" class="app-font-primary-color ion-justify-content-start" [ngClass]="{'d-md-none':!sameTimeForAll}">
+          <ion-row style="width: 100%" class="justify-content-start">
+            <ion-col sizeMd="2.5" sizeXs="6">
+              <ion-label position="stacked" class="app-font-primary-color data" *ngIf="sameTimeForAll">First Window Start
+                Time</ion-label>
+              <!-- <ion-datetime id="sbp-input" (ionChange)="change()"  formControlName="SBP_start_time" name="SBP_start_time" displayFormat="h:mm A"  class="form-control app-font-primary-color  ion-border-1px-primary-color " style="border-radius: 5px;" -->
+              <ion-datetime id="sbp-input" (ionChange)="newOnChange()" formControlName="SBP_start_time" name="SBP_start_time"
+                displayFormat="h:mm A" pickerFormat="hh:mm A"
+                class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color" style="border-radius: 5px"
+                [class.is-invalid]="
+                              SBP_start_time?.invalid && SBP_start_time?.touched
+                            " required></ion-datetime>
+
+              <div class="content-data app-font-red-color" style="text-align: left"
+                *ngIf="SBP_start_time?.errors && SBP_start_time?.touched">
+                <p class="app-font-red-color" *ngIf="SBP_start_time?.errors?.required">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Start Time is
+                  required!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col sizeMd="2.5" sizeXs="6">
+              <ion-label position="stacked" class="app-font-primary-color data" *ngIf="sameTimeForAll">Last Window End
+                Time</ion-label>
+              <ion-datetime (ionChange)="newOnChange()" id="sbp-input" formControlName="SBP_end_time" name="SBP_end_time"
+                displayFormat="h:mm A" pickerFormat="hh:mm A"
+                class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color" style="border-radius: 5px"
+                [class.is-invalid]="
+                              SBP_end_time?.invalid && SBP_end_time?.touched
+                            " required></ion-datetime>
+              <div class="content-data app-font-red-color" style="text-align: left"
+                *ngIf="SBP_end_time?.errors && SBP_end_time?.touched">
+                <p class="app-font-red-color" *ngIf="SBP_end_time?.errors?.required">
+                  <ion-icon name="alert-circle-outline"></ion-icon> End Time is
+                  required!
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </div>
+      <div *ngIf="isModal">
+        <ion-item lines="none" class="app-font-primary-color ion-justify-content-center">
+          <ion-row style="width: 100%">
+            <ion-col size="6">
+              <!-- [matDatepickerFilter]="weekendsDatesFilter" -->
+              <ion-label position="stacked" class="app-font-primary-color data">Bidding Start Date</ion-label>
+              <input [matDatepicker]="select" [matDatepickerFilter]="weekendsDatesFilter" (click)="select.open()"
+                matSuffix [min]="minDate" id="sbp-input" (dateChange)="newOnChange()" formControlName="SBP_start_date"
+                name="SBP_start_date" displayFormat="MM/DD/YYYY"
+                class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color"
+                style="border-radius: 5px" [class.is-invalid]="
+                  SBP_start_date?.invalid && SBP_start_date?.touched
+                " required />
+              <mat-datepicker #select></mat-datepicker>
+              <div class="content-data app-font-red-color" style="text-align: left" *ngIf="
+                  (setUpBidParametersForm
+                    .get('SBP_start_date')
+                    .hasError('required') &&
+                    SBP_start_date?.touched) ||
+                  dateValidation == true
+                ">
+                <p class="app-font-red-color" *ngIf="
+                    setUpBidParametersForm
+                      .get('SBP_start_date')
+                      .hasError('required')
+                  ">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Start date is
+                  required!
+                </p>
+                <p class="app-font-red-color" *ngIf="dateValidation == true">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Please select
+                  another date!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col size="6" style="
+                padding-top: 35px;
+                --padding-left: auto !important;
+                --padding-right: auto !important;
+                vertical-align: middle !important;
+              " class="data ion-text-center ion-justify-content-center">
+              <mat-checkbox (change)="chageInclueExclude()" class="data" name="checkIncludeExclude"
+                formControlName="checkIncludeExclude">Exclude Weekends</mat-checkbox>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item lines="none" class="app-font-primary-color ion-justify-content-center">
+          <ion-row style="width: 100%">
+            <!-- <ion-col size="6">
+              <ion-label position="stacked"class="app-font-primary-color" >End Date</ion-label>
+            <ion-datetime (ionChange)="change()" id="sbp-input" formControlName="SBP_end_date" name="SBP_end_date" displayFormat="MM/DD/YYYY" class="form-control app-font-primary-color  ion-border-1px-primary-color " style="border-radius: 5px;"
+            [class.is-invalid]="SBP_end_date?.invalid && SBP_end_date?.touched "
+            required></ion-datetime>
+          </ion-col> -->
+            <ion-col size="6">
+              <ion-label position="stacked" class="app-font-primary-color data" style="font-size: 12px">First Window Start
+                Time</ion-label>
+              <!-- <ion-datetime id="sbp-input" (ionChange)="change()"  formControlName="SBP_start_time" name="SBP_start_time" displayFormat="h:mm A"  class="form-control app-font-primary-color  ion-border-1px-primary-color " style="border-radius: 5px;" -->
+              <ion-datetime id="sbp-input" (ionChange)="newOnChange()" formControlName="SBP_start_time"
+                name="SBP_start_time" displayFormat="h:mm A" pickerFormat="hh:mm A"
+                class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color"
+                style="border-radius: 5px" [class.is-invalid]="
+                  SBP_start_time?.invalid && SBP_start_time?.touched
+                " required></ion-datetime>
+
+              <div class="content-data app-font-red-color" style="text-align: left"
+                *ngIf="SBP_start_time?.errors && SBP_start_time?.touched">
+                <p class="app-font-red-color" *ngIf="SBP_start_time?.errors?.required">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Start Time is
+                  required!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label position="stacked" class="app-font-primary-color data" style="font-size: 12px">Last Window End
+                Time</ion-label>
+              <ion-datetime (ionChange)="newOnChange()" id="sbp-input" formControlName="SBP_end_time" name="SBP_end_time"
+                displayFormat="h:mm A" pickerFormat="hh:mm A"
+                class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color"
+                style="border-radius: 5px" [class.is-invalid]="
+                  SBP_end_time?.invalid && SBP_end_time?.touched
+                " required></ion-datetime>
+              <div class="content-data app-font-red-color" style="text-align: left"
+                *ngIf="SBP_end_time?.errors && SBP_end_time?.touched">
+                <p class="app-font-red-color" *ngIf="SBP_end_time?.errors?.required">
+                  <ion-icon name="alert-circle-outline"></ion-icon> End Time is
+                  required!
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item lines="none" class="app-font-primary-color ion-justify-content-center">
+          <ion-row style="width: 100%">
+            <ion-col size="12">
+              <ion-label position="stacked" class="app-font-primary-color data"
+                style="font-size: 12px">Timezone</ion-label>
+              <ion-select id="sbp-input" [selectOptions]="{ cssClass: 'wider-popover' }" (ionChange)="onChangeTimeZone()"
+                formControlName="SBP_timeZone" name="SBP_timeZone"
+                class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color ion-no-margin"
+                style="border-radius: 5px; min-width: 100% !important" required interface="popover">
+                <ion-select-option *ngFor="let tz of allTimeZone" value="{{ tz.location }}">{{ tz.acronym }} - {{
+                  tz.location }}</ion-select-option>
+
+                <div class="content-data app-font-red-color" style="text-align: left"
+                  *ngIf="SBP_timeZone?.errors && SBP_timeZone?.touched">
+                  <p class="app-font-red-color" *ngIf="SBP_timeZone?.errors?.required">
+                    <ion-icon name="alert-circle-outline"></ion-icon> Timezone is
+                    required!
+                  </p>
+                </div>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </div>
+    </form>
+  </ion-grid>
+  <ion-grid class="ion-no-margin" *ngIf="isModal">
+    <ion-row style="margin-bottom: 2px" class="border rounded">
+      <ion-col size="6" class="ion-text-center data border-right">
+        <ion-row class="ion-no-padding ion-no-margin">
+          <ion-col class="ion-no-padding ion-no-margin" size="12"><ion-label>Total Vacation Opportunities
+            </ion-label></ion-col>
+          <ion-col class="ion-no-padding ion-no-margin" size="12">{{ totalCreatedVacationHours }}
+            <b class="font-normal" *ngIf="totalCreatedVacationHours > 1; else hourBlock">Hours</b><ng-template
+              #hourBlock><b class="font-normal">Hour</b></ng-template></ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="6" class="ion-text-center data">
+        <ion-row class="ion-no-padding ion-no-margin">
+          <ion-col class="ion-no-padding ion-no-margin" size="12"><ion-label>Total Leave Accrued </ion-label></ion-col>
+          <ion-col class="ion-no-padding ion-no-margin" size="12">{{ totalRequiredVacationHours }}
+            <b class="font-normal" *ngIf="totalRequiredVacationHours > 1; else hourBlock">Hours</b><ng-template
+              #hourBlock><b class="font-normal">Hour</b></ng-template></ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <mat-divider *ngIf="totalRequiredROunds < 1 && checkValuechanged == true"></mat-divider>
+
+  <ion-grid>
+    <form [formGroup]="roundListForm" *ngIf="!checkValuechanged && totalRequiredROunds > 0; else computeElseBlock">
+      <ion-grid class="ion-no-margin ion-no-padding" *ngIf="!isModal; else mobileView">
+        <ion-grid class="ion-no-margin ion-no-padding title-background-color"
+          style="margin-top: 10px; padding-top: 5px">
+          <ion-row *ngIf="totalRequiredROunds > 0 && checkValuechanged == false">
+            <ion-col size="12" class="data" style="font-size: 16px"><b>
+                <ion-label *ngIf="
+                    totalRequiredROunds > 0 && checkValuechanged == false;
+                    else elseBlock
+                  ">{{ totalRequiredROunds }} Rounds Computed</ion-label><ng-template #elseBlock>No Rounds
+                  Computed</ng-template>
+              </b></ion-col>
+          </ion-row>
+
+          <ion-grid style="width: 100%" *ngIf="totalRequiredROunds > 0 && checkValuechanged == false"
+            class="ion-text-center ion-no-margin ion-no-padding app-font-secondary-color data">
+            <ion-row class="ion-text-center ion-no-margin ion-no-padding" style="width: 100%; margin-bottom: 5px">
+              <ion-col size="1" class="ion-text-start">
+                <div class="data">#</div>
+              </ion-col>
+              <ion-col size="1.5" class="ion-text-center">
+                Daily Start Time
+              </ion-col>
+              <ion-col size="1.5" class="ion-text-center">
+                Daily End Time
+              </ion-col>
+              <ion-col size="0.2">
+              </ion-col>
+              <ion-col size="1.5" class="ion-text-center">
+                Computed Start Date/Time
+              </ion-col>
+              <ion-col size="1.5" class="ion-text-center">
+                Computed End Date/Time
+              </ion-col>
+              <ion-col size="1.5" class="ion-text-center">Duration (Hr:Min)</ion-col>
+              <ion-col size="3" class="ion-text-center">Leave Selection Rules</ion-col>
+
+              <!-- <ion-col size="1" class="ion-text-center"></ion-col> -->
+            </ion-row>
+          </ion-grid></ion-grid>
+        <ion-grid style="width: 100%; margin-bottom: 3px" class="ion-no-margin ion-no-padding app-font-secondary-color"
+          formArrayName="allRoundData" *ngFor="let wD of allRoundData.controls; let i = index">
+          <ion-row class="ion-no-margin ion-no-padding ion-text-center" [formGroupName]="i"
+            style="width: 100%; padding-top: 6px; padding-bottom: 3px">
+            <ion-col size="1" (click)="myFunction(i)" class="data app-font-mercurius-secondary-color d-flex align-items-center">
+              <ion-row class="align-items-center">
+                <div class="data">
+                  <b>Round {{ i + 1 }}</b>
+                </div>
+                <div class="d-md-none popup" style="float: left; margin-left: 3px; padding-top: 2px">
+                  <b><ion-icon class="pe-none" name="information-circle-outline" style="font-size: 16px"></ion-icon></b>
+                  <span class="popuptext" id="myPopup{{ i }}">
+                    <ion-row class="data" style="width: 100% !important; color: #fff">
+                      <ion-col size="12" style="width: 100% !important; color: #fff"><b>Start:</b> {{ getActualTime(i,
+                        "startTime") }}
+                        {{
+                        getActualTime(i, "start") | date : "MMM d, yyyy"
+                        }}</ion-col>
+                      <ion-col size="12" style="width: 100% !important; color: #fff"><b>End:</b> {{ getActualTime(i,
+                        "endTime") }}
+                        {{
+                        getActualTime(i, "end") | date : "MMM d, yyyy"
+                        }}</ion-col>
+                    </ion-row>
+                  </span>
+                </div>
+              </ion-row>
+            </ion-col>
+            <ion-col size='1.5' class="data app-font-mercurius-secondary-color d-none d-md-flex px-2 ">
+              <ion-datetime (ionFocus)="onDateTimeFocus($event)" (ionChange)="(!sameTimeForAll || noTimeForAny) && onTimeChange(i,'start')"
+                [disabled]="sameTimeForAll || noTimeForAny" name="roundstart" formControlName="roundstart" displayFormat="h:mm A"
+                pickerFormat="hh:mm A" id="sbp-input"
+                class="form-control app-font-primary-color ion-no-margin ion-border-1px-mercurius-secondary-color"
+                style="border-radius: 5px; margin-top: auto" required="!sameTimeForAll"></ion-datetime>
+            </ion-col>
+            <ion-col size='1.5' class="data app-font-mercurius-secondary-color d-none d-md-flex px-2 gap-2">
+              <ion-datetime (ionFocus)="onDateTimeFocus($event)" (ionChange)="(!sameTimeForAll || noTimeForAny) && onTimeChange(i,'end')"
+                [disabled]="sameTimeForAll || noTimeForAny" displayFormat="h:mm A" pickerFormat="hh:mm A" id="sbp-input"
+                name="roundend" formControlName="roundend"
+                class="form-control app-font-primary-color ion-no-margin ion-border-1px-mercurius-secondary-color"
+                style="border-radius: 5px; margin-top: auto" required="!sameTimeForAll"></ion-datetime>
+              </ion-col>
+            <ion-col size="0.2" class="d-flex justify-content-center align-items-center">
+              <div *ngIf="!sameTimeForAll && !noTimeForAny && i!=(allRoundData.controls.length-1) && roundsChangeData[i]" class="cursor-pointer" (click)="copyRoundTimeBelow(i)" title="Copy Time below">
+                <ion-icon name="arrow-down" class="app-font-mercurius-secondary-color icon-small pe-none"></ion-icon>
+              </div>
+            </ion-col>
+            <ion-col size='1.5' class="data d-none d-md-block px-2 ">
+              <div class="position-relative">
+                <div class="app-font-mercurius-secondary-color">
+                  {{ getActualTime(i, "start") | date : "MM/dd" }}
+                </div>
+                <div>
+                  {{ getActualTime(i,"startTime") }}
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size='1.5' class="data d-none d-md-block px-2">
+              <div class="position-relative">
+                <div class="app-font-mercurius-secondary-color">
+                  {{ getActualTime(i, "end") | date : "MM/dd" }}
+                </div>
+                <div>
+                  {{ getActualTime(i,"endTime") }}
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="1.5" class="ion-text-center ion-justify-content-center px-2 ">
+              <ion-datetime (ionChange)="newOnChange()" hourCycle="h23" id="sbp-input"
+                class="form-control app-font-primary-color ion-no-margin ion-border-1px-mercurius-secondary-color"
+                formControlName="roundduration" name="roundduration" min="00:10" displayFormat="H:mm" style="border-radius: 5px; margin-top: auto"
+                required></ion-datetime>
+            </ion-col>
+            <ion-col size="3" class="ion-text-center d-flex justify-content-center align-items-center position-relative">
+              <ion-select id="sbp-input" (ionChange)="newOnChangeLeaveRule()" formControlName="leaveRule"
+                name="leaveRule"
+                class="form-control w-75 app-font-primary-color ion-border-1px-mercurius-secondary-color ion-no-margin"
+                style="
+                  border-radius: 5px;
+                  margin-top: 0px;
+                  --padding-top: 0% !important;
+                  --padding-bottom: 0% !important;
+                " required interface="popover">
+                <ion-select-option *ngFor="let lsl of leave_selection_list" value="{{ lsl }}">{{ lsl }} /{{
+                  getHoursBasedOnALeave(lsl)
+                  }}</ion-select-option>
+              </ion-select>
+              <div class="position-absolute top-25 end-0" *ngIf="manualRoundState && i >= manualRoundCount">
+                <ion-icon name="trash-outline" size="small" class="app-font-mercurius-secondary-color clickable" (click)="deleteManaualRound(i)"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <mat-divider></mat-divider>
+        </ion-grid>
+      </ion-grid>
+      <ng-template #mobileView>
+        <ion-grid class="ion-no-margin ion-no-padding">
+          <ion-grid
+            class="ion-no-margin ion-no-padding title-background-color"
+            style="margin-top: 10px; padding-top: 5px"
+          >
+            <ion-row
+              *ngIf="totalRequiredROunds > 0 && checkValuechanged == false"
+            >
+              <ion-col size="12" class="data" style="font-size: 16px"
+                ><b>
+                  <ion-label
+                    *ngIf="
+                      totalRequiredROunds > 0 && checkValuechanged == false;
+                      else elseBlock
+                    "
+                    >{{ totalRequiredROunds }} Rounds Computed</ion-label
+                  ><ng-template #elseBlock>No Rounds Computed</ng-template>
+                </b></ion-col
+              >
+            </ion-row>
+
+            <ion-grid
+              style="width: 100%"
+              *ngIf="totalRequiredROunds > 0 && checkValuechanged == false"
+              class="ion-text-center ion-no-margin ion-no-padding app-font-secondary-color data"
+            >
+              <ion-row
+                class="ion-text-center ion-no-margin ion-no-padding"
+                style="width: 100%; margin-bottom: 5px"
+              >
+                <ion-col size="2.5" class="ion-text-center">
+                  <div class="data">#</div>
+                </ion-col>
+                <ion-col size="4" class="ion-text-center"
+                  >Duration (Hr:Min)</ion-col
+                >
+                <ion-col size="5.5" class="ion-text-center"
+                  >Leave Selection Rules</ion-col
+                >
+              </ion-row>
+            </ion-grid></ion-grid
+          >
+          <ion-grid
+            style="width: 100%; margin-bottom: 3px"
+            class="ion-no-margin ion-no-padding app-font-secondary-color"
+            formArrayName="allRoundData"
+            *ngFor="let wD of allRoundData.controls; let i = index"
+          >
+            <ion-row
+              class="ion-no-margin ion-no-padding ion-text-center"
+              [formGroupName]="i"
+              style="width: 100%; padding-top: 6px; padding-bottom: 3px"
+            >
+              <ion-col
+                size="2.5"
+                (click)="myFunction(i)"
+                class="text-align-left data app-font-mercurius-secondary-color"
+                style="
+                  vertical-align: middle;
+                  padding-top: 0px !important;
+                  padding-bottom: 0px !important;
+                "
+              >
+                <ion-row
+                  style="
+                    padding-top: 0px !important;
+                    padding-bottom: 0px !important;
+                    margin-bottom: 0px !important;
+                  "
+                >
+                  <div class="data" style="float: left">
+                    <b>Round {{ i + 1 }}</b>
+                  </div>
+                  <div
+                    class="popup"
+                    style="float: left; margin-left: 3px; padding-top: 2px"
+                  >
+                    <b
+                      ><ion-icon
+                        class="pe-none"
+                        name="information-circle-outline"
+                        style="font-size: 16px"
+                      ></ion-icon
+                    ></b>
+                    <span class="popuptext" id="myPopup{{ i }}">
+                      <ion-row
+                        class="data"
+                        style="width: 100% !important; color: #fff"
+                      >
+                        <ion-col
+                          size="12"
+                          style="width: 100% !important; color: #fff"
+                          ><b>Start:</b> {{ getActualTime(i, "startTime") }}
+                          {{
+                            getActualTime(i, "start") | date : "MMM d, yyyy"
+                          }}</ion-col
+                        >
+                        <ion-col
+                          size="12"
+                          style="width: 100% !important; color: #fff"
+                          ><b>End:</b> {{ getActualTime(i, "endTime") }}
+                          {{
+                            getActualTime(i, "end") | date : "MMM d, yyyy"
+                          }}</ion-col
+                        >
+                      </ion-row>
+                    </span>
+                  </div>
+                </ion-row>
+                <ion-row
+                  class="ion-no-padding"
+                  style="
+                    padding-top: 0px !important;
+                    padding-bottom: 0px !important;
+                    margin-bottom: 0px !important;
+                    margin-top: 0px !important;
+                  "
+                >
+                  <ion-label class="data"
+                    >{{ getActualTime(i, "start") | date : "MM/dd" }} -
+                    {{ getActualTime(i, "end") | date : "MM/dd" }}
+                  </ion-label>
+                </ion-row>
+              </ion-col>
+              <!-- <ion-col size="2.5" class="data text-align-left" style="vertical-align: middle !important;padding-top:7px !important;"><ion-label><b>Round {{i+1}}</b></ion-label></ion-col> -->
+              <ion-col size="0.5"></ion-col>
+              <ion-col
+                size="3"
+                class="ion-text-center ion-justify-content-center"
+                style="margin-bottom: 5px; padding-top: 5px"
+              >
+                <ion-datetime
+                  (ionChange)="newOnChange()"
+                  hourCycle="h23"
+                  id="sbp-input"
+                  formControlName="roundduration"
+                  name="roundduration"
+                  displayFormat="H:mm"
+                  class="form-control app-font-primary-color ion-no-margin ion-border-1px-mercurius-secondary-color"
+                  style="border-radius: 5px; margin-top: auto"
+                  required
+                ></ion-datetime>
+              </ion-col>
+              <ion-col size="0.5"></ion-col>
+              <ion-col
+                size="5.5"
+                class="ion-text-center"
+                style="margin-bottom: 5px; padding-top: 5px"
+              >
+                <ion-select
+                  id="sbp-input"
+                  (ionChange)="newOnChangeLeaveRule()"
+                  formControlName="leaveRule"
+                  name="leaveRule"
+                  class="form-control app-font-primary-color ion-border-1px-mercurius-secondary-color ion-no-margin"
+                  style="
+                    border-radius: 5px;
+                    min-width: 100% !important;
+                    margin-top: 0px;
+                    --padding-top: 0% !important;
+                    --padding-bottom: 0% !important;
+                  "
+                  required
+                  interface="popover"
+                >
+                  <ion-select-option
+                    *ngFor="let lsl of leave_selection_list"
+                    value="{{ lsl }}"
+                    >{{ lsl }} /{{
+                      getHoursBasedOnALeave(lsl)
+                    }}</ion-select-option
+                  >
+                </ion-select>
+              </ion-col>
+            </ion-row>
+
+            <mat-divider></mat-divider>
+          </ion-grid>
+        </ion-grid>
+      </ng-template>
+    </form>
+    <ng-template #computeElseBlock>
+      <ion-row style="padding-top: 10px">
+        <ion-col size="2"> </ion-col>
+
+        <ion-col size="8" class="ion-text-center" *ngIf="!checkValuechanged">
+          <ion-button shape="round" [disabled]="
+              totalRequiredROunds > 1 ||
+              setUpBidParametersForm.value.SBP_start_time == '' ||
+              setUpBidParametersForm.value.SBP_end_time == '' ||
+              setUpBidParametersForm.value.SBP_start_date == '' ||
+              setUpBidParametersForm.value.SBP_start_time == null ||
+              setUpBidParametersForm.value.SBP_end_time == null ||
+              setUpBidParametersForm.value.SBP_start_date == null ||
+              setUpBidParametersForm.value.SBP_start_time == undefined ||
+              setUpBidParametersForm.value.SBP_end_time == undefined ||
+              setUpBidParametersForm.value.SBP_start_date == undefined ||
+              !isRangeValid ||
+              checkPastTimeAndDate
+            " class="app-button-primary w-auto" (click)="computeRoundData()">Compute</ion-button>
+        </ion-col>
+        <ion-col size="8" class="ion-text-center" *ngIf="checkValuechanged">
+          <ion-button shape="round" [disabled]="
+              setUpBidParametersForm.value.SBP_start_time == '' ||
+              setUpBidParametersForm.value.SBP_end_time == '' ||
+              setUpBidParametersForm.value.SBP_start_date == '' ||
+              setUpBidParametersForm.value.SBP_start_time == null ||
+              setUpBidParametersForm.value.SBP_end_time == null ||
+              setUpBidParametersForm.value.SBP_start_date == null ||
+              setUpBidParametersForm.value.SBP_start_time == undefined ||
+              setUpBidParametersForm.value.SBP_end_time == undefined ||
+              setUpBidParametersForm.value.SBP_start_date == undefined ||
+              !isRangeValid ||
+              checkPastTimeAndDate
+            " class="app-button-primary w-auto" (click)="computeRoundData()">Compute</ion-button>
+        </ion-col>
+        <ion-col size="2"> </ion-col>
+      </ion-row>
+    </ng-template>
+  </ion-grid>
+</ion-grid>
+
+<!-- </ion-grid> -->
+<ion-footer>
+  <ion-grid *ngIf="alertMsg != null">
+    <ion-row style="margin-top: 10px">
+      <ion-col size="12">
+        <ion-label class="data">{{ alertMsg }}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-row style="margin-bottom: 10px">
+    <ion-col class="ion-text-center app-font-mercurius-secondary-color data d-none d-md-block" *ngIf="totalRequiredROunds > 0" size="12" style="width: 100%">
+      <ion-label class="app-font-mercurius-secondary-color data clickable" (click)="addNewRound()">Add New
+        Round</ion-label>
+    </ion-col>
+    <ion-col size="12">
+      <div class="content-data app-font-red-color" style="text-align: left" *ngIf="checkPastTimeAndDate">
+        <p class="app-font-red-color">
+          <ion-icon name="alert-circle-outline"></ion-icon>You have entered
+          {{ checkPastTimeOrDateOne }} in the past. Please select a future
+          {{ checkPastTimeOrDateTwo }}.!
+        </p>
+      </div>
+      <div class="content-data app-font-red-color" style="text-align: left" *ngIf="!isRangeValid">
+        <p class="app-font-red-color">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          Start time can not be after end time.!
+        </p>
+      </div>
+      <div class="content-data app-font-red-color" style="text-align: left" *ngIf="hasInterval && !isIntervalValid">
+        <p class="app-font-red-color">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          {{ intervalValidation }}.!
+        </p>
+      </div>
+    </ion-col>
+    <ion-col size="12" *ngIf="!checkValuechanged" class="d-flex justify-content-center">
+      <ion-button
+        shape="round"
+        *ngIf="totalRequiredROunds > 0"
+        [disabled]="totalRequiredROunds < 1 || checkPastTimeAndDate || !isRangeValid || (hasInterval && !isIntervalValid) || isSaved"
+        class="app-button-primary w-auto mx-1"
+        (click)="addBidRound(setUpBidParametersForm)"
+        >Save</ion-button
+      >
+      <ion-button
+        shape="round"
+        *ngIf="isSaved"
+        [disabled]="totalRequiredROunds < 1 || checkPastTimeAndDate"
+        class="app-button-primary w-auto mx-1 d-none-sm"
+        (click)="viewBidWindows()"
+        >View Bid Windows</ion-button
+      >
+    </ion-col>
+  </ion-row>
+</ion-footer>

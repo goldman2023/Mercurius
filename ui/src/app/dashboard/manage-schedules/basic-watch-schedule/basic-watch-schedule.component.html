@@ -1,0 +1,185 @@
+<div class=" basic-wathch-shcedule">
+  <form [formGroup]="selectBidScheduleNameForm">
+    <div class="container-fluid">
+      <div class="row app-padding-margin-0">
+        <div class="col-lg-3 col-12 ml-auto mr-auto pt-2">
+          <mat-label class="data">Bid Schedule</mat-label>
+          <mat-select
+            matNativeControl
+            placeholder="-- Select Bid Schedule--"
+            (selectionChange)="onChangeBidSchedule()"
+            formControlName="bid_schedule_name"
+            interface="popover"
+            class="form-control app-border-mercurius-secondary-color"
+          >
+            <mat-option
+              *ngFor="let bs of bid_schedule_list"
+              [value]="bs"
+              >{{ bs.bidschename }}
+              <b class="length"
+                >- ({{ bs.roundmap.length }} Bid Rounds)</b
+              ></mat-option
+            >
+          </mat-select>
+        </div>
+        <div class="col-lg-1 col-6 ml-auto mr-auto pt-2">
+          <mat-label class="data">Select Date</mat-label>
+            <input
+              class="cursor-pointer form-control app-border-mercurius-secondary-color"
+              formControlName="schedule_start_date"
+              (dateChange)="dateChangeforBidSchedule($event)"
+              [value]="dateShow"
+              matSuffix
+              matInput
+              (click)="datepicker.open()"
+              [matDatepicker]="datepicker"
+            />
+            <mat-datepicker #datepicker></mat-datepicker>
+        </div>
+        <div class="col-lg-1 col-6 ml-auto mr-auto justify-content-center pt-2">
+          <mat-label class="data">Select Option</mat-label>
+          <mat-select
+            matNativeControl
+            placeholder="-- Select an option --"
+            (selectionChange)="radioChange($event)"
+            interface="popover"
+            formControlName="select_option"
+            class="form-control app-border-mercurius-secondary-color"
+          >
+            <mat-option
+              *ngFor="let option of selectOptions"
+              [value]="option"
+              >{{ option }}
+              </mat-option
+            >
+          </mat-select>
+          <!-- <mat-radio-group
+            aria-label="Select an option"
+            [value]="schedule_type"
+          >
+            <mat-radio-button value="daily" (change)="radioChange($event)"
+              >Daily</mat-radio-button
+            >
+            <mat-radio-button
+              value='Weekly'
+              (change)="radioChange($event)"
+              >Weekly</mat-radio-button
+            >
+            <mat-radio-button
+              value='Monthly'
+              (change)="radioChange($event)"
+              >Monthly</mat-radio-button
+            >
+          </mat-radio-group> -->
+        </div>
+        <div
+          class="col-lg-7 ml-auto mr-auto justify-content-end text-right pt-2"
+        >
+          <div class="info-box">
+            <div>
+              <div class="d-flex justify-content-end info-box-child">
+                <div class="d-flex px-2">
+                  <div class="more app-green-background-color"></div>
+                  <mat-label class="font-size-10 app-font-black-color"
+                    >More</mat-label
+                  >
+                </div>
+                <div class="d-flex px-2">
+                  <div class="less"></div>
+                  <mat-label class="font-size-10 app-font-black-color mb-0 mr-2"
+                    >Less</mat-label
+                  >
+                </div>
+              </div>
+              <mat-label class="font-size-10 px-2"
+                >Workforce Count - Required/Available</mat-label
+              >
+            </div>
+            <div class="cursor d-flex justify-content-end align-items-center" (click)="generatePDF()">
+              <p class="pdf app-font-mercurius-secondary-color">Export to PDF</p>
+              <ion-icon
+            (click)="generatePDF()"
+            class="app-font-mercurius-secondary-color clickable float-right fs-5"
+            name="download-outline"
+          ></ion-icon>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<mat-grid-list *ngIf="spinner && (allEmployeeListNewService.length == 0 || allEmplListWeekly.length == 0)" cols="1" rowHeight="100px">
+  <mat-grid-tile>
+    <img class="loader" src="../../../../assets/img/loading.gif" alt="" />
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div
+  *ngIf="
+  dailyWorkForce.length > 0 
+    else dataNotAvailable
+  "
+>
+<div *ngIf="allEmplListWeekly.length > 0">
+  
+  <app-weekly-schedule
+    *ngIf="schedule_type == 'Weekly' && getPermissionFunctionName('Basic Watch Schedule')"
+    style="margin: 0px !important"
+    [current_bid_schedule_data]="current_bid_schedule_data"
+    [allEmplListWeekly]="allEmplListWeekly"
+    [startDate]="startDate"
+    [endDate]="endDate"
+    [weeklybasicWatchVacation]="weeklybasicWatchVacation"
+    [selectedDate]="selectedDate"
+    [bidScheduleID]="bidScheduleID"
+  >
+</app-weekly-schedule>
+</div>
+<div *ngIf="allEmplListWeekly.length > 0">
+  
+  <app-monthly-schedule
+    *ngIf="schedule_type == 'Monthly' && getPermissionFunctionName('Basic Watch Schedule')"
+    style="margin: 0px !important"
+    [current_bid_schedule_data]="current_bid_schedule_data"
+    [allEmplListWeekly]="allEmplListWeekly"
+    [startDate]="startDate"
+    [endDate]="endDate"
+    [monthlybasicWatchVacation]="monthlybasicWatchVacation"
+    [selectedDate]="selectedDate"
+    [bidScheduleID]="bidScheduleID"
+  >
+</app-monthly-schedule>
+</div>
+
+<div *ngIf="allEmployeeListNewService.length > 0 && allEmplListWeekly.length>0">
+
+  <app-daily-schedule
+    *ngIf="schedule_type == 'Daily' && getPermissionFunctionName('Basic Watch Schedule')"
+    style="margin: 0px !important"
+    [weekDates]="weekDates"
+    [endDate]="endDate"
+    [startDate]="startDate"
+    [allEmplListWeekly]="allEmplListWeekly"
+    [current_bid_schedule_data]="current_bid_schedule_data"
+    [allEmployeeListNewService]="allEmployeeListNewService"
+    [dailyWorkForce]="dailyWorkForce"
+    [vacationWatchSchedule]="vacationWatchSchedule"
+    [selectedDate]="selectedDate"
+    [bidScheduleID]="bidScheduleID"
+  >
+  </app-daily-schedule>
+</div>
+</div>
+<ng-template #dataNotAvailable>
+  <mat-grid-list cols="1" rowHeight="150px" *ngIf="!spinner ">
+    <mat-grid-tile class="text-align-center">
+      <div class="row text-align-center">
+        <div class="col-12 text-align-center">
+          <mat-label>Data Not Found! </mat-label>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>

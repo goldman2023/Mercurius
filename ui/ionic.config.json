@@ -1,0 +1,7 @@
+{
+  "name": "straightline-io",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

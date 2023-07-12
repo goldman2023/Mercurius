@@ -1,0 +1,113 @@
+#sbp-input{
+  height: 35px;
+}
+
+div.scrollmenu {
+  // background-color: #333;
+  overflow-x:scroll;
+  white-space: nowrap;
+}
+.scrollmenu::-webkit-scrollbar {
+  display: none;
+}
+
+div.scrollmenu ion-label {
+  display: inline-block;
+  // color: white;
+  border: 1px solid #ff6700 !important;
+  text-align: center;
+  width: 75px;
+  padding: 5px;
+  margin: 5px;
+  text-decoration: none;
+}
+.mat-expansion-panel {
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.mat-expansion-panel-header {
+  border-radius: 5px;
+}
+.mat-expansion-panel-header.mat-expanded {
+  background-color: orange;
+  &:focus,
+  &:hover {
+    background-color: orange;
+  }
+  .checkmark{
+    color: #000;
+  }
+}
+.icon-container {
+  float: left;
+  margin-left: 5px;
+  margin-top: 2px;
+  padding: 2px;
+  .icon {
+    font-size: 18px;
+  }
+}
+.round-button{
+
+  margin: 2px;
+  padding:10px;
+  display: inline-block;
+  text-align: center !important;
+  border-radius: 50%;
+  background-color:#fff ;
+  color: #ff6700 ;
+}
+
+/* Popup container */
+.popup {
+  position: relative;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  // text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  // bottom: 100%;
+  left: 10%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}

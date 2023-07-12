@@ -1,0 +1,16 @@
+.admin-component {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1140px;
+  padding: 0px 20px;
+}
+
+.my_class {
+  max-width: 1366px;
+}
+::ng-deep .mat-menu-panel {
+  min-height: 52px !important;
+}
+::ng-deep [mat-sort-header].cdk-program-focused .mat-sort-header-container{
+  border-bottom: none !important;
+}

@@ -1,0 +1,80 @@
+.basic-wathch-shcedule ::ng-deep .mat-radio-label-content {
+  font-size: 15px;
+}
+.app-button-primary {
+  color: #000;
+}
+.manageArea {
+  color: #fff;
+  background-color: #ff6700;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 30px;
+  min-width: 145px;
+}
+.data {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.loader {
+  margin: 40px auto;
+  max-width: 800px;
+  width: 100%;
+}
+.more {
+  height: 11px;
+  margin-top: 3px;
+  width: 11px;
+  margin-right: 5px;
+}
+.less {
+  height: 11px;
+  margin-top: 3px;
+  width: 11px;
+  margin-right: 5px;
+  background-color: red;
+}
+.length {
+  color: gray;
+  text-decoration: none;
+  font-weight: normal;
+}
+.basic-wathch-shcedule ::ng-deep .mat-radio-inner-circle,
+.basic-wathch-shcedule ::ng-deep .mat-radio-outer-circle,
+.basic-wathch-shcedule ::ng-deep .mat-radio-container {
+  width: 15px;
+  height: 15px;
+}
+.basic-wathch-shcedule ::ng-deep .mat-radio-button{
+  display: block;
+}
+.basic-wathch-shcedule ::ng-deep .mat-radio-label{
+  margin-bottom: -0.5rem;
+}
+.pdf{
+  font-size: 18px;
+  margin: 0;
+  padding-top: 5px;
+  margin-right: 3px;
+}
+.cursor{
+  cursor: pointer;
+}
+.mat-input-element{
+  box-sizing: border-box !important;
+}
+
+.info-box{
+  display: block;
+}
+@media (max-width: 768px) {
+  .info-box{
+    display: flex;
+    justify-content: space-between;
+
+    .info-box-child{
+      justify-content: start !important;
+    }
+  }
+}

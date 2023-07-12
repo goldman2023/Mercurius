@@ -1,0 +1,5 @@
+<div class="wordsheet-nav d-flex  align-items-around  ">
+  <div class="navs text-center" *ngFor="let item of navs" >
+      <a [routerLink]="['./',empId,bischid,item.navLink]" class="nav-link d-block p-2" routerLinkActive="router-link-active" >{{item.navName}}</a>
+  </div>
+</div>

@@ -1,0 +1,276 @@
+<ion-content>
+<ion-grid id="all-shift-list-card" class=" app-font-primary-color container" style="padding-top: 10px;height: 100%;overflow-y: scroll;">
+  <ion-grid>
+    <ion-row class="content-data ion-no-margin ion-no-padding">
+      <ion-col size="12" class="app-font-primary-color ion-text-center "><b>BID SHIFTLINES</b></ion-col>
+      <!-- <ion-col size="12" class=" ion-text-center ion-no-margin ion-no-padding"><b>{{current_shift_line_schedule}}</b></ion-col>
+      <ion-col size="12" class=" ion-text-center ion-no-margin ion-no-padding">{{current_shift_line_schedule_startDate | date:'MMM d, y'}} - {{current_shift_line_schedule_endDate | date:'MMM d, y'}}</ion-col> -->
+    </ion-row>
+  </ion-grid>
+
+  <!-- <ion-row class="data ion-no-margin ion-no-padding">
+    <ion-col size="12" class="ion-no-margin ion-no-padding" style="text-align: right;">
+      <ion-label style="color: rgb(178, 168, 168);"><i>Tap on Rounds to view details.</i></ion-label>
+    </ion-col>
+</ion-row>
+  <ion-row class="content-data ion-no-margin ion-no-padding">
+    <ion-grid  style="overflow-x: scroll;overflow: hidden;">
+        <div class="scrollmenu">
+            <ion-label [class]="getIndicatorClass(i)" *ngFor="let all_SBP_rounds of all_SBP_rounds;let i=index" (click)="displayRoundData(all_SBP_rounds,i)">Round {{i + 1}}</ion-label>
+        </div>
+      </ion-grid>
+</ion-row> -->
+  <ion-grid>
+    <ion-row class="content-data ">
+      <ion-col size="12" class="app-font-primary-color  "><b>Shiftlines Schedule to Bid</b></ion-col>
+      <!-- <ion-col size="12" class=" ion-text-center ion-no-margin ion-no-padding"><b>{{current_shift_line_schedule}}</b></ion-col>
+      <ion-col size="12" class=" ion-text-center ion-no-margin ion-no-padding">{{current_shift_line_schedule_startDate | date:'MMM d, y'}} - {{current_shift_line_schedule_endDate | date:'MMM d, y'}}</ion-col> -->
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid *ngFor="let selectedSchedule of all_final_data;let j=index" class="ion-no-margin ion-no-padding">
+<ion-row id="targetBlock{{j}}"  class="ion-no-padding ion-no-margin">
+  <ion-col sizeMd="1" sizeXs="1.5" class="ion-no-margin ion-no-padding" >
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="data circleNumber app-background-mercurius-secondary-color" >
+        {{j+1}}
+      </div>
+    <div class="vertical-line" *ngIf="all_final_data.length!=(j+1)">
+
+  </div>
+
+</div>
+  </ion-col>
+  <ion-col sizeMd="11" sizeXs="10.5" class=" ion-no-margin ion-no-padding">
+
+
+
+    <ion-row   (click)="checkShiftLineSchedule(j,selectedSchedule)"  class="  data ion-no-padding ion-no-margin" style="padding-bottom: 10px;">
+      <ion-col size="11" class="ion-no-margin">
+        <ion-label><b  style="font-weight: bolder;">Shiftline Schedule</b></ion-label><br>
+         <ion-label>  {{selectedSchedule.schedulename}} ({{selectedSchedule.shiftlineLength}} - Shiftlines)</ion-label><br>
+         <ion-label>  {{dateFormat(selectedSchedule.bidschedulestartdate)|date:'MMM dd, y'}} - {{dateFormat(selectedSchedule.bidscheduleenddate)|date:'MMM dd, y'}}</ion-label><br>
+         <ion-label *ngIf="checkSelectedEmpShiftLine(selectedSchedule.schedulename)==true && expand_id!=j" > Selected Shiftline: <b  class="app-font-mercurius-secondary-color">{{getEmpSelectedShiftlines(selectedSchedule)}}</b></ion-label>
+      </ion-col>
+      <ion-col size="1" class="d-flex align-items-center justify-content-center">
+        <!-- <ion-col size="1" style="padding-top: 12px;" > -->
+        <ion-label  >
+          <ion-icon  *ngIf="expand_id!=j"  class="app-font-mercurius-secondary-color cursor-pointer" style="font-size: large;"  name="add-outline"></ion-icon>
+          <ion-icon  *ngIf="expand_id==j"  class="app-font-mercurius-secondary-color cursor-pointer" style="font-size: large;" name="remove-outline"></ion-icon>
+        </ion-label>
+      </ion-col>
+      </ion-row>
+      <mat-divider  style="border-bottom-width: 1px;width: 100%;" ></mat-divider>
+    </ion-col>
+
+  </ion-row>
+  <ion-grid>
+  <ion-grid *ngIf="expand_id==j"  [class]="myAnimateclass(j)"  style="padding: 0%;margin: 0%;">
+    <ion-slides loop="false" pager="false" [options]="slideOption" style="padding-bottom: -10px !important; overflow-y: scroll; min-height: 50vh;"  >
+      <ion-slide [class]="expandlistSlide(i)"   *ngFor="let sL of all_selected_schedule_shift_lines;let i=index;" style="--inner-padding:0px !important;--padding:0px !important">
+    <ion-grid   class="app-background-mercurius-secondary-color  ion-no-margin ion-no-padding ion-border-1px-ligth-gray-color" style="padding:5px 0px 0px 0px;margin:0px;border:1px solid lightgray;">
+        <ion-item lines="none"  id="target{{i}}" [class]="expandlist(i)" style="--inner-padding-start:0px !important;--inner-padding-start:0px !important;--padding-start:0px !important;--inner-padding-end:0px !important">
+          <ion-row class="data  ion-no-margin ion-no-padding " style="width: 100%;">
+            <ion-col size="11" class="ion-no-margin ion-no-padding ">
+              <ion-row class="ion-no-margin ion-no-padding ">
+                <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="1" style="width: 100%;" ></ion-col>
+                <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="4" style="width: 100%;" ><b>ShiftLine</b></ion-col>
+                <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="4" style="width: 100%;" ><b>Pattern</b></ion-col>
+                <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="3" style="width: 100%;"  ><b *ngIf="sL.selectedBy!==''">Selected By</b></ion-col>
+                <ion-col class="data ion-no-margin ion-no-padding"  size="1" style="width: 100%;" ></ion-col>
+                <ion-col class="data ion-no-margin ion-no-padding"  size="4" style="width: 100%;" >{{sL.shiftname}} - {{sL.edit_seq_id+1}}</ion-col>
+                <ion-col class="data ion-no-margin ion-no-padding"  size="4" style="width: 100%;" >{{sL.pattern}}</ion-col>
+                <ion-col class="data ion-no-margin ion-no-padding app-font-mercurius-secondary-color"  size="3" style="width: 100%;" ><b *ngIf="sL.selectedBy!==''">{{sL.selectedBy}}</b></ion-col>
+              </ion-row>
+
+            </ion-col>
+            <ion-col (click)="expand(i)" size="1" class="ion-no-margin ion-no-padding ">
+              <ion-col class="data ion-no-margin-top ion-no-margin-bottom ion-no-padding-top ion-no-padding-bottom  app-font-primary-color"  style="width: 100%;margin:auto;padding: auto;" ><b><ion-icon  class="app-font-primary-color" name="chevron-down-outline" style="margin-top:10px;font-size: 14px;"></ion-icon></b></ion-col>
+            </ion-col>
+            <ion-grid class="ion-border-1px-ligth-gray-color" style="background-color: rgb(230, 230, 230);margin-left: 0px;margin-right: 0px;">
+              <ion-row class="ion-text-center">
+            <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="1.7" style="width: 100%;" ><b>Sun</b></ion-col>
+            <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="1.7" style="width: 100%;" ><b>Mon</b></ion-col>
+            <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="1.7" style="width: 100%;" ><b>Tue</b></ion-col>
+            <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="1.7" style="width: 100%;" ><b>Wed</b></ion-col>
+            <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="1.7" style="width: 100%;" ><b>Thu</b></ion-col>
+            <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="1.7" style="width: 100%;" ><b>Fri</b></ion-col>
+            <ion-col class="data ion-no-margin ion-no-padding  app-font-primary-color"  size="1.7" style="width: 100%;" ><b>Sat</b></ion-col>
+            <ion-col size="0.15" style="width: 100%;"></ion-col>
+            <ion-col class="data ion-no-margin popup"  size="1.4" style="width: 100%;"  >
+              <div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'sun')">{{convertNineHourShiftLineIncorrectFormat(sL.sun,sL.shiftdurationc)}}</div>
+                <span class="popuptext" id="popup{{j}}{{i}}sun">
+                  <ion-row class="ion-no-padding ion-no-margin">
+                      <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                      <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.sun!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.sun,sL.shiftdurationc)}}</b>
+                      </ion-col>
+                  </ion-row>
+                </span>
+
+            </ion-col>
+
+            <ion-col size="0.3" style="width: 100%;"></ion-col>
+            <ion-col class="data ion-no-margin popup"  size="1.4" style="width: 100%;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'mon')">{{convertNineHourShiftLineIncorrectFormat(sL.mon,sL.shiftdurationc)}}</div>
+              <span class="popuptext" id="popup{{j}}{{i}}mon">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.mon!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.mon,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col size="0.3" style="width: 100%;"></ion-col>
+            <ion-col class="data ion-no-margin popup"  size="1.4" style="width: 100%;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'tue')">{{convertNineHourShiftLineIncorrectFormat(sL.tue,sL.shiftdurationc)}}</div>
+              <span class="popuptext" id="popup{{j}}{{i}}tue">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.tue!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.tue,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col size="0.3" style="width: 100%;"></ion-col>
+            <ion-col class="data ion-no-margin popup"  size="1.4" style="width: 100%;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'wed')">{{convertNineHourShiftLineIncorrectFormat(sL.wed,sL.shiftdurationc)}}</div>
+              <span class="popuptext" id="popup{{j}}{{i}}wed">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.wed!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.wed,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col size="0.3" style="width: 100%;"></ion-col>
+            <ion-col class="data ion-no-margin popup"  size="1.4" style="width: 100%;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'thu')">{{convertNineHourShiftLineIncorrectFormat(sL.thu,sL.shiftdurationc)}}</div>
+              <span class="popuptextLeft" id="popup{{j}}{{i}}thu">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.thu!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.thu,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col size="0.3" style="width: 100%;"></ion-col>
+            <ion-col class="data ion-no-margin popup"  size="1.4" style="width: 100%;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'fri')">{{convertNineHourShiftLineIncorrectFormat(sL.fri,sL.shiftdurationc)}}</div>
+              <span class="popuptextLeft" id="popup{{j}}{{i}}fri">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.fri!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.fri,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col size="0.3" style="width: 100%;"></ion-col>
+            <ion-col class="data ion-no-margin popup"  size="1.4" style="width: 100%;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'sat')">{{convertNineHourShiftLineIncorrectFormat(sL.sat,sL.shiftdurationc)}}</div>
+              <span class="popuptextLeft" id="popup{{j}}{{i}}sat">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.sat!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.sat,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col size="0.15" style="width: 100%;"></ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" size="0.15" style="width: 100%;margin-top: 3px;"></ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" class="data ion-no-margin popup"  size="1.4" style="width: 100%;margin-top: 3px;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'sun2')">{{convertNineHourShiftLineIncorrectFormat(sL.sunshift2,sL.shiftdurationc)}}</div>
+              <span class="popuptext" id="popup{{j}}{{i}}sun2">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.sunshift2!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.sunshift2,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" size="0.3" style="width: 100%;"></ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" class="data ion-no-margin popup"  size="1.4" style="width: 100%;margin-top: 3px;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'mon2')">{{convertNineHourShiftLineIncorrectFormat(sL.monshift2,sL.shiftdurationc)}}</div>
+              <span class="popuptext" id="popup{{j}}{{i}}mon2">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.monshift2!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.monshift2,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" size="0.3" style="width: 100%;"></ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" class="data ion-no-margin popup"  size="1.4" style="width: 100%;margin-top: 3px;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'tue2')">{{convertNineHourShiftLineIncorrectFormat(sL.tueshift2,sL.shiftdurationc)}}</div>
+              <span class="popuptext" id="popup{{j}}{{i}}tue2">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.tueshift2!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.tueshift2,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" size="0.3" style="width: 100%;"></ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" class="data ion-no-margin popup"  size="1.4" style="width: 100%;margin-top: 3px;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'wed2')">{{convertNineHourShiftLineIncorrectFormat(sL.wedshift2,sL.shiftdurationc)}}</div>
+              <span class="popuptext" id="popup{{j}}{{i}}wed2">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.wedshift2!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.wedshift2,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" size="0.3" style="width: 100%;"></ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" class="data ion-no-margin popup"  size="1.4" style="width: 100%;margin-top: 3px;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'thu2')">{{convertNineHourShiftLineIncorrectFormat(sL.thushift2,sL.shiftdurationc)}}</div>
+              <span class="popuptextLeft" id="popup{{j}}{{i}}thu2">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.thushift2!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.thushift2,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" size="0.3" style="width: 100%;"></ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" class="data ion-no-margin popup"  size="1.4" style="width: 100%;margin-top: 3px;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'fri2')">{{convertNineHourShiftLineIncorrectFormat(sL.frishift2,sL.shiftdurationc)}}</div>
+              <span class="popuptextLeft" id="popup{{j}}{{i}}fri2">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.frishift2!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.frishift2,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" size="0.3" style="width: 100%;"></ion-col>
+            <ion-col *ngIf="sL.shiftdurationc==9" class="data ion-no-margin popup"  size="1.4" style="width: 100%;margin-top: 3px;" ><div class="app-white-background-color ion-border-1px-ligth-gray-color ion-border-radius-5px" (click)="openShiftDefintionPopup(j,i,'sat2')">{{convertNineHourShiftLineIncorrectFormat(sL.satshift2,sL.shiftdurationc)}}</div>
+              <span class="popuptextLeft" id="popup{{j}}{{i}}sat2">
+                <ion-row class="ion-no-padding ion-no-margin">
+                    <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                    <ion-col class="ion-no-padding ion-no-margin" size="11.8" *ngIf="sL.satshift2!='X';else rdoBlock">Shift: <b>{{getShiftDef(sL.satshift2,sL.shiftdurationc)}}</b>
+                    </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+
+            <ion-col *ngIf="sL.shiftdurationc==9" size="0.15" style="width: 100%;"></ion-col>
+            <!-- <ion-col (click)="selectShiftLine(sL,i)" *ngIf="sL.bidstatus=='Eligible' && checkValidationForSelectShiftLine==false"  style="border-radius: 25%;" class="data ion-no-margin  " style="margin-top: 5px;" size="12"> -->
+              <ion-col (click)="selectShiftLine(sL,i)" *ngIf="sL.bidstatus=='Eligible'"  style="border-radius: 5px;" class="data ion-no-margin  " style="margin-top: 5px;" size="12">
+              <div style="height: 100%;width: 100%;padding: 7px;border-radius:25px ;" class="app-background-mercurius-secondary-color ion-text-center cursor-pointer"><ion-label class="font-size-18px"><b style="font-size:15px;">Select this Shiftline</b></ion-label></div>
+            </ion-col>
+            <ion-col *ngIf="sL.bidstatus=='Completed' "  style="border-radius: 25%;" class="data ion-no-margin  " style="margin-top: 5px;" size="12">
+              <!-- <ion-col *ngIf="sL.bidstatus=='Completed' || checkValidationForSelectShiftLine==true"  style="border-radius: 25%;" class="data ion-no-margin  " style="margin-top: 5px;" size="12"> -->
+              <div style="height: 100%;width: 100%;padding: 7px;border-radius:25px ;background-color: rgb(239,102,55,0.7);color: white;" class=" ion-text-center  cursor-pointer"><ion-label class="font-size-18px"><b style="font-size:15px;">Select this Shiftline</b></ion-label></div>
+            </ion-col>
+          </ion-row>
+          </ion-grid>
+          </ion-row>
+          <ng-template #rdoBlock style="text-align: center !important;font-size:12px "><div style="width: 100% !important;">RDO</div></ng-template>
+        </ion-item>
+        <mat-divider  style="border-bottom-width: 1px;width: 100%;" ></mat-divider>
+        </ion-grid>
+</ion-slide>
+</ion-slides>
+    </ion-grid>
+
+  </ion-grid>
+  </ion-grid>
+</ion-grid>
+</ion-content>
+  <ion-grid [ngClass]="myAnimateClassButton"  id="footer"  *ngIf="checkAllShiftLineSelected==true ||bottomSpinner==true" style="background: #fff;padding-top: 1px;" >
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col size="12" class="ion-text-center">
+        <ion-spinner name="bubbles" *ngIf="bottomSpinner==true"></ion-spinner>
+        <ion-button shape="round" *ngIf="checkAllShiftLineSelected==true"  class="app-button-primary w-auto" (click)="next()" >Continue</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>

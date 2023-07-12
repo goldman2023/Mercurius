@@ -1,0 +1,20 @@
+#sbp-input {
+  margin-top: 5px;
+  height: 35px;
+  --padding-top: auto;
+  --padding-bottom: auto;
+}
+ion-checkbox {
+  --height: 14px;
+  --width: 14px;
+  --checkmark-color: white;
+  --background-checked: #ff6700;
+  --border-color: #ffaa00;
+  --border-color-checked: #ff6700;
+}
+.content {
+  height: 40vh;
+}
+:host ion-checkbox {
+   opacity: 1;
+}

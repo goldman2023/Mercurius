@@ -1,0 +1,8 @@
+<div class="admin_navs">
+  <a class="navs_links" *ngFor="let item of navs" [routerLink]="['./',item.navLink]" routerLinkActive="router-link-active" >{{item.navName}}</a>
+</div>
+<!-- <div class="navs">
+  <nav mat-tab-nav-bar >
+    <a mat-tab-link class="navs_links" *ngFor="let item of navs" [routerLink]="['./',item.navLink]" routerLinkActive="router-link-active" >{{item.navName}}</a>
+  </nav>
+</div> -->

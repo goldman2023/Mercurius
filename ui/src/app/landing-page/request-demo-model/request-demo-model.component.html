@@ -1,0 +1,163 @@
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 ml-auto">
+          <a style="text-decoration: none;color: #000;font-weight: bold;float: left;" href="http://www.mercuriusinc.com"><img align="center" alt=" " border="0" class="center fixedwidth" src="./assets/img/mlogo.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: 50px; border: 0; width: 50px; display: block;" title="" width="50"/></a>
+          <span style="font-family: source-sans-pro;margin-top:15px;margin-left:7px;font-weight: bolder;vertical-align: middle;float: left;"><h2 style="font-weight:bolder !important ;font-family: source-sans-pro;">Mercurius Inc.</h2></span>
+          <mat-label style="float: right;" class="app-font-mercurius-secondary-color data ion-text-center clickable" (click)="dismiss()"><b>Close</b></mat-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-lg-6 ml-auto mr-auto" >
+           <div class="row" style="padding-top:100px;text-align: center !important;">
+                <div class="col-2 col-sm-2"></div>
+                <div class="col-8 col-sm-8 ml-auto  mr-auto" style="text-align: center !important;">
+                  <img   src="./assets/images/StraightLines_Logo_with_tagline_big_size.png" style="height:100%;text-align:center !important;width: 100%;" />
+                </div>
+                <div class="col-2 col-sm-2"></div>
+
+                <div class="col-1 col-sm-1" ></div>
+                <div class="col-10 col-sm-9 ml-auto  mr-auto app-background-mercurius-primary-color" style="font-size:14px;text-align: center !important;color: #000;border-radius: 25px;padding: 25px 20px 10px 20px;font-weight: bold;margin-top:50px;" >
+                  <span>StraightLines Mobile Web App Simplifies Schedule Generation and Enables Shift(s) and Vacation Bidding</span>
+                  <br>
+                  <br>
+                  <p style="text-align: right;font-size:12px;">To learn more about it, Let's get started</p>
+                </div>
+                <div class="col-1 col-sm-1"></div>
+              </div>
+
+      </div>
+        <div class="col-6 col-lg-6 ml-auto mr-auto">
+          <form [formGroup]="emailForm" >
+
+            <div class="row">
+              <div class="col-sm-6  ml-auto mr-auto">
+                <label class="data">First Name</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" style="border-color:#ff6700 ;" formControlName="firstnamedemo" name="firstnamedemo"
+                    [class.is-invalid]="firstnamedemo?.invalid && firstnamedemo?.touched"
+                    required>
+                  </div>
+                  <div class="content-data app-font-red-color" style="text-align: left;" *ngIf="firstnamedemo?.touched && firstnamedemo?.errors">
+                    <p class="app-font-red-color" *ngIf="firstnamedemo?.errors?.required "><ion-icon name="alert-circle-outline"></ion-icon> Firstname is required!</p>
+                    <p class="app-font-red-color" *ngIf="firstnamedemo?.errors?.minlength "><ion-icon name="alert-circle-outline"></ion-icon> Firstname must be at least 2 characters long!</p>
+                    <p class="app-font-red-color" *ngIf="firstnamedemo?.errors?.maxlength "><ion-icon name="alert-circle-outline"></ion-icon> Firstname can't be longer than 64 characters!</p>
+                  </div>
+                </div>
+                <!-- </div>
+                <div class="row"> -->
+                <div  class="col-sm-6 ml-auto mr-auto">
+                <label class="data">Last Name</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" style="border-color:#ff6700 ;" formControlName="lastnamedemo"  name="lastnamedemo"
+                  [class.is-invalid]="lastnamedemo?.invalid && lastnamedemo?.touched"
+                  required>
+
+                </div>
+                <div>
+                  <div class="content-data app-font-red-color" style="text-align: left;" *ngIf="lastnamedemo?.touched && lastnamedemo?.errors">
+                    <p class="app-font-red-color" *ngIf="lastnamedemo?.errors?.required "><ion-icon name="alert-circle-outline"></ion-icon> Lastname is required!</p>
+                    <p class="app-font-red-color" *ngIf="lastnamedemo?.errors?.minlength "><ion-icon name="alert-circle-outline"></ion-icon> Lastname must be at least 2 characters long!</p>
+                    <p class="app-font-red-color" *ngIf="lastnamedemo?.errors?.maxlength "><ion-icon name="alert-circle-outline"></ion-icon> Lastname can't be longer than 64 characters!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div  class="col-sm-12 ml-auto mr-auto">
+                <label class="data">Email</label>
+                <div class="form-group">
+                  <input type="email" (focusout)="emailFocusOutTwo()" style="border-color:#ff6700 ;"  class="form-control" formControlName="email1" name="email1"
+                  [class.is-invalid]="email1?.invalid && email1?.touched"
+                  required>
+
+                </div>
+                <div>
+                  <div class="content-data app-font-red-color" style="text-align: left;" *ngIf="email1?.touched && email1?.errors">
+                    <p class="app-font-red-color" *ngIf="email1?.errors?.required "><ion-icon name="alert-circle-outline"></ion-icon> Email is required!</p>
+                    <p class="app-font-red-color" *ngIf="email1?.errors?.minlength "><ion-icon name="alert-circle-outline"></ion-icon> Email must be at least 6 characters long!</p>
+                    <p class="app-font-red-color" *ngIf="email1?.errors?.pattern "><ion-icon name="alert-circle-outline"></ion-icon> Enter a valid email!</p>
+                  </div>
+                  <div  class="content-data app-font-red-color" style="text-align: left;">
+                    <p class="app-font-red-color" *ngIf="email1==true"><ion-icon name="alert-circle-outline"></ion-icon> Account already exists!!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div  class="col-sm-12 ml-auto mr-auto">
+                <label class="data">Phone</label>
+                <div class="form-group">
+                  <input type="tel" class="form-control"   style="border-color:#ff6700 ;" formControlName="phonedemo" name="phonedemo"
+                  [class.is-invalid]="phonedemo?.invalid && phonedemo?.touched"
+                  required>
+
+                </div>
+                <div>
+                  <div class="content-data app-font-red-color" style="text-align: left;" *ngIf="phonedemo?.touched && phonedemo?.errors">
+                    <p class="app-font-red-color" *ngIf="phonedemo?.errors?.required "><ion-icon name="alert-circle-outline"></ion-icon> Phone is required!</p>
+                    <p class="app-font-red-color" *ngIf="phonedemo?.errors?.pattern"><ion-icon name="alert-circle-outline"></ion-icon> Enter a valid phone number!</p>
+                    <p class="app-font-red-color" *ngIf="phonedemo?.errors?.minlength "><ion-icon name="alert-circle-outline"></ion-icon> Phone must be at least 10 characters long!</p>
+
+                    <p class="app-font-red-color" *ngIf="phonedemo?.errors?.maxlength "><ion-icon name="alert-circle-outline"></ion-icon> Phone must be at least 10 characters long!</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="row">
+              <div  class="col-sm-12 ml-auto mr-auto">
+                <label class="data">Company</label>
+                <div class="form-group">
+                  <input type="text" class="form-control"  style="border-color:#ff6700 ;" formControlName="companydemo" name="companydemo"
+                  [class.is-invalid]="companydemo?.invalid && companydemo?.touched"
+                  required>
+
+                </div>
+                <div>
+                  <div class="content-data app-font-red-color" style="text-align: left;" *ngIf="companydemo?.touched && companydemo?.errors">
+                    <p class="app-font-red-color" *ngIf="companydemo?.errors?.required "><ion-icon name="alert-circle-outline"></ion-icon> Company name is required!</p>
+                    <!-- <p class="app-font-red-color" *ngIf="companydemo?.errors?.minlength "><ion-icon name="alert-circle-outline"></ion-icon>Phone must be at least 10 characters long!</p>
+                    <p class="app-font-red-color" *ngIf="companydemo?.errors?.maxlength "><ion-icon name="alert-circle-outline"></ion-icon> Phone must be at least 10 characters long!</p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="data">Country</label>
+              <div class="col-sm-12 ml-auto mr-auto">
+              <mat-select  matNativeControl placeholder="-- Select --"  class=" form-control" formControlName="country" name="country" style="text-align: left;border-color:#ff6700 ;"
+              [class.is-invalid]="country?.invalid && country?.touched" required>
+              <mat-option *ngFor="let cl of countryList" value="{{cl}}">{{cl}}</mat-option>
+            </mat-select>
+              <div class="content-data app-font-red-color" style="text-align: left;" *ngIf="country?.touched && country?.errors">
+                <p class="app-font-red-color" *ngIf="country?.errors?.required "><ion-icon name="alert-circle-outline"></ion-icon> Country is required!</p>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+              <div  class="col-sm-12 ml-auto mr-auto">
+                <label class="data">Comments</label>
+                <div class="form-group">
+                  <textarea formControlName="comments"  (keyup)="wordCounter()" #commentstext  name="comments" class="form-control" style="border-color:#ff6700 ;" rows="3"></textarea>
+                  <p *ngIf="checkLength()"  style="text-align: right;"><b [class]="checkLengthCSs()">{{currentCharLen}}</b>/{{maxLength}}</p>
+                  <p class="app-font-red-color" *ngIf="comments?.errors?.maxlength  " ><ion-icon name="alert-circle-outline"></ion-icon> You have reached the maximum number of characters.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="margin-top: 25px;">
+              <div class="col-sm-12" style="text-align: center;">
+
+                <button type="button" class="btn btn-rounded"  shape="round" style="background-color:#ff6700 !important;color:#fff !important;border-radius:45px; width:200px; height:40px;" [disabled]="emailForm?.invalid || emailValid==true || phoneValid==true"  (click)="close()">Request for Demo</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </div>

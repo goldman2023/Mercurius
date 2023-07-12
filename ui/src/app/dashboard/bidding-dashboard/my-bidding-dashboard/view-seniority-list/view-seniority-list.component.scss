@@ -1,0 +1,219 @@
+.active{
+  --checkmark-color:white;
+  --background-checked:#3CA823;
+  --border-color-checked:#57818A;
+  --border-color: #57818A;
+}
+.deactivate{
+  --checkmark-color:#57818A;
+  --border-color-checked:#57818A;
+  --background-checked:#ffaa00;
+  --border-color: #ffaa00;;
+}
+
+#input-box{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  --padding-end: 0% !important;
+  --padding-start: 0% !important;
+}
+
+.iPhone{
+  float: left;padding: 5px 2px 5px 7px; zoom: 0.5;
+}
+.android{
+  float: left;padding: 5px 8px 5px 7px; zoom: 0.8;
+}
+.main{
+  height: 100%;
+}
+#all-shift-list{
+  height: 60% !important;overflow-y: scroll !important;
+}
+
+.seniority-list-div{
+  height: 75% ;
+  overflow-y: scroll;
+}
+#all-shift-list-card{
+  height: 90% !important;overflow-y: scroll;
+}
+@media(min-height:700px){
+.main{
+  height: 95%;
+}
+#all-shift-list{
+  height: 450px !important;overflow-y: scroll;
+}
+}
+@media(min-height:800px){
+.main{
+  height: 90%;
+}
+#all-shift-list{
+  height: 500px !important;overflow-y: scroll;
+}
+}
+ion-item {
+  --padding-end: 0px;
+  --inner-padding-end: 0px;
+  // here other custom CSS from documentation
+}
+@media(min-height:900px){
+.main{
+  height: 90%;
+}
+#all-shift-list{
+  height: 550px !important;overflow-y: scroll;
+}
+}
+
+
+// #sbp-input{
+// height: 35px;
+// --padding-top: auto;
+// --padding-bottom: auto;
+// }
+
+
+.active {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  padding: 2px;
+
+  // color: #0194e3;
+  text-align: center;
+  font-size: 19px;
+  color: white;
+  background-color: #57818A;
+}
+
+
+
+.small {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  padding: 2px;
+
+  // color: #0194e3;
+  text-align: center;
+  font-size: 19px;
+  color: white;
+  background-color: #aab5b8;
+}
+
+.active-bid-round{
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 5px;
+  // margin: 2px;
+  // color: #0194e3;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  background-color: #57818A;
+}
+
+.small-bid-round{
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 5px;
+  // margin: 2px;
+  // color: #0194e3;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  background-color: #aab5b8;
+}
+
+div.scrollmenu {
+  // background-color: #333;
+  overflow-x:scroll;
+  white-space: nowrap;
+}
+.scrollmenu::-webkit-scrollbar {
+  display: none;
+}
+
+
+div.scrollmenu ion-label {
+  display: inline-block;
+  // color: white;
+  border: 1px solid #57818A !important;
+  text-align: center;
+  width: 75px;
+  padding: 5px;
+  margin: 5px;
+  text-decoration: none;
+}
+.expand{
+  position:relative;
+  height: 100%;
+}
+.default-expand{
+  margin-top: 0px;
+  padding-top: 0px;
+  height: 40px;
+}
+
+
+
+.example-container {
+  width: 400px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.example-list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+}
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 12px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

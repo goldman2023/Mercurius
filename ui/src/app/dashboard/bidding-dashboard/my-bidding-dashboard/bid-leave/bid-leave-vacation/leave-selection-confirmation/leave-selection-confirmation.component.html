@@ -1,0 +1,42 @@
+
+<ion-header *ngIf="checkIos==true;" class="ion-no-border" style="padding: 8px;">
+  <b style="font-size: 17px;">Alert</b>
+</ion-header>
+<ion-header *ngIf="checkIos==false;" class="ion-no-border" style="padding: 15px !important;">
+  <b style="font-size: 17px;">Alert</b>
+</ion-header>
+<ion-content *ngIf="checkIos==true;" style=" --background: var(--ion-overlay-background-color, var(--ion-color-step-100, #f9f9f9));">
+<ion-grid style="font-size: 13px;padding-top: 5px !important;">
+ <ion-label >Are you sure want to submit vacation for following dates?</ion-label><br>
+ <ion-grid style="overflow: scroll !important;">
+  <ul class="text-align-left" >
+    <li  *ngFor=" let m of msg">{{m}}</li>
+  </ul>
+ </ion-grid>
+
+</ion-grid>
+</ion-content>
+<ion-content *ngIf="checkIos==false;" >
+  <ion-grid style="font-size: 13px;padding: 15px !important;">
+   <ion-label >Are you sure want to submit vacation for following dates?</ion-label>
+
+  </ion-grid>
+   <ion-grid style="font-size: 13px;overflow: scroll !important;padding: 10px !important;">
+    <ul class="text-align-left" >
+      <li  *ngFor=" let m of msg">{{m}}</li>
+    </ul>
+   </ion-grid>
+
+  </ion-content>
+<ion-footer *ngIf="checkIos==true;" class="ion-text-center ion-no-border" style="font-size: 14px;width: 100%; --background: var(--ion-overlay-background-color, var(--ion-color-step-100, #f9f9f9));;height: 43px;">
+  <ion-row class="ion-text-center ion-no-padding ion-no-margin" style="border-top: 1px solid lightgray">
+    <ion-col size="6" class="ion-no-padding ion-no-margin" style="border-right: 1px solid lightgray;padding: 10px;" (click)="dismiss('no')"><ion-label class="app-font-mercurius-secondary-color cursor-pointer">No</ion-label></ion-col>
+    <ion-col class="ion-no-padding ion-no-margin" size="6" style="padding: 10px;" (click)="dismiss('yes')"><ion-label class="app-font-mercurius-secondary-color cursor-pointer">Yes</ion-label></ion-col>
+  </ion-row>
+</ion-footer>
+<ion-footer *ngIf="checkIos==false;" class="ion-text-center ion-no-border" style="font-size: 14px;width: 100%;background-color: #fff;height: 53px;">
+  <div style="padding: 10px !important;">
+    <div  class="app-font-mercurius-secondary-color cursor-pointer" style="float: right;padding: 10px;margin: 1px;" (click)="dismiss('yes')">YES</div>
+    <div class="app-font-mercurius-secondary-color cursor-pointer" style="float: right;padding: 10px;margin: 1px;" (click)="dismiss('no')">NO</div>
+  </div>
+</ion-footer>

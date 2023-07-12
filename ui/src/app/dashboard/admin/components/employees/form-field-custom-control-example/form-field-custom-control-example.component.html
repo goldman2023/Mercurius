@@ -1,0 +1,34 @@
+<div role="group" class="example-tel-input-container"
+     [formGroup]="parts"
+     (focusin)="onFocusIn($event)"
+     (focusout)="onFocusOut($event)">
+     <span class="example-tel-input-spacer">(</span>
+  <input class="example-tel-input-element"
+         formControlName="area" size="1"
+         maxLength="3"
+         aria-label="Area code"
+         [autofocus]="true"
+         (input)="_handleInput(parts.controls.area, exchange)"
+         #area>
+  <span class="example-tel-input-spacer">)</span>
+  <span class="example-tel-input-spacer">&nbsp;</span>
+  <input class="example-tel-input-element"
+         formControlName="exchange"
+         maxLength="3"
+         size="1"
+         aria-label="Exchange code"
+         (input)="_handleInput(parts.controls.exchange, subscriber)"
+         (keyup.backspace)="autoFocusPrev(parts.controls.exchange, area)"
+         #exchange>
+
+  <span class="example-tel-input-spacer">-</span>
+  <input class="example-tel-input-element"
+         formControlName="subscriber"
+         maxLength="4"
+         size="2"
+         aria-label="Subscriber number"
+         (input)="_handleInput(parts.controls.subscriber)"
+         (keyup.backspace)="autoFocusPrev(parts.controls.subscriber, exchange)"
+         #subscriber>
+
+</div>

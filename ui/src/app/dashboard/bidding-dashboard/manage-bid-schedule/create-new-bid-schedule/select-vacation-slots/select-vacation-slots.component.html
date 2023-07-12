@@ -1,0 +1,100 @@
+<ion-header *ngIf="isModal">
+  <ion-row class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative">
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label class="app-font-primary-color app-font-size-14px ion-text-center"><b>Vacation Slots</b></ion-label>
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label style="cursor: pointer; font-size: 12px" class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="close()"><b>Close</b></ion-label>
+    </ion-col>
+  </ion-row>
+
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-grid>
+  <form [formGroup]="scheduleListForm">
+    <ion-grid id="workload-details" style="width: 100%"
+      class="ion-no-margin ion-no-padding-top ion-no-padding-bottom app-font-secondary-color"
+      formArrayName="allScheduleListData" *ngFor="let wD of allScheduleListData.controls; let i = index">
+      <ion-row [formGroupName]="i" class="ion-no-margin-top w-100 align-items-center">
+        <ion-col size="7">
+          <ion-label *ngIf="i == 0" position="stacked" class="app-font-primary-color data"
+            style="font-size: 12px"><b>Vacation</b></ion-label>
+          <mat-date-range-input id="sbp-input" style="font-size: 12px"
+            class="form-control ion-border-1px-mercurius-secondary-color" [min]="minDate" [rangePicker]="select"
+            (click)="select.open()" matSuffix>
+            <input matStartDate #dateRangeStart formControlName="startDate" name="startDate" placeholder="Start Date" />
+            <input matEndDate #dateRangeEnd formControlName="endDate" (dateChange)="dateRangeChange()" name="endDate"
+              placeholder="End Date" />
+          </mat-date-range-input>
+          <mat-date-range-picker color="primary" #select></mat-date-range-picker>
+        </ion-col>
+        <ion-col size="3.5">
+          <ion-label *ngIf="i == 0" position="stacked" class="app-font-primary-color data"
+            style="font-size: 12px"><b>Slots</b></ion-label>
+          <input type="number" min="1" (input)="totalSlots()" id="sbp-input" formControlName="SBP_slots" name="SBP_slots"
+            class="content-data form-control app-font-primary-color ion-border-1px-mercurius-secondary-color"
+            style="border-radius: 5px; height: 33px; text-align: center" required />
+        </ion-col>
+        <ion-col size="1">
+          <ion-label style="position: absolute; top: 25%">
+            <mat-icon *ngIf="i == 0" class="app-font-mercurius-secondary-color clickable" (click)="addNew()">add_box</mat-icon>
+            <mat-icon *ngIf="i != 0" class="app-font-mercurius-secondary-color clickable"
+              (click)="remove(i)">remove_box</mat-icon>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-grid>
+<ion-footer>
+  <ion-grid>
+  <ion-grid class="d-flex gap-2 justify-content-end text-align-right pt-4 p-2 fs-13">
+    <ion-row class="d-flex flex-column gap-2 justify-content-end">
+      <span class="mr-3 fw-bold">Total Vacation Opportunities </span>
+      <span class="mr-3 fw-bold">Total Leave Accrued </span>
+      <span class="mr-3 fw-bold">Total Leave Accumulated </span>
+      <span class="mr-3 fw-bold">Total Leave Remaining </span>
+    </ion-row>
+    <ion-row class="d-flex flex-column gap-2 justify-content-end">
+      <span>
+        {{ totalHours }}
+        Hour<ion-label *ngIf="totalHours>1">s</ion-label>
+      </span>
+      <span>
+        {{ totalRequiredVacationHours ?
+        totalRequiredVacationHours : totalAccuredHours }}
+        Hour<ion-label *ngIf="totalRequiredVacationHours>1 || totalAccuredHours>1">s</ion-label>
+      </span>
+      <span>
+        {{ totalAccumulatedLeaves }}
+        Hour<ion-label *ngIf="totalAccumulatedLeaves>1">s</ion-label>
+      </span>
+      <span>
+        {{ remainingAccuredHours }}
+        Hour<ion-label *ngIf="remainingAccuredHours>1">s</ion-label>
+      </span>
+    </ion-row>
+  </ion-grid>
+    <ion-row style="padding-bottom: 2px">
+      <ion-col size="2"></ion-col>
+      <ion-col size="8" class="ion-text-center d-flex align-items-center justify-content-center gap-2">
+        <ion-button shape="round" *ngIf="!isEditBidSchedule" [disabled]="!checkDisable() || !isValid || isSaved"
+          class="app-button-primary w-auto" (click)="submit()">Save</ion-button>
+        <ion-button shape="round" *ngIf="isEditBidSchedule" [disabled]="!checkDisable() || !isValid || isSaved"
+          class="app-button-primary w-auto" (click)="update()">Update</ion-button>
+        <!-- <button *ngIf="!isModal" [disabled]="!completed" shape="round"
+          class="app-button-primary bg-primary w-auto rounded-pill px-4" matStepperNext>
+          Next
+        </button> -->
+      </ion-col>
+      <ion-col size="2"></ion-col>
+    </ion-row>
+    <p *ngIf="!isValid">
+      <b class="data app-font-red-color font-normal">
+          <em>Total Vacation Opportunities must be greater or equal to Total Leave Accrued + Total Leave Accumulated!</em>
+        </b>
+    </p>
+  </ion-grid>
+</ion-footer>

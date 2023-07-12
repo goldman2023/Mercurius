@@ -1,0 +1,366 @@
+<form class="form" [formGroup]="submitRequestForm" >
+<div class="head d-flex justify-content-between">
+  <h2 mat-dialog-title>{{action}} Request</h2>
+  <mat-icon mat-dialog-close > close </mat-icon>
+</div>
+<mat-dialog-content>
+  <div class="box-row">
+    <div class="box-column">
+
+      <div class="level">
+        <label for="expirationDate"
+          ><span class="required-asterisk"></span> Employee Name :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <div class="d-flex align-items-center width w-100" >
+            <input  formControlName="employee_name" readonly>
+          
+        </div>
+        
+
+      </div>
+      <div class="child-column-full" >
+        <!-- {{startDateData}} -->
+      </div>
+    </div>
+   
+  </div>
+ 
+
+  <div class="box-row">
+    <div class="box-column">
+
+      <div class="level">
+        <label for="expirationDate"
+          ><span class="required-asterisk"></span> Request Type :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <div class="d-flex align-items-center width w-100" >
+            <input  formControlName="request_type" readonly>
+          
+        </div>
+        
+
+      </div>
+      <div class="child-column-full" >
+        <!-- {{startDateData}} -->
+      </div>
+    </div>
+   
+  </div>
+
+  
+  <div class="box-row" *ngIf="submitRequestForm.controls.request_type.value === 'Sick Leave'">
+    <div class="box-column">
+
+      <div class="level">
+        <label for="expirationDate"
+          ><span class="required-asterisk"></span> Sick Leave Purpose :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+
+        <input  formControlName="sick_leave_purposes" readonly>
+       
+        <div class="fmla-desk ml-3">
+          <div class="level mt-1">
+          <label for="expirationDate"
+            ><span class="required-asterisk"></span> Is FMLA : 
+        </label>
+        <mat-checkbox
+          class="example-margin ml-3"
+          formControlName="Is_fmla"
+          [(ngModel)]="showContextDataForm.fmlaStatus"
+          [(indeterminate)]="indeterminate"
+          [labelPosition]="labelPosition"
+          [disabled]="true"
+        >
+
+        </mat-checkbox>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ <div class="fmla">
+  <div class="box-row" *ngIf="submitRequestForm.controls.Is_fmla.value === true && submitRequestForm.controls.request_type.value === 'Sick Leave'">
+    <div class="box-column" >
+
+      <div class="level">
+        <label for="expirationDate"
+          ><span class="required-asterisk"></span> FMLA Purpose :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full purpose">
+        <input  formControlName="fmla_purposes" readonly>
+        
+      </div>
+    </div>
+  </div>
+ </div>
+  <div class="for-mobile" *ngIf="submitRequestForm.controls.request_type.value === 'Shift Change'">
+    <div class="box-row">
+      <div class="box-column">
+
+        <div class="level">
+          <label for="expirationDate"
+            ><span class="required-asterisk"></span> Change From :
+          </label>
+        </div>
+      </div>
+      <div class="box-column">
+        <div class="child-column-full">
+          <div class="d-flex align-items-center width w-100" >
+            <input
+                id="last-name"
+                type="text"
+                placeholder="mm/dd/yyyy"
+                formControlName="change_from"
+                required
+                readonly
+                />
+          </div>
+          
+
+        </div>
+        <div class="child-column-full" >
+        </div>
+      </div>
+    
+    </div>
+  <div class="box-row" *ngIf="submitRequestForm.controls.request_type.value == 'Shift Change'">
+    <div class="box-column">
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <div class="">
+          <p >
+            {{formatDate(showContextDataForm.shiftTimeChangeFrom)  }} - {{formatDate(showContextDataForm.shiftTimeChangeFrom + (8 * 100) )}}
+          </p>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+ 
+  <div class="box-row">
+    <div class="box-column">
+
+      <div class="level">
+        <label for="expirationDate"
+          ><span class="required-asterisk"></span> Change To :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <div class="d-flex align-items-center width w-100" >
+          <input
+            id="last-name"
+            [min]="submitRequestForm.controls['start_date'].value"
+            type="text"
+            placeholder="mm/dd/yyyy"
+            formControlName="change_to_date"
+            required
+            readonly
+          />
+        </div>
+      </div>
+      <div class="child-column-full" >
+      </div>
+    </div>
+  </div>
+  <div class="box-row" *ngIf="submitRequestForm.controls.request_type.value == 'Shift Change'">
+    <div class="box-column">
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <div class="">
+            <mat-radio-group aria-label="Select an option" formControlName="change_to" readonly>
+                <mat-radio-button readonly [checked]="true">
+                  {{formatDate(showContextDataForm.shiftTimeChangeTo)  }} - {{formatDate(showContextDataForm.shiftTimeChangeTo + (8 * 100) )}}
+                </mat-radio-button>
+              </mat-radio-group>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+</div>
+  <div class="for-mobile" *ngIf="submitRequestForm.controls.request_type.value != 'Shift Change'">
+  <div class="box-row">
+    <div class="box-column">
+
+      <div class="level">
+        <label for="expirationDate"
+          ><span class="required-asterisk"></span> Start Date :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <div class="d-flex align-items-center width w-100">
+          <input
+
+            id="last-name"
+            type="text"
+            placeholder="mm/dd/yyyy"
+            formControlName="start_date"
+            required
+            readonly
+          />
+        </div>
+        
+
+      </div>
+      <div class="child-column-full" >
+      </div>
+    </div>
+   
+  </div>
+ 
+  <div class="box-row">
+    <div class="box-column">
+
+      <div class="level">
+        <label for="expirationDate"
+          ><span class="required-asterisk"></span> End Date :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <div class="d-flex align-items-center width w-100" >
+          <input
+            id="last-name"
+            [min]="submitRequestForm.controls['start_date'].value"
+            type="text"
+            placeholder="mm/dd/yyyy"
+            formControlName="end_date"
+            required
+            readonly
+          />
+        </div>
+      </div>
+      <div class="child-column-full" >
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="for-mobile for-mobile-time" *ngIf="submitRequestForm.controls.request_type.value != 'Shift Change'"> 
+    <div class="box-row">
+      <div class="box-column">
+  
+        <div class="level">
+          <label for="expirationDate"
+            ><span class="required-asterisk"></span> Start Time :
+          </label>
+        </div>
+      </div>
+      <div class="box-column">
+        <div class="child-column-full">
+          <div class="d-flex align-items-center width">
+            <input mdInput type="time" readonly formControlName="start_time" placeholder="Start Time"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-row">
+      <div class="box-column">
+  
+        <div class="level">
+          <label for="expirationDate"
+            ><span class="required-asterisk"></span> End Time :
+          </label>
+        </div>
+      </div>
+      <div class="box-column">
+        <div class="child-column-full">
+          <div class="d-flex align-items-center width">
+            <input mdInput type="time" readonly formControlName="end_time" placeholder="End Time" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box-row">
+    <div class="box-column">
+      <div class="level">
+        <label for="expirationDate"
+          ><span class="required-asterisk"></span> Remarks :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <mat-form-field class="example-full-width w-100">
+          <textarea matInput readonly formControlName="remarks" ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  
+  <div class="box-row flex-extra">
+    <div class="box-column">
+      <div class="level">
+      <label for="expirationDate"
+        ><span class="required-asterisk"></span> Submitted To :
+      </label>
+    </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <p class="manager-name" *ngIf="showContextDataForm.bidManagerId">{{this.showContextDataForm.managerFname}}, {{this.showContextDataForm.managerLname}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="box-row" *ngIf="action == 'Deny' || showContextDataForm.denialReason">
+    <div class="box-column">
+      <div class="level">
+        <label for="expirationDate">
+          <span class="required-asterisk" *ngIf="action != 'View'">*</span> Denial Reason  :
+        </label>
+      </div>
+    </div>
+    <div class="box-column">
+      <div class="child-column-full">
+        <mat-form-field class="example-full-width w-100">
+          <textarea matInput  formControlName="deny_reason" placeholder="Enter Denial Reason " ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center" *ngIf="action != 'View'">
+  <button
+  *ngIf="action == 'Approve'"
+    mat-button
+    mat-raised-button
+    (click)="submitRequest('Approved')"
+    type="submit"
+  >
+    Approve
+  </button>
+  <button
+  *ngIf="action == 'Deny'"
+    mat-button
+    (click)="submitRequest('Denied')"
+    mat-raised-button
+    [disabled]="!submitRequestForm.controls.deny_reason.value"
+    type="submit"
+  >
+    Deny
+  </button>
+</mat-dialog-actions>
+
+</form>

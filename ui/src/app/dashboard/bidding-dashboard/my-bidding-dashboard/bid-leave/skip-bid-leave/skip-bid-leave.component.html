@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-row
+    class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+  >
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label
+        class="app-font-primary-color app-font-size-14px ion-text-center"
+        ><b></b
+      ></ion-label>
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label
+        style="cursor: pointer; font-size: 12px"
+        class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="close()"
+        ><b>Close</b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content class="data">
+  <form [formGroup]="skipBidLeaveForm">
+    <ion-grid style="padding-top: 30px">
+      <ion-list class="app-font-mercurius-secondary-color">
+        <mat-radio-group
+          (change)="checkSkipRoundType()"
+          class="data app-font-mercurius-secondary-color"
+          formControlName="skipRoundType"
+          name="skipRoundType"
+        >
+          <ion-item
+            lines="none"
+            class="data app-font-mercurius-secondary-color"
+          >
+            <mat-radio-button value="skipCurrentRound"
+              >SKIP CURRENT ROUND</mat-radio-button
+            >
+          </ion-item>
+          <ion-item
+            lines="none"
+            class="data app-font-mercurius-secondary-color"
+          >
+            <mat-radio-button value="allRound"> ALL ROUNDS</mat-radio-button>
+          </ion-item>
+        </mat-radio-group>
+        <!-- <ion-list lines="none" class="data app-font-mercurius-secondary-color">
+      <ion-radio-group (ionChange)="checkSkipRoundType()" class="data app-font-mercurius-secondary-color" formControlName="skipRoundType" name="skipRoundType">
+        <ion-item lines="none" class="data app-font-mercurius-secondary-color">
+          <ion-label>SKIP CURRENT ROUND</ion-label>
+          <ion-radio style="--color-checked:#ff6700;--border-radius:50%;--border:1px solid #ff6700" class="data  app-font-mercurius-secondary-color" slot="start" value="skipCurrentRound"></ion-radio>
+        </ion-item>
+
+        <ion-item lines="none" class="data app-font-mercurius-secondary-color">
+          <ion-label> ALL ROUND</ion-label>
+          <ion-radio style="--color-checked:#ff6700" class="data app-font-mercurius-secondary-color" slot="start" value="allRound"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list> -->
+      </ion-list>
+    </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-label>
+            By selecting this option you will not be allowed to bid any <br />
+            vacation leave.
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-label>
+            Are you sure want to Skip <br />
+            Bidding vacation?
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button
+            shape="round"
+            [disabled]="buttonDisable == true"
+            class="app-button"
+            (click)="accept()"
+            style="width: 75%"
+            >{{ "Accept" | titlecase }}</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

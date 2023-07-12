@@ -1,0 +1,336 @@
+<ion-header>
+  <ion-row
+    class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+  >
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label
+        class="app-font-primary-color app-font-size-14px ion-text-center"
+        ><b>Add New Shiftline</b></ion-label
+      >
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label
+        style="cursor: pointer; font-size: 12px"
+        class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="dismiss()"
+        ><b>Close</b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content class="title-background-color ion-no-padding">
+  <ion-card
+    class="ion-no-padding title-background-color ion-no-margin app-font-secondary-color"
+    style="height: 100% !important; overflow-y: scroll !important"
+  >
+    <ion-grid>
+      <ion-row>
+        <!-- <ion-col size="1"></ion-col> -->
+        <ion-col
+          size="12"
+          style="border-radius: 10px"
+          class="ion-text-center ion-justify-content-center"
+        >
+          <ion-segment
+            class="ion-text-center ion-justify-content-center"
+            (ionChange)="segmentChanged($event)"
+            value="8"
+          >
+            <ion-segment-button
+              class="ion-text-center ion-justify-content-center"
+              value="8"
+            >
+              8-Hours Shift
+            </ion-segment-button>
+            <ion-segment-button
+              class="ion-text-center ion-justify-content-center"
+              value="9"
+            >
+              9-Hours Shift
+            </ion-segment-button>
+            <ion-segment-button
+              class="ion-text-center ion-justify-content-center"
+              value="10"
+            >
+              10-Hours Shift
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+        <!-- <ion-col size="1"></ion-col> -->
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ion-text-center">
+      <ion-grid *ngIf="selected_shift_duration!=9;else nineHoursForm">
+        <form
+          [formGroup]="addScheduleDataForm"
+          class="ion-justify-content-center ion-font-secondary-color ion-text-center ion-no-margin"
+        >
+          <ion-row
+            class="ion-no-padding ion-no-margin app-font-secondary-color"
+          >
+            <ion-col
+              *ngFor="let day of days"
+              size="1.7"
+              class="ion-no-margin form-group app-font-secondary-color"
+            >
+              <ion-label><b>{{day.name}}</b></ion-label>
+              <ion-select
+                id="work-prefrence-day"
+                (ionChange)="checkAddNewShiftDefintion()"
+                formControlName="{{day.name}}"
+                class="app-border-mercurius-secondary-color form-control"
+                name="{{day.name}}"
+                value="X"
+                interface="popover"
+              >
+                <ion-select-option
+                  value="add"
+                  class="app-font-mercurius-secondary-color"
+                  >Add New..
+                </ion-select-option>
+                <ion-select-option value="X">X - RDO </ion-select-option>
+                <ion-select-option
+                  *ngFor="let sn of allShiftName"
+                  value="{{sn.shiftData}}"
+                  >{{sn.shiftName}} - {{sn.shift_StartTime}} -
+                  {{sn.shift_category_name}}</ion-select-option
+                >
+              </ion-select>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+      <ng-template #nineHoursForm>
+        <!-- 9 Hours -->
+        <form
+          [formGroup]="addScheduleDataFormForNineHours"
+          class="ion-justify-content-center ion-font-secondary-color ion-text-center ion-no-margin"
+        >
+          <!-- Week 1 -->
+          <ion-row
+            class="px-1 ion-no-margin app-font-secondary-color"
+          >
+            <ion-col
+              *ngFor="let day of days"
+              size="1.7"
+              class="ion-no-margin form-group app-font-secondary-color"
+            >
+              <ion-label><b>{{day.name}}</b></ion-label>
+              <ion-select
+                id="work-prefrence-day"
+                (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                formControlName="{{day.name}}1"
+                class="app-border-mercurius-secondary-color form-control"
+                name="{{day.name}}1"
+                value="X"
+                interface="popover"
+              >
+                <ion-select-option
+                  value="add"
+                  class="app-font-mercurius-secondary-color"
+                  >Add New..
+                </ion-select-option>
+                <ion-select-option value="X">X - RDO </ion-select-option>
+                <ion-select-option
+                  *ngFor="let sn of allShiftName"
+                  value="{{sn.shiftData}}"
+                  >{{sn.shiftName}} ({{sn.shift_duration}}) -
+                  {{sn.shift_StartTime}} - {{sn.shift_category_name}}</ion-select-option
+                >
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <!-- Week 2 -->
+          <ion-row
+            class="px-1 ion-no-margin app-font-secondary-color"
+          >
+            <ion-col
+              *ngFor="let day of days"
+              size="1.7"
+              class="ion-no-margin form-group app-font-secondary-color"
+            >
+              <ion-label><b>{{day.name}}</b></ion-label>
+              <ion-select
+                id="work-prefrence-day"
+                (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                formControlName="{{day.name}}2"
+                class="app-border-mercurius-secondary-color form-control"
+                name="{{day.name}}2"
+                value="X"
+                interface="popover"
+              >
+                <ion-select-option
+                  value="add"
+                  class="app-font-mercurius-secondary-color"
+                  >Add New..
+                </ion-select-option>
+                <ion-select-option value="X">X - RDO </ion-select-option>
+                <ion-select-option
+                  *ngFor="let sn of allShiftName"
+                  value="{{sn.shiftData}}"
+                  >{{sn.shiftName}} ({{sn.shift_duration}}) -
+                  {{sn.shift_StartTime}} - {{sn.shift_category_name}}</ion-select-option
+                >
+              </ion-select>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ng-template>
+      <br />
+      <ion-row style="margin-bottom: 5px">
+        <ion-col size="4">
+          <ion-row>
+            <ion-col size="12"
+              ><p
+                class="ion-header-title data font-size-14px app-font-black-color"
+                style="font-weight: bold"
+              >
+                Hrs
+              </p></ion-col
+            >
+            <ion-col size="12"
+              ><p
+                class="ion-header-title data font-size-18px app-font-black-color"
+              >
+                {{hrs}}
+              </p></ion-col
+            >
+          </ion-row>
+        </ion-col>
+        <ion-col size="4">
+          <ion-row>
+            <ion-col size="12"
+              ><p
+                class="ion-header-title data font-size-14px app-font-black-color"
+                style="font-weight: bold"
+              >
+                Work-Pattern
+              </p></ion-col
+            >
+            <ion-col size="12"
+              ><p
+                class="ion-header-title data font-size-18px app-font-black-color"
+              >
+                <b *ngIf="hrs>0">{{workPattern}}</b><b *ngIf="hrs<1">--</b>
+              </p></ion-col
+            >
+          </ion-row>
+        </ion-col>
+        <ion-col size="4">
+          <ion-row>
+            <ion-col size="12"
+              ><p
+                class="ion-header-title data font-size-14px app-font-black-color"
+                style="font-weight: bold"
+              >
+                Rules?
+              </p></ion-col
+            >
+            <ion-col size="4.5"></ion-col>
+            <ion-col size="3" class="d-flex justify-content-center">
+              <ion-img *ngIf="valid == true" class="w-auto" alt="true" src="assets/img/true.png"></ion-img>
+              <ion-img *ngIf="valid == false" class="w-auto" alt="false" src="assets/img/false.png"></ion-img>
+            </ion-col>
+            <ion-col size="4.5"></ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row
+        class="ion-justify-content-center ion-text-center ion-no-padding ion-no-margin"
+      >
+        <ion-col size="2" class="py-0"></ion-col>
+        <ion-col size="4" class="ion-text-end py-0">
+          <ion-button
+            class="app-button shiftline-button"
+            shape="round"
+            [disabled]="disableAddButton==true"
+            (click)="addNewShiftLine()"
+            >Save
+          </ion-button>
+        </ion-col>
+        <ion-col size="4" class="ion-text-start py-0">
+          <ion-button
+            class="app-button shiftline-button"
+            shape="round"
+            (click)="reset()"
+            >Reset</ion-button
+          >
+        </ion-col>
+        <ion-col size="2" class="py-0"></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <p (click)="showHide()" class="cursor-pointer mb-0 me-2" style="float: right; font-size: 16px">
+            <i>More >></i>
+          </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-grid *ngIf="showHideText" id="BLRules">
+        <mat-divider style="border-top-width: 2px; width: 98%"></mat-divider>
+        <div class="p-2 text-start">
+          <ion-row class="ion-no-padding ion-no-margin ion-justify-content-center ion-text-center d-flex d-block d-md-none" style="margin-top: 2%;" >
+            <ion-col size="0.6" class="ion-no-padding ion-no-margin" >
+              <ion-img class="ion-no-padding  ion-no-margin"  alt="MID" style="width: 16px;height: 16px;position:relative;" src="assets/img/night.png"></ion-img>
+            </ion-col>
+            <ion-col size="2.4" class="ion-no-padding ion-no-margin" >
+              <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">MID 11 PM</b>
+            </ion-col>
+            <ion-col size="1.3" ></ion-col>
+            <ion-col size="0.6" class="ion-no-padding ion-no-margin" >
+              <ion-img class="ion-no-padding  ion-no-margin"  alt="DAY" style="width: 16px;height: 16px;position:relative;" src="assets/img/morning.png"></ion-img>
+            </ion-col>
+            <ion-col size="2.4" class="ion-no-padding ion-no-margin" >
+              <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">DAY 6 AM</b>
+            </ion-col>
+            <ion-col size="1.3"  ></ion-col>
+            <ion-col size="0.6" class="ion-no-padding ion-no-margin" >
+              <ion-img class="ion-no-padding  ion-no-margin"  alt="EVE" style="width: 16px;height: 16px;position:relative;" src="assets/img/evening.png"></ion-img>
+            </ion-col>
+            <ion-col size="2.4" class="ion-no-padding ion-no-margin" >
+              <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">EVE 3 PM</b>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-no-padding ion-no-margin d-none d-lg-block">
+            <ion-grid class="d-flex">
+              <ion-col size="0.4" class="ion-no-padding ion-no-margin" >
+                <ion-img class="ion-no-padding  ion-no-margin"  alt="MID" style="width: 16px;height: 16px;position:relative;" src="assets/img/night.png"></ion-img>
+              </ion-col>
+              <ion-col size="0.9" class="ion-no-padding ion-no-margin" >
+                <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">MID 11 PM</b>
+              </ion-col>
+              <ion-col size="0.3" ></ion-col>
+              <ion-col size="0.4" class="ion-no-padding ion-no-margin" >
+                <ion-img class="ion-no-padding  ion-no-margin"  alt="DAY" style="width: 16px;height: 16px;position:relative;" src="assets/img/morning.png"></ion-img>
+              </ion-col>
+              <ion-col size="0.9" class="ion-no-padding ion-no-margin" >
+                <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">DAY 6 AM</b>
+              </ion-col>
+              <ion-col size="0.3"  ></ion-col>
+              <ion-col size="0.4" class="ion-no-padding ion-no-margin" >
+                <ion-img class="ion-no-padding  ion-no-margin"  alt="EVE" style="width: 16px;height: 16px;position:relative;" src="assets/img/evening.png"></ion-img>
+              </ion-col>
+              <ion-col size="0.9" class="ion-no-padding ion-no-margin" >
+                <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">EVE 3 PM</b>
+              </ion-col>
+            </ion-grid>
+          </ion-row>
+          <ion-row class="pt-1">
+            <ul class="ps-4 m-0">
+              <li>8 hours between ANY shift except.</li>
+              <li>9 hours between end of EVE shift to start of DAY shift.</li>
+              <li>12 hours between end of MID shift to start of ANY shift.</li>
+            </ul>
+          </ion-row>
+        </div>
+      </ion-grid>
+    </ion-grid>
+  </ion-card>
+</ion-content>
+<!-- <ion-footer>
+    <ion-toolbar style="height: 30px;"></ion-toolbar>
+  </ion-footer> -->

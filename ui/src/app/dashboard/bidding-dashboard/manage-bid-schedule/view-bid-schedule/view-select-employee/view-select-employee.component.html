@@ -1,0 +1,130 @@
+<ion-header *ngIf="isModal">
+  <ion-row class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative">
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label class="app-font-primary-color app-font-size-14px ion-text-center"><b>Employees</b></ion-label>
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label style="cursor: pointer; font-size: 12px" class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="close()"><b>Close</b></ion-label>
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content [ngClass]="!isModal ? 'content' : ''">
+  <ion-grid style="
+      width: 100%;
+      position: sticky !important;
+      position: -webkit-sticky !important;
+      top: -1px;
+      z-index: 2 !important;
+      background: #fff;
+    ">
+    <ion-row>
+      <ion-col size="4">
+        <!-- <div class="container">
+
+          <li class="list-group-item"> -->
+        <label class="container">
+          <span class="d-md-none">Select All</span>
+          <input type="checkbox" [(ngModel)]="masterSelected" class="checkbox-round" name="list_name" value="m1"
+            style="border-radius: 100% !important" disabled/><span class="checkmark"></span>
+        </label>
+        <span class="ms-4 d-none d-md-flex gap-1">Select All
+          <span class="app-font-mercurius-secondary-color data">
+            (<b>{{ totalSelectdEmployees }}</b>)
+          </span>
+        </span>
+        <!-- </li>
+</div> -->
+        <!-- <ion-checkbox [(ngModel)]="masterSelected" name="list_name" value="m1"
+                (ionChange)="checkUncheckAll()"  style="--size:16px;margin: 0px;"  class="data"  ></ion-checkbox> -->
+      </ion-col>
+      <ion-col class="d-md-none" size="4">
+        <div [class]="cssForTotalEmployee(totalSelectdEmployees)">
+          <b>{{ totalSelectdEmployees }}</b>
+        </div>
+      </ion-col>
+      <ion-col size="4"></ion-col>
+    </ion-row>
+
+    <ion-item class="ion-no-padding ion-no-margin data ion-text-center w-100">
+      <ion-row style="width: 100%" class="ion-no-padding ion-no-margin">
+        <ion-col size="1" style="width: 100%"> </ion-col>
+
+        <ion-col class="app-font-primary-color data text-align-left ion-no-margin ion-no-padding" size-md="4" size-xs="4.3"
+          style="width: 100%; padding-left: 5px">
+          <ion-label><b>Name</b> </ion-label>
+        </ion-col>
+        <ion-col class="app-font-primary-color data ion-no-margin ion-text-center ion-no-padding" size-md="2" size-xs="2.7"
+          style="width: 100%">
+          <ion-label><b>Rank</b></ion-label>
+        </ion-col>
+        <ion-col class="app-font-primary-color data ion-no-margin ion-text-center ion-no-padding" size-md="2.5" size-xs="4"
+          style="width: 100%">
+          <ion-label><b>Vacation (Hours)</b></ion-label>
+        </ion-col>
+        <ion-col class="app-font-primary-color data ion-no-margin ion-text-center ion-no-padding d-none-sm" size-md="2.5" size-xs="4">
+          <ion-label><b>Accumulated Leave (Hours)</b></ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-grid>
+  <ion-grid>
+    <ion-grid style="width: 100%">
+      <form [formGroup]="employeeListForm">
+        <ion-item-sliding formArrayName="allEmployeeListData"
+          *ngFor="let wD of allEmployeeListData.controls; let i = index"
+          class="ion-no-padding ion-no-margin ion-text-center">
+          <ion-item  style="width: 100%; width: 100%">
+            <ion-row [formGroupName]="i" style="width: 100%" class="ion-no-padding ion-no-margin">
+              <ion-col size="1" style="width: 100%" class="ion-no-padding ion-no-margin">
+                <ion-checkbox [disabled]="true"  style="--size:16px;margin: 0px;"  class="data"  formControlName="selected" [checked]="wD.value.selected"  ></ion-checkbox>
+              </ion-col>
+
+              <ion-col size-md="4" size-xs="4.3" class="data text-align-left ion-no-margin ion-no-padding w-100">
+                <ion-label class="data" *ngIf="wD.value.role == 1; else eldeEmp"><b>{{ wD.value.empfName | titlecase }}
+                    {{ wD.value.emplName | titlecase }} ({{
+                    wD.value.empInitial
+                    }})</b> </ion-label><ng-template #eldeEmp>{{ wD.value.empfName | titlecase }}
+                  {{ wD.value.emplName | titlecase }} ({{
+                  wD.value.empInitial
+                  }})</ng-template>
+              </ion-col>
+              <ion-col size-md="2" size-xs="2.7" class="data ion-text-center ion-no-margin ion-no-padding w-100 text-center">
+                <ion-label class="data" *ngIf="wD.value.role == 1; else eldeEmpR"><b>{{ wD.value.empRank }}</b>
+                </ion-label><ng-template #eldeEmpR>{{ wD.value.empRank }} </ng-template>
+              </ion-col>
+              <ion-col size-md="2.5" size-xs="4" class="data ion-text-center ion-no-margin ion-no-padding w-100">
+                <ion-label class="data"> </ion-label>
+                <ion-label class="data" *ngIf="wD.value.role == 1; else eldeEmpV"><b>{{ wD.value.vacation }}</b>
+                </ion-label><ng-template #eldeEmpV>{{ wD.value.vacation }} </ng-template>
+              </ion-col>
+              <ion-col size-md="2.5" size-xs="4" class="show data ion-text-center ion-no-margin ion-no-padding d-none-sm w-100 text-center">
+                <ion-label class="data" >{{ wD.value.accumulatedleave }}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-item-sliding>
+      </form>
+    </ion-grid>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-grid class="d-flex gap-2 justify-content-end text-align-right pt-4 p-2 fs-13">
+    <ion-row class="d-flex flex-column gap-2 justify-content-end">
+      <span class="mr-3 fw-bold">Total Leave Accrued </span>
+      <span class="mr-3 fw-bold">Total Leave Accumulated </span>
+    </ion-row>
+      <ion-row class="d-flex flex-column gap-2 justify-content-end">
+        <span>
+          {{ totalRequiredHours }}
+          Hour<ion-label *ngIf="totalRequiredHours>1">s</ion-label>
+        </span>
+        <span>
+          {{ totalAccumulatedLeaves }}
+          Hour<ion-label *ngIf="totalAccumulatedLeaves>1">s</ion-label>
+        </span>
+      </ion-row>
+  </ion-grid>
+</ion-footer>

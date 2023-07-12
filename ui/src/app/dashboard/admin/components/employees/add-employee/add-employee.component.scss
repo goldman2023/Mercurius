@@ -1,0 +1,182 @@
+.add-dialog {
+  .head {
+    .mat-icon {
+      width: 30px;
+      height: 30px;
+      font-size: 30px;
+    }
+    .mat-dialog-title {
+      font: 500 20px/22px Roboto, "Helvetica Neue", sans-serif;
+    }
+  }
+  .mat-typography {
+    height: 570px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+
+    .from-part {
+      width: 67%;
+      display: flex;
+      gap: 15px;
+      margin-bottom: 10px;
+
+      .level {
+        width: 50%;
+        padding: 4px;
+
+        label {
+          font-weight: 500;
+          font-size: 16px;
+
+          .required-asterisk {
+            color: red;
+            font-weight: bold;
+            font-size: 1.2em;
+          }
+
+          .mat-icon {
+            margin-left: -40px;
+            margin-top: 5px;
+            color: #000;
+          }
+        }
+
+        .duration {
+          width: 90px;
+        }
+        input {
+          width: 100%;
+          padding: 8px 10px;
+          font-size: 14px;
+          font-weight: 500;
+          background-color: #f4f5f7;
+          border: none;
+          border-radius: 3px;
+          outline: 3px solid rgb(206, 206, 206);
+
+          &:focus-visible {
+            outline: 3px solid rgb(59, 59, 190);
+          }
+        }
+        .example-tel-input-container{
+          border-radius: 3px;
+          outline: 3px solid rgb(206, 206, 206);
+
+          .example-tel-input-element{
+            border: none;
+            padding: 7px 0px;
+            outline: none;
+            font: inherit;
+            text-align: center;
+            border: none;
+          }
+        }
+        .mat-icon {
+          margin-left: -30px;
+          color: #ff6700;
+        }
+        .text-danger {
+          padding: 10px 5px 0px 5px;
+        }
+      }
+      .initial{
+        width: 100px;
+      }
+    }
+  }
+  .mat-dialog-actions {
+    gap: 20px;
+
+    .mat-raised-button {
+      border-radius: 20px;
+      min-width: 145px;
+      color: #fff;
+      padding: 3px 16px;
+      background-color: #ff6700;
+      box-shadow: 1px 1px 1px 1px #ffaa00;
+    }
+    .mat-button {
+      font-size: 18px;
+    }
+    .mat-button-disabled {
+      background-color: rgba(0, 0, 0, 0.12);
+      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+.mat-form-field {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #f4f5f7;
+  border: none;
+  border-radius: 3px;
+  outline: 3px solid rgb(206, 206, 206);
+}
+
+.add-dialog ::ng-deep.mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: 0;
+  border: 0;
+}
+
+.add-dialog ::ng-deep.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding-top: 5px;
+}
+
+.add-dialog ::ng-deep.mat-select-panel {
+  margin-top: 45px;
+}
+
+.add-dialog ::ng-deep.mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 8px 10px;
+  border: 0;
+}
+
+.add-dialog ::ng-deep.mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+  transform: none;
+}
+
+.add-dialog ::ng-deep.mat-form-field-underline {
+  display: none;
+}
+
+.add-dialog ::ng-deep.mat-form-field-wrapper {
+  padding: 0px;
+}
+
+.mat-form-field:focus-visible {
+  outline: 3px solid rgb(59, 59, 190);
+}
+
+.alert {
+  margin: 0;
+  margin-top: 10px;
+  padding: .25rem 0.25rem;
+  text-align: center;
+}
+
+.alert p {
+  margin: 0;
+  font-size: 20px;
+}
+
+.text-danger {
+  padding: 10px 5px 0px 5px;
+}
+
+.warning_input {
+  outline: 3px solid #ff6700;
+}
+.example-tel-input-container {
+  display: flex;
+}
+
+// .add-dialog ::ng-deep .example-tel-input-element {
+
+// }
+
+

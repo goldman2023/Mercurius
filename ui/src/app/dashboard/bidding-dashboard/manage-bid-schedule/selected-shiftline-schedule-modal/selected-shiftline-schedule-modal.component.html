@@ -1,0 +1,26 @@
+<ion-grid style="width: 100%;overflow-y: scroll;height: 100%;">
+  <ion-row class="app-font-primary-color main" style="width: 100%;">
+    <ion-col size="11" style="width: 100%;" class="app-font-primary-color content-data"> Selected Schedules </ion-col>
+    <ion-col size="1" style="width: 100%;">     <ion-icon name='close-circle' (click)='dismiss()'></ion-icon> </ion-col>
+  </ion-row>
+  <ion-grid style="margin-bottom: 0%;">
+    <ion-item lines="none">
+      <ion-row class="content-data" style="width: 100%;margin-bottom: 0%;padding-bottom: 0%;">
+        <ion-col class="app-font-primary-color ion-text-center" style="margin-bottom: 0%;padding-bottom: 0%;" size="4">Schedule Name</ion-col>
+        <ion-col class="app-font-primary-color ion-text-center"  style="margin-bottom: 0%;padding-bottom: 0%;" size="4">Start Date</ion-col>
+        <ion-col class="app-font-primary-color ion-text-center" style="margin-bottom: 0%;padding-bottom: 0%;" size="4">End Date</ion-col>
+
+      </ion-row>
+    </ion-item>
+
+  </ion-grid>
+  <ion-grid style="width: 100%;overflow-y: scroll;height: 100%;margin-top: 0%;">
+    <ion-item *ngFor="let sl of schedule_list">
+      <ion-row class="content-data" style="width: 100%;">
+        <ion-col size="4" class="ion-text-center" style="width: 100%;">{{sl.schedulename }}</ion-col>
+        <ion-col size="4" class="ion-text-center" style="width: 100%;">{{sl.bidschedulestartdate }} </ion-col>
+        <ion-col size="4" class="ion-text-center" style="width: 100%;"> {{sl.bidscheduleenddate }}</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-grid>
+  </ion-grid>

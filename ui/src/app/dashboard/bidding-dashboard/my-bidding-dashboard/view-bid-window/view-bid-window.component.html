@@ -1,0 +1,165 @@
+<ion-content class="bid-window">
+  <ion-header *ngIf="isModal">
+    <ion-row
+      class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+    >
+      <ion-col size="2"></ion-col>
+      <ion-col size="8" class="ion-text-center">
+        <ion-label
+          class="app-font-primary-color app-font-size-14px ion-text-center"
+          ><b>Bid Windows</b></ion-label
+        >
+      </ion-col>
+      <ion-col size="2" class="text-end">
+        <ion-label
+          style="cursor: pointer; font-size: 12px"
+          class="app-font-mercurius-secondary-color ion-text-center"
+          (click)="close()"
+          ><b>Close</b></ion-label
+        >
+      </ion-col>
+    </ion-row>
+    <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+  </ion-header>
+
+  <div class="container h-75">
+    <ion-grid  class="ion-text-center" *ngIf="spinner">
+      <ion-row>
+        <ion-col size="12">
+          <ion-spinner name="bubbles"></ion-spinner>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="main" *ngIf="checkData && !spinner;else elseBlock" (click)="disablePopup()">
+        <ion-row *ngIf="!isModal" class="content-data ion-no-padding">
+          <ion-col size="12" class="app-font-primary-color ion-text-center">
+            <b class="font-weight-bolder me-1">Bid Schedule:</b>
+            {{bid_schedule_name}}
+          </ion-col>
+        </ion-row>
+      <ion-row class="ion-no-padding ion-no-margin  app-font-primary-color content-data-14px">
+        <ion-grid class="ion-no-padding ion-no-margin overflow-auto">
+          <div class="scrollmenu d-flex">
+            <ion-label [class]="getIndicatorClass(i)" *ngFor="let all_SBP_rounds of all_SBP_rounds;let i=index" (click)="displayRoundData(i,all_SBP_rounds)">
+              <b class="font-normal cursor-pointer" (click)="disablePopup()">Round {{i + 1}}</b>
+            </ion-label>
+          </div>
+        </ion-grid>
+      </ion-row>
+      <ion-row  class="ion-text-center data">
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-label >Bid Duration: <b>{{roundDuration}}</b> <b *ngIf="convertNumber(roundDuration)>1"> Minutes</b><b *ngIf="convertNumber(roundDuration)<2"> Minute</b> </ion-label>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon (click)="export()" class="app-font-mercurius-secondary-color font-size-18px cursor-pointer" name="download-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="12" class="app-font-primary-color ion-text-center ion-no-margin ion-no-padding"><b class="font-weight-bolder me-1">Timezone:</b> {{bidShculeTimeZoneacronym}}</ion-col>
+        <ion-col *ngIf="bidSchedule?.hasinterval" size="12" class="app-font-primary-color ion-text-center ion-no-margin ion-no-padding"><b class="font-weight-bolder me-1">Interval Start TIme:</b> {{ formatAMPM(intervalStartTime) }} </ion-col>
+        <ion-col *ngIf="bidSchedule?.hasinterval" size="12" class="app-font-primary-color ion-text-center ion-no-margin ion-no-padding"><b class="font-weight-bolder me-1">Interval Duration:</b> {{ intervalDuration }} minutes</ion-col>
+      </ion-row>
+
+      <ion-grid  class=" app-font-primary-color content-data-14px pb-0 mb-0">
+        <ion-row class="content-data ion-text-center w-100">
+          <ion-col size="2.4"><b>Date</b></ion-col>
+          <ion-col size="2.4" ><b >Start Time</b></ion-col>
+          <ion-col size="2.4" ><b >End Time</b></ion-col>
+          <ion-col size="2.4"><b>Assigned To</b></ion-col>
+          <ion-col size="2.4"><b>Bid Status</b></ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="app-background-mercurius-primary-color w-100 m-0 height-10px"></div>
+      <ion-content id="all-shift-list" class="p-0">
+        <ion-row  *ngFor="let bidData of finalViewBidWindowData;let i=index;trackBy:identify" class="content-data ion-text-center w-100 py-1">
+          <ion-col size="2.4" class="d-flex justify-content-center align-items-center p-0">
+            <ion-label>{{bidData.startTime |date:'MM/dd/yy'}}</ion-label>
+            <ion-label *ngIf="bidData.status==2 || bidData.status==1;else elseInfoBLock">
+              <div class="popup d-flex align-items-center" (click)="timePopUp(finalViewBidWindowData.length+i)"><ion-icon name="information-circle" class="app-font-mercurius-primary-color popup font-size-16px ml-1px d-flex pe-none"></ion-icon>
+                <span class="popuptext" id="myPopup{{finalViewBidWindowData.length+i}}">
+                  <ion-row class="ion-no-padding ion-no-margin" *ngIf="bidData.vacationbidstatus!='Skipped' && bidData.shiftlinebidstatus!='Skipped' && bidData.vacationbidstatus!='Manager Skipped' && bidData.vacationbidstatus!='Not Eligible' && bidData.shiftlinebidstatus!='Manager Skipped';else skippedBlock">
+                      <ion-col class="ion-no-padding ion-no-margin" size="0.3"></ion-col>
+                      <ion-col class="ion-no-padding ion-no-margin" size="5.4">Actual Start Time</ion-col>
+                      <ion-col class="ion-no-padding ion-no-margin" size="6.2">: <b>{{bidData.actualStart |date:'MM/dd'}}, {{bidData.actualStart |date:'hh:mm a'}}</b></ion-col>
+                      <ion-col class="ion-no-padding ion-no-margin" size="0.3"></ion-col>
+                      <ion-col class="ion-no-padding ion-no-margin" size="5.4">Actual End Time</ion-col>
+                      <ion-col class="ion-no-padding ion-no-margin" size="6.2">: <b *ngIf="bidData.status==2">{{bidData.actualEnd |date:'MM/dd'}}, {{bidData.actualEnd |date:'hh:mm a'}}</b><b *ngIf="bidData.status==1">In Progress</b></ion-col>
+                  </ion-row>
+                  <ng-template #skippedBlock>
+                    <ion-row class="ion-no-padding ion-no-margin">
+                      <ion-col class="ion-text-center p-2" size="12"><ion-label *ngIf="bidData.vacationbidstatus!='Not Eligible';else notEligibleBlock">Round Skipped</ion-label></ion-col>
+                      <ng-template #notEligibleBlock><ion-label>Not Eligible</ion-label></ng-template>
+                  </ion-row>
+                  </ng-template>
+                </span>
+              </div>
+            </ion-label>
+            <ng-template #elseInfoBLock>
+              <ion-label>
+                <ion-icon name="information-circle" class="app-font-disabled-color font-size-16px ml-1px d-flex align-items-center pe-none">
+                </ion-icon>
+              </ion-label>
+            </ng-template>
+          </ion-col>
+          <ion-col size="2.4" class="d-flex justify-content-center align-items-center p-0">
+            <ion-label>
+              {{bidData.startTime | date:'hh:mm a'}}
+            </ion-label>
+          </ion-col>
+          <ion-col size="2.4" class="d-flex justify-content-center align-items-center p-0">
+            <ion-label>
+              {{bidData.endTime | date:'hh:mm a'}}
+            </ion-label>
+          </ion-col>
+          <ion-col size="2.4" class="d-flex justify-content-center align-items-center p-0">
+            <ion-label>
+              <div class="popupEmp"  (click)="popUpEmp(i)">
+                <ion-label class="app-font-mercurius-secondary-color">{{bidData.empInitial}}</ion-label>
+                <span class="popuptextEmp" id="myPopupEmp{{i}}">
+                  <p>Name : <b>{{bidData.empName}}</b> </p>
+                  <p>Seniority Rank : <b>{{bidData.rank}}</b></p>
+                </span>
+              </div>
+            </ion-label>
+          </ion-col>
+          <ion-col size="2.4" class="d-flex justify-content-center align-items-center p-0">
+            <b>
+              <mat-icon *ngIf="bidData.status==0" class="text-violet font-weight-900 font-size-24px">remove_circle_outline</mat-icon>
+              <mat-icon *ngIf="bidData.status==1" class="text-orange font-weight-900 font-size-24px">schedule</mat-icon>
+              <mat-icon *ngIf="bidData.status==2" class="text-parrot font-weight-900 font-size-24px">check_circle_outline</mat-icon>
+              <mat-icon *ngIf="bidData.status==3" class="text-red font-weight-900 font-size-24px">highlight_off</mat-icon>
+            </b>
+          </ion-col>
+          <mat-divider class="w-100 border-bottom-1"></mat-divider>
+        </ion-row>
+      </ion-content>
+    </ion-grid>
+
+    <ng-template #elseBlock>
+      <ion-grid *ngIf="!spinner">
+        <ion-row class="ion-text-center data">
+          <ion-col size="12">
+            <ion-label>Data Not Available</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+  </div>
+</ion-content>
+
+<ion-grid *ngIf="!isModal" id="footer" class="ion-no-margin ion-no-padding">
+  <ion-row  class="content-data ion-no-margin ion-no-padding d-flex d-block d-md-none">
+    <ion-col size="4" offset="2" class="ion-no-margin ion-no-padding d-flex justify-content-center align-items-center"><mat-icon class="d-flex align-items-center font-weight-900 font-size-16px bid-text-violet">remove_circle_outline</mat-icon> Not Open</ion-col>
+    <ion-col size="4" class="ion-no-margin ion-no-padding d-flex justify-content-center align-items-center"><mat-icon class="d-flex align-items-center font-weight-900 font-size-16px bid-text-orange">schedule</mat-icon> In Progress</ion-col>
+    <ion-col size="2"></ion-col>
+    <ion-col size="4" offset="2" class="ion-no-margin ion-no-padding d-flex justify-content-center align-items-center"><mat-icon class="d-flex align-items-center font-weight-900 font-size-16px bid-text-parrot ms-2">check_circle_outline</mat-icon> Completed</ion-col>
+    <ion-col size="4" class="ion-no-margin ion-no-padding d-flex justify-content-center align-items-center"><mat-icon class="d-flex align-items-center font-weight-900 font-size-16px bid-text-red">highlight_off</mat-icon> Incomplete</ion-col>
+    <ion-col size="2"></ion-col>
+  </ion-row>
+
+  <ion-row  class="content-data ion-no-margin ion-no-padding d-md-flex d-none d-md-block">
+    <ion-col size="1" offset="4" class="ion-no-margin ion-no-padding d-flex justify-content-center align-items-center"><mat-icon class="d-flex align-items-center font-weight-900 font-size-16px bid-text-violet">remove_circle_outline</mat-icon> Not Open</ion-col>
+    <ion-col size="1" class="ion-no-margin ion-no-padding d-flex justify-content-center align-items-center"><mat-icon class="d-flex align-items-center font-weight-900 font-size-16px bid-text-orange">schedule</mat-icon> In Progress</ion-col>
+    <ion-col size="1" class="ion-no-margin ion-no-padding d-flex justify-content-center align-items-center"><mat-icon class="d-flex align-items-center font-weight-900 font-size-16px bid-text-parrot ms-2">check_circle_outline</mat-icon> Completed</ion-col>
+    <ion-col size="1" class="ion-no-margin ion-no-padding d-flex justify-content-center align-items-center"><mat-icon class="d-flex align-items-center font-weight-900 font-size-16px bid-text-red">highlight_off</mat-icon> Incomplete</ion-col>
+  </ion-row>
+</ion-grid>

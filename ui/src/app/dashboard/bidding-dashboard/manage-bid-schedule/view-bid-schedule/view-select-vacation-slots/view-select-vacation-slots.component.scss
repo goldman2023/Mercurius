@@ -1,0 +1,13 @@
+#sbp-input{
+  height: 35px;
+  --padding-top: auto;
+  --padding-bottom: auto;
+  background-color: #fff;
+  color: rgba(0,0,0,.38);
+}
+#sbp-input:focus{
+  border: 1px solid #ff6700;
+  outline: none;
+  box-shadow: none;
+  color: rgba(0,0,0,.38);
+}

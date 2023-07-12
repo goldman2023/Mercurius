@@ -1,0 +1,53 @@
+<div class="system-shift-view">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>View {{ viewName }}</h2>
+    <mat-icon mat-dialog-close> close </mat-icon>
+  </div>
+
+  <mat-dialog-content class="mat-typography">
+    <div class="from_part user-shift">
+      <div class="level">
+        <p>Area :</p>
+        <p>Shift Alias :</p>
+        <p>Shift Category :</p>
+        <p>Shift Duration :</p>
+        <p>Shift Start Time :</p>
+        <p>Shift End Time :</p>
+        <p>Activation Date :</p>
+        <p>Expiration Date :</p>
+        <p>Include/Exclude :</p>
+      </div>
+      <div class="level">
+        <!-- <p *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8]">:</p> -->
+      </div>
+      <div class="value">
+        <p>
+          {{ viewElement.area_name_ref }}
+        </p>
+        <p>{{ viewElement.sh_name }}</p>
+        <p>{{ viewElement.sh_category_name_ref }}</p>
+        <p>
+          {{ viewElement.sh_duration }}
+        </p>
+        <p>
+          {{ formatTime24to12(viewElement.sh_starttime) }}
+        </p>
+        <p>
+          {{formatTime24to12(viewElement.sh_endtime) }}
+        </p>
+        <p>
+          {{ viewElement.sh_activation_date | date : "MM/dd/YYYY"}}
+        </p>
+        <p>
+          {{ viewElement.sh_expiration_date | date : "MM/dd/YYYY"}}
+        </p>
+        <p *ngIf="viewElement.sh_include_exclude == 'I'">
+          Include
+        </p>
+        <p *ngIf="viewElement.sh_include_exclude == 'E'">
+          Exclude
+        </p>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

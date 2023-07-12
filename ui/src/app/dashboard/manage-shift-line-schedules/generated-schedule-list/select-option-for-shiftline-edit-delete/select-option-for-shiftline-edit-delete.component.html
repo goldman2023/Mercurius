@@ -1,0 +1,96 @@
+<ion-content>
+  <ion-modal-content>
+    <ion-grid>
+      <div class="d-none-upto-md">
+        <ion-row
+          class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+        >
+          <ion-col size="2"></ion-col>
+          <ion-col size="8" class="ion-text-center">
+            <ion-label
+              class="app-font-primary-color app-font-size-14px ion-text-center"
+              ><b></b
+            ></ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label
+              style="cursor: pointer; font-size: 12px"
+              class="app-font-mercurius-secondary-color ion-text-center"
+              (click)="close()"
+              ><b>Close</b></ion-label
+            >
+          </ion-col>
+        </ion-row>
+
+        <mat-divider
+          class="app-background-mercurius-secondary-color"
+        ></mat-divider>
+        <ion-grid
+          class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom"
+          style="margin-top: 5px; margin-bottom: 5px"
+        >
+          <ion-row
+            class="ion-no-margin-top data ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom ion-text-center"
+          >
+            <ion-col
+              size="12"
+              class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom content-data-14px"
+              ><b class="font-size-16px">Shiftline Schedule</b></ion-col
+            >
+            <ion-col
+              size="12"
+              class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom content-data-14px"
+              ><b class="font-normal font-size-16px">{{
+                shiftline_Schedule_data.schedulename
+              }}</b></ion-col
+            >
+          </ion-row>
+        </ion-grid>
+      </div>
+      <ion-grid *ngIf="spinner" class="spinner-container">
+        <ion-col size="12" class="spinner-col">
+          <ion-spinner name="bubbles"></ion-spinner>
+        </ion-col>
+      </ion-grid>
+      <ion-grid *ngIf="!spinner">
+        <ion-item
+        *ngIf="getPermission('Edit Shiftline Schedule')"
+          button
+          (click)="show(true)"
+          detail="false"
+          class="app-font-mercurius-secondary-color data ion-text-center"
+        >
+          <ion-label 
+            class="app-font-mercurius-secondary-color content-data-14px ion-text-center"
+            ><b class="font-normal font-size-14px">Edit </b></ion-label
+          >
+        </ion-item>
+        <ion-item
+          button
+          *ngIf="getPermission('Export Shiftline Schedule')"
+          (click)=" Export()"
+          detail="false"
+          class="app-font-mercurius-secondary-color data ion-text-center"
+        >
+          <ion-label
+            class="app-font-mercurius-secondary-color content-data-14px ion-text-center min-height-auto-upto-md"
+            ><b class="font-normal font-size-14px">Export </b></ion-label
+          >
+        </ion-item>
+
+        <ion-item
+        *ngIf="getPermission('Delete Shiftline Schedule')"
+          button
+          (click)=" removeSchedule(shiftline_Schedule_data)"
+          detail="false"
+          class="app-font-mercurius-secondary-color data ion-text-center"
+        >
+          <ion-label
+            class="app-font-mercurius-secondary-color content-data-14px ion-text-center"
+            ><b class="font-normal font-size-14px">Delete </b></ion-label
+          >
+        </ion-item>
+      </ion-grid>
+    </ion-grid>
+  </ion-modal-content>
+</ion-content>

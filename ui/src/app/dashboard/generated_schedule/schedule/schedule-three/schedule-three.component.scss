@@ -1,0 +1,1009 @@
+#computed-shift-lines{
+  background-color: rgb(34,106,179);
+  color: white;
+}
+
+#work-prefrence-day:first-letter {
+  font-size: 14px;
+
+  margin: 0%;
+  padding: 0%;
+}
+
+
+#work-prefrence-day{
+  --width:100% !important;
+  white-space:normal !important;
+  --padding-top: 0% !important;
+  --padding-bottom: 0% !important;
+  font-weight:normal;
+  font-size: 0;
+}
+.expand{
+  // position:relative;
+  height: 57px !important;
+  margin-bottom: 5px;
+}
+.default-expand{
+  margin-bottom: 5px;
+  height: 50px;
+}
+.hideText {
+  height: 20%;
+  overflow: hidden;
+}
+.my-custom-class{
+  font-size:32px
+}
+#header{
+  margin-top: -4%;
+
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  // padding-top: 2%;
+  // height: 1%;
+  font-weight:400;
+  border-width: 400;
+  font-size: medium;
+  text-align: center;
+  font-weight: bold;
+}
+.active{
+  color:green;
+}
+#header{
+
+  border-radius: 100%;
+  width: 12%;
+  text-align: center;
+  height: 11%;
+  // font-weight: bold;
+}
+
+#schedule-header ,#schedule-work-data, #schedule-data, #schedule-card{
+  // font-weight: bold;
+  text-align: center;
+}
+#day-title{
+  // color: rgb(34,106,179);
+  font-weight: bold;
+  margin-top: 0 !important;
+  text-align: center;
+  margin-bottom: 1% !important;
+}
+
+#RDO-details-colors{
+  width: 100%;
+  height: 50%;
+  border-radius: 2px;
+}
+
+#RDO-details-days{
+  color:black;
+  float: left;
+}
+#RDO-details-data{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+}
+
+#RDO-details-number{
+  border-radius: 100%;
+  width: 24px;
+  padding-top: 8%;
+  height: 24px;
+  margin: auto;
+  // background-color: rgb(241, 241, 242);
+    font-weight: bold;
+  }
+
+#col-no-padding-top{
+  padding-top:0px !important;
+  margin: 0px !important;
+  padding-bottom:0px !important;
+}
+
+
+#RDO-details-number-fri-sat{
+  background-color:  rgb(34,106,179) ;
+  color:white;
+  width: 100%;
+}
+#schedule-data{
+  width: 100%;
+}
+#export{
+  margin-bottom: 1%;
+    text-transform:none!important;
+}
+#workloadd-data-report-generate{
+  background-color: white;
+  left:0%  !important;
+  bottom:0% !important;
+  width:100%;
+}
+#app-font-mercurius-secondary-color{
+  background-color: #57818A;
+  color: white;
+}
+#schedule-card{
+  border-radius: 5px;
+  margin-top: 1% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  // margin-bottom: -0.5% !important;
+}
+ion-item{
+  --inner-padding-end: 2%;
+}
+ion-slides {
+  height: 100% auto;
+}
+
+.swiper-slide {
+  display: block;
+}
+
+// ion-item{
+//   height: 10%;
+// }
+#ion--item-position{
+  margin-top:-1%;
+  margin-bottom: -1%;
+  padding-bottom: 1.25%;
+  // --inner-padding-end: 0%;--inner-padding-start: 0% !important;--inner-padding-top:0%;
+}
+
+#schedule-data-list{
+  color:white;
+  left:0%;
+  width: 10%;
+  height:100%;
+  border-radius: 3px;
+  padding-top: 5%;
+}
+table tr{
+  margin-left: -2rem;
+  padding:0%
+}
+#generated-schedule-day-title{
+  padding-left: 2.5%;
+}
+
+#shift-lines-card{
+  margin: 2%;height:65%
+}
+#shift-lines-data{
+  height: 52%;
+}
+
+#summary-card{
+  margin: 2%;bottom: 0%;height: 32%;
+}
+#summary-data-cont{
+  height: 70px;
+}
+@media (min-width: 280px) {
+  #go-back-img{
+    height: 5%;
+    width: 5%;
+    margin-top: 4%;
+    margin-left: 4%;
+  }
+    // #total-computed-shifts{
+    //   margin-top: 20%;
+    // }
+    td{
+      width: 4rem;
+      text-align: center;
+    }
+    // #total-schedule-data{
+    //   margin-top: 20%;
+    // }
+    #schedule-data-id{
+      color: black;
+      margin-top: -15%;
+      padding-top:11%;
+      padding-bottom: 0%;
+      vertical-align:bottom;
+      text-align:center;
+    }
+    #ion--item-position{
+      margin-top:-1%;
+      margin-bottom: -2%;
+      padding-bottom: -1.25%;
+    }
+    #edit-delete{
+      width:35%;
+      padding-top:2%;
+      color:White;
+      background: linear-gradient(to right,  #0194e3 0%,#0194e3 50%,#dc3545 50%,#dc3545 100%);
+    }
+    #sun-title{
+      padding-left: 0.7rem;
+    }
+
+#focus-on-shift-line{
+
+  border-radius: 5px;
+
+  border:1px solid #0194e3;
+}
+#focus-on-shift-line-success{
+
+  border-radius: 5px;
+  border:1px solid #3CA823;
+}
+#focus-on-shift-line-danger{
+
+  border-radius: 5px;
+
+  border:1px solid red;
+}
+    #fri-title{
+      padding-left: 0.2rem;
+    }
+    #sat-title{
+      padding-left: 0.2rem;
+    }
+
+  #RDO-details-days{
+    color:black;
+    float: left;
+    font-size:9px;
+  }
+
+#RDO-details-colors{
+  width: 100%;
+  height: 30%;
+  margin-top: 20%;
+  border-radius: 2px;
+}
+}
+@media (min-width: 320px) {
+  #go-back-img{
+    height: 5%;
+    width: 5%;
+    margin-top: 4%;
+    margin-left: 4%;
+  }
+    // #total-computed-shifts{
+    //   margin-top: 20%;
+    // }
+    td{
+      width: 4rem;
+      text-align: center;
+    }
+    // #total-schedule-data{
+    //   margin-top: 20%;
+    // }
+    #schedule-data-id{
+      color: black;
+      margin-top: -15%;
+      padding-top:8%;
+      padding-bottom: 0%;
+      vertical-align:bottom;
+      text-align:center;
+    }
+    #edit-delete{
+      width:31%;
+      padding-top:2%;
+      color:White;
+      background: linear-gradient(to right,  #0194e3 0%,#0194e3 50%,#dc3545 50%,#dc3545 100%);
+    }
+    .success{
+      color: green;
+    }
+    .danger{
+      color: red;
+    }
+  #RDO-details-days{
+    color:black;
+    float: left;
+    font-size:10.5px;
+  }
+}
+@media (min-width: 360px) {
+  #go-back-img{
+    height: 5%;
+    width: 5%;
+    margin-top: 4%;
+    margin-left: 4%;
+  }
+  // #total-computed-shifts{
+  //   margin-top: 32%;
+  // }
+  td{
+    width: 4.5rem;
+    text-align: center;
+  }
+  // #total-schedule-data{
+  //   margin-top: 25%;
+  // }
+  #generated-schedule-day-title{
+    padding-left: 2.8%;
+  }
+  #schedule-data-id{
+    color: black;
+    padding-left: 1rem;
+    margin-top: 0%;
+    padding-top:0%;
+    padding-bottom: 0%;
+    vertical-align:bottom;text-align:center;
+  }
+  #edit-delete{
+    width:25%;
+    padding-top:2%;
+    color:White;
+    background: linear-gradient(to right,  #0194e3 0%,#0194e3 45%,#dc3545 45%,#dc3545 100%);
+  }
+
+#RDO-details-days{
+  color:black;
+  float: left;
+}
+}
+@media (min-width: 375px ) {
+  #go-back-img{
+    height: 5%;
+    width: 5%;
+    margin-top: 4%;
+    margin-left: 4%;
+  }
+  // #total-computed-shifts{
+  //   margin-top: 32%;
+  // }
+  td{
+    width: 4.4rem;
+    text-align: center;
+  }
+  #generated-schedule-day-title{
+    padding-left: 2.5%;
+  }
+  // #total-schedule-data{
+  //   margin-top: 25%;
+  // }
+  #schedule-data-id{
+    color: black;
+
+  }
+  #edit-delete{
+    width:25%;
+    padding-top:2%;
+    color:White;
+    background: linear-gradient(to right,  #0194e3 0%,#0194e3 45%,#dc3545 45%,#dc3545 100%);
+  }
+
+#RDO-details-days{
+  color:black;
+  float: left;
+}
+}
+@media (min-width: 411px) {
+  #go-back-img{
+    height: 4%;
+    width: 4%;
+    margin-top: 4%;
+    margin-left: 4%;
+  }
+  // #total-computed-shifts{
+  //   margin-top: 32%;
+  // }
+  #generated-schedule-day-title{
+    padding-left: 2.5%;
+  }
+  td{
+
+    text-align: center;
+  }
+  #schedule-data-id{
+    color: black;
+    margin-top: -1%;
+    padding-top:0%;
+    padding-bottom: 0%;
+    vertical-align:bottom;text-align:center;
+  }
+  // #total-schedule-data{
+  //   margin-top: 25%;
+  // }
+  #edit-delete{
+    width:25%;
+    padding-top:2%;
+    color:White;
+    background: linear-gradient(to right,  #0194e3 0%,#0194e3 50%,#dc3545 50%,#dc3545 100%);
+  }
+
+#RDO-details-days{
+  color:black;
+  float: left;
+}
+}
+@media (min-width: 540px) {
+  #go-back-img{
+    height: 3.5%;
+    width: 3.5%;
+    margin-top: 4%;
+    margin-left: 4%;
+  }
+  // #total-computed-shifts{
+  //   margin-top: 25%;
+  // }
+
+  td{
+
+    text-align: center;
+  }
+  #schedule-data-id{
+    color: black;
+    margin-top: -1%;
+    padding-top:0%;
+    padding-bottom: 0%;
+    vertical-align:bottom;text-align:center;
+  }
+  // #total-schedule-data{
+  //   margin-top: 21%;
+  // }
+  #edit-delete{
+    width:20%;
+    padding-top:2%;
+    color:White;
+    background: linear-gradient(to right,  #0194e3 0%,#0194e3 50%,#dc3545 50%,#dc3545 100%);
+  }
+
+  #RDO-details-days{
+    color:black;
+    float: left;
+  }
+}
+@media (min-width: 768px) {
+  #go-back-img{
+    height: 3%;
+    width: 3%;
+    margin-top: 2%;
+    margin-left: 2%;
+  }
+  // #total-computed-shifts{
+  //   margin-top: 10%;
+  // }
+  td{
+    width: 9.4rem;
+    text-align: center;
+  }
+  #schedule-data-id{
+    color: black;
+    // margin-top: -10%;
+    // padding-top:-55%;
+    padding-bottom: 0%;
+    vertical-align:bottom;text-align:center;
+  }
+  #generated-schedule-day-title{
+    padding-left: 1.5%;
+  }
+  #edit-delete{
+    width:15%;
+    // padding-top:-2%;
+    color:White;
+    background: linear-gradient(to right,  #0194e3 0%,#0194e3 50%,#dc3545 50%,#dc3545 100%);
+  }
+  #sun-title{
+    width:9rem;
+
+    padding-left: 3.5rem;
+  }
+  #mon-title{
+    width:9rem;
+    padding-left: 3rem;
+  }
+  #tue-title{
+    width:9rem;
+    padding-left:3.5rem;
+  }
+  #wed-title{
+    width:9rem;
+    padding-left: 3.5rem;
+  }
+  #thu-title{
+    width:9rem;
+    padding-left: 3rem;
+  }
+  #fri-title{
+    width:9rem;
+    padding-left: 4rem;
+  }
+  #sat-title{
+    width:9rem;
+    padding-left: 3.5rem;
+  }
+  #RDO-details-days{
+    color:black;
+    float: left;
+  }
+}
+
+@media (min-width: 800px) {
+  #go-back-img{
+    height: 2%;
+    width: 3%;
+    margin-top: 2%;
+
+    margin-left: 2%;
+  }
+  // #total-computed-shifts{
+  //   margin-top: 10%;
+  // }
+  #generated-schedule-day-title{
+    padding-left: 1.4%;
+  }
+  td{
+    width: 9.5rem;
+    text-align: center;
+  }
+  // #total-schedule-data{
+  //   //margin-top: 25%;
+  // }
+
+  #schedule-data-id{
+    color: black;
+    margin-top: 1%;
+    padding-top:0%;
+    padding-bottom: 0%;
+    vertical-align:bottom;text-align:center;
+  }
+
+  #edit-delete{
+    width:13%;
+    //  padding-top:-40%;
+
+    color:White;
+
+    background: linear-gradient(to right,  #0194e3 0%,#0194e3 50%,#dc3545 50%,#dc3545 100%);
+  }
+  #sun-title{
+    width:9rem;
+
+    padding-left: 3.5rem;
+  }
+  #mon-title{
+    width:9rem;
+    padding-left: 3rem;
+  }
+  #tue-title{
+    width:9rem;
+    padding-left:3.5rem;
+  }
+  #wed-title{
+    width:9rem;
+    padding-left: 3.5rem;
+  }
+  #thu-title{
+    width:9rem;
+    padding-left: 3rem;
+  }
+  #fri-title{
+    width:9rem;
+    padding-left: 4rem;
+  }
+  #sat-title{
+    width:9rem;
+    padding-left: 3.5rem;
+  }
+  #RDO-details-days{
+    color:black;
+    float: left;
+  }
+
+#RDO-details-days{
+  color:black;
+  float: left;
+}
+}
+@media (min-width: 812px) {
+  #go-back-img{
+    height: 2%;
+    width: 3%;
+    margin-top: 2%;
+
+    margin-left: 2%;
+  }
+  #generated-schedule-day-title{
+    padding-left: 1.5%;
+  }
+  // #total-computed-shifts{
+  //   margin-top: 10%;
+  // }
+  td{
+    width: 9.5rem;
+    text-align: center;
+  }
+  // #total-schedule-data{
+  //   //margin-top: 25%;
+  // }
+
+  #schedule-data-id{
+    color: black;
+    margin-top: 1%;
+    padding-top:0%;
+    padding-bottom: 0%;
+    vertical-align:bottom;text-align:center;
+  }
+
+  #edit-delete{
+    width:13%;
+    //  padding-top:-40%;
+
+    color:White;
+
+    background: linear-gradient(to right,  #0194e3 0%,#0194e3 50%,#dc3545 50%,#dc3545 100%);
+  }
+  #sat-title{
+    margin-left: -3%;
+  }
+  #RDO-details-days{
+    color:black;
+    float: left;
+  }
+
+#RDO-details-days{
+  color:black;
+  float: left;
+}
+}
+
+@media (min-width: 1024px) {
+
+  // #total-computed-shifts{
+  //   margin-top: 10%;
+  // }
+  td{
+    width: 9.5rem;
+    text-align: center;
+  }
+  #generated-schedule-day-title{
+    padding-left: 1.3%;
+  }
+  #ion--item-position{
+    margin-top:-1%;
+    margin-bottom: -1%;
+    padding-bottom: 1.25%;
+  }
+  #schedule-data-id{
+    color: black;
+    margin-top: 1%;
+    padding-top:0%;
+    padding-bottom: 0%;
+    vertical-align:bottom;text-align:center;
+  }
+
+  #edit-delete{
+    width:10%;height: 110%;
+    padding-bottom: 60%;
+    margin-bottom: 50%;
+    // margin-top:-0.2%;
+    color:White;
+    background: linear-gradient(to right,  #0194e3 0%,#0194e3 50%,#dc3545 50%,#dc3545 100%);
+  }
+  #sun-title{
+    width:9rem;
+
+    padding-left: 4.5rem;
+  }
+  #mon-title{
+    width:9rem;
+    padding-left: 5.5rem;
+  }
+  #tue-title{
+    width:9rem;
+    padding-left:5.5rem;
+  }
+  #wed-title{
+    width:9rem;
+
+    padding-left: 5.5rem;
+  }
+  #thu-title{
+    width:9rem;
+    padding-left: 6rem;
+  }
+  #fri-title{
+    width:9rem;
+    padding-left: 6rem;
+  }
+  #sat-title{
+    width:9rem;
+    padding-left: 6rem;
+  }
+  #RDO-details-days{
+    color:black;
+    float: left;
+  }
+
+  #RDO-details-days{
+    color:black;
+    float: left;
+  }
+}
+#day-title{
+  padding-bottom: 0%;margin-bottom: 0%;padding-top: 0%;margin-top: 0%;
+}
+
+@media (min-height:640px) {
+  // #day-title{
+  //   padding-bottom: 0%;margin-bottom: 0%;padding-top: -3%;margin-top: -55%;
+  // }
+  #header{
+    margin-top: -4%;
+    border-radius: 100%;
+    width: 13%;
+    padding-top: 3%;
+    height: 1%;
+    font-weight:400;
+    border-width: 400;
+    font-size: medium;
+    text-align: center;
+
+    font-weight: bold;
+  }
+  #RDO-details-number{
+    border-radius: 100%;
+    width: 70%;
+    padding-top: 13%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    // text-align: center;
+    // font-size: 12px;
+    // background-color: rgb(241, 241, 242);
+      // font-weight: bold;
+    }
+  #shift-lines-card{
+    margin: 2% 2% 1% 2% ;height:58%
+  }
+  #shift-lines-data{
+    height: 47%;
+  }
+  #summary-card{
+    margin: 1% 2% 0.5% 2% ;position: fixed;position: relative;bottom: 0%;height: 39.5%;
+  }
+}
+
+@media (min-height:720px) {
+  // #day-title{
+  //   padding-bottom: 0%;margin-bottom: 0%;padding-top: -3%;margin-top: -55%;
+  // }
+  #header{
+    margin-top: -2%;
+    border-radius: 100%;
+    width: 13%;
+    padding-top: 3%;
+    height: 1%;
+    font-weight:400;
+    border-width: 400;
+    font-size: medium;
+    text-align: center;
+
+    font-weight: bold;
+  }
+  #RDO-details-number{
+    border-radius: 100%;
+    width: 70%;
+    padding-top: 13%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    // text-align: center;
+    // font-size: 12px;
+    // background-color: rgb(241, 241, 242);
+      // font-weight: bold;
+    }
+  #shift-lines-card{
+    margin: 2% 2% 1% 2% ;height:59.5%
+  }
+  #shift-lines-data{
+    height: 53%;
+  }
+  #summary-card{
+    margin: 1% 2% 1% 2% ;position: fixed;position: relative;bottom: 0%;height: 36.5%;
+  }
+}
+
+@media (min-height:731px) {
+  // #day-title{
+  //   padding-bottom: 0%;margin-bottom: 0%;padding-top: -3%;margin-top: -55%;
+  // }
+  #header{
+    margin-top: -2%;
+    border-radius: 100%;
+    width: 13%;
+    padding-top: 3%;
+    height: 1%;
+    font-weight:400;
+    border-width: 400;
+    font-size: medium;
+    text-align: center;
+
+    font-weight: bold;
+  }
+  #RDO-details-number{
+    border-radius: 100%;
+    width: 70%;
+    padding-top: 13%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    // text-align: center;
+    // font-size: 12px;
+    // background-color: rgb(241, 241, 242);
+      // font-weight: bold;
+    }
+  #shift-lines-card{
+    margin: 2% 2% 1% 2% ;height:61%
+  }
+  #shift-lines-data{
+    height: 53%;
+  }
+  #summary-card{
+    margin: 1% 2% 1% 2% ;position: fixed;position: relative;bottom: 0%;height: 36.5%;
+  }
+}
+@media (min-height:736px) {
+  // #day-title{
+  //   padding-bottom: 0%;margin-bottom: 0%;padding-top: -3%;margin-top: -55%;
+  // }
+  #header{
+    margin-top: -2%;
+    border-radius: 100%;
+    width: 13%;
+    padding-top: 3%;
+    height: 1%;
+    font-weight:400;
+    border-width: 400;
+    font-size: medium;
+    text-align: center;
+
+    font-weight: bold;
+  }
+  #RDO-details-number{
+    border-radius: 100%;
+    width: 70%;
+    padding-top: 13%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    // text-align: center;
+    // font-size: 12px;
+    // background-color: rgb(241, 241, 242);
+      // font-weight: bold;
+    }
+  #shift-lines-card{
+    margin: 2% 2% 1% 2% ;height:62%
+  }
+  #shift-lines-data{
+    height: 55%;
+  }
+  #summary-card{
+    margin: 1% 2% 1% 2% ;position: fixed;position: relative;bottom: 0%;height: 34.5%;
+  }
+}
+
+@media (min-height:812px) {
+  // #day-title{
+  //   padding-bottom: 0%;margin-bottom: 0%;padding-top: -3%;margin-top: -55%;
+  // }
+  #header{
+    margin-top: -2%;
+    border-radius: 100%;
+    width: 13%;
+    padding-top: 3%;
+    height: 1%;
+    font-weight:400;
+    border-width: 400;
+    font-size: medium;
+    text-align: center;
+
+    font-weight: bold;
+  }
+  #RDO-details-number{
+    border-radius: 100%;
+    width: 70%;
+    padding-top: 12%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    // text-align: center;
+    // font-size: 12px;
+    // background-color: rgb(241, 241, 242);
+      // font-weight: bold;
+    }
+  #shift-lines-card{
+    margin: 2% 2% 1% 2% ;height:66.5%
+  }
+  #shift-lines-data{
+    height: 64%;
+  }
+  #summary-card{
+    margin: 1% 2% 1% 2% ;position: fixed;position: relative;bottom: 0%;height: 31%;
+  }
+}
+@media (min-height:844px) {
+  // #day-title{
+  //   padding-bottom: 0%;margin-bottom: 0%;padding-top: -3%;margin-top: -55%;
+  // }
+  #header{
+    margin-top: -2%;
+    border-radius: 100%;
+    width: 13%;
+    padding-top: 3%;
+    height: 1%;
+    font-weight:400;
+    border-width: 400;
+    font-size: medium;
+    text-align: center;
+
+    font-weight: bold;
+  }
+  #RDO-details-number{
+    border-radius: 100%;
+    width: 70%;
+    padding-top: 12%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    // text-align: center;
+    // font-size: 12px;
+    // background-color: rgb(241, 241, 242);
+      // font-weight: bold;
+    }
+  #shift-lines-card{
+    margin: 2% 2% 1% 2% ;height:67%
+  }
+  #shift-lines-data{
+    height: 64%;
+  }
+  #summary-card{
+    margin: 1% 2% 1% 2% ;bottom: 0%;height: 31%;
+  }
+  #summary-data-cont{
+    height: 64px;
+  }
+}
+@media (min-height:914px) {
+  // #day-title{
+  //   padding-bottom: 0%;margin-bottom: 0%;padding-top: -3%;margin-top: -55%;
+  // }
+  #header{
+    margin-top: -2%;
+    border-radius: 100%;
+    width: 13%;
+    padding-top: 3%;
+    height: 1%;
+    font-weight:400;
+    border-width: 400;
+    font-size: medium;
+    text-align: center;
+
+    font-weight: bold;
+  }
+  #RDO-details-number{
+    border-radius: 100%;
+    width: 70%;
+    padding-top: 13%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    // text-align: center;
+    // font-size: 12px;
+    // background-color: rgb(241, 241, 242);
+      // font-weight: bold;
+    }
+  #shift-lines-card{
+    margin: 2% 2% 1% 2% ;height:70.5%
+  }
+  #shift-lines-data{
+    height: 69%;
+  }
+  #summary-card{
+    margin: 1% 2% 1% 2% ;position: fixed;position: relative;bottom: 0%;height: 27%;
+  }
+}

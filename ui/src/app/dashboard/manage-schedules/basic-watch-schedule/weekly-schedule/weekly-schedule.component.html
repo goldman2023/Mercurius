@@ -1,0 +1,174 @@
+
+<div class="schedule-card mb-3">
+  <div class="row py-2 px-3">
+    <div class="col d-flex app-font-mercurius-secondary-color grid-btn">
+      <mat-icon (click)="reset()" class="app-font-mercurius-secondary-color cursor-pointer">
+        restore
+      </mat-icon>
+      <div class="cursor-pointer">
+        <mat-label (click)="reset()">Reset All</mat-label>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex py-2 week-sub-header fixed-class">
+    <div class="d-flex flex-column align-items-center font-size-12px font-bold-size s-w-count">
+      <div><span class="d-none-sm">Shifts</span> Dates</div>
+    </div>
+    <div *ngFor="let date of weekly_date_data; let ind=index"
+      class="d-flex flex-column align-items-center font-size-12px font-bold-size week-date">
+      <div class="d-none-sm">{{date}}</div>
+      <div class="d-sm-none">{{date.split('-')[1]}}-{{date.split('-')[2]}}</div>
+    </div>
+  </div>
+  <p class="font-size-15px font-bold-size week-header">{{getWeekDate()}}</p>
+  <div class="d-flex py-2 week-sub-header">
+    <div class="d-flex flex-column align-items-center font-size-12px font-bold-size s-w-count">
+      <div><span class="d-none-sm">Shifts</span> Count <span class="d-none-sm">- Required/Available</span> </div>
+    </div>
+    <div *ngFor="let date of weekly_date_data; let ind=index"
+      class="d-flex flex-column align-items-center font-size-12px font-bold-size week-date">
+
+      <div>
+        <span class="count"
+          [ngClass]="{'more': getDateCount(ind) > getDateCountImmutable(ind),'less': getDateCount(ind) < getDateCountImmutable(ind)}">
+          {{getDateCount(ind)}}
+        </span>
+        /{{getDateCountImmutable(ind)}}
+      </div>
+    </div>
+  </div>
+  <div cdkDropListGroup class="weekly-content">
+
+    <div class="d-flex week-row-card" *ngFor="let time of weekly_time_data; let ind1 = index">
+      <div class="d-flex justify-content-center align-items-center s-w-count">
+        <mat-card class="d-flex flex-column justify-content-center align-items-center schedule-card-info filled"
+          [style.marginRight.px]="4" [ngClass]="{'status1':getStatus(time)===1, 'status2':getStatus(time)===2}">
+          <p>{{getStartHour(time)}}</p>
+          <p>(8 hrs)</p>
+        </mat-card>
+        <mat-card class="d-flex justify-content-center align-items-center schedule-card-info"
+          [ngClass]="{'status1':getStatus(time)===1, 'status2':getStatus(time)===2}">
+          <span class="count"
+            [ngClass]="{'more': getCount(ind1) > getCountImmutable(ind1),'less': getCount(ind1) <getCountImmutable(ind1)}">
+            {{getCount(ind1)}}
+          </span>
+          /{{getCountImmutable(ind1) }}
+        </mat-card>
+      </div>
+      <div class="d-flex schedule-card-container" *ngFor="let date of weekly_date_data; let ind2 = index">
+        <div cdkDropList [cdkDropListData]="weekly_table_data[ind1][ind2]" class="d-flex schedule-card-item-list"
+          cdkDropListSortingDisabled (cdkDropListDropped)="drop($event,time,date)">
+          <mat-card class="d-flex gap-1 schedule-card-item pl-2" (click)="openDialog(item)"
+            [title]="getTooltime(item['empLastName'],item['empFirstName'])"
+            *ngFor="let item of weekly_table_data[ind1][ind2] let ind3=index" [ngClass]="{'status1':getStatus(item['time'])===1, 
+                                      'status2':getStatus(item['time'])===2,
+                                      'filled': isFilled(item,ind1,ind2,ind3)
+                                    }" [style.margin.px]="6" [style.marginLeft.px]="0" cdkDrag>
+                                    <div *ngIf="item['rule']" class="rule">
+                                      <img *ngIf="item['rule'].length == 0" src="assets/img/true.png" width="20px" height="20px"/>
+                                      <img id="click-trigger" *ngIf="item['rule'].length>0" src="assets/img/false.png" width="20px" height="20px" matTooltip="{{item['rule'][0]}}" matTooltipPosition="above" />
+                                    </div>
+            
+            <mat-icon class="d-none-sm icon-custom-size ">open_with</mat-icon>
+            <mat-label>
+              {{item['empinitials']}}
+            </mat-label>
+            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="right" matTooltip="Update"  aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item (click)="stickyNote(item , $event, date)" >
+                <span>Add/View Note</span>
+              </button>
+              <button mat-menu-item  (click)="submitRequest(item)">
+                <span>Submit Request</span>
+              </button>
+              <button mat-menu-item  (click)="openDialog(item)">
+                <span>Employee Schedule</span>
+              </button>
+            </mat-menu>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="font-size-16px font-bold-size text-center week-header mt-3">RDO Summary</div>
+    <div class="d-flex py-2 week-sub-header">
+      <div class="d-flex justify-content-center align-items-center font-size-12px font-bold-size s-w-count">
+        Count
+      </div>
+      <div *ngFor="let date of weekly_date_data let ind = index "
+        class="d-flex flex-column align-items-center font-size-12px font-bold-size flex-grow-1">
+        <div *ngIf="weekly_table_data_rdo[ind]">{{weekly_table_data_rdo[ind].length}}</div>
+      </div>
+
+    </div>
+    <div class="d-flex week-row-card">
+      <div class="d-flex justify-content-center align-items-center font-size-12px font-bold-size s-w-count">
+        Staff on RDO
+      </div>
+      <div class="d-flex schedule-card-container" *ngFor="let date of weekly_date_data let ind2 = index">
+        <div class="d-flex schedule-card-item-list">
+          <mat-card class="d-flex gap-1 schedule-card-item pl-2"
+            [title]="getTooltime(item['empLastName'],item['empFirstName'])"
+            *ngFor="let item of weekly_table_data_rdo[ind2]" [style.margin.px]="6" [style.marginLeft.px]="0">
+            <mat-icon class="d-none-sm icon-custom-size">open_with</mat-icon>
+            {{item['empinitials']}}
+            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="right" matTooltip="Update"  aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <!-- <button mat-menu-item  (click)="submitRequest(item)">
+                <span>Submit Request</span>
+              </button> -->
+              <button mat-menu-item (click)="stickyNote(item , $event, date)" >
+                <span>Add/View Note</span>
+              </button>
+              <button mat-menu-item  (click)="openDialog(item)">
+                <span>Employee Schedule</span>
+              </button>
+            </mat-menu>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="font-size-16px font-bold-size text-center week-header mt-3">Staff on Vacation</div>
+    <div class="d-flex py-2 week-sub-header">
+      <div class="d-flex justify-content-center align-items-center font-size-12px font-bold-size s-w-count">
+        Count
+      </div>
+      <div *ngFor="let date of weeklybasicWatchVacation let ind = index "
+        class="d-flex flex-column align-items-center font-size-12px font-bold-size flex-grow-1">
+        <div *ngIf="date.empinfo">{{date.empinfo.length}}</div>
+      </div>
+    </div>
+    <div class="d-flex week-row-card">
+      <div class="d-flex justify-content-center align-items-center font-size-12px font-bold-size s-w-count">
+        Staff on Vacation
+      </div>
+      <div class="d-flex schedule-card-container" *ngFor="let date of weeklybasicWatchVacation let ind2 = index">
+        <div class="d-flex schedule-card-item-list">
+          <mat-card class="d-flex gap-1 schedule-card-item pl-2" [title]="getTooltime(item.empFirstName,item.empLastName)"
+            *ngFor="let item of date.empinfo" [style.margin.px]="6" [style.marginLeft.px]="0">
+            <mat-icon class="d-none-sm icon-custom-size">open_with</mat-icon>
+            {{item.empInitials}}
+            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="right" matTooltip="Update"  aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <!-- <button mat-menu-item  (click)="submitRequest(item)">
+                <span>Submit Request</span>
+              </button> -->
+              <button mat-menu-item (click)="stickyNote(item , $event, date)" >
+                <span>Add/View Note</span>
+              </button>
+              <button mat-menu-item  (click)="openDialog(item)">
+                <span>Employee Schedule</span>
+              </button>
+            </mat-menu>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-sticky-note  [noteEmpIdAndDate]="noteEmpIdAndDate" [stickyDetails]="stickyDetails" [clientX]="clientX" [clientY]="clientY"  (stickyNotes)="closeSticky($event)"  *ngIf="stickyNotes" class="app-sticky" (click)="stickyNotes = false"></app-sticky-note>

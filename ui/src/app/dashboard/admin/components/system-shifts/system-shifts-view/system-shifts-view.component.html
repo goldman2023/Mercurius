@@ -1,0 +1,275 @@
+<div class="system-shift-view">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>View {{ viewName }}</h2>
+    <mat-icon mat-dialog-close> close </mat-icon>
+  </div>
+  <mat-dialog-content
+    class="mat-typography"
+    *ngIf="viewName === 'System Shift'"
+  >
+    <div class="from_part">
+      <div class="level">
+        <p>Shift Name</p>
+        <p>Shift Category</p>
+        <p>Shift Duration</p>
+        <p>Shift Start Time</p>
+        <p>Shift End Time</p>
+        <p>Include/Exclude</p>
+        <p>Shift Workload</p>
+      </div>
+      <div class="level">
+        <p *ngFor="let item of [0, 1, 2, 3, 4, 5, 6]">:</p>
+      </div>
+      <div class="value">
+        <p>
+          {{ viewElement.shiftName }}
+        </p>
+        <p>{{ viewElement.shiftCategoryName }}</p>
+        <p>
+          {{ viewElement.shiftDuration }}
+        </p>
+        <p>
+          {{ viewElement.startTime.split(":")[0] * 100 }}
+        </p>
+        <p>
+          {{ getEndTime(viewElement.startTime, viewElement.shiftDuration) }}
+        </p>
+        <p>
+          <span *ngIf="viewElement.sh_include_exclude === 'I'">Include</span>
+          <span *ngIf="viewElement.sh_include_exclude === 'E'">Exclude</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="from_part">
+      <div class="list">
+        <table
+          #table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="SUN" sticky>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+                padding-left: 0;
+              "
+            >
+              SUN
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+                padding-left: 0;
+              "
+            >
+              {{ element.Sun }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="MON" sticky>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              MON
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              {{ element.Mon }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TUE" sticky>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              TUE
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              {{ element.Tue }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="WED" sticky>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              WED
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              {{ element.Wed }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="THU" sticky>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              THU
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              {{ element.Thu }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="FRI" sticky>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              FRI
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+              "
+            >
+              {{ element.Fri }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="SAT" sticky>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+                padding-right: 0;
+              "
+            >
+              SAT
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="
+                width: 14.285714286%;
+                border-left: 1px solid rgb(193 193 193);
+                border-bottom: 1px solid rgb(193 193 193);
+                padding-right: 0;
+              "
+            >
+              {{ element.Sat }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-content class="mat-typography" *ngIf="viewName === 'user Shift'">
+    <div class="from_part user-shift">
+      <div class="level">
+        <p>Area</p>
+        <p>Shift Name</p>
+        <p>Shift Category</p>
+        <p>Shift Duration</p>
+        <p>Shift Start Time</p>
+        <p>Shift End Time</p>
+        <p>Activation Date</p>
+        <p>Expiration Date</p>
+        <p>Include/Exclude</p>
+      </div>
+      <div class="level">
+        <p *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8]">:</p>
+      </div>
+      <div class="value">
+        <p>
+          {{ viewElement.area }}
+        </p>
+        <p>{{ viewElement.s_name }}</p>
+        <p>{{ viewElement.s_category }}</p>
+        <p>
+          {{ viewElement.s_duration }}
+        </p>
+        <p>
+          {{ viewElement.s_time }}
+        </p>
+        <p>
+          {{ endTime }}
+        </p>
+        <p>
+          {{ viewElement.activation_date }}
+        </p>
+        <p>
+          {{ viewElement.expiration_date }}
+        </p>
+        <p>
+          {{ viewElement.s_in_ex }}
+        </p>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,183 @@
+<!-- Schedule -->
+<ion-card  id="schedule-card"  style="text-align: center;padding-right: -3%;margin-top: 2px;margin-bottom: 2px;padding-bottom: 0%;"   *ngFor="let d of scheduleShift;let expandShiftlineId=index"   >
+  <!-- <ion-item-sliding style="right: 0%;padding-right:0%" class="ion-no-padding ion-no-margin ion-text-center "> -->
+      <ion-grid [class]="expandlistSlide(d.SL,d.id+1,d.shiftdurationc)"   id="ion--item-position">
+        <ion-row class="ion-no-padding ion-no-margin">
+        <!-- SS -->
+
+      <ion-col *ngIf="d.SL=='SS'|| d.SL=='FSS' || d.SL=='FSS-A' || d.SL=='SS-A';else elseSMshiftName" size="0.65" class="ion-no-margin ion-no-padding colors-sat-sun " style="width: 7%;padding-left: 0%;padding-right: 0%;padding-top: 3%;padding-bottom: 0%;height:100%;" >
+      <div class="ion-no-padding ion-no-margin  ion-text-center" style="font-size-adjust: 0.58;padding: 0%;width: 100%;height: 110% !important;"  >
+        <div class="text-rotate-90-degree"  ><b class="font-normal">{{d.SL}}{{d.id+1}}</b></div>
+        <div  style="height: 100% auto !important;"  [class]="numberMargin(d.SL,d.id+1)">
+          <div class="numberCircle text-rotate-90-degree" >
+          <span style="vertical-align: middle;">
+            {{d.shiftdurationc}}
+          </span>
+        </div>
+        </div>
+      </div>
+      </ion-col>
+      <!-- SM -->
+            <ng-template #elseSMshiftName>
+              <ion-col *ngIf="d.SL=='SM' || d.SL=='SMS' || d.SL=='SMS-A' ||d.SL=='SM-A'; else elseMTShiftName" size="0.65" class="ion-no-margin ion-no-padding colors-sun-mon " style="width: 7%;padding-left: 0%;padding-right: 0%;padding-top: 3%;padding-bottom: 0%;height:100%;" >
+                <div class="ion-no-padding ion-no-margin  ion-text-center" style="font-size-adjust: 0.58;padding: 0%;width: 100%;height: 110% !important;"  >
+                  <div class="text-rotate-90-degree"  ><b class="font-normal">{{d.SL}}{{d.id+1}}</b></div>   <div  style="height: 100% auto !important;"  [class]="numberMargin(d.SL,d.id+1)">
+                    <div class="numberCircle text-rotate-90-degree" >
+                    <span style="vertical-align: middle;">
+                      {{d.shiftdurationc}}
+                    </span>
+                  </div>
+                  </div>
+                </div>
+              </ion-col>
+              <ng-template #elseMTShiftName>
+              <!-- MT -->
+                <ion-col *ngIf="d.SL=='MT'|| d.SL=='SMT' || d.SL=='SMT-A' ||d.SL=='MT-A';else elseTWShiftName" size="0.65" class="ion-no-margin ion-no-padding colors-mon-tue " style="width: 7%;padding-left: 0%;padding-right: 0%;padding-top: 3%;padding-bottom: 0%;height:100%;" >
+                  <div class="ion-no-padding ion-no-margin  ion-text-center" style="font-size-adjust: 0.58;padding: 0%;width: 100%;height: 110% !important;"  >
+                    <div class="text-rotate-90-degree"  ><b class="font-normal">{{d.SL}}{{d.id+1}}</b></div>
+                    <div  style="height: 100% auto !important;"  [class]="numberMargin(d.SL,d.id+1)">
+                      <div class="numberCircle text-rotate-90-degree" >
+                      <span style="vertical-align: middle;">
+                        {{d.shiftdurationc}}
+                      </span>
+                    </div>
+                    </div>
+                  </div>
+                </ion-col>
+              <ng-template #elseTWShiftName>
+              <!-- TW -->
+              <ion-col *ngIf="d.SL=='TW' || d.SL=='MTW' || d.SL=='MTW-A' ||d.SL=='TW-A';else elseWTShiftName"  size="0.65" class="ion-no-margin ion-no-padding colors-tue-wed " style="width: 7%;padding-left: 0%;padding-right: 0%;padding-top: 3%;padding-bottom: 0%;height:100%;" >
+                <div class="ion-no-padding ion-no-margin  ion-text-center" style="font-size-adjust: 0.58;padding: 0%;width: 100%;height: 110% !important;"  >
+                  <div class="text-rotate-90-degree"  ><b class="font-normal">{{d.SL}}{{d.id+1}}</b></div>  <div  style="height: 100% auto !important;"  [class]="numberMargin(d.SL,d.id+1)">
+                    <div class="numberCircle text-rotate-90-degree" >
+                    <span style="vertical-align: middle;">
+                      {{d.shiftdurationc}}
+                    </span>
+                  </div>
+                  </div>
+                </div>
+              </ion-col>
+              <ng-template #elseWTShiftName>
+              <!-- WT -->
+              <ion-col *ngIf="d.SL=='WT'|| d.SL=='TWT' || d.SL=='TWT-A' ||d.SL=='WT-A';else elseTFShiftName"  size="0.65" class="ion-no-margin ion-no-padding colors-wed-thu " style="width: 7%;padding-left: 0%;padding-right: 0%;padding-top: 3%;padding-bottom: 0%;height:100%;" >
+                <div class="ion-no-padding ion-no-margin  ion-text-center" style="font-size-adjust: 0.58;padding: 0%;width: 100%;height: 110% !important;"  >
+                  <div class="text-rotate-90-degree"  ><b class="font-normal">{{d.SL}}{{d.id+1}}</b></div>  <div  style="height: 100% auto !important;"  [class]="numberMargin(d.SL,d.id+1)">
+                    <div class="numberCircle text-rotate-90-degree" >
+                    <span style="vertical-align: middle;">
+                      {{d.shiftdurationc}}
+                    </span>
+                  </div>
+                  </div>
+                </div>
+              </ion-col>
+              <ng-template #elseTFShiftName>
+              <!-- TF -->
+              <ion-col *ngIf="d.SL=='TF'|| d.SL=='WTF' || d.SL=='WTF-A'  ||d.SL=='TF-A';else elseFSShiftName" size="0.65" class="ion-no-margin ion-no-padding colors-thu-fri " style="width: 7%;padding-left: 0%;padding-right: 0%;padding-top: 3%;padding-bottom: 0%;height:100%;" >
+                <div class="ion-no-padding ion-no-margin  ion-text-center" style="font-size-adjust: 0.58;padding: 0%;width: 100%;height: 110% !important;"  >
+                  <div class="text-rotate-90-degree"  ><b class="font-normal">{{d.SL}}{{d.id+1}}</b></div>  <div  style="height: 100% auto !important;"  [class]="numberMargin(d.SL,d.id+1)">
+                    <div class="numberCircle text-rotate-90-degree" >
+                    <span style="vertical-align: middle;">
+                      {{d.shiftdurationc}}
+                    </span>
+                  </div>
+                  </div>
+                </div>
+              </ion-col>
+              <ng-template #elseFSShiftName>
+              <!-- FS -->
+              <ion-col  *ngIf="d.SL=='FS' || d.SL=='TFS' || d.SL=='TFS-A'  ||d.SL=='FS-A';else elseNCShiftName" size="0.65" class="ion-no-margin ion-no-padding colors-fri-sat " style="width: 7%;padding-left: 0%;padding-right: 0%;padding-top: 3%;padding-bottom: 0%;height:100%;" >
+                <div class="ion-no-padding ion-no-margin  ion-text-center" style="font-size-adjust: 0.58;padding: 0%;width: 100%;height: 110% !important;"  >
+                  <div class="text-rotate-90-degree"  ><b class="font-normal">{{d.SL}}{{d.id+1}}</b></div>    <div  style="height: 100% auto !important;"  [class]="numberMargin(d.SL,d.id+1)">
+                    <div class="numberCircle text-rotate-90-degree" >
+                    <span style="vertical-align: middle;">
+                      {{d.shiftdurationc}}
+                    </span>
+                  </div>
+                  </div>
+                </div>
+              </ion-col>
+              <ng-template #elseNCShiftName>
+              <!-- NC -->
+              <ion-col   size="0.65" class="ion-no-margin ion-no-padding colors-nc-rdos " style="width: 7%;padding-left: 0%;padding-right: 0%;padding-top: 3%;padding-bottom: 0%;height:100%;" >
+                <div class="ion-no-padding ion-no-margin  ion-text-center" style="font-size-adjust: 0.58;padding: 0%;width: 100%;height: 110% !important;"  >
+                  <div class="text-rotate-90-degree"  ><b class="font-normal">{{d.SL}}{{d.id+1}}</b></div>    <div  style="height: 100% auto !important;"  [class]="numberMargin(d.SL,d.id+1)">
+                    <div class="numberCircle text-rotate-90-degree" >
+                    <span style="vertical-align: middle;">
+                      {{d.shiftdurationc}}
+                    </span>
+                  </div>
+                  </div>
+                </div>
+              </ion-col>
+              </ng-template>
+            </ng-template>
+            </ng-template>
+            </ng-template>
+            </ng-template>
+            </ng-template>
+            </ng-template>
+
+
+      <ion-col class="app-font-green-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==true"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Sun,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-green-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==true"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Mon,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-green-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==true"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Tue,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-green-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==true"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Wed,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-green-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==true"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Thu,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-green-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==true"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Fri,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-green-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==true"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Sat,d.shiftdurationc)}}</b></p></ion-col>
+
+      <ion-col class="app-font-red-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Sun,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-red-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Mon,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-red-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Tue,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-red-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Wed,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-red-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Thu,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-red-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Fri,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-red-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule==false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Sat,d.shiftdurationc)}}</b></p></ion-col>
+
+      <ion-col class="app-font-secondary-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule!=true && d.BMLRule!=false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Sun,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-secondary-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule!=true && d.BMLRule!=false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Mon,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-secondary-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule!=true && d.BMLRule!=false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Tue,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-secondary-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule!=true && d.BMLRule!=false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Wed,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-secondary-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule!=true && d.BMLRule!=false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Thu,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-secondary-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule!=true && d.BMLRule!=false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Fri,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col class="app-font-secondary-color" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;" *ngIf="d.BMLRule!=true && d.BMLRule!=false"><p style="margin-top: auto !important;margin-bottom: auto;"><b class=" font-normal" >{{convertRDOtoShiftDefintion(d.Sat,d.shiftdurationc)}}</b></p></ion-col>
+      <ion-col size="2.1"  class="ion-text-center" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;"><div >
+        <!-- SS -->
+        <div class="colors-sat-sun font-normal" *ngIf="d.SL=='SS'|| d.SL=='FSS' || d.SL=='FSS-A' ||d.SL=='SS-A';else elseSM" style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">{{d.Pattern}}</div>
+        <!-- SM -->
+        <ng-template #elseSM>
+        <div class="colors-sun-mon font-normal" *ngIf="d.SL=='SM' || d.SL=='SMS' || d.SL=='SMS-A' ||d.SL=='SM-A';else elseMT" style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">{{d.Pattern}}</div>
+        <ng-template #elseMT>
+        <!-- MT -->
+        <div class="colors-mon-tue font-normal" *ngIf="d.SL=='MT'|| d.SL=='SMT' || d.SL=='SMT-A' ||d.SL=='MT-A';else elseTW" style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">{{d.Pattern}}</div>
+        <ng-template #elseTW>
+        <!-- TW -->
+        <div class="colors-tue-wed font-normal" *ngIf="d.SL=='TW' || d.SL=='MTW' || d.SL=='MTW-A' ||d.SL=='TW-A';else elseWT" style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">{{d.Pattern}}</div>
+        <ng-template #elseWT>
+        <!-- WT -->
+        <div class="colors-wed-thu font-normal" *ngIf="d.SL=='WT'|| d.SL=='TWT' || d.SL=='TWT-A' ||d.SL=='WT-A';else elseTF" style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">{{d.Pattern}}</div>
+        <ng-template #elseTF>
+        <!-- TF -->
+        <div class="colors-thu-fri font-normal" *ngIf="d.SL=='TF'|| d.SL=='WTF' || d.SL=='WTF-A'  ||d.SL=='TF-A';else elseFS" style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">{{d.Pattern}}</div>
+        <ng-template #elseFS>
+        <!-- FS -->
+        <div class="colors-fri-sat font-normal" *ngIf="d.SL=='FS' || d.SL=='TFS' || d.SL=='TFS-A'  ||d.SL=='FS-A';else elseNC" style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">{{d.Pattern}}</div>
+        <ng-template #elseNC>
+        <!-- NC -->
+        <div class="colors-nc-rdos font-normal"  style="border-radius:5px;font-size:9.5px;margin-left: auto;margin-right: auto;">{{d.Pattern}}</div>
+        </ng-template>
+      </ng-template>
+      </ng-template>
+      </ng-template>
+      </ng-template>
+      </ng-template>
+      </ng-template>
+      </div></ion-col>
+      <ion-col size="0.75" (click)="edit(d)" style="margin-top: auto !important;margin-bottom: auto;padding-top: auto !important;padding-bottom: auto;padding-left: 0px !important;padding-right: 0px !important;">
+        <p style="margin-top: auto !important;margin-bottom: auto;">
+          <ion-icon name="chevron-forward-outline" *ngIf="expand_shiftlineid!=expandShiftlineId;else elseBlock"  class=" app-font-mercurius-secondary-color" style="font-size: 18px;margin-top: 7px;"></ion-icon></p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+<ng-template #elseBlock ><ion-icon name="chevron-down-outline" style="font-size: 18px;color: #ffaa00;font-weight: 900;margin-top:12px"></ion-icon></ng-template>

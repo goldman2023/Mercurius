@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border" *ngIf="title != 'Welcome!'" >
+  <ion-toolbar style="--border-width: 0px; --opacity: 0" >
+    <ion-row class="align-items-center">
+      <ion-col size="1.5" >
+        <ion-icon
+           (click)="goBack()"
+            *ngIf="hideGoBack == false"
+            style="font-size: 16px !important"
+            name="caret-back-outline"
+            class="d-md-none"
+          ></ion-icon>
+        <button (click)="goBack()" [disabled]="!goBackUrl" class="btn d-none d-md-flex gap-1 align-items-center small p-0">
+          <ion-icon class="app-font-mercurius-secondary-color" name="arrow-back"></ion-icon>
+          <span class="app-font-mercurius-secondary-color"
+            >Back</span
+          >
+        </button>
+      </ion-col>
+      <ion-col>
+
+          <p (click)="routerLinks()"
+            class="ion-header-title app-font-style app-font-primary-color"
+          >
+            {{ title }}
+          </p>
+      </ion-col>
+      <ion-col size="1.5" style="text-align: right" class="d-flex justify-content-end">
+        <ion-icon
+          style="font-size: 16px !important"
+          *ngIf="hideForward == false"
+          class="d-md-none"
+          name="caret-forward-outline"
+          (click)="forwardOldGeneratedShiftLines()"
+        ></ion-icon>
+        <button [disabled]="!this.forwardUrl" (click)="forwardOldGeneratedShiftLines()" class="btn d-none d-md-flex gap-1 align-items-center small p-0">
+          <span class="app-font-mercurius-secondary-color"
+          >Next</span
+          >
+          <ion-icon class="app-font-mercurius-secondary-color" name="arrow-forward"></ion-icon>
+        </button>
+         </ion-col>
+    </ion-row>
+    <ion-row  *ngIf="defaultTimer == 'biddingheader' && distance > 0">
+      <ion-col size="1.5">
+       </ion-col>
+
+      <ion-col size="10.5" style="font-size: 12px; text-align: right">
+        <p *ngIf="distance > 0">
+          Time Remaining to Bid:
+          <b
+            id="timer-alert"
+            class="content-data timer-alert"
+            *ngIf="
+              distance > 0 &&
+              convertNumber(minutes) < 5 &&
+              convertNumber(hours) < 1
+            "
+            >{{ hours }}:{{ minutes }}:{{ seconds }}</b
+          >
+          <b
+            class="content-data"
+            *ngIf="
+              distance > 0 &&
+              (convertNumber(minutes) > 4 || convertNumber(hours) > 0)
+            "
+            >{{ hours }}:{{ minutes }}:{{ seconds }}</b
+          >
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>

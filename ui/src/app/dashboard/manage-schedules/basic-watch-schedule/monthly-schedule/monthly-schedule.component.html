@@ -1,0 +1,87 @@
+
+<div class="schedule-card ">
+  <div class="row  px-3">
+    <div class="col d-flex app-font-mercurius-secondary-color grid-btn">
+      <mat-icon (click)="reset()" class="app-font-mercurius-secondary-color cursor-pointer">
+        restore
+      </mat-icon>
+      <div class="cursor-pointer">
+        <mat-label (click)="reset()">Reset All</mat-label>
+      </div>
+    </div>
+  </div>
+  <p class=" font-bold-size week-header">{{selectedDate | date : 'MMMM YYYY'}}</p>
+  
+    <div class="d-flex py-2 week-sub-header" *ngIf="detectScreen()">
+      <div *ngFor="let date of getWeekDates(selectedDate); let ind=index" class="d-flex flex-column align-items-center font-bold-size week-date date-name mb-0">
+          {{date | date : 'EEE'}}
+      </div>
+    </div>
+  <div cdkDropListGroup class=" weekly-content">
+    <div class="d-flex week-row-card" >
+        <div cdkDropList [ngClass]="{'mobile-responsive-d-none': !checkMonth(date,selectedDate),'focus': currentDate == date }" *ngFor="let date of allUniqueDates; let ind1 = index" class=" schedule-card-item-list"
+          cdkDropListSortingDisabled (cdkDropListDropped)="drop($event,date)">
+          <div class="text-center py-2 day-title">
+            <p class="date-name" 
+              [ngClass]="{'disabled': !checkMonth(date,selectedDate),'focus': currentDate == date }"><span *ngIf="!checkMonth(date,selectedDate) " >{{date | date : "MMM"}}</span><span *ngIf="!detectScreen()" >{{date | date : "EEEE"}}</span> {{date | date : "dd"}}</p>
+            </div>
+          <div class="d-flex flex-column">
+            <div *ngFor="let shift of shfits">
+              <div class="d-flex week-row-card  pt-2" *ngIf="getEmployee(date,shift).length">
+                <div  class=" filled" [ngClass]="{
+                  'type-mid': shift === 'Mid',
+                  'type-day': shift === 'Day',
+                  'type-eve': shift === 'Eve',
+                  'type-rdo': shift === 'RDO',
+                  'type-vacation': shift === 'Vacation'
+                }
+                  ">
+                  <p class="type-text">{{shift}} ({{getEmployee(date,shift).length}})</p>
+                </div>
+                <div class="d-flex gap flex-wrap p-2 w-100" >
+                  
+                  <mat-card class="d-flex  schedule-card-item pl-2" (click)="openDialog(item)"
+                  [title]="getTooltime(item['empLastName'],item['empFirstName'])"
+                  *ngFor="let item of getEmployee(date,shift) let ind3=index" 
+                  [cdkDragData]="item"
+                  [ngClass]="{
+                    'status1':getStatus(item)===1, 
+                    'status2':getStatus(item)===2,
+                    'status3':getStatus(item)===3,
+                    'status4':getStatus(item)===4,
+                    'filled': isFilled(item)
+                              }"  
+                              cdkDrag
+                  >
+                  <div *ngIf="item['rule']" class="rule">
+                    <img *ngIf="item['rule'].length == 0" src="assets/img/true.png" width="20px" height="20px"/>
+                    <img id="click-trigger" *ngIf="item['rule'].length>0" src="assets/img/false.png" width="20px" height="20px" matTooltip="{{item['rule'][0]}}" matTooltipPosition="above" />
+                  </div>
+                  <mat-icon class="d-none-sm icon-custom-size">open_with</mat-icon>
+                  <mat-label>
+                    {{item['empinitials']}}
+                  </mat-label>
+                  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="right" matTooltip="Update"  aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item  (click)="stickyNote(item , $event, date)" >
+                      <span>Add/View Note</span>
+                    </button>
+                    <button mat-menu-item  (click)="submitRequest(item)" *ngIf="!item.rdoDayOff && !item.vacationHours">
+                      <span>Submit Request</span>
+                    </button>
+                    <button mat-menu-item  (click)="openDialog(item)">
+                      <span>Employee Schedule</span>
+                    </button>
+                  </mat-menu>
+                </mat-card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<app-sticky-note  [noteEmpIdAndDate]="noteEmpIdAndDate" [stickyDetails]="stickyDetails" [clientX]="clientX" [clientY]="clientY"  (stickyNotes)="closeSticky($event)"  *ngIf="stickyNotes" class="app-sticky" (click)="stickyNotes = false"></app-sticky-note>

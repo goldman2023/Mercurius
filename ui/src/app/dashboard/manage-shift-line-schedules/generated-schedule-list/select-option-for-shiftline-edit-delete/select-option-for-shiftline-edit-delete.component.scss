@@ -1,0 +1,22 @@
+@media screen and (min-width: 769px) {
+  ion-item {
+    --min-height: 16px;
+    --inner-padding-start: auto;
+    --inner-padding-end: auto;
+    --padding-start: auto;
+  }
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.spinner-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

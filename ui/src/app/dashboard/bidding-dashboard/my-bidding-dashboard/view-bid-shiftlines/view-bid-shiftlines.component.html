@@ -1,0 +1,77 @@
+<ion-grid  class="ion-text-center" *ngIf="spinner === true">
+  <ion-row>
+    <ion-col size="12">
+      <ion-spinner name="bubbles"></ion-spinner>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<div class="container">
+  <ion-grid  *ngIf="spinner === false" (click)="popupDisable()">
+    <ion-grid *ngIf="checkData==true;else elseBlock" id="all-shift-list-card" class="app-font-primary-color ion-no-margin h-100">
+      <ion-grid>
+        <ion-row class="content-data ion-no-margin ion-no-padding">
+          <ion-col size="10" class="app-font-primary-color ion-no-margin ion-no-padding ion-text-center">
+            <b>Bid Schedule: </b>{{bid_schedule_name}}
+          </ion-col>
+          <ion-col size="2" class="ion-text-right ion-no-margin ion-no-padding">
+            <ion-icon (click)="download()" class="app-font-mercurius-secondary-color custom-icon" name="download-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid *ngFor="let selectedSchedule of all_final_data;let i=index">
+      <ion-row (click)="[expandBox(i),selectShiftLineSchedule(selectedSchedule)]" class="app-border-mercurius-secondary-color data ion-no-padding ion-no-margin">
+        <ion-col size="8" class="ion-no-margin ion-text-left">
+          <ion-label><b>Shiftline Schedule: </b>{{selectedSchedule.schedulename}}</ion-label>
+        </ion-col>
+        <ion-col size="4" class="ion-no-margin ion-text-right">
+          <ion-label>
+            <ion-icon class="app-font-mercurius-secondary-color custom-icon" name="chevron-down-outline"></ion-icon>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-grid *ngIf="expand_id==i" id="scheduble-grid" class="p-0">
+        <ion-grid class="app-background-mercurius-primary-color ion-border-1px-ligth-gray-color scheduled-shift">
+          <ion-row class="data ion-no-margin w-100 p-1 app-background-mercurius-primary-color shiftline-row ">
+            <ion-col class="data ion-no-margin ion-no-padding text-align-left app-font-primary-color w-50"><b>ShiftLine</b></ion-col>
+            <ion-col class="data ion-no-margin ion-no-padding app-font-primary-color w-25" ><b>Pattern</b></ion-col>
+            <ion-col class="data ion-no-margin ion-no-padding app-font-primary-colo w-25"><b>Selected By</b></ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid  *ngFor="let sL of all_selected_schedule_shift_lines;let index=index;" class="ion-border-1px-ligth-gray-color scheduled-shift">
+          <ion-row class="data ion-no-margin ion-no-padding w-100 p-0 shiftline-row">
+            <ion-col class="w-50">
+                <div class="popup app-font-mercurius-secondary-color p-0" (click)="myFunction(index)">
+                  <ion-label class="app-font-mercurius-secondary-color "><b>{{sL.shiftname}} - {{sL.edit_seq_id+1}}</b></ion-label>
+                  <span class="popuptext" id="myPopup{{index}}">
+                    <ion-row class="ion-no-padding ion-no-margin">
+                        <ion-col class="ion-no-padding ion-no-margin" size="0.2"></ion-col>
+                        <ion-col class="ion-no-padding ion-no-margin" size="11.8">ShiftLine : <b>{{convertNineHourShiftLineIncorrectFormat(sL.sun,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.mon,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.tue,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.wed,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.thu,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.fri,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.sat,sL.shiftdurationc)}}</b>
+                          <b *ngIf="sL.shiftdurationc==9">{{convertNineHourShiftLineIncorrectFormat(sL.sunshift2,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.monshift2,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.tueshift2,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.wedshift2,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.thushift2,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.frishift2,sL.shiftdurationc)}}{{convertNineHourShiftLineIncorrectFormat(sL.satshift2,sL.shiftdurationc)}}</b>
+                        </ion-col>
+                    </ion-row>
+                  </span>
+                </div>
+              </ion-col>
+              <ion-col class="data ion-no-margin ion-no-padding w-25">{{sL.pattern}}</ion-col>
+              <ion-col class="data ion-no-margin ion-no-padding app-font-mercurius-secondary-color w-25"><b *ngIf="sL.selectedBy!==''">{{sL.selectedBy}}</b></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-grid>
+
+      </ion-grid>
+    </ion-grid>
+<ng-template #elseBlock>
+  <ion-grid>
+    <ion-row class="ion-text-center data">
+      <ion-col size="12">
+        <ion-label>Data Not Available</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </ng-template>
+  </ion-grid>
+</div>

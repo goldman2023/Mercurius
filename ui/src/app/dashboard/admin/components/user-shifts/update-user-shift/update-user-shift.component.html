@@ -1,0 +1,300 @@
+<div class="add-dialog">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>Update {{ editName }}</h2>
+    <mat-icon mat-dialog-close (click)="close()"> close </mat-icon>
+  </div>
+
+  <form
+    [formGroup]="userShiftForm"
+    (ngSubmit)="updateUserShift()"
+    *ngIf="editName === 'User Shift'"
+  >
+    <mat-dialog-content
+      class="mat-typography"
+      *ngIf="editName === 'User Shift'"
+    >
+      <div class="from-part">
+        <div class="level">
+          <label><span class="required-asterisk">*</span> Area : </label>
+        </div>
+        <div class="level">
+          <mat-form-field [floatLabel]="'never'" appearance="fill">
+            <mat-select
+              placeholder="Select Area"
+              formControlName="user_shift_area"
+              (selectionChange)="somethingChanged()"
+            >
+              <mat-option *ngFor="let role of area" [value]="role.areaid">
+                {{ role.areaname }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label><span class="required-asterisk">*</span> Shift Alias : </label>
+        </div>
+        <div class="level">
+          <!-- <input
+            type="text"
+            formControlName="user_shift_name"
+            placeholder="Enter Shift Name"
+            required
+            [ngClass]="{
+              warning_input:
+                (userShiftForm.controls['user_shift_name'].invalid &&
+                  (userShiftForm.controls['user_shift_name'].dirty ||
+                    userShiftForm.controls['user_shift_name'].touched)) ||
+                (userShiftForm.controls['user_shift_name'].errors &&
+                  userShiftForm.controls['user_shift_name'].touched)
+            }"
+          /> -->
+          <mat-form-field [floatLabel]="'never'" appearance="fill" style="width: 60px;">
+            <mat-select formControlName="user_shift_name" >
+            <mat-option *ngFor="let shName of allShiftName" [value]="shName">
+              {{ shName }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+          <div
+            *ngIf="
+              userShiftForm.controls['user_shift_name'].invalid &&
+              (userShiftForm.controls['user_shift_name'].dirty ||
+                userShiftForm.controls['user_shift_name'].touched)
+            "
+            class="text-danger"
+          >
+            <div
+              *ngIf="
+                userShiftForm.controls['user_shift_name'].errors &&
+                userShiftForm.controls['user_shift_name'].touched
+              "
+            >
+              Shift Alias is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="from-part">
+        <div class="level">
+          <label
+            ><span class="required-asterisk">*</span> Shift Duration :
+          </label>
+        </div>
+        <div class="level">
+          <mat-form-field
+            [floatLabel]="'never'"
+            appearance="fill"
+            class="duration"
+          >
+            <mat-select
+              placeholder="Select Shift Duration"
+              (selectionChange)="somethingChanged()"
+              formControlName="user_shift_duration"
+            >
+              <mat-option *ngFor="let value of durations" [value]="value">
+                {{ value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="last-name"
+            ><span class="required-asterisk">*</span> Shift Start Time :
+          </label>
+        </div>
+        <div class="level">
+          <input
+            id="last-name"
+            type="time"
+            placeholder="Enter Shift Start Time"
+            formControlName="user_shift_start_time"
+            required
+            (change)="somethingChanged()"
+            [ngClass]="{
+              warning_input:
+                (userShiftForm.controls['user_shift_start_time'].invalid &&
+                  (userShiftForm.controls['user_shift_start_time'].dirty ||
+                    userShiftForm.controls['user_shift_start_time'].touched)) ||
+                (userShiftForm.controls['user_shift_start_time'].errors &&
+                  userShiftForm.controls['user_shift_start_time'].touched)
+            }"
+          />
+          <div class="text-danger" *ngIf="shiftTimeExixt">
+            User {{shiftTimeExixt}}!!!
+          </div>
+          <div
+            *ngIf="
+              userShiftForm.controls['user_shift_start_time'].invalid &&
+              (userShiftForm.controls['user_shift_start_time'].dirty ||
+                userShiftForm.controls['user_shift_start_time'].touched)
+            "
+            class="text-danger"
+          >
+            <div
+              *ngIf="
+                userShiftForm.controls['user_shift_start_time'].errors &&
+                userShiftForm.controls['user_shift_start_time'].touched
+              "
+            >
+              Shift Start Time is required.
+            </div>
+            <div *ngIf="!shiftTimeExixt" >
+              Shift Start Time is Exist.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="from-part">
+        <div class="level">
+          <label
+            ><span class="required-asterisk">&nbsp;</span> Shift End Time :
+          </label>
+        </div>
+        <div class="level">
+          <input
+            type="text"
+            placeholder="Shift End Time"
+            formControlName="user_shift_end_time_dom_show"
+          />
+        </div>
+      </div>
+      <div class="from-part" *ngIf="shiftCategory">
+        <div class="level">
+          <label
+            ><span class="required-asterisk">&nbsp;</span> Shift Category :
+          </label>
+        </div>
+        <div class="level" >
+          {{shiftCategory}}
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="expirationDate"
+            ><span class="required-asterisk">*</span> Activation Date :
+          </label>
+        </div>
+        <div class="level" (click)="picker.open()">
+          <div class="d-flex align-items-center" (click)="picker.open()">
+            <input
+            [min]="minDate"
+              id="user_shift_activation_date"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="user_shift_activation_date"
+              required
+              [matDatepicker]="picker"
+              [ngClass]="{
+                warning_input:
+                  (userShiftForm.controls['user_shift_activation_date']
+                    .invalid &&
+                    (userShiftForm.controls['user_shift_activation_date']
+                      .dirty ||
+                      userShiftForm.controls['user_shift_activation_date']
+                        .touched)) ||
+                  (userShiftForm.controls['user_shift_activation_date']
+                    .errors &&
+                    userShiftForm.controls['user_shift_activation_date']
+                      .touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+          <div
+            *ngIf="
+              userShiftForm.controls['user_shift_activation_date'].invalid &&
+              (userShiftForm.controls['user_shift_activation_date'].dirty ||
+                userShiftForm.controls['user_shift_activation_date'].touched)
+            "
+            class="text-danger"
+          >
+            <div
+              *ngIf="
+                userShiftForm.controls['user_shift_activation_date'].errors &&
+                userShiftForm.controls['user_shift_activation_date'].touched
+              "
+            >
+              Shift Activation Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="expirationDate"
+            ><span class="required-asterisk">*</span> Expiration Date :
+          </label>
+        </div>
+        <div class="level" (click)="picker1.open()">
+          <div class="d-flex align-items-center" (click)="picker1.open()">
+            <input
+              id="user_shift_expiration_date"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="user_shift_expiration_date"
+              required
+              [min]="userShiftForm.value.user_shift_activation_date"
+              [max]=""
+              [matDatepicker]="picker1"
+              [ngClass]="{
+                warning_input:
+                  (userShiftForm.controls['user_shift_expiration_date']
+                    .invalid &&
+                    (userShiftForm.controls['user_shift_expiration_date']
+                      .dirty ||
+                      userShiftForm.controls['user_shift_expiration_date']
+                        .touched)) ||
+                  (userShiftForm.controls['user_shift_expiration_date']
+                    .errors &&
+                    userShiftForm.controls['user_shift_expiration_date']
+                      .touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker1></mat-datepicker>
+          </div>
+          <div
+            *ngIf="
+              userShiftForm.controls['user_shift_expiration_date'].invalid &&
+              (userShiftForm.controls['user_shift_expiration_date'].dirty ||
+                userShiftForm.controls['user_shift_expiration_date'].touched)
+            "
+            class="text-danger"
+          >
+            <div
+              *ngIf="
+                userShiftForm.controls['user_shift_expiration_date'].errors &&
+                userShiftForm.controls['user_shift_expiration_date'].touched
+              "
+            >
+              Shift Expiration Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-success" *ngIf="updateSuccess">
+        <p>Role has been added successfully !!</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button
+        mat-button
+        mat-raised-button
+        type="submit"
+        [disabled]="userShiftForm.invalid || shiftTimeExixt === 'Shift already exists' || !userShiftForm.touched"
+      >
+        Save
+      </button>
+      <button mat-button mat-raised-button type="button" (click)="resetcf()">
+        Reset
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

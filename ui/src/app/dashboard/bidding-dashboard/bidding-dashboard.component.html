@@ -1,0 +1,78 @@
+<div class="dashboards h-100 d-none d-md-flex">
+  <div class="btn">
+    <!-- [routerLink]="['./manage-shift-line-schedules']"
+        routerLinkActive="router-link-active" -->
+    <div class="links" (click)="getPermissionfunctionName('Manage Bid Schedule') ? manageBidSchedule() : false" [ngClass]="getPermissionfunctionName('Manage Bid Schedule') ? '' : 'disabled'">
+      <img height="35" src="assets/icon/unnamedb.png" alt="" />
+      <span>Manage Bid Schedule</span>
+    </div>
+  </div>
+  <div class="btn">
+    <!-- [routerLink]="['/routePath']" routerLinkActive="router-link-active" -->
+    <div class="links" (click)="getPermissionfunctionName('My Bidding') ? bidding() : false" [ngClass]="getPermissionfunctionName('My Bidding') ? '' : 'disabled'">
+      <img height="35" src="assets/icon/bid-scheduleb.png" alt="" />
+      <span>My Bidding</span>
+    </div>
+  </div>
+  <div class="btn">
+    <!-- [routerLink]="['/routePath']" routerLinkActive="router-link-active" -->
+    <div class="links" (click)="getPermissionfunctionName('Assign Schedule') ? assignBidSchedule() : false" [ngClass]="getPermissionfunctionName('Assign Schedule') ? '' : 'disabled'">
+      <img height="35" src="assets/icon/unnamedb.png" alt="" />
+      <span>Assign Schedule</span>
+    </div>
+  </div>
+</div>
+
+<ion-grid class="ion-text-center ion-justify-content-center ion-align-items-center d-md-none">
+  <ion-row
+    class="ion-text-center content-data-14px ion-justify-content-center"
+    style="padding: 45px 0px 12px 0px"
+  >
+    <ion-col size="12" class="ion-no-margin ion-no-padding ion-text-center">
+      <ion-label style="font-size: 16px"></ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-grid id="button1">
+    <ion-row class="ion-text-center ion-justify-content-center">
+      <ion-col size="12">
+        <button 
+          type="button"
+          (click)="manageBidSchedule()" 
+          class="btn btn-default btn-circle btn-lg rounded-circle fs-6 border"
+        >
+          <ion-img
+            alt="Generate Schedule"
+            src="assets/icon/unnamedb.png"
+          ></ion-img>
+        </button>
+        <ion-button
+          class="dashboard-button pl-5"
+          shape="round"
+          (click)="manageBidSchedule()"
+          ><b>Manage Bid Schedule</b></ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid id="button2">
+    <ion-row class="ion-text-center ion-justify-content-center">
+      <ion-col size="12">
+        <button
+          type="button"
+          (click)="bidding()"
+          class="btn btn-default btn-circle btn-lg"
+        >
+          <ion-img alt="Bidding" src="assets/img/BiddingIcon3x.png"></ion-img>
+        </button>
+        <ion-button
+          class="dashboard-button pl-5"
+          shape="round"
+          (click)="bidding()"
+          alt="Bidding"
+          ><b>Bidding</b></ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-grid>

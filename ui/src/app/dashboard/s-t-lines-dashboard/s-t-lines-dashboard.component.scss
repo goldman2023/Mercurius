@@ -1,0 +1,223 @@
+.btn-circle.btn-lg {
+  width: 54px;
+    height: 54px;
+    z-index: 1;
+    position: absolute;
+    color: black;
+    top: -2px;
+    left: -23px;
+    padding: 0px;
+    margin-left: -3px;
+}
+.dashboards .disabled{
+  background-color: #c5c5c5;
+  box-shadow: none;
+}
+#footer {
+  width: 100% !important;
+  bottom: 69px !important;
+  z-index: 2 !important;
+  position: fixed !important;
+
+}
+.shift_info {
+  border-top: 25px solid #f6aa3b;
+}
+.box {
+  text-align: center;
+  padding: 50px 0px;
+}
+.box h2 {
+  font-weight: 600;
+}
+.box p {
+  font-size: 16px;
+  font-weight: 500;
+}
+.dashbord-links{
+  margin: 0 auto;
+  max-width: 57%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 35px;
+}
+.dashboard-button {
+  font-size: 17px !important;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  position: relative;
+  // top: 25px;
+  width: 20rem;
+  --background: #ff6700;
+  --box-shadow: 0px 2px 10px #f5aa41;
+}
+
+
+@media (max-width: 768px) {
+  .mobile-dashboard{
+    position: relative;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    margin: 0 auto;
+
+    .dashboard-btn-icon{
+        border-radius: 50%;
+        // border: 1px solid rgb(0, 0, 0) !important;
+      
+    }
+    
+
+  }
+
+  .dashboard{
+    display: flex !important;
+    flex-direction: column;
+    gap: 11px;
+    justify-content: center !important;
+    align-content: space-between;
+    height: calc(100vh - 276px);
+    padding: 0px 0px;
+    min-height: 271px !important;
+    margin-bottom: 63px;
+  }
+
+  // .dashboard-btn-icon{
+  //   position: absolute;
+  // }
+}
+// @media (min-width: 700px) and (orientation: landscape) {
+//   #button2 {
+//     margin-top: 25px !important;
+//   }
+//   #button1 {
+//     margin-top: 25px !important;
+//   }
+// }
+// @media (min-width: 750px) and (orientation: landscape) {
+//   #button1 {
+//     margin-top: 50px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 15px !important;
+//   }
+// }
+// @media (min-width: 800px) and (orientation: landscape) {
+//   #button1 {
+//     margin-top: 50px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 25px !important;
+//   }
+// }
+// @media (min-width: 826px) and (orientation: landscape) {
+//   #button1 {
+//     margin-top: 100px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 25px !important;
+//   }
+// }
+// @media (min-width: 855px) and (orientation: landscape) {
+//   #button1 {
+//     margin-top: 100px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 25px !important;
+//   }
+// }
+
+// @media (min-width: 900px) and (orientation: landscape) {
+//   #button1 {
+//     margin-top: 100px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 25px !important;
+//   }
+// }
+
+// @media (min-height: 700px) and (orientation: portrait) {
+//   #button2 {
+//     margin-top: 25px !important;
+//   }
+//   #button1 {
+//     margin-top: 25px !important;
+//   }
+// }
+// @media (min-height: 750px) and (orientation: portrait) {
+//   #button1 {
+//     margin-top: 50px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 15px !important;
+//   }
+// }
+// @media (min-height: 800px) and (orientation: portrait) {
+//   #button1 {
+//     margin-top: 50px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 25px !important;
+//   }
+// }
+// @media (min-height: 826px) and (orientation: portrait) {
+//   #button1 {
+//     margin-top: 0px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 25px !important;
+//   }
+// }
+// @media (min-height: 855px) and (orientation: portrait) {
+//   #button1 {
+//     margin-top: 0px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 25px !important;
+//   }
+// }
+
+// @media (min-height: 900px) and (orientation: portrait) {
+//   #button1 {
+//     margin-top: 0px !important;
+//   }
+//   #button2 {
+//     margin-top: 50px !important;
+//   }
+//   #button3 {
+//     margin-top: 25px !important;
+//   }
+// }
+

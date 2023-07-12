@@ -1,0 +1,314 @@
+
+
+  <div  #content class="employee">
+  <div class="header mb-3 text-center p-3" >
+    Daily Worksheet (This is for published period)
+  </div>
+  <div class="py-2 basic-wathch-shcedule">
+    <form [formGroup]="selectBidScheduleNameForm">
+      <div class="container-fluid mb-3">
+        <div class="row app-padding-margin-0">
+          <div class="col-lg-3 ml-auto mr-auto">
+            <mat-label class="data">Bid Schedule</mat-label>
+            <mat-select
+            #myDropdown
+              matNativeControl
+              placeholder="-- Select Bid Schedule--"
+              (selectionChange)="onChangeBidSchedule()"
+              formControlName="bid_schedule_name"
+              interface="popover"
+              class="form-control app-border-mercurius-secondary-color my-dropdown"
+            >
+              <mat-option *ngFor="let bs of bid_schedule_list" [value]="bs"
+                >{{ bs.bidschename }}
+                <b class="length"
+                  >- ({{ bs.roundmap.length }} Bid Rounds)</b
+                ></mat-option
+              >
+            </mat-select>
+          </div>
+          <div class="col-lg-1 ml-auto mr-auto">
+            <mat-label class="data">Select Date</mat-label>
+            <div class="d-flex align-items-center">
+              <input
+                class="cursor-pointer form-control app-border-mercurius-secondary-color"
+                formControlName="schedule_start_date"
+                (dateChange)="dateChangeforBidSchedule($event)"
+                [value]="dateShow"
+                matSuffix
+                matInput
+                [matDatepicker]="datepicker"
+                (click)="datepicker.open()"
+              />
+              <mat-datepicker #datepicker></mat-datepicker>
+            </div>
+          </div>
+          <div class="col-lg-4 ml-auto mr-auto justify-content-center">
+            <div
+              class="d-flex justify-content-center align-items-center p-1 box h-100"
+            >
+              <p class="show-dte mb-0">
+                {{ dateShow | date : "EEEE, MMMM d, y" }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="col-lg-4 ml-auto mr-auto justify-content-end text-right pt-1"
+          >
+            <div
+              class="cursor d-flex justify-content-center align-items-center p-1 box" (click)="makePdf()"
+            >
+              <p class="pdf app-font-mercurius-secondary-color">Export to PDF</p>
+              <ion-icon
+          
+          class="app-font-mercurius-secondary-color clickable float-right fs-5"
+          name="download-outline"
+        ></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="px-3 data-table d-flex">
+    <div class=" font-size-16 px-1">
+      <div class="rdo" *ngIf="getRdoEmpL()">
+        <div class="header">RDO</div>
+        <div class="h-bdy">
+          <p
+            (click)="epmLink(empdata)"
+            class="cursor-pointer"
+            *ngFor="let empdata of getRdoEmpL()"
+            [title]="
+              getTooltime(empdata['empLastName'], empdata['empFirstName'])
+            "
+          >
+            <span class="pe-none" name="ellipsis-vertical-outline">
+              {{ empdata.empLastName }}, {{ empdata.empFirstName }} ({{ empdata.empinitials }})
+            </span>
+          </p>
+        </div>
+
+        <div class="h-fot">
+          {{ getRdoEmpL().length }}
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row border-bottom-1px pb-3" *ngIf="shiftList">
+        
+        <div class="col-12" *ngIf="shiftList">
+          <div class="d-flex gap1 justify-content-between">
+            <div
+              class="body-wrapper font-size-16 w-100 border"
+              *ngFor="let shifts of shiftList; let i = index"
+            >
+              <div
+                class="header-shift"
+                [class]="getBackgroundColorForShiftCategory(i)"
+              >
+                {{ geShiftName(i) }} : {{ requier(shifts) }}/{{ shifts.length }}
+                <input class="datyinput" type="text" />
+              </div>
+              <div class="d-flex gap">
+                <div
+                  class="m-h-bdy w-100"
+                  *ngFor="let item of createUniqueTimeArraysByShiftTime(shifts)"
+                >
+                  <div
+                    class="shift-head"
+                    [class]="getBackgroundColorForShiftCategory(i)"
+                  >
+                    {{ convertTimeFormat(item[0].time) }} -
+                    {{ convertTimeFormatRange(item[0].time, item[0].duration) }}
+                  </div>
+                  <div class="shift-body" *ngIf="item">
+                    <div *ngFor="let empdata of item">
+                      <p
+                        class="cursor-pointer"
+                        [title]="
+                          getTooltime(empdata.empLastName, empdata.empFirstName)
+                        "
+                        (click)="epmLink(empdata)"
+                      >
+                        <span>
+                          {{ empdata.empLastName }}, {{ empdata.empFirstName }} ({{ empdata.empinitials }})
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="shift-head bottom shift-time">
+                    {{ item.length }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+  <div class="px-3 data-table d-flex">
+    <div class="container-fluid">
+      <div class="row mt-2">
+        <div class="col-2 font-size-16 p-1">
+          <div class="header">Vacation</div>
+          <div class="shift-head">
+            <p
+              *ngFor="let item of vacationWatchSchedule.empinfo"
+              (click)="epmLink(item)"
+              [title]="getTooltime(item['empLastName'], item['empFirstName'])"
+            >
+              <span class="details-text"
+                >{{ item.empInitials }} {{ item.vacationStartDate }} -
+                {{ item.vacationEndDate }} VL</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="col-2 font-size-16 p-1">
+          <div class="header">Leave</div>
+          <div class="shift-head">
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">AB 07:00-15:00 VL</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">SQ 07:00-15:00 VL</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">BP 07:00-15:00 VL</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">UB 07:00-15:00 VL</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">AB 07:00-15:00 VL</p></a
+            >
+          </div>
+        </div>
+        <div class="col-2 font-size-16 p-1">
+          <div class="header">Other Duties</div>
+          <div class="shift-head">
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">AB 07:00-15:00 OJT</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">SQ 07:00-15:00 OJT</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">BP 07:00-15:00 OJT</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">UB 07:00-15:00 OJT</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">AB 07:00-15:00 OJT</p></a
+            >
+          </div>
+        </div>
+        <div class="col-1 font-size-16 p-1">
+          <div class="header">IN Lieu of</div>
+          <div class="shift-head">
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">AB</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">BO</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">HI</p></a
+            >
+          </div>
+        </div>
+        <div class="col-2 font-size-16 p-1">
+          <div class="header">People Available for Overtime</div>
+          <div class="shift-head">
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">AB</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">BO</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">HI</p></a
+            >
+          </div>
+        </div>
+        <div class="col-3 font-size-16 p-2">
+          <div class="header">Requests</div>
+          <div class="shift-head p-1">
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">AB Sick Leave</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">BO Non Vacation Leave</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">HI Excused Absence</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">HI Shift Change</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">HI Shift Swap</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">HI RDo Swap</p></a
+            >
+            <a
+              [routerLink]="['../am', 'schedule']"
+              routerLinkActive="router-link-active"
+              ><p class="details-text">HI Training</p></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

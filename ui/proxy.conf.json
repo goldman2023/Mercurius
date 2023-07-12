@@ -1,0 +1,7 @@
+{
+  "/*": {
+      "target": "'https://3.13.254.87:2021",
+      "secure": false,
+      "logLevel": "debug"
+  }
+}

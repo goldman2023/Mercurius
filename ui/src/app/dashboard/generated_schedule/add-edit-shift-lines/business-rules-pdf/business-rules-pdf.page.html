@@ -1,0 +1,85 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header">
+<ion-row class="ion-no-margin ion-no-padding">
+  <ion-col size="11" class="ion-text-center" >
+    <ion-title class="ion-text-center" style="margin-left:-3%;padding-right: 5%;"> </ion-title>
+  </ion-col>
+  <ion-col size="1">
+    <ion-icon name='close-circle' (click)='dismiss()'></ion-icon>
+  </ion-col>
+
+</ion-row>
+</ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <a href="{{pdfSrc}}" download="BasicWatchSchedule">
+    <ion-button type="button">Download</ion-button></a>
+  </ion-row>
+  <ion-grid>
+
+    <pdf-viewer [src]="pdfSrc"
+    [render-text]="true"
+    style="display: block;"
+  ></pdf-viewer>
+  <!-- <ion-grid class="content-data-black-color ion-justify-content" style=" text-align: justify;">
+    <ion-row class="ion-justify-content-center">
+      <h1 >
+        Basic Watch Schedule
+      </h1>
+    </ion-row>
+
+    <p>
+      a.	Facility watch schedules must take into account normal traffic flow, thereby permitting the posting of a continuing schedule for an indefinite period of time. Facility management is responsible for ensuring watch schedules are in accordance with collective bargaining agreements.
+    </p>
+    <p>
+      b.	Air traffic control specialists whose primary duties are those directly related to the control and separation of aircraft must meet the following criteria:
+    </p>
+    <p>
+      1.	Do not work more than 10 operational hours in a shift.
+    </p>
+    <p>
+      2.	Hours worked before a shift, whether operational or not, will count as operational hours.
+    </p>
+    <p>
+      3.	All work beyond 10 hours must be nonoperational.
+    </p>
+    <p>
+      4.	Have at least an 8—hour break from the time work ends to the start of any shift, except as follows:
+          (a)	Employees are required to have a minimum of 9 consecutive hours off duty preceding the start of a day shift. For purposes of this paragraph only, a day shift is generally defined as a shift where the majority of hours fall between 7:00 a.m. and 4:00
+
+          (b)	This requirement applies to all shift changes, swaps, and overtime to include scheduled, call—in, and holdover assignments.
+
+    </p>
+    <p>
+      5.	Have an off—duty period of at least 12 hours following a midnight shift. (A midnight shift is defined as a shift in which the majority of hours are worked between 10:30 p.m. and 6:30 a.m.)
+    </p>
+    <p>
+      6.	If an employee is assigned more than two (2) consecutive ten (10) hour midnight shifts, all of the consecutive ten (10) hour midnight shifts require a 2100L (Non flex) start time.
+    </p>
+    <p>
+      7.	Ten (10) hour midnight shifts are limited to no more than four (4) in any six (6) day period.
+    </p>
+    <p>
+      8.	No day shift may immediately precede a ten (10) hour midnight shift.
+    </p>
+    <p>
+      9.	Eight (8) hour midnight shifts may be extended by no more than one (1) hour per single shift.
+    </p>
+    <p>
+      10.	A 0530L start time or later is required when working an eight (8) hour day shift prior to an eight (8) hour midnight shifl. Employees may not flex to an earlier start time than 0530L.
+    </p>
+    <p>
+      11.	Do not work more than six shifts without taking a regular day off.
+    </p>
+    <p>
+      12.	Authorized leave, compensatory time used, and credit hours used are considered hours of work.
+    </p>
+    <p>
+      13.	These criteria apply to shift adjustments, including the exchange of shifts and/or days off and the change of shifts and/or days off.
+    </p>
+ </ion-grid> -->
+  </ion-grid>
+
+
+</ion-content>

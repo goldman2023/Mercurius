@@ -1,0 +1,1063 @@
+
+#content{
+  margin: 0 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  padding:0 !important;
+  font-size: 16px;
+}
+
+
+#footer-text-size{
+  font-size:16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ion-button{
+  text-transform:none!important;
+}
+
+.aiml2 {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+}
+
+.aiml1 {
+  position: absolute;
+  left: 40px;
+  top: 10px;
+  z-index: -1;
+}
+.image-stack {
+  position: relative;
+  width: 100%;
+}
+
+
+.image-1{
+float: left;
+width: 50%;
+height:100%;
+}
+
+.image-2{
+  float: left;
+  width: 50%;
+  height:100%;
+  margin-left: -25%;
+}
+
+.image-3{
+  float: right;
+  width: 50%;
+  height:100%;
+  margin-left: -25%;
+  }
+
+  .on-image-text {
+    width: 100%;
+    font-size: 12px;
+    position: absolute;
+    z-index: 1;
+
+  }
+
+
+@media(min-height:568px){
+  .cal-img{
+    margin-top: 10%;
+    height: 110px;
+    width: 110px;
+  }
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 36px;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    height: 2%;
+    margin-top: -1.5%;
+  }
+  #mercurius-logo{
+    height: 10%;
+    width: 10%;
+  }
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    margin-right:1.5% ;
+    width: 79%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    // margin-top: 11%;
+    margin-left: 1.5%;
+    width: 79%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 50%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 50%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 5%;
+  }
+  #home-page-header{
+    height: 51%;
+    width: 57%;
+    margin-top: 3%;
+  }
+  #footer-text{
+    margin-top: 0%;
+    margin-bottom: 0%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+
+  #footer-home-page{
+    position: fixed;
+    padding-top: 3%;
+    bottom:0 !important;
+    width:100%;
+    height:25%;
+  }
+}
+
+@media(min-height:640px){
+  .cal-img{
+    margin-top: 0%;
+    height: 130px;
+    width: 140px;
+  }
+  #title-straightline{
+    margin-top: 45px;
+    font-size: 40px;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    // height: 2%;
+    margin-top: -1%;
+  }
+
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    width: 79%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    margin-left: 1.5%;
+    // margin-top: 11%;
+    width: 79%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 50%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 50%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 3%;
+  }
+  #home-page-header{
+    height: 51%;
+    width: 57%;
+    margin-top: 10%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 3%;
+    bottom:0 !important;
+    width:100%;
+    height:25%;
+  }
+}
+
+@media(min-height:653px){
+  .cal-img{
+    margin-top: 10%;
+    height: 140px;
+    width: 150px;
+  }
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 32px;
+    padding-top:5% ;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    // height: 2%;
+    margin-top: -2%;
+  }
+  #straightline-left{
+    height: 3px;
+    margin-right: 1.5%;
+    // margin-top: 11%;
+    width: 79%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    // margin-top: 11%;
+    margin-left: 1.5%;
+    width: 79%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 50%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 50%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+
+    font-size: 14px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 5%;
+  }
+  #home-page-header{
+    height: 51%;
+    width: 57%;
+    margin-top: 10%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 3%;
+    bottom:0 !important;
+    width:100%;
+    height:25%;
+  }
+}
+@media(min-height:667px){
+  .cal-img{
+    margin-top: 10%;
+    height: 140px;
+    width: 150px;
+  }
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 32px;
+    padding-top:5% ;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    // height: 2%;
+    margin-top: -1.5%;
+  }
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    width: 62%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    // margin-top: 11%;
+    margin-left: 1.5%;
+    width: 62%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 40%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 40%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 14px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 5%;
+  }
+  #home-page-header{
+    height: 45%;
+    width: 50%;
+    margin-top: 15%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 3%;
+    bottom:0 !important;
+    width:100%;
+    height:25%;
+  }
+}
+@media(min-height:720px){
+  .cal-img{
+    margin-top: 7%;
+    height: 150px;
+    width: 160px;
+  }
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 40px;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    // height: 2%;
+    margin-top: -1.5%;
+  }
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    width: 61%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    // margin-top: 11%;
+    margin-left: 1.5%;
+    width: 60%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 38%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 38%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 5%;
+  }
+  #home-page-header{
+    height: 33%;
+    width: 42%;
+    margin-top: 7%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:22%;
+  }
+
+}
+
+
+@media(min-height:731px){
+  .cal-img{
+    margin-top: 10%;
+    height: 155px;
+    width: 165px;
+  }
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 40px;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    height: 2%;
+    margin-top: -0.5%;
+  }
+
+  #straightline-left{
+    height: 3px;
+    // margin-top: 10%;
+    margin-right: 1.5%;
+    width: 67%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    // margin-top: 10%;
+    margin-left: 1.5%;
+    width: 69%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 45%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 45%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 4%;
+  }
+  #home-page-header{
+    height: 45%;
+    width: 47%;
+    margin-top: 14%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:25%;
+  }
+  #ALMI-text{
+    padding-top: 5%;
+  }
+}
+
+@media(min-height:812px){
+  .cal-img{
+    margin-top: 10%;
+    height: 180px;
+    width: 190px;
+  }
+    #title-straightline{
+      margin-top: 50px;
+      font-size: 40px;
+      padding-top: 17%;
+      // color: #0194e3;
+     // font-family: "Univers 55", sans-serif;
+      text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    }
+    #straightline-mercurius-logo{
+      height: 2%;
+      margin-top: -1.5%;
+    }
+    #straightline-left{
+      height: 3px;
+      // margin-top: 11%;
+      margin-right: 2%;
+      width: 74%;
+      float: right;
+      background-color: #246CA5;
+    }
+
+    #straightline-right{
+      height: 3px;
+      // margin-top: 11%;
+      margin-left: 2%;
+      width: 74%;
+      background-color: #0194e3;
+    }
+    #straightline-right-small{
+      height: 2.8px;
+      // margin-top: 11%;
+      margin-left: 0%;
+      width: 50%;
+      background-color: #0194e3;
+    }
+    #straightline-left-small{
+      height: 2.8px;
+      // margin-top: 11%;
+      margin-right:0%;
+      width: 50%;
+      float: right;
+      background-color: #246CA5;
+    }
+    #title-header{
+      color: #0194e3;
+      font-size: 16px;
+      text-align: center;
+    }
+    #get-start{
+      margin-top: 10%;
+  }
+  #home-page-header{
+    height: 100px;
+    width: 100px;
+    margin-top: 13%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:22%;
+  }
+  #ALMI-text{
+    padding-top: 5%;
+  }
+}
+
+@media(min-height:823px){
+  .cal-img{
+    margin-top: 10%;
+    height: 190px;
+    width: 200px;
+  }
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 40px;
+    padding-top: 5%;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    height: 2%;
+    margin-top: -1%;
+  }
+
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    width: 68%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    margin-left: 1.5%;
+    // margin-top: 11%;
+    width: 68%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 45%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 45%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 10%;
+  }
+  #home-page-header{
+    height: 100px;
+    width: 100px;
+    border: 1px solid;
+    margin-top: 13%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:22%;
+  }
+  #ALMI-text{
+    padding-top: 5%;
+  }
+}
+
+@media(min-height:844px){
+  #cal-img{
+    height: 225px;
+    width: 225px;
+  }
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 40px;
+    padding-top: 10%;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    height: 2%;
+    margin-top: -1%;
+  }
+
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    width: 68%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    margin-left: 1.5%;
+    // margin-top: 11%;
+    width: 68%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 45%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 45%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 10%;
+  }
+  #home-page-header{
+    height: 100px;
+    width: 100px;
+    border: 1px solid;
+    margin-top: 13%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:22%;
+  }
+  #ALMI-text{
+    padding-top: 5%;
+  }
+}
+@media(min-height:914px){
+  .cal-img{
+    margin-top: 10%;
+    height: 190px;
+    width: 200px;
+  }
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 40px;
+    padding-top: 10%;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    height: 2%;
+    margin-top: -1%;
+  }
+
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    width: 68%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    margin-left: 1.5%;
+    // margin-top: 11%;
+    width: 68%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 45%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 2.8px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 45%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 10%;
+  }
+  #home-page-header{
+    height: 67%;
+    width: 67%;
+    margin-top: 13%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:22%;
+  }
+  #ALMI-text{
+    padding-top: 5%;
+  }
+}
+
+
+@media(min-height:1024px){
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 60px;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    // height: 2%;
+    margin-top: 0.5%;
+  }
+
+
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    width: 64%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3.5px;
+    margin-left: 1.5%;
+    // margin-top: 11%;
+    width: 64%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 3.5px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 40%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 3px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 40%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+
+  #home-page-header{
+    height: 35%;
+    width: 40%;
+    margin-top: 5%;
+  }
+
+  #Feedback{
+    margin-top:2%;
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:21%;
+  }
+  #ALMI-text{
+    padding-top: 5%;
+  }
+}
+
+@media(min-height:1280px){
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 60px;
+    padding-top: 15%;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    // height: 2%;
+    margin-top: 0.5%;
+  }
+
+
+  #straightline-left{
+    height: 3px;
+    // margin-top: 11%;
+    width: 64%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 3px;
+    margin-left: 1.5%;
+    // margin-top: 11%;
+    width: 64%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 3px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 40%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 3px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 40%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 10%;
+  }
+  #home-page-header{
+    height: 45%;
+    width: 45%;
+    margin-top: 20%;
+  }
+
+  #Feedback{
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:18%;
+  }
+  #ALMI-text{
+    padding-top: 5%;
+  }
+}
+
+@media(min-height:1366px){
+  #title-straightline{
+    margin-top: 50px;
+    font-size: 80px;
+    color: #0194e3;
+    text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  #straightline-mercurius-logo{
+    // height: 2%;
+    margin-top: 1%;
+  }
+
+
+  #straightline-left{
+    height: 5px;
+    // margin-top: 11%;
+    width: 64%;
+    margin-right: 1.5%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #straightline-right{
+    height: 5px;
+    margin-left: 1.5%;
+    // margin-top: 11%;
+    width: 64%;
+    background-color: #0194e3;
+  }
+  #straightline-right-small{
+    height: 5px;
+    // margin-top: 11%;
+    margin-left: 0%;
+    width: 40%;
+    background-color: #0194e3;
+  }
+  #straightline-left-small{
+    height: 5px;
+    // margin-top: 11%;
+    margin-right:0%;
+    width: 40%;
+    float: right;
+    background-color: #246CA5;
+  }
+  #title-header{
+
+    font-size: 16px;
+    text-align: center;
+  }
+  #get-start{
+    margin-top: 5%;
+  }
+  #home-page-header{
+    height: 45%;
+    width: 45%;
+    margin-top: 5%;
+  }
+
+  #Feedback{
+    margin-top:3%;
+  text-decoration: underline;
+  }
+  #footer-home-page{
+    position: fixed;
+    padding-top: 2%;
+    bottom:0 !important;
+    width:100%;
+    height:17%;
+  }
+  #ALMI-text{
+    padding-top: 5%;
+  }
+}
+
+
+@media(min-width:540px){
+
+.image-1{
+  float: left;
+  width: 75%;
+  height:100%;
+  }
+
+  .image-2{
+    float: left;
+    width: 75%;
+    height:100%;
+    margin-left: -62.5%;
+  }
+
+  .image-3{
+    float: right;
+    width: 75%;
+    height:100%;
+    margin-left: -62.5%;
+    }
+}

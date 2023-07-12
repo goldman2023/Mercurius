@@ -1,0 +1,526 @@
+$base-color: #f6aa3b;
+$color-1: #00a1fe;
+$color-2: #ed6000;
+$color-3: #e4e4e4;
+$color-4: #357a07;
+
+.grid-btn {
+    gap: 5px;
+}
+
+.grid-btn .cursor-pointer {
+    font-size: 20px;
+}
+
+.status {
+    &--more {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-color: green;
+    }
+
+    &--less {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-color: red;
+    }
+}
+
+.mat-radio-button {
+    margin: 3px 0;
+    font-size: 14px;
+}
+
+.mat-button {
+    &.reset {
+        color: $base-color !important;
+    }
+}
+
+.week-header {
+    background-color: #f6aa3b;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 16px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    font-size: 29px;
+    height: 50px;
+}
+
+.week-sub-header {
+    font-size: 14px;
+    background-color: $color-3;
+    padding: 0 15px 0 0;
+
+    .s-w-count {
+        width: 250px;
+        min-width: 250px;
+        max-width: 250px;
+    }
+
+    .week-date {
+        flex-grow: 1;
+    }
+}
+
+.schedule-card {
+
+
+    .s-w-count {
+        width: 250px;
+        min-width: 250px;
+        max-width: 250px;
+
+        .schedule-card-info {
+            width: 100px;
+            color: black;
+            border-radius: 4px;
+            height: 40px;
+            border: 1px solid;
+            font-size: 14px;
+            border-color: $base-color;
+
+            p {
+                margin: 0;
+
+                &:last-child {
+                    font-style: italic;
+                }
+            }
+
+            &.filled {
+                color: white;
+                background-color: $base-color;
+
+                &.status1 {
+                    background-color: $color-1;
+                }
+
+                &.status2 {
+                    background-color: $color-2;
+                }
+                &.status3 {
+                    background-color: $color-3;
+                }
+                &.status4 {
+                    background-color: $color-4;
+                }
+            }
+
+            &.status1 {
+                border-color: $color-1;
+            }
+
+            &.status2 {
+                border-color: $color-2;
+            }
+            &.status3 {
+                border-color: $color-3;
+            }
+            &.status4 {
+                border-color: $color-4;
+            }
+        }
+    }
+}
+
+.schedule-card-container {
+    width: 100%;
+    max-width: 100%;
+    vertical-align: top;
+}
+
+.count {
+    color: black;
+
+    &.more {
+        color: rgb(111, 248, 111);
+    }
+
+    &.less {
+        color: red;
+    }
+}
+
+.schedule-card-item-list {
+    min-height: 140px;
+    background: white;
+    border: 1px solid #138c1d;
+    flex-grow: 1;
+    width: calc(100vw / 8);
+    max-width: calc(100vw / 7.14);
+    overflow: auto;
+
+    &:first-child {
+        border-top: 1px solid #138c1d;
+    }
+    &:last-child {
+        max-width: calc(100vw / 7.14);
+        border-right: 2px solid #138c1d;
+     }
+}
+// .schedule-card-item-list
+// .schedule-card-item-list
+
+.schedule-card-item {
+    padding: 3px 0px;
+    border-radius: 4px;
+    border: solid 1px !important;
+    color: rgba(0, 0, 0, 0.87);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    font-size: 12px;
+    border-color: $base-color !important;
+    max-width: 70px;
+    flex: auto;
+    gap: 3px;
+
+    .mat-icon-button{
+        width: 20px;
+        height: 20px;
+        line-height: 0px;
+        margin-left: -9px;
+        
+        .mat-icon{
+          width: auto;
+          height: auto;
+          line-height: 14px;
+        
+        }
+      }
+      .mat-menu-content{
+    
+        .mat-menu-item{
+          line-height: 32px;
+          height: 32px;
+        }
+      }
+
+    .mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        color: rgba(0, 0, 0, 0.87);
+    }
+
+    &.status1 {
+        border-color: $color-1 !important;
+    }
+
+    &.status2 {
+        border-color: $color-2 !important;
+    }
+    &.status3 {
+        border-color: $color-3 !important;
+    }
+    &.status4 {
+        border-color: $color-4 !important;
+    }
+
+    &:last-child {
+        border-color: $base-color !important;
+
+        &.status1 {
+            border-color: $color-1 !important;
+        }
+
+        &.status2 {
+            border-color: $color-2 !important;
+        }
+        &.status3 {
+            border-color: $color-3 !important;
+        }
+        &.status4 {
+            border-color: $color-4 !important;
+        }
+    }
+
+    &.filled {
+        color: white;
+        background-color: $base-color;
+
+        .mat-icon {
+            color: white;
+        }
+
+        &.status1 {
+            background-color: $color-1;
+        }
+
+        &.status2 {
+            background-color: $color-2;
+        }
+        &.status3 {
+            background-color: $color-3;
+            color: #000;
+        }
+        &.status4 {
+            background-color: $color-4;
+        }
+    }
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.schedule-card-item:last-child {
+    border: none;
+}
+
+.schedule-card-item-list.cdk-drop-list-dragging .schedule-card-item:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.user-menu {
+    background-color: #fafafa;
+    font-size: 10pt;
+    z-index: 1000;
+    box-shadow: 0 0 12pt rgba(0, 0, 0, 0.25);
+    border-radius: 4pt;
+    padding: 0.5em 0 0.5em 0;
+    animation: fadeIn 0.1s ease-out;
+    opacity: 1.0;
+    display: block;
+}
+
+.buttons {
+    padding: 5px 10px;
+    text-align: left;
+    color: #000;
+    display: block;
+    text-decoration: none;
+}
+
+.buttons:hover {
+    background-color: #d3d3d3;
+}
+
+.weekly-content {
+    overflow: auto;
+    height: calc(100vh - 425px);
+}
+
+@media screen and (max-width: 767px) {
+    .schedule-card {
+        .s-w-count {
+            min-width: 60px;
+            flex-direction: column;
+            width: auto !important;
+        }
+    }
+
+    .schedule-card-info {
+        margin: 6px 0px !important;
+        padding: 0px !important;
+        width: 50px !important;
+    }
+
+    .schedule-card-item-list {
+        padding: 0px !important;
+    }
+
+    .schedule-card-item {
+        margin: 6px 0px !important;
+    }
+
+    .schedule-card-item-list {
+        justify-content: center !important;
+    }
+
+}
+
+.week-row-card{
+    flex-wrap: wrap;
+    // padding: 5px;
+    border-top: 1px solid #138c1d;
+}
+.gap{
+    gap: 5px;
+}
+.date-name{
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+    width: 100%;
+}
+// .date-name:last-child{
+//     margin-bottom: 10px;
+// }
+.disabled{
+    color: #9c9c9c;
+}
+.focus{
+    color: #f00;
+}
+.max-height-date-box{
+    height: 100px;
+}
+.type-mid{
+    background-color: $color-1;
+    padding: 5px;
+    width: 92px;
+    margin: 0px 0px 0px -8px;
+    text-align: center;
+
+    .type-text{
+        font-size: 14px;
+        margin: 0px;
+        color: #fff;
+        font-weight: 500;
+    }
+}
+.type-day{
+    background-color: $base-color;
+    padding: 5px;
+    width: 92px;
+    margin: 0px 0px 0px -8px;
+    text-align: center;
+
+    .type-text{
+        font-size: 14px;
+        margin: 0px;
+        color: #fff;
+        font-weight: 500;
+    }
+}
+.type-eve{
+    background-color: $color-2;
+    padding: 5px;
+    width: 92px;
+    margin: 0px 0px 0px -8px;
+    text-align: center;
+
+    .type-text{
+        font-size: 14px;
+        margin: 0px;
+        color: #fff;
+        font-weight: 500;
+    }
+}
+.type-rdo{
+    background-color: $color-3;
+    padding: 5px;
+    width: 92px;
+    margin: 0px 0px 0px -8px;
+    text-align: center;
+
+    .type-text{
+        font-size: 14px;
+        margin: 0px;
+        color: #202020;
+        font-weight: 500;
+    }
+}
+.type-vacation{
+    background-color: $color-4;
+    padding: 5px;
+    width: 92px;
+    margin: 0px 0px 0px -8px;
+    text-align: center;
+
+    .type-text{
+        font-size: 14px;
+        margin: 0px;
+        color: #fff;
+        font-weight: 500;
+    }
+}
+.day-title{
+    background-color: #f68500;
+    color: #000;
+}
+
+::ng-deep .mat-menu-content{
+    padding: 8px 15px !important;
+}
+::ng-deep .mat-menu-panel{
+  border-radius: 10px 0px 10px 10px !important;
+}
+::ng-deep .cdk-overlay-connected-position-bounding-box{
+    margin-left: 0px;
+    right: 9 !important;
+  margin-top: -8px;
+  position: relative;
+
+    // &::after{
+    //   position: absolute;
+    //   left: 25px;
+    //   top: -5px;
+    //   width: 15px;
+    //   height: 15px;
+    //   content: "";
+    //   transform: rotate(-227deg);
+    //   background-color: #fff;
+    //   z-index: 9;
+    //   border-radius: 2px;
+    //   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 14px 0px rgba(0, 0, 0, 0.14), 0px 1px 23px 0px rgba(0, 0, 0, 0.12);
+    // }
+}
+::ng-deep .mat-menu-item{
+  line-height: 35px !important;
+  padding:0 4px !important;
+  height: auto !important;
+  color: #ff6700 !important;
+  font-size: 14px !important;
+  font-weight: normal !important;
+  border-bottom: 1px solid #dacbcb !important;
+
+  &:hover{
+    color: #000 !important;
+  }
+}
+.icon-custom-size{
+    font-size: 12px !important;
+    width: 12px !important;
+    height: 12px !important;
+    line-height: 12px !important;
+  }
+
+  .rule{
+    background: #d3d3d3;
+    border-radius: 50%;
+    position: absolute;
+    top:-10px;
+    right: -10px;
+  }
+
+
+  @media screen and (max-width: 767px) {
+    .mobile-responsive-d-none{
+        display: none !important;
+      }
+      .schedule-card-item-list{
+        width: 100% ;
+        max-width: 100%;
+        margin-top: 10px;
+      }
+      .schedule-card-item {
+        max-width: 100% !important;
+        width: 95px;
+        padding: 7px !important;
+      }
+      .week-row-card{
+        padding: 5px 10px !important;
+      }
+  }

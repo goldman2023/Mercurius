@@ -1,0 +1,8 @@
+{"timeZoneArray" : [
+  {"label":"(GMT-10:00) Hawaii","value":"Pacific/Honolulu"},
+  {"label":"(GMT-09:00) Alaska","value":"US/Alaska"},
+  {"label":"(GMT-08:00) Pacific Time (US & Canada)","value":"America/Los_Angeles"},
+  {"label":"(GMT-07:00) Mountain Time (US & Canada)","value":"US/Mountain"},
+  {"label":"(GMT-06:00) Central Time (US & Canada)","value":"US/Central"},
+  {"label":"(GMT-05:00) Eastern Time (US & Canada)","value":"US/Eastern"}
+]}

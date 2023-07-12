@@ -1,0 +1,17 @@
+<div class="employee w-100">
+  <div class="header">Employee ({{Bidparamesget.length}})</div>
+  <div class="list" >
+    <a
+      #employeeList
+      *ngFor="let item of sortEmployeesByRank(allEmployees)"
+      (click)="goDown2(item)"
+      [routerLink]="['./', item.empid, bischid, 'schedule']"
+      class="nav-link d-block p-2"
+      routerLinkActive="router-link-active"
+      class="name"
+      >{{ item.lname }}, {{ item.fname }} ({{ item.initials }}) ({{
+        item.rank
+      }})</a
+    >
+  </div>
+</div>

@@ -1,0 +1,67 @@
+.main-card{
+  height: 95%;
+}
+.mymodal{
+  padding: 2%;
+}
+#work-prefrence-day:first-letter {
+  color: black;
+  @media only screen and (max-width: 640px) {
+    font-size: 14px;
+  }
+  margin: 0%;
+  text-align: center;
+  padding: 0%;
+}
+ion-segment{
+  --color:(0,0,0,1);
+  --background: rgb(256, 256 ,256);
+  border-radius:10px !important;
+  padding-left:4px !important;
+  padding-top:4px !important;
+  padding-bottom:4px !important;
+  padding-right:4px !important;
+}
+
+#work-prefrence-day{
+  // border: solid 1px black;
+  --width:100% !important;
+  // border-width: 450;
+  height: 35px;
+  --padding-top: 0% !important;
+--padding-bottom: 0% !important;
+  font-weight:normal;
+  text-align: center;
+  padding: 7px;
+  font-size: 0px;
+  @media only screen and (min-width: 640px) {
+    font-size: 14px;
+  }
+}
+button{
+  background-color: #0194e3;
+  border: none;
+  color: white;
+  width: 60%;
+  text-align: center;
+  border-radius:20px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+.success{
+  color: green;
+}
+.danger{
+  color: red;
+}
+ion-alert:not(.select-alert) {
+  --background: black !important;
+  --color: #246CA5;
+  .alert-message {
+    color: #246CA5;
+}
+}
+
+ion-spinner {
+  display: block;
+  width: 100%;
+}

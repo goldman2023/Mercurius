@@ -1,0 +1,285 @@
+<ion-content>
+  <ion-grid  class="ion-text-center" *ngIf="spinner === true">
+    <ion-row>
+      <ion-col size="12">
+        <ion-spinner name="bubbles"></ion-spinner>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+<ion-grid class="container" *ngIf="spinner === false">
+
+<ion-grid class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top   ion-no-margin-bottom" >
+  <ion-grid class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top   ion-no-margin-bottom">
+    <ion-row class="content-data ion-no-margin ion-no-padding">
+      <ion-col size="12" class="app-font-primary-color  ion-text-center " style="font-size: 14px;padding-left: 0px !important;padding-right: 0px !important;margin-left: 0px !important;margin-right: 0px !important;"><b>BID VACATION LEAVE</b><b *ngIf="currentEmpData!=undefined"> for {{currentEmpData.fname | titlecase}} {{currentEmpData.lname| titlecase}} ({{currentEmpData.initials}})</b></ion-col>
+    </ion-row>
+    <ion-row class="content-data ion-no-margin ion-no-padding">
+      <ion-col size="12" class="app-font-primary-color ion-no-margin ion-no-padding ion-text-center data" ><ion-label><b><b>Round {{currentactiveRoundNumber+1}} of {{all_SBP_rounds.length}}</b></b></ion-label></ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+<ion-grid  class="data ion-no-margin ion-no-padding" *ngIf="activeRoundData==true;">
+<ion-row  class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top   ion-no-margin-bottom" >
+  <ion-col size="2" class="cursor-pointer">
+    <div style="float: left;"> <mat-icon (click)="reset()">settings_backup_restore</mat-icon></div><div style="float: left;padding-top: 3px;"> <b (click)="reset()" class="font-normal text-normal app-font-mercurius-secondary-color " style="font-size: 12px;"> Clear </b></div>
+    </ion-col>
+  <ion-col size="8" class="ion-no-margin ion-no-padding ion-text-center"  >
+    <ion-label ><b>Leave Selection Rule: </b>{{currentActiveBidLeaveRule}} </ion-label>
+  </ion-col>
+  <ion-col size="2"></ion-col>
+</ion-row>
+
+</ion-grid>
+
+
+<ion-grid id="activeRound" style="padding-bottom:200px ;">
+     <!-- <ion-slides loop="false" pager="false" [options]="slideOption" style="--min-height: 100% !important;padding-bottom: 50px;" > -->
+       <ion-grid   *ngFor="let month of currentSource;let k=index" >
+      <ion-grid >
+        <ion-row   class="data ion-text-center font-size-14px">
+          <ion-col size="12">
+            <b>{{month[15].startTime|date:'MMMM YYYY'}}</b>
+          </ion-col>
+          </ion-row>
+        <ion-row   class=" data ion-no-margin ion-no-padding " >
+          <ion-col class="ion-no-margin ion-text-center font-size-14px ion-no-padding app-background-mercurius-primary-color" style="border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;border-left: 1px solid lightgray;color:black;height: 35px;vertical-align: middle !important;padding-top: 10px" size="1.7">
+              <b >S</b>
+          </ion-col>
+          <ion-col class="ion-no-margin ion-text-center font-size-14px ion-no-padding app-background-mercurius-primary-color" style="border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;color:black;height: 35px;vertical-align: middle !important;padding-top: 10px" size="1.7">
+              <b>M</b>
+          </ion-col>
+          <ion-col class="ion-no-margin ion-text-center font-size-14px ion-no-padding app-background-mercurius-primary-color" style="border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;color:black;height: 35px;vertical-align: middle !important;padding-top: 10px" size="1.7">
+              <b>T</b>
+          </ion-col>
+          <ion-col class="ion-no-margin ion-text-center font-size-14px ion-no-padding app-background-mercurius-primary-color" style="border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;color:black;height: 35px;vertical-align: middle !important;padding-top: 10px" size="1.7">
+              <b>W</b>
+          </ion-col>
+          <ion-col class="ion-no-margin ion-text-center font-size-14px ion-no-padding app-background-mercurius-primary-color" style="border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;color:black;height: 35px;vertical-align: middle !important;padding-top: 10px" size="1.7">
+              <b>T</b>
+          </ion-col>
+          <ion-col class="ion-no-margin ion-text-center font-size-14px ion-no-padding app-background-mercurius-primary-color" style="border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;color:black;height: 35px;vertical-align: middle !important;padding-top: 10px" size="1.7">
+              <b>F</b>
+          </ion-col>
+          <ion-col class="ion-no-margin ion-text-center font-size-14px ion-no-padding app-background-mercurius-primary-color" style="border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;border-right: 1px solid lightgray;color:black;height: 35px;vertical-align: middle !important;padding-top: 10px" size="1.7">
+              <b>S</b>
+          </ion-col>
+        </ion-row>
+        <ion-row  class="ion-no-margin ion-no-padding data">
+        <ion-col (click)="selectDate(da,k)"  size="1.7" class=" ss ion-no-margin ion-no-padding"   *ngFor="let da of month" style="border: 1px solid lightgray; touch-action: manipulation !important;touch-action: manipulation;padding-bottom:0px !important">
+          <!-- RODs -->
+          <ion-grid class="" *ngIf="da!=undefined "  class="ion-no-margin ion-no-padding">
+              <ion-grid *ngIf="da.title=='rdo'" class="sat-sun ion-no-margin">
+              <div *ngIf="(da.slot + - +da.emp.length)>0">
+                <ion-row class="" style="padding-bottom: 3.5px;" >
+                  <div  >{{da.startTime| date:'d'}}</div>
+                </ion-row>
+              </div>
+              <div *ngIf="(da.slot + - +da.emp.length)<1" [class]="getCancelLine(da.startTime)">
+                <ion-row class="" style="padding-bottom: 3.5px;" >
+                  <div  >{{da.startTime| date:'d'}}</div>
+                </ion-row>
+              </div>
+              <!-- <div *ngIf="(da.slot + - +da.emp.length)<1"  >
+                {{da.startTime| date:'d'}}
+            </div> -->
+              <ion-row  style="text-align: center;" >
+
+                    <table style="text-align:center !important;width: 100% !important;">
+                      <tr class="d-flex justify-content-between align-items-center" style="text-align:center !important;width: 100% !important;height:100% !important;">
+                        <td style="text-align:center !important;width: 100% auto !important;"  *ngIf="(da.slot + - +da.emp.length)>0"><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;"><span style="padding:1px 3px 1px 3px !important;border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;"> {{da.slot - da.emp.length}}</span></div></td>
+                        <td style="text-align:center !important;width: 100% auto !important;"  *ngIf="(da.slot + - +da.emp.length)>-1 && da.emp.length>0"><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;" ><span style="padding:1px 3px 1px 3px !important;font-size:10px;background-color: #ff6700;color:white;">{{da.emp.length}}</span></div></td>
+                        <td style="text-align:center !important;width: 100% auto !important;"  *ngIf="(da.slot + - +da.emp.length)<0 && da.slot>0"><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;" ><span style="padding:1px 3px 1px 3px !important;border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;">{{da.slot }}</span></div></td>
+                        <td style="text-align:center !important;width: 100% auto !important;" *ngIf="(da.slot + - +da.emp.length)<0 "><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;"><span style="padding:1px 3px 1px 3px !important;font-size:10px;background-color: #ff6700;color:white;">{{da.emp.length}}</span></div></td>
+                      </tr>
+                    </table>
+                    <div style="font-size:10px;background-color: transparent;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="da.slot === 0 && da.emp.length===0"> </div>
+            </ion-row>
+              </ion-grid>
+              <!-- Others -->
+
+              <ion-grid *ngIf="da.title=='' && (da.slot + - +da.emp.length)>0" [class]="checkSelectedDates(da)">
+                <div *ngIf="checkConditionTwoDoubleCLick(da)" style="height:12px !important;width:auto !important;float: right !important;margin:0px !important;margin: -2px !important;padding: 0px !important;font-size: 8px;">{{checkShiftDuration(da.startTime)}}hr</div>
+                <ion-row style="padding-left: 0px !important;padding-right: 0px !important;">
+                  <div [class]="checkConditionTwoDoubleCLick(da)" >{{da.startTime| date:'d'}}</div>
+                  </ion-row>
+                <ion-row  style="padding-bottom: 3.5px;" *ngIf="conditionThree(da)"><div [class]="cssClassSingle()" >{{da.startTime| date:'d'}}</div></ion-row>
+              <ion-row  [class]="checkSlotsEmp(da)" style="  width:100% !important;text-align: center;margin:0px auto;padding: 0px auto;margin-top: 0px !important;padding-top: 0px !important;" >
+                <table style="text-align:center !important;width: 100% !important;">
+                  <tr class="d-flex justify-content-between align-items-center" style="text-align:center !important;width: 100% !important;height:100% !important;">
+                    <td style="text-align:center !important;width: 100% auto !important;" *ngIf="(da.slot + - +(da.emp.length+ + +1))>0 "><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;"><span style="padding:1px 3px 1px 3px !important;border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;"> {{da.slot - (da.emp.length+1)}}</span></div></td>
+                    <td style="text-align:center !important;width: 100% auto !important;" *ngIf="(da.slot + - +(da.emp.length+1))>-1 && (da.emp.length+ + +1)>0"><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;" ><span style="padding:1px 3px 1px 3px !important;font-size:10px;background-color: #ff6700;color:white;">{{da.emp.length+1}}</span></div></td>
+                    <td style="text-align:center !important;width: 100% auto !important;"  *ngIf="(da.slot + - +(da.emp.length+ + +1))<0 && da.slot>0"><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;" ><span style="padding:1px 3px 1px 3px !important;border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;">{{da.slot }}</span></div></td>
+                    <td style="text-align:center !important;width: 100% auto !important;" *ngIf="(da.slot + - +(da.emp.length+ + +1))<0 "><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;"><span style="padding:1px 3px 1px 3px !important;font-size:10px;background-color: #ff6700;color:white;">{{da.emp.length + 1}}</span></div></td>
+                  </tr>
+                </table>
+                <div style="font-size:10px;background-color: transparent;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="da.slot === 0 && da.emp.length===0"> </div>
+
+                </ion-row>
+
+                <ion-row  [class]="checkSelectedSlotsEmp(da)" style="width:100% !important;text-align: center;margin: auto;padding: auto; padding-top: 3.5px;">
+                  <div style="font-size:10px;background-color: transparent;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="da.slot === 0 && da.emp.length===0"> </div>
+                  <table style="text-align:center !important;width: 100% !important;">
+                    <tr class="d-flex justify-content-between align-items-center" style="text-align:center !important;width: 100% !important;height:100% !important;">
+                      <td style="text-align:center !important;width: 100% auto !important;" *ngIf="(da.slot + - +da.emp.length)>0 "><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;"><span style="padding:1px 3px 1px 3px !important;border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;"> {{da.slot - da.emp.length}}</span></div></td>
+                      <td style="text-align:center !important;width: 100% auto !important;" *ngIf="(da.slot + - +da.emp.length)>-1 && da.emp.length>0"><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;" ><span style="padding:1px 3px 1px 3px !important;font-size:10px;background-color: #ff6700;color:white;">{{da.emp.length}}</span></div></td>
+                      <td style="text-align:center !important;width: 100% auto !important;" *ngIf="(da.slot + - +da.emp.length)<0 && da.slot>0"><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;" ><span style="padding:1px 3px 1px 3px !important;border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;">{{da.slot }}</span></div></td>
+                      <td style="text-align:center !important;width: 100% auto !important;" *ngIf="(da.slot + - +da.emp.length)<0 "><div style="text-align:center !important;width: 100% auto !important;vertical-align: middle !important;margin: 2px;"><span style="padding:1px 3px 1px 3px !important;font-size:10px;background-color: #ff6700;color:white;">{{da.emp.length}}</span></div></td>
+                    </tr>
+                  </table>
+
+                    <div style="display: inline-block;font-size:10px;background-color: #ff6700;color:white;width: 14px;height: 16px;margin: auto;margin-right: 0px;margin-left: 3px;"  *ngIf="(da.slot + - +da.emp.length)<0 ">{{da.emp.length}}</div>
+                  </ion-row>
+
+
+              </ion-grid>
+
+              <ion-grid *ngIf="da.title=='' && (da.slot + - +da.emp.length)<1" [class]="checkSelectedDates(da)" style="padding-bottom:0px !important;margin-bottom:0px !important">
+                <div [class]="getCancelLine(da.startTime)">
+                <ion-row style="padding-bottom:7px;">
+                  <div [class]="checkConditionTwoDoubleCLick(da)">{{da.startTime| date:'d'}}</div>
+                  </ion-row>
+                </div>
+                <ion-row  [class]="checkSlotsEmp(da)" style="margin-bottom:10.5px;  text-align: center;padding-left: 0px auto !important;padding-right: 0px auto !important;">
+                  <div style="font-size:10px;background-color: transparent;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="da.slot === 0 && da.emp.length===0"> </div>
+                    <div style="border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="(da.slot + - +(da.emp.length+ + +1))>0 "> {{da.slot - (da.emp.length+1)}}</div>
+                    <div style="font-size:10px;background-color: #ff6700;color:white;width: 14px;height: 16px;margin-left:4px;margin: auto;"  *ngIf="(da.slot + - +(da.emp.length+1))>-1 && (da.emp.length+ + +1)>0">{{da.emp.length+1}}</div>
+
+                    <div style="border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="(da.slot + - +(da.emp.length+ + +1))<0 && da.slot>0">{{da.slot }}</div>
+                    <div style="font-size:10px;background-color: #ff6700;color:white;width: 14px;height: 16px;margin-left:4px;margin: auto;"  *ngIf="(da.slot + - +(da.emp.length+ + +1))<0 ">{{da.emp.length + 1}}</div>
+                  </ion-row>
+
+                  <ion-row  [class]="checkSelectedSlotsEmp(da)" style="width:100% !important;text-align: center;padding-bottom: 10.5px;">
+                    <div style="font-size:10px;background-color: transparent;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="da.slot === 0 && da.emp.length===0"> </div>
+                      <div style="border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="(da.slot + - +da.emp.length)>0 "> {{da.slot - da.emp.length}}</div>
+                      <div style="font-size:10px;background-color: #ff6700;color:white;width: 14px;height: 16px;margin-left:4px;margin: auto;"  *ngIf="(da.slot + - +da.emp.length)>-1 && da.emp.length>0">{{da.emp.length}}</div>
+
+                      <div style="border:0.5px solid lightgray;font-size:10px;background-color: white;color:black;width: 14px;height: 16px;margin: auto;padding: auto;" *ngIf="(da.slot + - +da.emp.length)<0 && da.slot>0">{{da.slot }}</div>
+                      <div style="font-size:10px;background-color: #ff6700;color:white;width: 14px;height: 16px;margin-left:4px;margin: auto;"  *ngIf="(da.slot + - +da.emp.length)<0 ">{{da.emp.length}}</div>
+                    </ion-row>
+
+               </ion-grid>
+
+          </ion-grid>
+          <ion-label *ngIf="da==undefined "  >
+          </ion-label>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+  </ion-grid>
+  <!-- </ion-slides> -->
+    <!-- </ion-content> -->
+
+
+
+
+    <ion-grid>
+
+
+    </ion-grid>
+    <ion-grid>
+      <ion-grid *ngIf="selectedDate.length>0; ">
+        <ion-item   *ngFor="let event of selectedDate;">
+          <ion-grid *ngIf="(event.event.slot - event.event.emp.length)>0">
+            <ion-item *ngFor=" let e of event.event.emp">
+                  <div class="event-indicator" style="float: left;background-color: red;"></div>  <p style="width: 100%;margin-left: 10px;">{{e}}</p>
+              </ion-item>
+              <ion-item>
+                <div class="event-indicator" style="float: left;"></div>  <p style="width: 100%;margin-left: 10px;" *ngIf="(event.event.slot - event.event.emp.length)>1"> {{event.event.slot - event.event.emp.length}} Slots
+                  <p style="width: 100%;margin-left: 10px;" *ngIf="(event.event.slot - event.event.emp.length)<2"> {{event.event.slot - event.event.emp.length}} Slot
+                </p>
+              </ion-item>
+
+        </ion-grid>
+          <ion-grid *ngIf="(event.event.slot - event.event.emp.length)==0">
+            <ion-item *ngFor=" let e of event.event.emp">
+                  <div class="event-indicator" style="float: left;background-color: red;"></div>  <p style="width: 100%;margin-left: 10px;">{{e}}</p>
+              </ion-item>
+          </ion-grid>
+          <ion-grid *ngIf="event.event.slot<1" style="margin: 0%;padding: 0%;">
+              <ion-item *ngFor=" let e of event.event.emp">
+                <ion-row style="width: 100%;">
+                  <ion-col style="width: 100%;" size="12"><div class="event-indicator" style="float: left;background-color: red;"></div>  <p style="width: 100%;margin-left: 10px;">{{e}}</p> </ion-col>
+                </ion-row>
+
+
+              </ion-item>
+
+            </ion-grid>
+      </ion-item>
+
+    </ion-grid>
+  </ion-grid>
+</ion-grid>
+</ion-grid>
+</ion-grid>
+
+</ion-content>
+<ion-grid id="footer" class="container" *ngIf="activeRoundData==true && notEligible==false;else notEligibleBlock">
+  <!-- <ion-row  class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top   ion-no-margin-bottom" >
+    <ion-col size="2">
+      <div style="float: left;"> <mat-icon style="font-size: 16px;" (click)="reset()">settings_backup_restore</mat-icon></div><div style="float: left;padding-top: 3px;"> <b (click)="reset()" class="font-normal text-normal app-font-mercurius-secondary-color" style="font-size: 12px;"> Clear </b></div>
+      </ion-col>
+    <ion-col size="8" class="ion-no-margin ion-no-padding ion-text-center"  >
+    </ion-col>
+    <ion-col size="2"></ion-col>
+  </ion-row> -->
+  <ion-row class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top   ion-no-margin-bottom">
+    <ion-col size="6" class="data text-align-left  ion-no-margin-bottom  ion-no-padding-bottom" ><b *ngIf="remainingVacationHours>1"> Vacation Balance: {{remainingVacationHours}} Hours</b><b *ngIf="remainingVacationHours<2"> Vacation Balance: {{remainingVacationHours}} Hour</b></ion-col>
+    <ion-col size="12" class="data text-align-right ion-no-margin-top ion-no-margin-bottom ion-no-padding-top ion-no-padding-bottom" >
+      <b><ion-icon name="square"class='selected-leave-font-color'></ion-icon></b><b style="font-weight: normal;margin-right: 10px;"> Your Leave  </b>
+      <b><ion-icon name="square-outline" style="color: lightgray;"></ion-icon></b><b style="font-weight: normal;margin-right: 10px;"> Available Slots  </b>
+      <b style=" word-spacing: 10px;">  <ion-icon name="square" class="app-font-mercurius-secondary-color"></ion-icon></b> Filled Slots</ion-col>
+  </ion-row>
+<ion-grid class="ion-no-padding ion-no-margin"  *ngIf="selectedLeaves>0 || rdosInLeave>0">
+   <ion-row   class="ion-no-margin ion-no-padding">
+    <ion-col size="12" *ngIf="selectedLeaves>totalhoursAreAllowToPick" class="app-font-red-color font-size-14px"><ion-label  class="ion-no-margin ion-no-padding " >Please select a maximum {{totalhoursAreAllowToPick}} hours based on the leave selection rule {{leaveType}}.</ion-label></ion-col>
+    <ion-col class="ion-no-margin ion-no-padding" sizeXs="7" sizeMd="9">
+      <div style="border: 1px solid lightgray;border-radius: 10px;margin: 5px;padding:5px">
+      <ion-row class="ion-no-margin ion-no-padding">
+
+
+    <ion-col size="6" class="ion-no-margin ion-no-padding" style="font-size: 12px;"><b>Total Leave </b></ion-col>
+    <ion-col size="6" class="ion-no-margin ion-no-padding" style="font-size: 12px;" *ngIf="selectedLeaves>1"><b>{{selectedLeaves}} Hours</b></ion-col>
+    <ion-col size="6" class="ion-no-margin ion-no-padding" style="font-size: 12px;" *ngIf="selectedLeaves<2"><b>{{selectedLeaves}} Hour</b></ion-col>
+  </ion-row>
+</div>
+</ion-col>
+<ion-col sizeXs="5" sizeMd="3" class="ion-no-margin d-flex justify-content-center"  >
+<ion-button shape="round" [disabled]="selectedLeaves<1 || selectedLeaves>totalhoursAreAllowToPick" (click)="continue()"  class="app-button w-auto"  style="width: 100%;" >{{'Submit' | titlecase}}</ion-button>
+</ion-col>
+</ion-row>
+</ion-grid>
+</ion-grid>
+<ng-template  #notEligibleBlock>
+  <ion-grid id="footer" >
+  <ion-row class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top   ion-no-margin-bottom">
+    <ion-col size="6" class="data text-align-left" ><b *ngIf="remainingVacationHours>1"> Vacation Balance: {{remainingVacationHours}} Hours</b><b *ngIf="remainingVacationHours<2"> Vacation Balance: {{remainingVacationHours}} Hour</b></ion-col>
+    <ion-col size="6" class="data text-align-right" ><b><ion-icon name="square-outline" style="color: lightgray;"></ion-icon></b><b style="font-weight: normal;margin-right: 10px;"> Available Slots  </b> <b style=" word-spacing: 10px;">  <ion-icon name="square" class="app-font-mercurius-secondary-color"></ion-icon></b> Filled Slots</ion-col>
+  </ion-row>
+<ion-grid class="ion-no-padding ion-no-margin"  >
+  <ion-row  >
+
+  </ion-row>
+  <ion-row   class="ion-no-margin ion-no-padding">
+    <ion-col size="12" *ngIf="selectedLeaves>totalhoursAreAllowToPick" class="app-font-red-color font-size-14px"><ion-label  class="ion-no-margin ion-no-padding " >Please select a maximum {{totalhoursAreAllowToPick}} hours based on the leave selection rule {{leaveType}}.</ion-label></ion-col>
+    <ion-col class="ion-no-margin ion-no-padding" size="7">
+      <div style="border: 1px solid lightgray;border-radius: 10px;margin: 5px;padding:5px">
+      <ion-row class="ion-no-margin ion-no-padding">
+
+
+    <ion-col size="12" class="ion-no-margin ion-no-padding app-font-red-color" style="font-size: 12px;"><b>Not Eligible For vacation bidding</b></ion-col>
+  </ion-row>
+</div>
+</ion-col>
+<ion-col size="5" class="ion-no-margin "  >
+<ion-button shape="round" (click)="updateNextEmpData()"  class="app-button"  style="width: 100%;" >{{'Submit' | titlecase}}</ion-button>
+</ion-col>
+</ion-row>
+</ion-grid>
+</ion-grid>
+</ng-template>

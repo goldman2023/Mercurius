@@ -1,0 +1,71 @@
+{
+  "java_apis":{
+    "url":"https://3.13.254.87:2021"
+  },
+  "python_apis":{
+    "url":"https://dev.straightlines.io/python"
+  },
+  "apis":{
+    "employee_dashboard":"dashboard",
+    "employee_user":"user",
+    "employee_home":"dashboard/bidding",
+    "employee_view_bid_schedule":"dashboard/view-bid-schedule",
+    "employee_view_seniority_list":"dashboard/view-seniority-list",
+    "employee_view_bid_window":"dashboard/view-bid-window",
+    "employee_view_bidschedule":"dashboard/view-bid-schedule/",
+    "employee_view_leave_bid":"dashboard/view-leave-bid",
+    "employee_select_shift_line":"dashboard/SSB",
+    "employee_bid_leave_option":"dashboard/select-bid-leave",
+    "employee_leave_vacation":"dashboard/bid-leave-vacation",
+    "employee_view_schedule_leave_summary":"dashboard/schedule-leave-summary",
+
+    "guest_dashboard":"stLines-dashBoard",
+    "guest_enter_Work_load":"stLines-dashBoard/manage-shiftline-schedules/enter-workload",
+    "guest_select_option_for_generate_schedule":"stLines-dashBoard/seleCt",
+    "guest_generated_schedule_api":"stLines-dashBoard/manage-shiftline-schedules/schedule-generated",
+    "guest_edit_schedule_api":"stLines-dashBoard/manage-shiftline-schedules/edit-shiftline-schedule",
+    "guest_manage_shift_line_schedule":"stLines-dashBoard/manage-shiftline-schedules",
+
+    "user":"manager",
+    "dashboard":"sTlines-dashboard",
+    "bidding_dahboard":"sTlines-dashboard/bidding",
+    "enter_Work_load":"sTlines-dashboard/bidding/enter-work",
+    "generated_schedule":"sTlines-dashboard/bidding/generated-schedules",
+    "select_option_for_generate_schedule":"sTlines-dashboard/select",
+    "manage_bid_schedule":"sTlines-dashboard/bidding/bid-list",
+    "assign_bid_schedule":"sTlines-dashboard/bidding/assign-schedules",
+    "create_new_bid_schedule":"sTlines-dashboard/bidding/create-new-bid-schedule",
+    "view_bidschedule":"sTlines-dashboard/bidding/view-bid-schedule/",
+    "edit_bidschedule":"sTlines-dashboard/bidding/edit-bid-schedule/",
+    "setUp_bid_parameters":"sTlines-dashboard/bidding/SBP",
+
+    "bidding":"sTlines-dashboard/bidding",
+    "my_bidding":"sTlines-dashboard/bidding/my-bidding",
+    "selet_shift_line_bidding":"sTlines-dashboard/bidding/my-bidding/SSB",
+    "selet_shift_line_bidding_bid_manager":"sTlines-dashboard/bidding/my-bidding/SSBforEmployee",
+    "bid_leave_vacation":"sTlines-dashboard/bidding/my-bidding/bid-leave-vacation",
+    "view_bid_schedule":"sTlines-dashboard/bidding/my-bidding/view-bid-schedule",
+    "view_seniority_list":"sTlines-dashboard/bidding/my-bidding/view-seniority-list",
+    "view_bid_window":"sTlines-dashboard/bidding/my-bidding/view-bid-window",
+    "view_schedule_leave_summary":"sTlines-dashboard/bidding/my-bidding/view-schedule-leave-summary",
+    "select_bid_leave_option":"sTlines-dashboard/bidding/my-bidding/select-bid-leaveforEmployee",
+    "selet_shift_line_bidding_employee":"sTlines-dashboard/bidding/my-bidding/SSBforEmployee",
+    "cal_test":"sTlines-dashboard/bidding/my-bidding/cal-test",
+    "cal_test_one":"sTlines-dashboard/bidding/my-bidding/cal-test-one",
+    "select_date":"sTlines-dashboard/select-date",
+    "cal_test_two":"sTlines-dashboard/bidding/my-bidding/cal-test-two",
+    "add_new_employee":"sTlines-dashboard/bidding/add-new-employee",
+    "view_leave_bid":"sTlines-dashboard/bidding/my-bidding/view-leave-bid",
+    "manage_shift_line_schedule":"sTlines-dashboard/manage-shift-line-schedules",
+    "import_excel_sheet_schedule":"sTlines-dashboard/import-schedule",
+    "enter_Work_load_api":"sTlines-dashboard/manage-shift-line-schedules/enter-work-load",
+
+    "generated_schedule_api":"sTlines-dashboard/manage-shift-line-schedules/generated-schedules",
+    "edit_schedule_api":"sTlines-dashboard/manage-shift-line-schedules/edit-schedule",
+    "login_api":"login",
+    "register_api":"register",
+    "reset_password_api":"reset-password",
+    "password_changed_message_api":"password-changed-message",
+    "registration_verification_landing_page_api":"verifyaccount"
+  }
+}

@@ -1,0 +1,16 @@
+.timer-alert {
+  animation: color-change 1s infinite;
+}
+
+@keyframes color-change {
+  0% { color: red; }
+  50% { color: #43425D; }
+  100% { color: red; }
+}
+.ion-header-title{
+  text-align: center;
+  cursor: pointer;
+}
+.btn:disabled .app-font-mercurius-secondary-color {
+  color: #a9a9a9;
+}

@@ -1,0 +1,594 @@
+<ion-grid
+  class="main container"
+  (activate)="onActivate($event)"
+  (click)="disablePopup()"
+>
+  <ion-grid class="ion-text-center" *ngIf="spinner">
+    <ion-row>
+      <ion-col size="12">
+        <ion-spinner name="bubbles"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ion-no-padding ion-no-margin" *ngIf="!spinner">
+    <ion-grid class="data" *ngIf="all_SBP_rounds.length > 0; else elseBlock">
+      <ion-row class="content-data">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="app-font-primary-color ion-text-center"
+          ><b class="name-typo">Bid Schedule:</b>
+          {{ bid_schedulename }}</ion-col
+        >
+
+        <ion-col size="1">
+          <ion-icon
+            (click)="export()"
+            class="mat-download-icon app-font-mercurius-secondary-color"
+            name="download-outline"
+          ></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row class="app-font-primary-color content-data-14px ion-no-padding ion-no-margin">
+        <ion-grid class="ion-no-padding ion-no-margin overflow-auto">
+          <ion-slides [options]="slideOption" class="d-flex slides">
+            <ion-label
+              class="w-auto text-center mx-1"
+              [class]="getIndicatorClass(i)"
+              [ngStyle]="{'width':'auto'}"
+              *ngFor="let all_SBP_rounds of all_SBP_rounds; let i = index"
+              (click)="
+                displayRoundData(all_SBP_rounds, all_SBP_rounds.roundseq_id)
+              "
+              ><b class="font-normal" *ngIf="!i">All</b
+              ><b class="font-normal" *ngIf="i"
+                >Round {{ i }}</b
+              ></ion-label
+            >
+          </ion-slides>
+        </ion-grid>
+      </ion-row>
+
+
+      <ion-grid *ngIf="!spinner" class="ion-text-center calender-box">
+        <ion-grid *ngFor="let month of currentSource">
+          <ion-row class="data ion-text-center font-size-14px">
+            <ion-col size="12">
+              <b>{{ month[15].startTime | date : "MMMM YYYY" }}</b>
+            </ion-col>
+          </ion-row>
+          <ion-row class="data ion-no-margin ion-no-padding">
+            <ion-col
+              class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+              size="1.7"
+            >
+              <b> S</b>
+            </ion-col>
+            <ion-col
+              class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+              size="1.7"
+            >
+              <b> M</b>
+            </ion-col>
+            <ion-col
+              class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+              size="1.7"
+            >
+              <b> T</b>
+            </ion-col>
+            <ion-col
+              class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+              size="1.7"
+            >
+              <b>W</b>
+            </ion-col>
+            <ion-col
+              class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+              size="1.7"
+            >
+              <b> T</b>
+            </ion-col>
+            <ion-col
+              class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+              size="1.7"
+            >
+              <b> F</b>
+            </ion-col>
+            <ion-col
+              class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+              size="1.7"
+            >
+              <b> S</b>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-no-margin ion-no-padding data">
+            <ion-col
+              (click)="selectDate(da)"
+              size="1.7"
+              class="ss ion-no-margin ion-no-padding"
+              *ngFor="let da of month"
+              style="border: 1px solid lightgray"
+            >
+              <!-- RDO -->
+              <ion-grid
+                *ngIf="da != undefined"
+                class="ion-no-margin ion-no-padding"
+              >
+                <ion-grid
+                  *ngIf="da.title == 'rdo'"
+                  class="sat-sun ion-no-margin"
+                >
+                  <ion-row
+                    class="rdo-class"
+                    *ngIf="
+                      !(
+                        tempSelectedDate  &&
+                        !da.selected  &&
+                        da === tempSelectedDate
+                      ) && !da.selected
+                    "
+                    ><div class="rdo-class-child">
+                      {{ da.startTime | date : "d" }}
+                    </div></ion-row
+                  >
+                  <ion-row class="rdo-class" *ngIf="!da.selected "
+                    ><div [class]="cssClassDouble()">
+                      {{ da.startTime | date : "d" }}
+                    </div></ion-row
+                  >
+                  <ion-row
+                    class="rdo-class"
+                    *ngIf="
+                      tempSelectedDate &&
+                      !da.selected  &&
+                      da === tempSelectedDate
+                    "
+                    ><div [class]="cssClassSingle()">
+                      {{ da.startTime | date : "d" }}
+                    </div></ion-row
+                  >
+                  <ion-row class="text-center">
+                    <div
+                      class="text-style0"
+                      *ngIf="da.slot === 0 && da.emp.length === 0"
+                    ></div>
+                    <div
+                      class="text-styles"
+                      *ngIf="da.slot + -+da.emp.length > 0"
+                    >
+                      {{ da.slot - da.emp.length }}
+                    </div>
+                    <div
+                      class="text-styles1"
+                      *ngIf="
+                        da.slot + -+da.emp.length > -1 && da.emp.length > 0
+                      "
+                    >
+                      {{ da.emp.length }}
+                    </div>
+
+                    <div
+                      class="text-styles"
+                      *ngIf="da.slot + -+da.emp.length < 0 && da.slot > 0"
+                    >
+                      {{ da.slot }}
+                    </div>
+                    <div
+                      class="text-styles1"
+                      *ngIf="da.slot + -+da.emp.length < 0"
+                    >
+                      {{ da.emp.length }}
+                    </div>
+                  </ion-row>
+                </ion-grid>
+                <!-- Others -->
+                <ion-grid
+                  class="ion-no-margin ion-no-padding selected-leave-background-color"
+                  *ngIf="checkEmpExist(da.emp); else bgBlock"
+                >
+                  <ion-grid
+                    *ngIf="da.title == '' && da.slot + -+da.emp.length > 0"
+                  >
+                    <ion-row class="rdo-class" *ngIf="conditionOne(da)"
+                      ><div class="holiday" *ngIf="conditionFour(da)">
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div class="regular-day" *ngIf="!conditionFour(da)">
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row class="rdo-class" *ngIf="conditionTwo(da)">
+                      <div
+                        class="holiday"
+                        *ngIf="
+                          checkConditionTwoDoubleCLick(da) && conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="double-click"
+                        *ngIf="
+                          checkConditionTwoDoubleCLick(da) && !conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="double-click-one"
+                        *ngIf="
+                          !checkConditionTwoDoubleCLick(da) &&
+                          !conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="holiday"
+                        *ngIf="
+                          !checkConditionTwoDoubleCLick(da) && conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row class="rdo-class" *ngIf="conditionThree(da)"
+                      ><div [class]="cssClassSingle()">
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row>
+                      <div
+                        class="text-style0"
+                        *ngIf="da.slot === 0 && da.emp.length === 0"
+                      ></div>
+                      <div
+                        class="text-styles"
+                        *ngIf="da.slot + -+da.emp.length > 0"
+                      >
+                        {{ da.slot - da.emp.length }}
+                      </div>
+                      <div
+                        class="text-styles1"
+                        *ngIf="
+                          da.slot + -+da.emp.length > -1 && da.emp.length > 0
+                        "
+                      >
+                        {{ da.emp.length }}
+                      </div>
+
+                      <div
+                        class="text-styles"
+                        *ngIf="da.slot + -+da.emp.length < 0 && da.slot > 0"
+                      >
+                        {{ da.slot }}
+                      </div>
+                      <div
+                        class="text-styles1"
+                        *ngIf="da.slot + -+da.emp.length < 0"
+                      >
+                        {{ da.emp.length }}
+                      </div>
+                    </ion-row>
+                  </ion-grid>
+                </ion-grid>
+                <ng-template #bgBlock>
+                  <ion-grid class="ion-no-margin ion-no-padding">
+                    <ion-grid
+                      *ngIf="da.title == '' && da.slot + -+da.emp.length > 0"
+                    >
+                      <ion-row class="rdo-class" *ngIf="conditionOne(da)"
+                        ><div class="holiday" *ngIf="conditionFour(da)">
+                          {{ da.startTime | date : "d" }}
+                        </div>
+                        <div class="regular-day" *ngIf="!conditionFour(da)">
+                          {{ da.startTime | date : "d" }}
+                        </div></ion-row
+                      >
+                      <ion-row class="rdo-class" *ngIf="conditionTwo(da)">
+                        <div
+                          class="holiday"
+                          *ngIf="
+                            checkConditionTwoDoubleCLick(da) &&
+                            conditionFour(da)
+                          "
+                        >
+                          {{ da.startTime | date : "d" }}
+                        </div>
+                        <div
+                          class="double-click"
+                          *ngIf="
+                            checkConditionTwoDoubleCLick(da) &&
+                            !conditionFour(da)
+                          "
+                        >
+                          {{ da.startTime | date : "d" }}
+                        </div>
+                        <div
+                          class="double-click-one"
+                          *ngIf="
+                            !checkConditionTwoDoubleCLick(da) &&
+                            !conditionFour(da)
+                          "
+                        >
+                          {{ da.startTime | date : "d" }}
+                        </div>
+                        <div
+                          class="holiday"
+                          *ngIf="
+                            !checkConditionTwoDoubleCLick(da) &&
+                            conditionFour(da)
+                          "
+                        >
+                          {{ da.startTime | date : "d" }}
+                        </div></ion-row
+                      >
+                      <ion-row class="rdo-class" *ngIf="conditionThree(da)"
+                        ><div [class]="cssClassSingle()">
+                          {{ da.startTime | date : "d" }}
+                        </div></ion-row
+                      >
+                      <ion-row>
+                        <div
+                          class="text-style0"
+                          *ngIf="da.slot === 0 && da.emp.length === 0"
+                        ></div>
+                        <div
+                          class="text-styles"
+                          *ngIf="da.slot + -+da.emp.length > 0"
+                        >
+                          {{ da.slot - da.emp.length }}
+                        </div>
+                        <div
+                          class="text-styles1"
+                          *ngIf="
+                            da.slot + -+da.emp.length > -1 && da.emp.length > 0
+                          "
+                        >
+                          {{ da.emp.length }}
+                        </div>
+
+                        <div
+                          class="text-styles"
+                          *ngIf="da.slot + -+da.emp.length < 0 && da.slot > 0"
+                        >
+                          {{ da.slot }}
+                        </div>
+                        <div
+                          class="text-styles1"
+                          *ngIf="da.slot + -+da.emp.length < 0"
+                        >
+                          {{ da.emp.length }}
+                        </div>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-grid>
+                </ng-template>
+                <ion-grid
+                  class="ion-no-margin ion-no-padding selected-leave-background-color"
+                  *ngIf="checkEmpExist(da.emp); else backgBlock"
+                >
+                  <ion-grid
+                    *ngIf="da.title == '' && da.slot + -+da.emp.length < 1"
+                  >
+                    <ion-row class="rdo-class" *ngIf="conditionOne(da)"
+                      ><div class="holiday" *ngIf="conditionFour(da)">
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div class="regular-day" *ngIf="!conditionFour(da)">
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row class="rdo-class" *ngIf="conditionTwo(da)">
+                      <div
+                        class="holiday"
+                        *ngIf="
+                          checkConditionTwoDoubleCLick(da) && conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="double-click"
+                        *ngIf="
+                          checkConditionTwoDoubleCLick(da) && !conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="double-click-one"
+                        *ngIf="
+                          !checkConditionTwoDoubleCLick(da) &&
+                          !conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="holiday"
+                        *ngIf="
+                          !checkConditionTwoDoubleCLick(da) && conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row class="rdo-class" *ngIf="conditionThree(da)"
+                      ><div [class]="cssClassSingle()">
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row>
+                      <div
+                        class="text-styles"
+                        *ngIf="da.slot + -+da.emp.length > 0"
+                      >
+                        {{ da.slot - da.emp.length }}
+                      </div>
+                      <div
+                        class="text-styles1"
+                        *ngIf="
+                          da.slot + -+da.emp.length > -1 && da.emp.length > 0
+                        "
+                      >
+                        {{ da.emp.length }}
+                      </div>
+
+                      <div
+                        class="text-styles"
+                        *ngIf="da.slot + -+da.emp.length < 0 && da.slot > 0"
+                      >
+                        {{ da.slot }}
+                      </div>
+                      <div
+                        class="text-styles1"
+                        *ngIf="da.slot + -+da.emp.length < 0"
+                      >
+                        {{ da.emp.length }}
+                      </div>
+                    </ion-row>
+                  </ion-grid>
+                </ion-grid>
+                <ng-template #backgBlock>
+                  <ion-grid
+                    *ngIf="da.title == '' && da.slot + -+da.emp.length < 1"
+                  >
+                    <ion-row class="rdo-class" *ngIf="conditionOne(da)"
+                      ><div class="holiday" *ngIf="conditionFour(da)">
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div class="regular-day" *ngIf="!conditionFour(da)">
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row class="rdo-class" *ngIf="conditionTwo(da)">
+                      <div
+                        class="holiday"
+                        *ngIf="
+                          checkConditionTwoDoubleCLick(da) && conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="double-click"
+                        *ngIf="
+                          checkConditionTwoDoubleCLick(da) && !conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="double-click-one"
+                        *ngIf="
+                          !checkConditionTwoDoubleCLick(da) &&
+                          !conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div>
+                      <div
+                        class="holiday"
+                        *ngIf="
+                          !checkConditionTwoDoubleCLick(da) && conditionFour(da)
+                        "
+                      >
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row class="rdo-class" *ngIf="conditionThree(da)"
+                      ><div [class]="cssClassSingle()">
+                        {{ da.startTime | date : "d" }}
+                      </div></ion-row
+                    >
+                    <ion-row>
+                      <div
+                        class="text-styles"
+                        *ngIf="da.slot + -+da.emp.length > 0"
+                      >
+                        {{ da.slot - da.emp.length }}
+                      </div>
+                      <div
+                        class="text-styles1"
+                        *ngIf="
+                          da.slot + -+da.emp.length > -1 && da.emp.length > 0
+                        "
+                      >
+                        {{ da.emp.length }}
+                      </div>
+
+                      <div
+                        class="text-styles"
+                        *ngIf="da.slot + -+da.emp.length < 0 && da.slot > 0"
+                      >
+                        {{ da.slot }}
+                      </div>
+                      <div
+                        class="text-styles1"
+                        *ngIf="da.slot + -+da.emp.length < 0"
+                      >
+                        {{ da.emp.length }}
+                      </div>
+                    </ion-row>
+                  </ion-grid>
+                </ng-template>
+              </ion-grid>
+              <ion-label *ngIf="!da"> </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-grid>
+    </ion-grid>
+
+    <ng-template #elseBlock>
+      <ion-grid *ngIf="!spinner ">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center data">
+            <ion-label>Data Not Available</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+    <ion-grid *ngIf="!spinner"
+      class="container d-flex justify-content-between align-items-center fixed-bottom mb-5 pb-5 bg-white">
+      <ion-grid class="d-flex align-items-center">
+        <ion-row
+        (click)="myFunctionPopup()"
+        class="popupEmp pb-5 app-font-mercurius-secondary-color"
+        >
+          <b><ion-icon class="pe-none" name="information-circle-outline"></ion-icon></b>
+          <span class="popuptextEmp" id="myPopupEmp">
+            <ion-row class="data popuptextEmp-data">
+              <ion-col class="popuptextEmp-data" size="12"
+                >Employee Name (Initials) - Seniority Rank</ion-col
+              >
+            </ion-row>
+          </span>
+        </ion-row>
+        <ion-grid>
+          <ion-row class="pt-4 pb-4" *ngIf="selectedDateEmp.length > 0 && checkSelectedDate ; else elseTo">
+            <ion-label class="text-nowrap pl-1 font-small" *ngFor="let sE of selectedDateEmp">
+                <ion-icon name="ellipse-outline" style="font-size: 10px"></ion-icon>
+                {{ sE.fname | titlecase }} {{ sE.lname | titlecase }} ({{
+                sE.initials | uppercase
+                }}) - {{ sE.rank }}
+              </ion-label>
+            </ion-row>
+          <ng-template #elseTo>
+            <ion-row>
+              <ion-col size="12" class="pt-4 pb-4">
+                <ion-label class="font-small">No selection available </ion-label>
+              </ion-col>
+            </ion-row>
+            </ng-template>
+        </ion-grid>
+      </ion-grid>
+      <ion-grid class="data text-align-right pad-ri-top-10-5">
+        <b class="fw-mr-n-15"><ion-icon name="square" class="color-light mr-2"></ion-icon>Selected</b>
+        <b class="fw-mr-n-15"><ion-icon name="square-outline" class="color-light text-nowrap mr-2"></ion-icon>Available
+          Slots</b>
+        <b class="fw-mr-n-15">
+          <ion-icon name="square" class="app-font-mercurius-secondary-color mr-2"></ion-icon>Filled Slots</b>
+      </ion-grid>
+    </ion-grid>
+  </ion-grid>
+</ion-grid>

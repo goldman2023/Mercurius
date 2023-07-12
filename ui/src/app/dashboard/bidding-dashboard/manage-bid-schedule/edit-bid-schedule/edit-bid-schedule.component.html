@@ -1,0 +1,289 @@
+<ion-grid class=" app-font-primary-color main d-md-none">
+  <!-- Select Shiftline Schedules -->
+  <ion-grid style="background-color: rgb(236, 234, 234);padding: 10px;margin:5px;height: 150px;">
+
+    <ion-row>
+      <ion-col size="7">
+
+        <div style="float: left;"> <ion-label id="input-title" position="stacked"
+            class="data app-font-primary-color">Shiftlines Schedules
+          </ion-label>
+        </div>
+        <div *ngIf="checkForViewBidSchedule=='edit'" (click)="selectShiftlineSchedule()"
+          style="float: left;margin-left: 5px;margin-top: 2px;padding:2px"
+          class="app-background-mercurius-secondary-color app-font-white-color ">
+          <b style="font-weight: normal;">
+            <ion-icon name="arrow-forward-circle" style="font-size: 18px;"></ion-icon></b>
+        </div>
+        <div *ngIf="checkForViewBidSchedule=='view'"
+          style="float: left;margin-left: 5px;margin-top: 2px;padding:2px;opacity: 0.5;"
+          class="app-background-mercurius-secondary-color app-font-white-color ">
+          <b style="font-weight: normal;">
+            <ion-icon name="arrow-forward-circle" style="font-size: 18px;"></ion-icon></b>
+        </div>
+      </ion-col>
+      <ion-col size="5" class="text-align-right"
+        style="padding-top: 12px auto !important;padding-bottom:12px  auto !important;">
+        <ion-label style="font-weight: normal;" *ngIf="newBidSchedule!= null && newBidSchedule.leavemap.length>0">
+          <ion-icon class=" app-font-mercurius-secondary-color " style="font-size: 18px;"
+            name="checkmark-outline"></ion-icon>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 10px;" *ngIf="newBidSchedule!= null && newBidSchedule.shiftdefmap.length>0 ">
+      <ion-col (click)="showShiftLineScheduleSummary()" size="12"
+        class=" app-font-mercurius-secondary-color data ion-text-center app-border-mercurius-secondary-color app-white-background-color">
+        <ion-label class=" app-font-mercurius-secondary-color data">Selected Schedule
+          (<b>{{newBidSchedule.shiftdefmap.length }}</b>)</ion-label>
+      </ion-col>
+      <ion-col size="12"><b class="data app-font-red-color font-normal"
+          *ngIf="check_correct_shitline_schedule==true">One of the Shiftline Schedule(s) shiftline count is not matching
+          with the Employee count <i (click)="viewIncorrectShiftlineScheduleData()"><u>More>></u></i></b></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Select Employees -->
+  <ion-grid style="background-color: rgb(236, 234, 234);padding: 10px;margin:5px;height: 150px;">
+    <ion-row>
+      <ion-col size="7">
+
+        <div style="float: left;"> <ion-label id="input-title" position="stacked"
+            class="data app-font-primary-color">Employees
+          </ion-label>
+        </div>
+        <div *ngIf="checkForViewBidSchedule=='edit'" (click)="selectEmp()"
+          style="float: left;margin-left: 5px;margin-top: 2px;padding:2px"
+          class="app-background-mercurius-secondary-color app-font-white-color ">
+          <b style="font-weight: normal;">
+            <ion-icon name="arrow-forward-circle" style="font-size: 18px;"></ion-icon></b>
+        </div>
+        <div *ngIf="checkForViewBidSchedule=='view'"
+          style="opacity:0.5;float: left;margin-left: 5px;margin-top: 2px;padding:2px"
+          class="app-background-mercurius-secondary-color app-font-white-color ">
+          <b style="font-weight: normal;">
+            <ion-icon name="arrow-forward-circle" style="font-size: 18px;"></ion-icon></b>
+        </div>
+      </ion-col>
+      <ion-col size="5" class="text-align-right"
+        style="padding-top: 12px auto !important;padding-bottom:12px  auto !important;">
+        <ion-label style="font-weight: normal;" *ngIf="newBidSchedule!= null && newBidSchedule.employeemap.length>0">
+          <ion-icon class=" app-font-mercurius-secondary-color " style="font-size: 18px;"
+            name="checkmark-outline"></ion-icon>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 10px;" *ngIf="newBidSchedule!= null && newBidSchedule.employeemap.length>0 ">
+      <ion-col (click)="viewEmpList()" size="12"
+        class="app-white-background-color app-font-mercurius-secondary-color data ion-text-center app-border-mercurius-secondary-color">
+        <ion-label class=" app-font-mercurius-secondary-color data"> Employees (<b>{{newBidSchedule.employeemap.length
+            }}</b>)</ion-label>
+      </ion-col>
+      <ion-col size="12" class="data" style="margin-top: 10px;" *ngIf="totalRequiredHours>0">
+        <ion-label>Total Leave Accrued:<b class="font-normal" *ngIf="totalRequiredHours>0;else elseReqVacation">
+            {{totalRequiredHours}} Hours</b><ng-template #elseReqVacation><b class="font-normal"> {{totalRequiredHours}}
+              Hour</b></ng-template></ion-label>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <!-- Vacation Slots -->
+  <ion-grid style="background-color: rgb(236, 234, 234);padding: 10px;margin:5px;height: 150px;">
+    <ion-row>
+      <ion-col size="7">
+
+        <div style="float: left;"> <ion-label id="input-title" position="stacked"
+            class="data app-font-primary-color">Vacation Slots
+          </ion-label>
+        </div>
+        <div *ngIf="checkForViewBidSchedule=='edit'" (click)="addNewSlot()"
+          style="float: left;margin-left: 5px;margin-top: 2px;padding:2px"
+          class="app-background-mercurius-secondary-color app-font-white-color ">
+          <b style="font-weight: normal;">
+            <ion-icon name="arrow-forward-circle" style="font-size: 18px;"></ion-icon></b>
+        </div>
+        <div *ngIf="checkForViewBidSchedule=='view'"
+          style="float: left;margin-left: 5px;margin-top: 2px;padding:2px;opacity:0.5"
+          class="app-background-mercurius-secondary-color app-font-white-color ">
+          <b style="font-weight: normal;">
+            <ion-icon name="arrow-forward-circle" style="font-size: 18px;"></ion-icon></b>
+        </div>
+      </ion-col>
+      <ion-col size="5" class="text-align-right"
+        style="padding-top: 12px auto !important;padding-bottom:12px  auto !important;">
+        <ion-label style="font-weight: normal;" *ngIf="newBidSchedule!= null && newBidSchedule.leavemap.length>0">
+          <ion-icon class=" app-font-mercurius-secondary-color " style="font-size: 18px;"
+            name="checkmark-outline"></ion-icon>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 10px;" *ngIf="newBidSchedule!= null && newBidSchedule.leavemap.length>0 ">
+      <ion-col (click)="viewVacationSlot()" size="12"
+        class="app-white-background-color app-font-mercurius-secondary-color data ion-text-center app-border-mercurius-secondary-color">
+        <ion-label class=" app-font-mercurius-secondary-color data">Vacation Slots (<b>{{newBidSchedule.leavemap.length
+            }}</b>)</ion-label>
+      </ion-col>
+      <ion-col size="12" class="data" style="margin-top: 10px;" *ngIf="totalHours>0">
+        <ion-label>Total Vacation Opportunities:<b class="font-normal" *ngIf="totalHours>0;else elseSlots">
+            {{totalHours}} Hours</b><ng-template #elseSlots><b class="font-normal"> {{totalHours}}
+              Hour</b></ng-template></ion-label>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+
+
+
+
+
+
+  <!-- <ion-label (click)="selectEmp()">Employee</ion-label> -->
+
+
+  <!-- Bid Rounds -->
+  <ion-grid style="background-color: rgb(236, 234, 234);padding: 10px;margin:5px;height: 150px;">
+    <ion-row>
+      <ion-col size="11">
+
+        <div style="float: left;"> <ion-label id="input-title" position="stacked"
+            class="data app-font-primary-color">Bid Rounds
+          </ion-label>
+        </div>
+        <div *ngIf="checkForViewBidSchedule=='edit'" (click)="addNewBidRound()"
+          style="float: left;margin-left: 5px;margin-top: 2px;padding:2px"
+          class="app-background-mercurius-secondary-color app-font-white-color ">
+          <b style="font-weight: normal;">
+            <ion-icon name="arrow-forward-circle" style="font-size: 18px;"></ion-icon></b>
+        </div>
+        <div *ngIf="checkForViewBidSchedule=='view'"
+          style="float: left;margin-left: 5px;margin-top: 2px;padding:2px;opacity: 0.5;"
+          class="app-background-mercurius-secondary-color app-font-white-color ">
+          <b style="font-weight: normal;">
+            <ion-icon name="arrow-forward-circle" style="font-size: 18px;"></ion-icon></b>
+        </div>
+      </ion-col>
+      <ion-col size="1" style="padding-top: 12px auto !important;padding-bottom:12px  auto !important;">
+        <ion-label *ngIf="newBidSchedule!= null && newBidSchedule.roundmap.length>0">
+          <ion-icon class=" app-font-mercurius-secondary-color " style="font-size: 18px;"
+            name="checkmark-outline"></ion-icon>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 10px;" *ngIf="newBidSchedule!= null && newBidSchedule.roundmap.length>0 ">
+      <ion-col (click)="viewBidRoundList()" size="12"
+        class="app-white-background-color app-font-mercurius-secondary-color data ion-text-center app-border-mercurius-secondary-color">
+        <ion-label class=" app-font-mercurius-secondary-color data">Bid Rounds (<b>{{newBidSchedule.roundmap.length
+            }}</b>)</ion-label>
+      </ion-col>
+      <ion-col size="12">
+        <div class="content-data app-font-red-color" style="text-align: left;"
+          *ngIf=" checkPastTimeAndDate==true && checkForViewBidSchedule=='edit'">
+          <p class="app-font-red-color"><ion-icon name="alert-circle-outline"></ion-icon>You have entered
+            {{checkPastTimeOrDateOne}} in the past. Please select a future {{checkPastTimeOrDateTwo}}.!</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-row style="margin-top: 10px;">
+
+    <ion-col size="12" class="ion-text-center">
+      <ion-button shape="round" style="width: 70%;" *ngIf="checkForViewBidSchedule=='edit'"
+        [disabled]="checkBidScheduleData==false || checkPastTimeAndDate==true" class="app-button-primary"
+        (click)="beforecontinue()">Update Bid Schedule</ion-button>
+    </ion-col>
+
+  </ion-row>
+</ion-grid>
+
+<ion-grid class="d-none d-md-block container app-font-primary-color main">
+  <mat-accordion multi>
+    <mat-expansion-panel #shiflinePanel opened class="position-relative">
+      <mat-expansion-panel-header>
+        <div class="d-flex align-items-center gap-2">
+          Shiftlines Schedules
+          <ion-label *ngIf="newBidSchedule?.shiftdefmap.length">
+            ({{ newBidSchedule?.shiftdefmap.length ?
+            newBidSchedule?.shiftdefmap.length : 0 }})
+          </ion-label>
+        </div>
+      </mat-expansion-panel-header>
+
+      <ion-row class="mt-2" *ngIf="newBidSchedule?.shiftdefmap.length">
+        <ion-col size="12"><b class="data app-font-red-color font-normal"
+            *ngIf="check_correct_shitline_schedule == true">
+            One of the Shiftline Schedule(s) shiftline count is not matching with the Employee count
+            <i class="cursor-pointer" (click)="viewIncorrectShiftlineScheduleData()"><u>More>></u></i></b>
+        </ion-col>
+      </ion-row>
+      <app-select-shiftline (shiftsUpdated)="shiftsUpdated()" [isModal]="false"
+        [isEditBidSchedule]="true"></app-select-shiftline>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel #employeePanel>
+      <mat-expansion-panel-header>
+        <div class="d-flex align-items-center gap-2">
+          Employees
+          <ion-label *ngIf="newBidSchedule?.employeemap.length">
+            ({{newBidSchedule.employeemap.length}})
+          </ion-label>
+        </div>
+      </mat-expansion-panel-header>
+
+      <app-select-employee (employeesLoaded)="employeesLoaded=true" (employeesUpdated)="employeeSelected($event)" [isEditBidSchedule]="true"
+        [isModal]="false"></app-select-employee>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel #vacationSlotsPanel>
+      <mat-expansion-panel-header>
+        <div class="d-flex align-items-center gap-2">
+          Vacation Slots
+          <ion-label *ngIf="newBidSchedule?.leavemap.length">
+            ({{newBidSchedule.leavemap.length}})
+          </ion-label>
+          <ion-icon *ngIf="!slotsValid" class="text-danger fs-3 icon" name="warning"></ion-icon>
+        </div>
+      </mat-expansion-panel-header>
+      <app-select-vacation-slots [employeesLoaded]="employeesLoaded" [isEditBidSchedule]="true" [totalAccumulatedLeaves]="totalAccumulatedLeaves"
+        [totalRequiredVacationHours]="totalRequiredVacationHours" (slotsSelected)="updateSelectedSlots($event)"
+        (slotsUpdated)="updateSelectedSlots($event)" (slotsLoaded)="slotsLoaded($event)"
+        [isModal]="false">
+      </app-select-vacation-slots>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel #bidRoundPanel>
+      <mat-expansion-panel-header>
+        <div class="d-flex align-items-center gap-2">
+          Bid Rounds
+          <ion-label *ngIf="newBidSchedule?.roundmap.length">
+            ({{newBidSchedule.roundmap.length}})
+          </ion-label>
+        </div>
+      </mat-expansion-panel-header>
+      <ion-row class="mt-2" *ngIf="newBidSchedule !=null && newBidSchedule.roundmap.length> 0">
+        <ion-col size="12">
+          <div class="content-data app-font-red-color text-start" *ngIf="
+              checkPastTimeAndDate == true && checkForViewBidSchedule == 'new'
+            ">
+            <p class="app-font-red-color">
+              <ion-icon name="alert-circle-outline"></ion-icon>You have entered
+              {{ checkPastTimeOrDateOne }} in the past. Please select a future
+              {{ checkPastTimeOrDateTwo }}.!
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <app-select-bid-rounds (roundsSelected)="selectBidRound()" [isModal]="false"
+        [checkValuechanged]="checkValuechanged" [totalCreatedVacationHours]="totalCreatedVacationHours"
+        [totalRequiredVacationHours]="totalRequiredVacationHours" [totalAccumulatedLeaves]="totalAccumulatedLeaves" [editBidSchedule]="true"></app-select-bid-rounds>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <ion-row style="margin-top: 10px;">
+    <ion-col size="12" class="ion-text-center">
+      <ion-button shape="round" style="width: 70%;" *ngIf="checkForViewBidSchedule=='edit'"
+        [disabled]="!checkBidScheduleData || checkPastTimeAndDate || (isDesktop && !isUpdated)" class="app-button-primary w-auto"
+        (click)="beforecontinue()">Update Bid Schedule</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

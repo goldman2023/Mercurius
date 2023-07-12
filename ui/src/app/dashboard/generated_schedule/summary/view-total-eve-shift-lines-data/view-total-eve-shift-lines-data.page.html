@@ -1,0 +1,688 @@
+<!--
+  <ion-header class="ion-no-border">
+    <ion-toolbar class="header">
+  <ion-row class="ion-no-margin ion-no-padding">
+    <ion-col size="11" class="ion-text-center" >
+      <ion-title class="ion-text-center" style="margin-left:-3%;padding-right: 5%;">Eve Shift</ion-title>
+    </ion-col>
+    <ion-col size="1">
+      <ion-icon name='close-circle' (click)='dismiss()'></ion-icon>
+    </ion-col>
+
+  </ion-row>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-header>
+  <ion-row
+    class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+  >
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label
+        class="app-font-primary-color app-font-size-14px ion-text-center"
+        ><b>Eve Shift</b></ion-label
+      >
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label
+        style="cursor: pointer; font-size: 12px"
+        class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="dismiss()"
+        ><b>Close</b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content>
+  <ion-card class="ion-margin-2">
+    <ion-row>
+      <ion-col size="0.3"></ion-col>
+      <ion-col size="1.4" class="ion-no-padding">
+        <div style="margin: 1%; padding: 2%">
+          <ion-row
+            class="ion-text-center ion-justify-content-center ion-no-padding-bottom"
+          >
+            <ion-img
+              class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"
+              alt="Eve"
+              style="width: 50%; height: 20%; position: relative"
+              src="assets/img/evening.png"
+            ></ion-img>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div style="margin: 1%; padding: 2%">
+          <ion-row class="ion-text-center ion-justify-content-center">
+            <div
+              class="ion-border-round-width-75 font-weight-500 app-font-primary-color"
+            >
+              S
+            </div>
+          </ion-row>
+        </div>
+      </ion-col>
+
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div style="margin: 1%; padding: 2%">
+          <ion-row class="ion-text-center ion-justify-content-center">
+            <div
+              class="ion-border-round-width-75 font-weight-500 app-font-primary-color"
+            >
+              M
+            </div>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div style="margin: 1%; padding: 2%">
+          <ion-row class="ion-text-center ion-justify-content-center">
+            <div
+              class="ion-border-round-width-75 font-weight-500 app-font-primary-color"
+            >
+              T
+            </div>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div style="margin: 1%; padding: 2%">
+          <ion-row class="ion-text-center ion-justify-content-center">
+            <div
+              class="ion-border-round-width-75 font-weight-500 app-font-primary-color"
+            >
+              W
+            </div>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div style="margin: 1%; padding: 2%">
+          <ion-row class="ion-text-center ion-justify-content-center">
+            <div
+              class="ion-border-round-width-75 font-weight-500 app-font-primary-color"
+            >
+              T
+            </div>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div style="margin: 1%; padding: 2%">
+          <ion-row class="ion-text-center ion-justify-content-center">
+            <div
+              class="ion-border-round-width-75 font-weight-500 app-font-primary-color"
+            >
+              F
+            </div>
+          </ion-row>
+        </div>
+      </ion-col>
+
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div style="margin: 1%; padding: 2%">
+          <ion-row class="ion-text-center ion-justify-content-center">
+            <div
+              class="ion-border-round-width-75 font-weight-500 app-font-primary-color"
+            >
+              S
+            </div>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="0.2"></ion-col>
+      <ion-col size="0.1"></ion-col>
+      <ion-col size="1.5" class="ion-no-padding">
+        <div style="margin: 1% 0% 1% 0%; padding: 2% 0% 2% 0%">
+          <ion-row
+            *ngFor="let d of demo"
+            class="text-align-left ion-no-padding-bottom"
+            style="padding-left: 0px !important; padding-right: 0px !important"
+          >
+            <p
+              class="ion-no-margin text-align-left ion-no-padding"
+              style="margin-bottom: 0%"
+            >
+              <b class="font-normal font-size-10 app-font-secondary-color"
+                >{{d.shift.shiftTime}} ({{d.shift.shift_duration}})</b
+              >
+            </p>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div
+          style="
+            border: 1px solid lightslategrey;
+            border-radius: 5px;
+            margin: 1%;
+            padding: 2%;
+          "
+        >
+          <ion-row
+            *ngFor="let d of demo"
+            class="ion-text-center ion-justify-content-center ion-no-padding-bottom"
+          >
+            <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+              <b class="font-normal font-size-10 app-font-secondary-color"
+                >{{d.midData23R.sun}}</b
+              ><b class="font-normal font-size-10">/</b>
+              <b
+                class="app-font-green-color font-normal font-size-10"
+                *ngIf="d.diff.sun>0"
+                >{{d.midData23G.sun}}</b
+              >
+              <b
+                class="app-font-red-color font-normal font-size-10"
+                *ngIf="d.diff.sun<0"
+                >{{d.midData23G.sun}}</b
+              >
+              <b
+                class="app-font-primary-color font-normal font-size-10"
+                *ngIf="d.diff.sun==0"
+                >{{d.midData23G.sun}}</b
+              >
+            </p>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div
+          style="
+            border: 1px solid lightslategrey;
+            border-radius: 5px;
+            margin: 1%;
+            padding: 2%;
+          "
+        >
+          <ion-row
+            *ngFor="let d of demo"
+            class="ion-text-center ion-justify-content-center ion-no-padding-bottom"
+          >
+            <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+              <b class="font-normal font-size-10 app-font-secondary-color"
+                >{{d.midData23R.mon}}</b
+              ><b class="font-normal font-size-10">/</b>
+              <b
+                class="app-font-green-color font-normal font-size-10"
+                *ngIf="d.diff.mon>0"
+                >{{d.midData23G.mon}}</b
+              >
+              <b
+                class="app-font-red-color font-normal font-size-10"
+                *ngIf="d.diff.mon<0"
+                >{{d.midData23G.mon}}</b
+              >
+              <b
+                class="app-font-primary-color font-normal font-size-10"
+                *ngIf="d.diff.mon==0"
+                >{{d.midData23G.mon}}</b
+              >
+            </p>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div
+          style="
+            border: 1px solid lightslategrey;
+            border-radius: 5px;
+            margin: 1%;
+            padding: 2%;
+          "
+        >
+          <ion-row
+            *ngFor="let d of demo"
+            class="ion-text-center ion-justify-content-center ion-no-padding-bottom"
+          >
+            <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+              <b class="font-normal font-size-10 app-font-secondary-color"
+                >{{d.midData23R.tue}}</b
+              ><b class="font-normal font-size-10">/</b>
+              <b
+                class="app-font-green-color font-normal font-size-10"
+                *ngIf="d.diff.tue>0"
+                >{{d.midData23G.tue}}</b
+              >
+              <b
+                class="app-font-red-color font-normal font-size-10"
+                *ngIf="d.diff.tue<0"
+                >{{d.midData23G.tue}}</b
+              >
+              <b
+                class="app-font-primary-color font-normal font-size-10"
+                *ngIf="d.diff.tue==0"
+                >{{d.midData23G.tue}}</b
+              >
+            </p>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div
+          style="
+            border: 1px solid lightslategrey;
+            border-radius: 5px;
+            margin: 1%;
+            padding: 2%;
+          "
+        >
+          <ion-row
+            *ngFor="let d of demo"
+            class="ion-text-center ion-justify-content-center ion-no-padding-bottom"
+          >
+            <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+              <b class="font-normal font-size-10 app-font-secondary-color"
+                >{{d.midData23R.wed}}</b
+              ><b class="font-normal font-size-10">/</b>
+              <b
+                class="app-font-green-color font-normal font-size-10"
+                *ngIf="d.diff.wed>0"
+                >{{d.midData23G.wed}}</b
+              >
+              <b
+                class="app-font-red-color font-normal font-size-10"
+                *ngIf="d.diff.wed<0"
+                >{{d.midData23G.wed}}</b
+              >
+              <b
+                class="app-font-primary-color font-normal font-size-10"
+                *ngIf="d.diff.wed==0"
+                >{{d.midData23G.wed}}</b
+              >
+            </p>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div
+          style="
+            border: 1px solid lightslategrey;
+            border-radius: 5px;
+            margin: 1%;
+            padding: 2%;
+          "
+        >
+          <ion-row
+            *ngFor="let d of demo"
+            class="ion-text-center ion-justify-content-center ion-no-padding-bottom"
+          >
+            <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+              <b class="font-normal font-size-10 app-font-secondary-color"
+                >{{d.midData23R.thu}}</b
+              ><b class="font-normal font-size-10">/</b>
+              <b
+                class="app-font-green-color font-normal font-size-10"
+                *ngIf="d.diff.thu>0"
+                >{{d.midData23G.thu}}</b
+              >
+              <b
+                class="app-font-red-color font-normal font-size-10"
+                *ngIf="d.diff.thu<0"
+                >{{d.midData23G.thu}}</b
+              >
+              <b
+                class="app-font-primary-color font-normal font-size-10"
+                *ngIf="d.diff.thu==0"
+                >{{d.midData23G.thu}}</b
+              >
+            </p>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div
+          style="
+            border: 1px solid lightslategrey;
+            border-radius: 5px;
+            margin: 1%;
+            padding: 2%;
+          "
+        >
+          <ion-row
+            *ngFor="let d of demo"
+            class="ion-text-center ion-justify-content-center ion-no-padding-bottom"
+          >
+            <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+              <b class="font-normal font-size-10 app-font-secondary-color"
+                >{{d.midData23R.fri}}</b
+              ><b class="font-normal font-size-10">/</b>
+              <b
+                class="app-font-green-color font-normal font-size-10"
+                *ngIf="d.diff.fri>0"
+                >{{d.midData23G.fri}}</b
+              >
+              <b
+                class="app-font-red-color font-normal font-size-10"
+                *ngIf="d.diff.fri<0"
+                >{{d.midData23G.fri}}</b
+              >
+              <b
+                class="app-font-primary-color font-normal font-size-10"
+                *ngIf="d.diff.fri==0"
+                >{{d.midData23G.fri}}</b
+              >
+            </p>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="1.4" class="ion-no-padding" style="padding: 0% 1% 0% 1%">
+        <div
+          style="
+            border: 1px solid lightslategrey;
+            border-radius: 5px;
+            margin: 1%;
+            padding: 2%;
+          "
+        >
+          <ion-row
+            *ngFor="let d of demo"
+            class="ion-text-center ion-justify-content-center ion-no-padding-bottom"
+          >
+            <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+              <b class="font-normal font-size-10 app-font-secondary-color"
+                >{{d.midData23R.sat}}</b
+              ><b class="font-normal font-size-10">/</b>
+              <b
+                class="app-font-green-color font-normal font-size-10"
+                *ngIf="d.diff.sat>0"
+                >{{d.midData23G.sat}}</b
+              >
+              <b
+                class="app-font-red-color font-normal font-size-10"
+                *ngIf="d.diff.sat<0"
+                >{{d.midData23G.sat}}</b
+              >
+              <b
+                class="app-font-primary-color font-normal font-size-10"
+                *ngIf="d.diff.sat==0"
+                >{{d.midData23G.sat}}</b
+              >
+            </p>
+          </ion-row>
+        </div>
+      </ion-col>
+
+      <ion-col size="0.2"></ion-col>
+      <ion-col size="0.2"></ion-col>
+      <ion-col
+        size="1.4"
+        class="ion-no-margin ion-no-padding ion-no-padding-bottom content-data-black-color"
+        style="margin-bottom: 0%"
+      >
+        <!-- <ion-img  class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"   ></ion-img> -->
+      </ion-col>
+      <ion-col
+        size="1.4"
+        class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-bottom content-data-black-color"
+      >
+        <div
+          class="title-background-color ion-justify-content-center"
+          style="border-radius: 10%"
+        >
+          <p
+            class="ion-no-margin ion-no-padding ion-justify-content-center"
+            style="margin-bottom: 0%"
+          >
+            <b class="app-font-secondary-color">{{SunDayRequired[2]}}</b>
+          </p>
+          <ion-row
+            class="ion-no-padding ion-no-margin ion-justify-content-center"
+            style="text-align: center"
+          >
+            <mat-divider
+              style="border-top-width: 2px; width: 70%"
+            ></mat-divider>
+          </ion-row>
+          <p>
+            <b class="app-font-green-color" *ngIf="diffSunEve>0"
+              >{{SunDayGenerated[2]}}</b
+            >
+            <b class="app-font-red-color" *ngIf="diffSunEve<0"
+              >{{SunDayGenerated[2]}}</b
+            >
+            <b class="app-font-primary-color" *ngIf="diffSunEve==0"
+              >{{SunDayGenerated[2]}}</b
+            >
+          </p>
+        </div>
+      </ion-col>
+
+      <ion-col
+        size="1.4"
+        class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-bottom content-data-black-color"
+      >
+        <div class="title-background-color" style="border-radius: 10%">
+          <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+            <b class="app-font-secondary-color">{{MonDayRequired[2]}}</b>
+          </p>
+          <ion-row
+            class="ion-no-padding ion-no-margin ion-justify-content-center"
+            style="text-align: center"
+          >
+            <mat-divider
+              style="border-top-width: 2px; width: 60%"
+            ></mat-divider>
+          </ion-row>
+          <p>
+            <b class="app-font-green-color" *ngIf="diffMonEve>0"
+              >{{MonDayGenerated[2]}}</b
+            >
+            <b class="app-font-red-color" *ngIf="diffMonEve<0"
+              >{{MonDayGenerated[2]}}</b
+            >
+            <b class="app-font-primary-color" *ngIf="diffMonEve==0"
+              >{{MonDayGenerated[2]}}</b
+            >
+          </p>
+        </div>
+      </ion-col>
+
+      <ion-col
+        size="1.4"
+        class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-bottom content-data-black-color"
+      >
+        <div class="title-background-color" style="border-radius: 10%">
+          <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+            <b class="app-font-secondary-color">{{TueDayRequired[2]}}</b>
+          </p>
+          <ion-row
+            class="ion-no-padding ion-no-margin ion-justify-content-center"
+            style="text-align: center"
+          >
+            <mat-divider
+              style="border-top-width: 2px; width: 60%"
+            ></mat-divider>
+          </ion-row>
+          <p>
+            <b class="app-font-green-color" *ngIf="diffTueEve>0"
+              >{{TueDayGenerated[2]}}</b
+            >
+            <b class="app-font-red-color" *ngIf="diffTueEve<0"
+              >{{TueDayGenerated[2]}}</b
+            >
+            <b class="app-font-primary-color" *ngIf="diffTueEve==0"
+              >{{TueDayGenerated[2]}}</b
+            >
+          </p>
+        </div>
+      </ion-col>
+
+      <ion-col
+        size="1.4"
+        class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-bottom content-data-black-color"
+      >
+        <div class="title-background-color" style="border-radius: 10%">
+          <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+            <b class="app-font-secondary-color">{{WedDayRequired[2]}}</b>
+          </p>
+          <ion-row
+            class="ion-no-padding ion-no-margin ion-justify-content-center"
+            style="text-align: center"
+          >
+            <mat-divider
+              style="border-top-width: 2px; width: 60%"
+            ></mat-divider>
+          </ion-row>
+          <p>
+            <b class="app-font-green-color" *ngIf="diffWedEve>0"
+              >{{WedDayGenerated[2]}}</b
+            >
+            <b class="app-font-red-color" *ngIf="diffWedEve<0"
+              >{{WedDayGenerated[2]}}</b
+            >
+            <b class="app-font-primary-color" *ngIf="diffWedEve==0"
+              >{{WedDayGenerated[2]}}</b
+            >
+          </p>
+        </div>
+      </ion-col>
+
+      <ion-col
+        size="1.4"
+        class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-bottom content-data-black-color"
+      >
+        <div class="title-background-color" style="border-radius: 10%">
+          <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+            <b class="app-font-secondary-color">{{ThuDayRequired[2]}}</b>
+          </p>
+          <ion-row
+            class="ion-no-padding ion-no-margin ion-justify-content-center"
+            style="text-align: center"
+          >
+            <mat-divider
+              style="border-top-width: 2px; width: 60%"
+            ></mat-divider>
+          </ion-row>
+          <p>
+            <b class="app-font-green-color" *ngIf="diffThuEve>0"
+              >{{ThuDayGenerated[2]}}</b
+            >
+            <b class="app-font-red-color" *ngIf="diffThuEve<0"
+              >{{ThuDayGenerated[2]}}</b
+            >
+            <b class="app-font-primary-color" *ngIf="diffThuEve==0"
+              >{{ThuDayGenerated[2]}}</b
+            >
+          </p>
+        </div>
+      </ion-col>
+
+      <ion-col
+        size="1.4"
+        class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-bottom content-data-black-color"
+      >
+        <div class="title-background-color" style="border-radius: 10%">
+          <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+            <b class="app-font-secondary-color">{{FriDayRequired[2]}}</b>
+          </p>
+          <ion-row
+            class="ion-no-padding ion-no-margin ion-justify-content-center"
+            style="text-align: center"
+          >
+            <mat-divider
+              style="border-top-width: 2px; width: 60%"
+            ></mat-divider>
+          </ion-row>
+          <p>
+            <b class="app-font-green-color" *ngIf="diffFriEve>0"
+              >{{FriDayGenerated[2]}}</b
+            >
+            <b class="app-font-red-color" *ngIf="diffFriEve<0"
+              >{{FriDayGenerated[2]}}</b
+            >
+            <b class="app-font-primary-color" *ngIf="diffFriEve==0"
+              >{{FriDayGenerated[2]}}</b
+            >
+          </p>
+        </div>
+      </ion-col>
+
+      <ion-col
+        size="1.4"
+        class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-bottom content-data-black-color"
+      >
+        <div class="title-background-color" style="border-radius: 10%">
+          <p class="ion-no-margin ion-no-padding" style="margin-bottom: 0%">
+            <b class="app-font-secondary-color">{{SatDayRequired[2]}}</b>
+          </p>
+          <ion-row
+            class="ion-no-padding ion-no-margin ion-justify-content-center"
+            style="text-align: center"
+          >
+            <mat-divider
+              style="border-top-width: 2px; width: 60%"
+            ></mat-divider>
+          </ion-row>
+          <p>
+            <b class="app-font-green-color" *ngIf="diffSatEve>0"
+              >{{SatDayGenerated[2]}}</b
+            >
+            <b class="app-font-red-color" *ngIf="diffSatEve<0"
+              >{{SatDayGenerated[2]}}</b
+            >
+            <b class="app-font-primary-color" *ngIf="diffSatEve==0"
+              >{{SatDayGenerated[2]}}</b
+            >
+          </p>
+        </div>
+      </ion-col>
+      <ion-col size="0.4"></ion-col>
+      <ion-col
+        size="0.4"
+        class="ion-justify-content-center ion-text-center ion-no-margin ion-no-padding-bottom content-data-black-color"
+      >
+        <p
+          class="ion-no-margin ion-no-padding app-font-secondary-color"
+          style="margin-bottom: 0%"
+        ></p
+      ></ion-col>
+      <!-- <ion-col  class=" ion-justify-content-center  ion-no-padding" size="2.5"><div class="app-background-secondary-color"style="margin-top:4%;height: 10px;width: 10px;border-radius:50%;float: left;margin-right: 1%;"></div><p  class="font-size-10 app-font-black-color" style="margin-bottom: 0%;">Required</p></ion-col>
+    <ion-col   class=" ion-justify-content-center ion-no-padding" size="2.7"><div class="app-background-primary-color" style="height: 10px;margin-top:4%;width: 10px;float: left;border-radius:50%;margin-right: 1%;"></div><p  class="font-size-10  app-font-black-color" style="margin-bottom: 0%;">Generated</p></ion-col>
+    <ion-col   class=" ion-justify-content-center ion-no-padding" size="2.8"><div  style="height: 10px;margin-top:4%;width: 10px;float: left;border-radius:50%;margin-right: 1%;background-color: red;"></div><p  class="font-size-10  app-font-black-color" style="margin-bottom: 0%;">Less Than</p></ion-col>
+    <ion-col   class=" ion-justify-content-center ion-no-padding" size="3.1"><div  style="height: 10px;margin-top:4%;width: 10px;float: left;border-radius:50%;margin-right: 1%;" class="app-green-background-color"></div><p  class="font-size-10  app-font-black-color" style="margin-bottom: 0%;">Greater Than</p></ion-col> -->
+    </ion-row>
+
+    <!-- <ion-row  class="ion-justify-content-center ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom"> -->
+
+    <!-- </ion-row> -->
+  </ion-card>
+</ion-content>
+<ion-footer class="footer ion-no-border">
+  <ion-row style="padding: 5px" class="justify-content-center">
+    <ion-col
+      class="ion-justify-content-center ion-no-padding d-flex align-items-center"
+      ><div
+        style="
+          height: 10px;
+          width: 10px;
+          float: left;
+          border-radius: 50%;
+          margin-right: 1%;
+          background-color: red;
+        "
+      ></div>
+      <p class="font-size-10 app-font-black-color" style="margin-bottom: 0%">
+        Less Than
+      </p></ion-col
+    >
+    <ion-col
+      class="ion-justify-content-center ion-no-padding d-flex align-items-center"
+      ><div
+        style="
+          height: 10px;
+          width: 10px;
+          float: left;
+          border-radius: 50%;
+          margin-right: 1%;
+        "
+        class="app-green-background-color"
+      ></div>
+      <p class="font-size-10 app-font-black-color" style="margin-bottom: 0%">
+        Greater Than
+      </p></ion-col
+    >
+  </ion-row>
+</ion-footer>

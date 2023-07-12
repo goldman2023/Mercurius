@@ -1,0 +1,57 @@
+.admin_navs{
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  border-bottom: 5px solid #f6aa3b;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+
+.navs {
+  margin: 10px auto;
+}
+
+// .navs ::ng-deep .mat-tab-links {
+//   margin-top: 10px;
+//   width: auto;
+//   gap: 10px;
+//   border-bottom: 5px solid #f6aa3b;
+
+//   .router-link-active {
+//     color: #000;
+//     background-color: #f6aa3b;
+//   }
+
+//   .mat-tab-link {
+
+//     &:hover {
+//       color: initial;
+//       text-decoration: none;
+//     }
+
+//     &:focus-visible {
+//       outline: none;
+//     }
+//   }
+// }
+
+.admin_navs  .navs_links {
+  flex: 15.86%;
+  max-width: 15.86%;
+  min-width: 150px;
+  padding: 12px 15px;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  text-align: center;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #808080;
+  opacity: 1;
+  text-decoration: none;
+}
+.admin_navs  .router-link-active {
+  color: #000;
+  background-color: #f6aa3b;
+}

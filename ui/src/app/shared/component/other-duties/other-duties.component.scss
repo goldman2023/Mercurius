@@ -1,0 +1,109 @@
+.header{
+  background-color: #f6aa3b;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 5px -2px rgba(0,0,0,0.75);
+-webkit-box-shadow: 1px 2px 5px -2px rgba(0,0,0,0.75);
+-moz-box-shadow: 1px 2px 5px -2px rgba(0,0,0,0.75);
+}
+.mat-elevation-z8 {
+  width: 100%;
+  box-shadow: none;
+
+  .mat-header-row {
+    height: 35px;
+    background-color: #cac9c9;
+  }
+}
+.total-leave{
+  padding: 3px;
+
+  .border-1px{
+    border: 1px solid #a5a5a5;
+  }
+
+  .leave-total-by-name{
+    font-size: 15px;
+    margin: 0;
+  }
+}
+.box{
+  .mat-paginator {
+    display: flex;
+    justify-content: center;
+  }
+  .des{
+    padding: 10px 0px;
+
+    p{
+      margin: 0;
+
+      &:first-child{
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+    }
+  }
+}
+.box ::ng-deep .mat-header-cell {
+  font-size: 17px;
+}
+@media (min-width: #{1px}) and (max-width: #{720px - 1px}) {
+  .box{
+    padding: 0.5rem 0px !important;
+  }
+  .box .mat-header-cell {
+    padding: 0 10px;
+  }
+  .mat-cell{
+    padding: 0 5px !important;
+  }
+}
+td.mat-cell{
+  min-width: 200px;
+}
+
+.box ::ng-deep .mat-paginator-page-size {
+  align-items: center;
+}
+
+.box ::ng-deep .mat-paginator,
+.box ::ng-deep .mat-paginator-page-size .mat-select-trigger {
+  margin: 11px auto;
+  font-size: 17px;
+}
+
+.box ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  display: none;
+}
+
+.box ::ng-deep .mat-paginator-range-label {
+  margin: 0 10px 0 10px;
+  word-spacing: 9px;
+}
+.box ::ng-deep .mat-paginator-page-size .mat-select-trigger {
+  display: block;
+  margin: 11px auto;
+  font-size: 17px;
+}
+
+.box ::ng-deep.mat-paginator-page-size-select {
+  border: 1px solid rgb(102, 102, 102);
+  border-radius: 6px;
+}
+.box ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.box ::ng-deep .mat-form-field-infix {
+  border: none;
+  padding: 0px 5px;
+}
+
+.box ::ng-deep .mat-paginator-page-size {
+  align-items: center;
+}
+.box ::ng-deep .mat-select {
+  display: block;
+}

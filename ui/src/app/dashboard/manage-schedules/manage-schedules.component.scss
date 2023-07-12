@@ -1,0 +1,11 @@
+.tab-wrapper{
+  padding: 0px 15px;
+}
+.tab-wrapper ::ng-deep .mat-tab-body-content{
+  overflow: initial;
+}
+@media (max-width: 768px) {
+  .tab-wrapper{
+    padding: 0px;
+  }
+}

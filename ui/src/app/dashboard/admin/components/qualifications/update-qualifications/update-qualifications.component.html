@@ -1,0 +1,179 @@
+<div class="add-dialog">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>Update {{ editName }}</h2>
+    <mat-icon mat-dialog-close (click)="close()"> close </mat-icon>
+  </div>
+  <form
+    [formGroup]="updateQualificationForm"
+    (ngSubmit)="updateQualification()"
+  >
+    <mat-dialog-content
+      class="mat-typography"
+    >
+      <div class="from-part">
+        <div class="level">
+          <label for="qual_name"
+            ><span class="required-asterisk">*</span> {{ editName }} Name:
+          </label>
+        </div>
+
+        <div class="level">
+          <input
+            id="qual_name"
+            qual_name="qual_name"
+            type="text"
+            formControlName="qual_name"
+            placeholder="Enter {{ editName }} Name"
+            required
+            [ngClass]="{
+              warning_input:
+                (qual_name.invalid && (qual_name.dirty || qual_name.touched)) ||
+                (qual_name.errors && qual_name.touched)
+            }"
+          />
+          <div
+            *ngIf="qual_name.invalid && (qual_name.dirty || qual_name.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="qual_name.errors">Qualification Name is required.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="from-part">
+        <div class="level">
+          <label for="qual_description"
+            ><span class="required-asterisk">*</span>
+            {{ editName }} Description:
+          </label>
+        </div>
+        <div class="level">
+          <input
+            id="qual_description"
+            type="text"
+            formControlName="qual_description"
+            placeholder="Enter Description"
+            required
+            [ngClass]="{
+              warning_input:
+                (qual_description.invalid &&
+                  (qual_description.dirty || qual_description.touched)) ||
+                (qual_description.errors && qual_description.touched)
+            }"
+          />
+          <div
+            *ngIf="
+              qual_description.invalid &&
+              (qual_description.dirty || qual_description.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="qual_description.errors">
+              Qualification Description Name is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="eff_start_date"
+            ><span class="required-asterisk">*</span> Effective Start Date:
+          </label>
+        </div>
+        <div class="level">
+          <div class="d-flex align-items-center" (click)="picker1.open()">
+            <input
+              id="eff_start_date"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="eff_start_date"
+              required
+              [matDatepicker]="picker"
+              [ngClass]="{
+                warning_input:
+                  (effStart_date.invalid &&
+                    (effStart_date.dirty || effStart_date.touched)) ||
+                  (effStart_date.errors && effStart_date.touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+
+          <div
+            *ngIf="
+              effStart_date.invalid &&
+              (effStart_date.dirty || effStart_date.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="effStart_date.errors">
+              Effective Start Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="eff_end_date"
+            ><span class="required-asterisk">*</span> Expiration Date:
+          </label>
+        </div>
+        <div class="level">
+          <div class="d-flex align-items-center" (click)="picker1.open()">
+            <input
+              id="eff_end_date"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="eff_end_date"
+              required
+              [min]="updateQualificationForm.value.eff_start_date"
+              [max]=""
+              [matDatepicker]="picker1"
+              [ngClass]="{
+                warning_input:
+                  (effEnd_date.invalid &&
+                    (effEnd_date.dirty || effEnd_date.touched)) ||
+                  (effEnd_date.errors && effEnd_date.touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker1></mat-datepicker>
+          </div>
+          <div
+            *ngIf="
+              effEnd_date.invalid && (effEnd_date.dirty || effEnd_date.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="effEnd_date.errors">Expiration Date is required.</div>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-success" *ngIf="updateSuccess">
+        <p>Role has been updated successfully !!</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button
+        mat-button
+        mat-raised-button
+        type="submit"
+        [disabled]="
+          updateQualificationForm.invalid || !updateQualificationForm.touched
+        "
+      >
+        Save
+      </button>
+      <button
+        mat-button
+        mat-raised-button
+        type="button"
+        (click)="resetcf()"
+        dkFocusInitial
+      >
+        Reset
+      </button>
+    </mat-dialog-actions>
+  </form>
+  </div>

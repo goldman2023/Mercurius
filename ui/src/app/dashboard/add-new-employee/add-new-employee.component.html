@@ -1,0 +1,597 @@
+<ion-header>
+  <ion-row
+    class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+  >
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label
+        class="app-font-primary-color app-font-size-14px ion-text-center"
+        ><b>{{ title }} Employee</b></ion-label
+      >
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label
+        style="cursor: pointer; font-size: 12px"
+        class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="close()"
+        ><b>Close</b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="addNewEmpForm">
+      <!-- Firstname -->
+
+      <ion-grid class="ion-justify-content-center ion-text-center" lines="none">
+        <ion-item lines="none" class="app-font-primary-color">
+          <ion-row class="w-100">
+            <ion-col size="6" id="register-input-ion-item">
+              <ion-label position="stacked">First Name</ion-label>
+              <ion-input
+                type="text"
+                formControlName="firstname"
+                name="firstname"
+                style="border-radius: 5px; margin-top: 5px"
+                class="form-control px-2 ion-border-1px-mercurius-secondary-color ion-no-margin app-font-primary-color"
+                [class.is-invalid]="firstname?.invalid && firstname?.touched"
+                (ionChange)="compareChange()"
+                required
+              ></ion-input>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="firstname?.touched && firstname?.errors"
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="firstname?.errors?.required"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Firstname is
+                  required!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="firstname?.errors?.minlength"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Firstname
+                  must be at least 4 characters long!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="firstname?.errors?.maxlength"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Firstname
+                  can't be longer than 8 characters!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col size="6" id="register-input-ion-item">
+              <ion-label position="stacked">Last Name</ion-label>
+              <ion-input
+                type="text"
+                formControlName="lastname"
+                name="lastname"
+                style="border-radius: 5px; margin-top: 5px"
+                class="form-control px-2 ion-border-1px-mercurius-secondary-color ion-no-margin app-font-primary-color ion-border-1px-mercurius-secondary-color"
+                [class.is-invalid]="lastname?.invalid && lastname?.touched"
+                (ionChange)="compareChange()"
+                required
+              ></ion-input>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="lastname?.touched && lastname?.errors"
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="lastname?.errors?.required"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Lastname is
+                  required!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="lastname?.errors?.minlength"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Lastname
+                  must be at least 2 characters long!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="lastname?.errors?.maxlength"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Lastname
+                  can't be longer than 64 characters!
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+
+        <ion-item
+          id="register-input-ion-item"
+          class="app-font-primary-color"
+          lines="none"
+        >
+          <ion-row class="w-100">
+            <ion-col size="6">
+              <ion-label position="stacked">Operating Initials</ion-label>
+              <ion-input
+                type="text"
+                formControlName="employee_initial"
+                (focusout)="initialName()"
+                name="employee_initial"
+                (focusout)="checkInitialName()"
+                style="
+                  border-radius: 5px;
+                  margin-top: 5px;
+                  text-transform: uppercase;
+                "
+                class="form-control px-2 ion-no-margin app-font-primary-color ion-border-1px-mercurius-secondary-color"
+                [class.is-invalid]="
+                  employee_initial?.invalid && employee_initial?.touched
+                "
+                (ionChange)="compareChange()"
+                required
+              ></ion-input>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="
+                  (employee_initial?.touched && employee_initial?.errors) ||
+                  checkInitial == true
+                "
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="employee_initial?.errors?.required"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Operating
+                  Initials is required!
+                </p>
+                <p class="app-font-red-color" *ngIf="checkInitial == true">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Operating
+                  Initials is already exist!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="employee_initial?.errors?.minlength"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Operating
+                  Initials must be at least 2 characters long!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="employee_initial?.errors?.pattern"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon>Space and
+                  special characters are not allowed!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label position="stacked">Seniority Ranking</ion-label>
+              <ion-input
+                id="sbp-input"
+                formControlName="rank"
+                name="rank"
+                displayFormat="MM/DD/YYYY"
+                style="border-radius: 5px; margin-top: 5px"
+                class="ion-border-1px-mercurius-secondary-color form-control px-2 ion-no-margin app-font-primary-color"
+                [class.is-invalid]="rank?.invalid && rank?.touched"
+                (ionChange)="checkRank() && compareChange()"
+                required
+                [readonly]="true"
+              ></ion-input>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="
+                  (rank?.touched && rank?.errors) ||
+                  checkRankValidation == false
+                "
+              >
+                <p class="app-font-red-color" *ngIf="rank?.errors?.required">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Seniority
+                  Rank is required!
+                </p>
+                <p class="app-font-red-color" *ngIf="rank?.errors?.min">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Please enter
+                  a minimum value 1!
+                </p>
+                <p class="app-font-red-color" *ngIf="rank?.errors?.pattern">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Please enter
+                  an integer number!
+                </p>
+                <!-- <p class="app-font-red-color" *ngIf="checkRankValidation==false "><ion-icon name="alert-circle-outline"></ion-icon>Rank is already exist!!</p> -->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item
+          id="register-input-ion-item"
+          class="app-font-primary-color"
+          lines="none"
+        >
+          <ion-row class="w-100">
+            <ion-col size="6">
+              <ion-label position="stacked">Facility</ion-label>
+              <mat-select
+                placeholder="Select"
+                interface="popover"
+                class="ion-no-margin form-control ion-border-1px-mercurius-secondary-color ion-border-1px-mercurius-secondary-color"
+                formControlName="facility"
+                name="facility"
+                style="border-radius: 5px; margin-top: 5px; width: 100%"
+                [class.is-invalid]="facility?.invalid && facility?.touched"
+                (selectionChange)="getAreaByFacility($event)"
+              >
+                <mat-option
+                  *ngFor="let facility of Facility"
+                  [value]="facility.facilityid"
+                >
+                  {{ facility.facilityname }} ({{ facility.facilityabbr }})
+                </mat-option>
+              </mat-select>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="facility?.touched && facility?.errors"
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="facility?.errors?.required"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Facility is
+                  required!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label position="stacked">Area</ion-label>
+              <mat-select
+                placeholder="Select"
+                interface="popover"
+                class="ion-no-margin form-control ion-border-1px-mercurius-secondary-color ion-border-1px-mercurius-secondary-color"
+                formControlName="area"
+                name="area"
+                style="border-radius: 5px; margin-top: 5px; width: 100%"
+                [class.is-invalid]="area?.invalid && area?.touched"
+                (selectionChange)="compareChange()"
+              >
+                <mat-option
+                  *ngFor="let area of FacilityArea"
+                  [value]="area.areaid"
+                >
+                  {{ area.areaname }}
+                </mat-option>
+              </mat-select>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="area?.touched && rank?.errors"
+              >
+                <p class="app-font-red-color" *ngIf="area?.errors?.required">
+                  <ion-icon name="alert-circle-outline"></ion-icon>
+                  Area is required!
+                </p>
+                <p class="app-font-red-color" *ngIf="area?.errors?.min">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Please enter
+                  a minimum value 1!
+                </p>
+                <p class="app-font-red-color" *ngIf="area?.errors?.pattern">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Please enter
+                  an integer number!
+                </p>
+                <!-- <p class="app-font-red-color" *ngIf="checkRankValidation==false "><ion-icon name="alert-circle-outline"></ion-icon>Rank is already exist!!</p> -->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <!-- <ion-item id="register-input-ion-item" lines="none"   class="app-font-primary-color " >
+
+        </ion-item> -->
+        <!-- Vacation Leave -->
+        <ion-item
+          id="register-input-ion-item"
+          class="app-font-primary-color"
+          lines="none"
+        >
+          <ion-row class="w-100">
+            <ion-col size="6">
+              <ion-label position="stacked"
+                >Vacation Leave<i> (Hours)</i></ion-label
+              >
+              <ion-input
+                type="number"
+                formControlName="vacationLeaveNumber"
+                name="vacationLeaveNumber"
+                style="border-radius: 5px; margin-top: 5px"
+                class="form-control px-2 ion-no-margin app-font-primary-color ion-border-1px-mercurius-secondary-color"
+                [class.is-invalid]="
+                  vacationLeaveNumber?.invalid && vacationLeaveNumber?.touched
+                "
+                (ionChange)="compareChange()"
+                required
+              ></ion-input>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="
+                  vacationLeaveNumber?.touched && vacationLeaveNumber?.errors
+                "
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="vacationLeaveNumber?.errors?.required"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Vacation
+                  Leave requires numbers!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="vacationLeaveNumber?.errors?.min"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Vacation
+                  Leave requires numbers!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="vacationLeaveNumber?.errors?.pattern"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Vacation
+                  Leave requires numbers!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col size="6" class="d-none-sm">
+              <ion-label position="stacked"
+                >Accumulated Leave<i> (Hours)</i></ion-label
+              >
+              <ion-input
+                type="number"
+                formControlName="accumulatedleave"
+                name="accumulatedleave"
+                class="form-control px-2 ion-no-margin app-font-primary-color ion-border-1px-mercurius-secondary-color mt-1 ion-border-radius-5px"
+                [class.is-invalid]="
+                  accumulatedleave?.invalid && accumulatedleave?.touched
+                "
+                (ionChange)="compareChange()"
+              ></ion-input>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="accumulatedleave?.touched && accumulatedleave?.errors"
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="accumulatedleave?.errors?.min"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Accumulated
+                  Leave must be positive!
+                </p>
+                <p
+                  class="app-font-red-color"
+                  *ngIf="accumulatedleave?.errors?.pattern"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon> Accumulated
+                  Leave requires numbers!
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <!-- Email -->
+        <ion-item lines="none" class="app-font-primary-color">
+          <ion-row class="w-100">
+            <ion-col size="6" id="register-input-ion-item">
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input
+                type="email"
+                style="border-radius: 5px; margin-top: 5px"
+                class="form-control px-2 ion-no-margin app-font-primary-color ion-border-1px-mercurius-secondary-color"
+                formControlName="email"
+                name="email"
+                [class.is-invalid]="email?.invalid && email?.touched"
+                required
+                [readonly]="checkEmpEdit"
+                (ionChange)="compareChange()"
+              ></ion-input>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="email?.touched && email?.errors"
+              >
+                <p class="app-font-red-color" *ngIf="email?.errors?.required">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Email is
+                  required!
+                </p>
+                <p class="app-font-red-color" *ngIf="email?.errors?.minlength">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Email must
+                  be at least 6 characters long!
+                </p>
+
+                <p class="app-font-red-color" *ngIf="email?.errors?.pattern">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Enter a
+                  valid email!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col size="6" id="register-input-ion-item">
+              <ion-label position="stacked" class="text-dark">Phone</ion-label>
+              <ion-input
+                type="number"
+                :clear-input="true"
+                (keyup)="changePhoneValue()"
+                (keyup.enter)="gotoNextField(paSSword)"
+                #pHone
+                class="ion-no-margin ion-border-1px-mercurius-secondary-color ion-no-padding px-2 mt-1 phone-field"
+                formControlName="phone"
+                name="phone"
+                (ionChange)="compareChange()"
+                [class.is-invalid]="phone?.invalid"
+              ></ion-input>
+              <div
+                class="content-data app-font-red-color text-left"
+                *ngIf="phone?.errors"
+              >
+                <p class="app-font-red-color" *ngIf="phone?.errors?.pattern">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Enter a
+                  valid phone!
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <!-- Facility -->
+        <!-- <ion-item id="register-input-ion-item" class="app-font-primary-color " >
+        <ion-label position="stacked">Facility</ion-label>
+        <ion-input  type="number" class="ion-no-margin ion-no-padding" formControlName="facilityid" name="facilityid"
+        [class.is-invalid]="facilityid?.invalid && facilityid?.touched"
+        [readonly]="true"
+        required></ion-input>
+        <div class="content-data app-font-red-color" style="text-align: left;" *ngIf="facilityid?.touched && facilityid?.errors">
+          <p class="app-font-red-color" *ngIf="facilityid?.errors?.required "><ion-icon name="alert-circle-outline"></ion-icon> Facility is required!</p>
+        </div>
+      </ion-item> -->
+
+        <!-- Facility -->
+        <!-- <ion-item id="register-input-ion-item" class="app-font-primary-color " lines="none">
+        <ion-label position="stacked">Group/Area/Facility</ion-label>
+        <ion-input  type="number"  formControlName="facilityid" name="facilityid" style="border: 1px solid #57818A;border-radius: 5px;margin-top: 5px;" class="form-control ion-no-margin ion-no-padding app-font-primary-color"
+        [class.is-invalid]="facilityid?.invalid && facilityid?.touched"
+        [readonly]="true"
+        required></ion-input>
+        <div class="content-data app-font-red-color" style="text-align: left;" *ngIf="facilityid?.touched && facilityid?.errors">
+          <p class="app-font-red-color" *ngIf="facilityid?.errors?.required "><ion-icon name="alert-circle-outline"></ion-icon> Facility is required!</p>
+        </div>
+      </ion-item> -->
+        <!-- Select Qualification -->
+        <ion-item
+          id="register-input-ion-item"
+          class="app-font-primary-color"
+          lines="none"
+        >
+          <ion-row style="width: 100%">
+            <ion-col size="6" style="width: 100%">
+              <ion-label position="stacked">Qualification</ion-label>
+              <mat-select
+                placeholder="Select"
+                interface="popover"
+                class="ion-no-margin form-control ion-border-1px-mercurius-secondary-color ion-border-1px-mercurius-secondary-color"
+                formControlName="qualification"
+                name="qualification"
+                style="border-radius: 5px; margin-top: 5px; width: 100%"
+                [class.is-invalid]="
+                  qualification?.invalid && qualification?.touched
+                "
+                (selectionChange)="compareChange()"
+              >
+                <mat-option
+                  *ngFor="let aQ of all_qualification"
+                  value="{{ aQ }}"
+                  >{{ aQ }}</mat-option
+                >
+              </mat-select>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="qualification?.touched && qualification?.errors"
+              >
+                <p
+                  class="app-font-red-color"
+                  *ngIf="qualification?.errors?.required"
+                >
+                  <ion-icon name="alert-circle-outline"></ion-icon>
+                  Qualification is required!
+                </p>
+              </div>
+            </ion-col>
+            <ion-col size="6" style="width: 100%">
+              <ion-label position="stacked">Role</ion-label>
+
+              <mat-select
+                placeholder="Select"
+                interface="popover"
+                formControlName="role"
+                name="role"
+                required
+                [class.is-invalid]="role?.invalid && role?.touched"
+                style="border-radius: 5px; margin-top: 5px; width: 100%"
+                class="form-control ion-no-margin ion-border-1px-mercurius-secondary-color app-font-primary-color"
+                (selectionChange)="compareChange()"
+              >
+                <mat-option
+                  *ngFor="let aR of all_role"
+                  value="{{ aR.trim() }}"
+                  >{{ aR }}</mat-option
+                >
+              </mat-select>
+              <div
+                class="content-data app-font-red-color"
+                style="text-align: left"
+                *ngIf="role?.touched && role?.errors"
+              >
+                <p class="app-font-red-color" *ngIf="role?.errors?.required">
+                  <ion-icon name="alert-circle-outline"></ion-icon> Role is
+                  required!
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <!-- <ion-item id="register-input-ion-item" class="app-font-primary-color " lines="none">
+      </ion-item> -->
+      </ion-grid>
+
+      <!-- Terms & Conditions -->
+      <!-- <ion-row class="ion-justify-content-center"  id="check-box-terms-and-conditions">
+<ion-checkbox style="--size:20px" formControlName="terms" > </ion-checkbox> <ion-label style="margin-left: 2%;">  Agree with Terms and Conditions</ion-label>
+</ion-row> -->
+
+      <ion-row class="ion-justify-content-center ion-text-center" id="button">
+        <ion-col size="6">
+          <ion-button
+            shape="round"
+            (click)="ngOnInit()"
+            class="app-button-primary"
+            id="get-start"
+            >Reset</ion-button
+          >
+        </ion-col>
+        <ion-col size="6">
+          <ion-button
+            *ngIf="!checkEmpEdit"
+            shape="round"
+            (click)="onSubmit(addNewEmpForm)"
+            class="app-button-primary save-buttton w-auto"
+            id="get-start"
+            [disabled]="addNewEmpForm?.invalid || checkInitial"
+          >
+            <ion-spinner *ngIf="isloading"></ion-spinner>
+            Save</ion-button
+          >
+          <ion-button
+            *ngIf="checkEmpEdit"
+            shape="round"
+            (click)="update(addNewEmpForm)"
+            class="app-button-primary w-auto"
+            id="get-start"
+            [disabled]="addNewEmpForm?.invalid || checkInitial || changeMade"
+          >
+            <ion-spinner *ngIf="isloading"></ion-spinner>
+            Update</ion-button
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center" id="sign-in"> </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>
+<!-- <div class="custom-shape-divider-top-1626199019">
+    <svg id="wave"  viewBox="0 0 1440 490" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(243, 106, 62, 1)" offset="0%"></stop><stop stop-color="rgba(255, 179, 11, 1)" offset="100%"></stop></linearGradient></defs>
+      <path style=" opacity:1" fill="#0194E3" d="M0,196L80,163.3C160,131,320,65,480,106.2C640,147,800,294,960,302.2C1120,310,1280,180,1440,122.5C1600,65,1760,82,1920,98C2080,114,2240,131,2400,155.2C2560,180,2720,212,2880,187.8C3040,163,3200,82,3360,49C3520,16,3680,33,3840,57.2C4000,82,4160,114,4320,106.2C4480,98,4640,49,4800,65.3C4960,82,5120,163,5280,196C5440,229,5600,212,5760,228.7C5920,245,6080,294,6240,269.5C6400,245,6560,147,6720,122.5C6880,98,7040,147,7200,163.3C7360,180,7520,163,7680,147C7840,131,8000,114,8160,98C8320,82,8480,65,8640,106.2C8800,147,8960,245,9120,285.8C9280,327,9440,310,9600,253.2C9760,196,9920,98,10080,73.5C10240,49,10400,98,10560,171.5C10720,245,10880,343,11040,351.2C11200,359,11360,278,11440,236.8L11520,196L11520,490L11440,490C11360,490,11200,490,11040,490C10880,490,10720,490,10560,490C10400,490,10240,490,10080,490C9920,490,9760,490,9600,490C9440,490,9280,490,9120,490C8960,490,8800,490,8640,490C8480,490,8320,490,8160,490C8000,490,7840,490,7680,490C7520,490,7360,490,7200,490C7040,490,6880,490,6720,490C6560,490,6400,490,6240,490C6080,490,5920,490,5760,490C5600,490,5440,490,5280,490C5120,490,4960,490,4800,490C4640,490,4480,490,4320,490C4160,490,4000,490,3840,490C3680,490,3520,490,3360,490C3200,490,3040,490,2880,490C2720,490,2560,490,2400,490C2240,490,2080,490,1920,490C1760,490,1600,490,1440,490C1280,490,1120,490,960,490C800,490,640,490,480,490C320,490,160,490,80,490L0,490Z"></path></svg>
+  </div> -->

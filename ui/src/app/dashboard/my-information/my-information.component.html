@@ -1,0 +1,29 @@
+
+<div class="container-fluid">
+  <div class="row py-2">
+    <div class="col-md-12  p-1">
+      <div class="outlet-container">
+        <div class="header mb-3 text-center p-3" >
+          My Worksheet
+        </div>
+        <div class="header mb-2" *ngIf="wroksheetData">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3 col-sm-12 d-flex align-items-center">
+                <div class="name"  >
+                  {{ wroksheetData.lname }}, 
+                {{ wroksheetData.fname }} 
+                ({{wroksheetData.initials}}) 
+                </div>
+                </div>
+              <div class="col-md-9 padding-mobile">
+                <app-navigation></app-navigation>
+              </div>
+            </div>
+          </div>
+          </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

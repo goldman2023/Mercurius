@@ -1,0 +1,245 @@
+<ion-grid class="container mb-8" (click)="disablePopup()">
+  <ion-grid id="top" class="ion-no-padding-bottom ion-no-margin-bottom">
+    <ion-grid class="app-font-primary-color content-data main">
+      <ion-row class="d-md-none">
+        <ion-col
+          class="ion-text-center font-weight-500 app-font-primary-color ion-justify-content-center"
+          size="6"
+        >
+          <ion-label
+            class="ion-underline-p app-font-mercurius-secondary-color clickable"
+            >MANAGE BID SCHEDULE</ion-label
+          >
+        </ion-col>
+        <ion-col
+          class="ion-text-center font-weight-500 app-font-primary-color ion-justify-content-center"
+          size="6"
+        >
+          <ion-label (click)="myBidding()" class="disable-color clickable"
+            >MY BIDDING</ion-label
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <mat-tab-group mat-align-tabs="center" (selectedTabChange)="changeTab($event)">
+      <mat-tab label="Bid Schedule">
+
+        <ion-row class="ion-no-padding-bottom ion-no-margin-bottom">
+          <ion-col size="12" class="text-right">
+            <div [ngClass]="getPermissionActionName('Add New Bid Schedule') ? '' : 'disabled'">
+    
+              <div class="float-right" >
+                <mat-icon title="Add New Bid Schedule"
+                  class="font-size-28px cursor-pointer app-font-mercurius-secondary-color"
+                  (click)="getPermissionActionName('Add New Bid Schedule') ? addNewBidSchedule() : false"
+                  >add_circle</mat-icon
+                >
+              </div>
+              <div class="me-1 float-right">
+                <b class="font-normal text-normal font-size-14px mt-neg5">
+                  Add New
+                </b>
+              </div>
+            </div>
+            <div style="float: left">
+              <b class="font-normal data text-normal font-size-14px mt-neg5"
+                >Total Bid Schedules: {{ all_Bid_schedule_list.length }}</b
+              >
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-grid
+          id="list"
+          *ngIf="all_Bid_schedule_list.length > 0; else elseBlock"
+        >
+          <ion-row>
+            <ion-col
+              size-lg="4"
+              size-md="6"
+              size-xs="12"
+              *ngFor="let bs of all_Bid_schedule_list; let i = index"
+            >
+              <ion-row
+                class="items ion-no-padding text-align-left ion-no-margin ion-border-1px-ligth-gray-color content-data-14px ion-no-margin text-align-left"
+              >
+                <ion-col size="11" class="ion-no-padding ion-no-margin">
+                  <ion-row class="data" class="ion-no-padding ion-no-margin">
+                    <ion-col
+                      size="12"
+                      (click)="myFunction(i)"
+                      class="ion-no-padding-bottom popup ion-no-margin-bottom"
+                    >
+                      <ion-row class="ion-no-padding">
+                        <ion-col size="12" class="ion-no-padding">
+                          <div>
+                            <div class="text">
+                              <b>Bid Schedule :</b> {{ bs.bidschename }}
+                            </div>
+                          </div>
+                          <div
+                            *ngIf="
+                              bs.schedulesavestatus != 1 ||
+                              bs.leavesavestatus !== 1 ||
+                              bs.roundsavestatus !== 1
+                            "
+                            class="float-left w-10"
+                          >
+                            <mat-icon class="icon">report_problem</mat-icon>
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                      <span class="popuptext" id="myPopup{{ i }}">
+                        {{ bs.bidschename }}</span
+                      >
+                    </ion-col>
+                    <ion-col size="6" class="ion-no-padding-top ion-no-margin-top">
+                      <ion-label class="app-font-primary-color"
+                        ><b>Start :</b>
+                        {{ bs.bidschstartdate | date : "MMM d, y" }}</ion-label
+                      >
+                    </ion-col>
+                    <ion-col size="6" class="ion-no-padding-top ion-no-margin-top">
+                      <ion-label class="app-font-primary-color"
+                        ><b>End :</b>
+                        {{ bs.bidschenddate | date : "MMM d, y" }}</ion-label
+                      >
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding button-box">
+                  <ion-grid class="button-box">
+                    <p
+                      class="enent-name"
+                      (click)="editBidScheduleFromList(bs, $event)"
+                      title="Edit, Export or Delete Bid Schedule"
+                    ><ion-icon
+                          class="app-font-mercurius-secondary-color event-icon  pe-none"
+                          name="ellipsis-vertical-outline"
+                          title="Edit, Export or Delete Schedule"
+                        ></ion-icon
+                      >
+                    </p>
+                  </ion-grid>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </mat-tab>
+      <mat-tab label="Assign Schedule">
+        <ion-row class="ion-no-padding-bottom ion-no-margin-bottom">
+          <ion-col size="12" class="text-right">
+            <div [ngClass]="getPermissionActionName('Add New Bid Schedule') ? '' : 'disabled'">
+    
+              <div class="float-right" >
+                <mat-icon title="Add New Bid Schedule"
+                  class="font-size-28px cursor-pointer app-font-mercurius-secondary-color"
+                  (click)="getPermissionActionName('Add New Bid Schedule') ? addNewAssignBidSchedule() : false"
+                  >add_circle</mat-icon
+                >
+              </div>
+              <div class="me-1 float-right">
+                <b class="font-normal text-normal font-size-14px mt-neg5">
+                  Add New
+                </b>
+              </div>
+            </div>
+            <div style="float: left">
+              <b class="font-normal data text-normal font-size-14px mt-neg5"
+                >Total Bid Schedules: {{ all_Bid_schedule_list.length }}</b
+              >
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-grid
+          id="list"
+          *ngIf="all_Bid_schedule_list.length > 0; else elseBlock"
+        >
+          <ion-row>
+            <ion-col
+              size-lg="4"
+              size-md="6"
+              size-xs="12"
+              *ngFor="let bs of all_Bid_schedule_list; let i = index"
+            >
+              <ion-row
+                class="items ion-no-padding text-align-left ion-no-margin ion-border-1px-ligth-gray-color content-data-14px ion-no-margin text-align-left"
+              >
+                <ion-col size="11" class="ion-no-padding ion-no-margin">
+                  <ion-row class="data" class="ion-no-padding ion-no-margin">
+                    <ion-col
+                      size="12"
+                      (click)="myFunction(i)"
+                      class="ion-no-padding-bottom popup ion-no-margin-bottom"
+                    >
+                      <ion-row class="ion-no-padding">
+                        <ion-col size="12" class="ion-no-padding">
+                          <div>
+                            <div class="text">
+                              <b>Bid Schedule :</b> {{ bs.bidschename }}
+                            </div>
+                          </div>
+                          <div
+                            *ngIf="
+                              bs.schedulesavestatus != 1 ||
+                              bs.leavesavestatus !== 1 ||
+                              bs.roundsavestatus !== 1
+                            "
+                            class="float-left w-10"
+                          >
+                            <mat-icon class="icon">report_problem</mat-icon>
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                      <span class="popuptext" id="myPopup{{ i }}">
+                        {{ bs.bidschename }}</span
+                      >
+                    </ion-col>
+                    <ion-col size="6" class="ion-no-padding-top ion-no-margin-top">
+                      <ion-label class="app-font-primary-color"
+                        ><b>Start :</b>
+                        {{ bs.bidschstartdate | date : "MMM d, y" }}</ion-label
+                      >
+                    </ion-col>
+                    <ion-col size="6" class="ion-no-padding-top ion-no-margin-top">
+                      <ion-label class="app-font-primary-color"
+                        ><b>End :</b>
+                        {{ bs.bidschenddate | date : "MMM d, y" }}</ion-label
+                      >
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding button-box">
+                  <ion-grid class="button-box">
+                    <p
+                      class="enent-name"
+                      (click)="editBidScheduleFromList(bs, $event)"
+                      title="Edit, Export or Delete Bid Schedule"
+                    ><ion-icon
+                          class="app-font-mercurius-secondary-color event-icon  pe-none"
+                          name="ellipsis-vertical-outline"
+                          title="Edit, Export or Delete Schedule"
+                        ></ion-icon
+                      >
+                    </p>
+                  </ion-grid>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </mat-tab>
+    </mat-tab-group>
+    <ng-template #elseBlock>
+      <ion-grid>
+        <ion-row
+          class="ion-text-center app-font-primary-color content-data main"
+        >
+          <ion-col size="12">
+            <ion-label>Data Not Available</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+  </ion-grid>
+</ion-grid>

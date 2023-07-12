@@ -1,0 +1,102 @@
+
+<div class="d-flex py-3 actions-box">
+  
+  <div  class="d-flex  align-items-center justify-content-between font-bold-size week-date date-name mb-0">
+    <form  [formGroup]="dateForm" >
+     <div class="d-flex justify-content-between align-items-center">
+      <mat-icon class="app-font-primary-color pointer" (click)="getPreviousMonthFirstDate(dateForm.value.dateShow)">keyboard_arrow_left</mat-icon>
+
+        
+        <div  class="calender-component">
+          {{dateForm.value.dateShow | date : 'MMM-YYYY'}}
+          <input
+          class="cursor-pointer form-control app-border-mercurius-secondary-color "
+          formControlName="schedule_start_date"
+          (dateChange)="dateChangeforBidSchedule($event)"
+          formControlName="dateShow"
+          matSuffix
+          matInput
+          (click)="datepicker.open()"
+          [matDatepicker]="datepicker"
+        />
+        <mat-datepicker #datepicker></mat-datepicker>
+        </div>
+        <mat-icon class="app-font-primary-color pointer" (click)="getNextMonthFirstDate(dateForm.value.dateShow)">keyboard_arrow_right</mat-icon>
+      
+      </div>
+    </form>
+     <div class="w-10">
+            <div class="pointer" (click)="today()">Today</div>
+     </div>
+  </div>
+</div>
+<div class="d-flex py-2 week-sub-header">
+  <div *ngFor="let date of getWeekDates(currentDate); let ind=index" class=" d-flex flex-column align-items-center font-bold-size week-date date-name mb-0">
+      {{date | date : 'EEE'}}
+  </div>
+</div>
+<div cdkDropListGroup class=" weekly-content">
+  <div class="d-flex week-row-card border-top-right" >
+      <div cdkDropList *ngFor="let dates of fullMonthDates; let ind1 = index" class=" schedule-card-item-list"
+        cdkDropListSortingDisabled >
+        <div class="note-indicator" *ngIf="dates.note"></div>
+        <div class="text-center py-2 day-title d-none-sm ">
+          <p class="date-name "><span  *ngIf="!checkMonth(dates.date,dateShow)">{{dates.date | date : "MMM"}}</span> {{dates.date | date : "dd"}}</p>
+        </div>
+        <div  *ngFor="let item of dates.dataArray; let indata = index">
+          <div class="text-center py-2 day-title d-lg-none d-sm-block h-100"  *ngIf="indata === 0" [ngClass]="item.CssClass2">
+            <p class="date-name" [ngStyle]="{'color': currentDate ==  dates.date ? 'red' : '#070707de'}" (click)="showDateEve(dates.dataArray, dates.date)"><span  *ngIf="!checkMonth(dates.date,dateShow)"></span> {{dates.date | date : "dd"}}</p>
+          </div>
+          <div class="d-none-sm" *ngIf="item.CssClass != 'note'">
+            <div class="d-flex week-row-card p-2 " [ngClass]="item.CssClass">
+              <div class="d-flex gap flex-wrap w-100" >
+                <mat-card class="d-flex gap-1 schedule-card-item" [ngClass]="item.CssClass2">
+                  <mat-label [ngStyle]="{'text-decoration': indata > 0 && item.CssClass != 'note'? 'line-through' : 'none'}">
+                    {{ item.Subject }}
+                  </mat-label>
+                 <div  *ngIf="indata === 0 || item.CssClass == 'note'">
+                  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="right" matTooltip="Update"  aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="before" >
+                    <button mat-menu-item (click)="stickyNote(item, $event,dates)" *ngIf="item.CssClass != 'note'">
+                      <span>Add/View Note</span>
+                    </button>
+                    <button mat-menu-item  (click)="submitRequest(item, dates.date)" *ngIf="item.Subject != 'RDO' && item.Subject != 'VL'">
+                      <span>Submit Request</span>
+                    </button>
+                  </mat-menu>
+                 </div>
+              </mat-card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="empInfor-moble mt-2">
+  <div class="d-flex align-items-center justify-content-between ev-class" *ngFor="let item of events ; let indata = index" [ngClass]="item.CssClass2">
+    <div class="d-flex align-items-center m-1">
+      <div class="day " >
+        <p>{{viewDate  | date : "MMM"}}</p>
+        <p>{{viewDate  | date : "dd"}}</p>
+      </div>
+      <div class="event p-1 pl-3" [ngStyle]="{'text-decoration': indata > 0 && item.CssClass != 'note'? 'line-through' : 'none'}">{{ item.Subject | slice:0:20 }}{{ item.Subject.length > 20 ? '...' : '' }}</div>
+    </div>
+    <div  *ngIf="indata === 0">
+      <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="right" matTooltip="Update"  aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before" >
+        <button mat-menu-item (click)="stickyNote(item, $event,viewDate)" *ngIf="item.CssClass != 'note'">
+          <span>Add/View Note</span>
+        </button>
+        <button mat-menu-item  (click)="submitRequest(item,viewDate)" *ngIf="item.Subject != 'RDO' && item.Subject != 'VL'">
+          <span>Submit Request</span>
+        </button>
+      </mat-menu>
+     </div>
+  </div>
+</div>
+<app-sticky-note [schedule]="schedule"  [noteEmpIdAndDate]="noteEmpIdAndDate" [stickyDetails]="stickyDetails" [clientX]="clientX" [clientY]="clientY"  (stickyNotes)="closeSticky($event)"  *ngIf="stickyNotes" class="app-sticky" (click)="stickyNotes = false"></app-sticky-note>

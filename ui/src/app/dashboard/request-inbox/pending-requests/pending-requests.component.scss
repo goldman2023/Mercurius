@@ -1,0 +1,224 @@
+.list {
+    margin: 0 auto;
+    width: 100%;
+    margin-top: 10px;
+
+    table {
+      overflow: auto;
+      width: 100%;
+      box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+      -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+      -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+      .mat-header-row {
+        height: 47px;
+
+        .mat-header-cell {
+          background-color: #f7aa05;
+          font-size: 18px;
+          .mat-select {
+            display: block;
+          }
+        }
+      }
+
+      tr {
+        td {
+          text-align: center;
+          .action {
+            gap: 5px;
+            display: flex;
+            justify-content: center;
+
+            .manageArea {
+              color: #fff;
+              background-color: #ff6700;
+              border-radius: 20px;
+            }
+          }
+          .mat-button {
+            font-size: 16px;
+            line-height: 30px;
+          }
+
+          &:first-child{
+            text-align: left;
+          }
+        }
+        .mat-column-action {
+          text-align: center;
+        }
+      }
+
+      .mat-row:nth-child(even) {
+        background-color: #f7f7f7;
+      }
+
+      .mat-row:nth-child(odd) {
+        background-color: #fff;
+      }
+    }
+    .mat-paginator {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .top-bar ::ng-deep .mat-radio-label{
+    margin-right: 10px;
+  }
+  .top-bar ::ng-deep .mat-radio-label-content{
+    font-size: 18px;
+  }
+  .inbox ::ng-deep .mat-sort-header-arrow {
+    color: #000;
+  }
+  
+  .inbox ::ng-deep.mat-paginator-page-size-select {
+    border: 1px solid rgb(102, 102, 102);
+    border-radius: 6px;
+  }
+  
+  .inbox
+    ::ng-deep
+    .mat-form-field-appearance-legacy
+    .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  
+  .inbox ::ng-deep .mat-form-field-infix {
+    border: none;
+    padding: 0px 5px;
+  }
+  
+  .inbox ::ng-deep .mat-paginator-page-size {
+    align-items: center;
+  }
+  
+  .inbox ::ng-deep .mat-paginator,
+  .inbox ::ng-deep .mat-paginator-page-size .mat-select-trigger {
+    margin: 11px auto;
+    font-size: 17px;
+  }
+  
+  .inbox
+    ::ng-deep
+    .mat-form-field-appearance-legacy
+    .mat-form-field-underline {
+    display: none;
+  }
+  
+  .inbox ::ng-deep .mat-paginator-range-label {
+    margin: 0 10px 0 10px;
+    word-spacing: 9px;
+  }
+  
+  .inbox ::ng-deep .mat-select {
+    display: block;
+  }
+  
+  // .inbox ::ng-deep .mat-select-value {
+  //   text-align: center;
+  // }
+  .inbox ::ng-deep .mat-paginator-page-size .mat-select-trigger {
+    display: block;
+    margin: 11px auto;
+    font-size: 17px;
+  }
+  
+  .inbox ::ng-deep .mat-form-field-infix {
+    width: auto;
+  }
+  
+  .inbox ::ng-deep button.mat-menu-item{
+    height: 36px;
+    line-height: 36px;
+  }
+  .inbox ::ng-deep .mat-menu-panel {
+    min-height: 52px;
+  }
+  // .inbox ::ng-deep.mat-sort-header-container{
+  //   justify-content: center;
+  // }
+  
+  .gap{
+    gap: 20px;
+  }
+  
+  .inbox ::ng-deep .mat-mini-fab .mat-button-wrapper{
+    padding: 0px 0;
+    display: inline-block;
+    line-height: 19px;
+  }
+  .inbox ::ng-deep .mat-mini-fab {
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 17px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    transform: translate3d(0, 0, 0);
+    transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 0;
+    border-radius: 50%;
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  
+  .widh-150{
+    width: 172px;
+  }
+  .widh-77{
+    max-width: 117px;
+  }
+  
+  .inbox ::ng-deep
+  .mat-form-field-appearance-legacy
+  .mat-form-field-underline {
+  display: none;
+  }
+  .inbox ::ng-deep
+  .mat-tab-labels {
+    gap: 10px;
+  }
+  .inbox ::ng-deep
+  .mat-tab-list {
+    background-color: #fff;
+    border-bottom: 5px solid #f6aa3b !important;
+  
+    .mat-tab-label{
+      border-radius: 10px 10px 0px 0px;
+      background-color: #808080;
+      color: #fff;
+      opacity: 1;
+      font-size: 18px;
+      padding: 12px 15px;
+    }
+    .mat-tab-label-active{
+      color: #000;
+      background-color: #f6aa3b;
+    }
+    .mat-ink-bar{
+      display: none;
+    }
+  }
+  
+  .inbox ::ng-deep.mat-sort-header-container{
+    justify-content: center;
+  }

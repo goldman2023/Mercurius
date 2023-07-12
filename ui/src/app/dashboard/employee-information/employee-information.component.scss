@@ -1,0 +1,20 @@
+.outlet-container{
+  padding: 2px;
+  padding-right: 10px;
+  height: calc(100vh - 333px);
+}
+.emp-info{
+  height: calc(100vh - 236px);
+}
+.emp-info-row{
+  height: calc(100vh - 298px);
+}
+.header{
+  background-color: #f6aa3b;
+  padding: 5px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 5px -2px rgba(0,0,0,0.75);
+-webkit-box-shadow: 1px 2px 5px -2px rgba(0,0,0,0.75);
+-moz-box-shadow: 1px 2px 5px -2px rgba(0,0,0,0.75);
+}

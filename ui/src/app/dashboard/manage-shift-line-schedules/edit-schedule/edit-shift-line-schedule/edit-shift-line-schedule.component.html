@@ -1,0 +1,1269 @@
+<ion-header>
+  <ion-row
+    class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+  >
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label
+        class="app-font-primary-color app-font-size-14px ion-text-center"
+        ><b>Edit Shiftline</b></ion-label
+      >
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label
+        style="cursor: pointer; font-size: 12px"
+        class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="dismiss()"
+        ><b>Close</b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content class="title-background-color ion-no-padding">
+  <ion-card
+    class="ion-no-margin data title-background-color"
+    style="
+      height: 100% !important;
+      overflow-y: scroll !important;
+    "
+  >
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          size="12"
+          style="border-radius: 10px"
+          class="ion-text-center ion-justify-content-center"
+        >
+          <ion-segment
+            class="ion-text-center ion-justify-content-center"
+            (ionChange)="segmentChanged($event)"
+            value="{{ selected_shift_duration }}"
+          >
+            <ion-segment-button
+              class="ion-text-center ion-justify-content-center"
+              value="8"
+            >
+              8-Hours Shift
+            </ion-segment-button>
+            <ion-segment-button
+              class="ion-text-center ion-justify-content-center"
+              value="9"
+            >
+              9-Hours Shift
+            </ion-segment-button>
+            <ion-segment-button
+              class="ion-text-center ion-justify-content-center"
+              value="10"
+            >
+              10-Hours Shift
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="mx-2">
+      <ion-row
+        class="ion-header-sub-title"
+      >
+        <ion-col class="ion-no-marrgin ion-no-padding ion-text-center">
+          <p
+            class="ion-no-margin font-bold-size app-font-black-color"
+            style="margin-bottom: 0% !important; padding-bottom: 0% !important"
+          >
+            <b>Shift Line</b>
+          </p>
+        </ion-col>
+        <ion-col class="ion-no-marrgin ion-no-padding ion-text-center">
+          <p
+            class="ion-no-margin font-bold-size app-font-black-color"
+            style="margin-bottom: 0% !important; padding-bottom: 0% !important"
+          >
+            <b>Shift Pattern</b>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-card
+        class="app-font-primary-color ion-no-margin ion-text-center colors-sat-sun"
+        *ngIf="
+          scheduleData.SL == 'SS' ||
+          scheduleData.SL == 'FSS' ||
+          scheduleData.SL == 'FSS-A' ||
+          scheduleData.SL == 'SS-A'
+        "
+      >
+        <ion-row
+          class="font-size-14px"
+        >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'SS'"
+            >SS-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'FSS'"
+            >FSS-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'FSS-A'"
+            >SS-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'SS-A'"
+            >SS-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center">{{ shift_Pattern }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card
+        class="app-font-primary-color ion-no-margin ion-text-center colors-sun-mon"
+        *ngIf="
+          scheduleData.SL == 'SM' ||
+          scheduleData.SL == 'SMS' ||
+          scheduleData.SL == 'SMS-A' ||
+          scheduleData.SL == 'SM-A'
+        "
+      >
+        <ion-row class="font-size-14px">
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'SM'"
+            >SM-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'SMS'"
+            >SMS-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'SMS-A'"
+            >SMS-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'SM-A'"
+            >SM-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center">{{ shift_Pattern }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card
+        class="app-font-primary-color ion-no-margin ion-text-center colors-mon-tue"
+        *ngIf="
+          scheduleData.SL == 'MT' ||
+          scheduleData.SL == 'SMT' ||
+          scheduleData.SL == 'SMT-A' ||
+          scheduleData.SL == 'MT-A'
+        "
+      >
+        <ion-row class="font-size-14px">
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'MT'"
+            >MT-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'SMT'"
+            >SMT-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'SMT-A'"
+            >SMT-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'MT-A'"
+            >MT-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center">{{ shift_Pattern }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card
+        class="app-font-primary-color ion-text-center ion-no-margin colors-tue-wed"
+        *ngIf="
+          scheduleData.SL == 'TW' ||
+          scheduleData.SL == 'MTW' ||
+          scheduleData.SL == 'MTW-A' ||
+          scheduleData.SL == 'TW-A'
+        "
+      >
+        <ion-row class="font-size-14px">
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'TW'"
+            >TW-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'MTW'"
+            >MTW-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'MTW-A'"
+            >MTW-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'TW-A'"
+            >TW-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center">{{ shift_Pattern }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card
+        class="app-font-primary-color ion-text-center ion-no-margin colors-wed-thu"
+        *ngIf="
+          scheduleData.SL == 'WT' ||
+          scheduleData.SL == 'TWT' ||
+          scheduleData.SL == 'TWT-A' ||
+          scheduleData.SL == 'WT-A' ||
+          scheduleData.SL == 'WTh' ||
+          scheduleData.SL == 'TWTh' ||
+          scheduleData.SL == 'TWTh-A' ||
+          scheduleData.SL == 'WTh-A'
+        "
+      >
+        <ion-row class="font-size-14px">
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'WT' || scheduleData.SL == 'WTh'"
+            >WTh-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'TWT' || scheduleData.SL == 'TWTh'"
+            >TWTh-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'TWT-A' || scheduleData.SL == 'TWTh-A'"
+            >TWTh-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'WT-A' || scheduleData.SL == 'WTh-A'"
+            >WTh-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center">{{ shift_Pattern }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card
+        class="app-font-primary-color ion-text-center ion-no-margin colors-thu-fri"
+        *ngIf="
+          scheduleData.SL == 'TF' ||
+          scheduleData.SL == 'WTF' ||
+          scheduleData.SL == 'WTF-A' ||
+          scheduleData.SL == 'TF-A' ||
+          scheduleData.SL == 'ThF' ||
+          scheduleData.SL == 'WThF' ||
+          scheduleData.SL == 'WThF-A' ||
+          scheduleData.SL == 'ThF-A'
+        "
+      >
+        <ion-row class="font-size-14px">
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'TF' || scheduleData.SL == 'ThF'"
+            >ThF-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'WTF-A' || scheduleData.SL == 'WThF'"
+            >WThF-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'WTF' || scheduleData.SL == 'WThF-A'"
+            >WThF-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'TF-A' || scheduleData.SL == 'ThF-A'"
+            >ThF-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center">{{ shift_Pattern }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card
+        class="app-font-primary-color ion-text-center ion-no-margin colors-fri-sat"
+        *ngIf="
+          scheduleData.SL == 'FS' ||
+          scheduleData.SL == 'FS-A' ||
+          scheduleData.SL == 'TFS' ||
+          scheduleData.SL == 'TFS-A' ||
+          scheduleData.SL == 'ThFS' ||
+          scheduleData.SL == 'ThFS-A'
+        "
+      >
+        <ion-row class="font-size-14px">
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'FS'"
+            >FS-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'FS-A'"
+            >FS-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'TFS' || scheduleData.SL == 'ThFS'"
+            >ThFS-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col
+            class="ion-text-center"
+            *ngIf="scheduleData.SL == 'TFS-A' || scheduleData.SL == 'ThFS-A'"
+            >ThFS-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center">{{ shift_Pattern }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card
+        class="app-font-primary-color ion-text-center ion-no-margin colors-nc-rdos"
+        *ngIf="scheduleData.SL == 'NC' || scheduleData.SL == 'NC-A'"
+      >
+        <ion-row class="font-size-14px">
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'NC'"
+            >NC-{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center" *ngIf="scheduleData.SL == 'NC-A'"
+            >NC-A{{ scheduleData.seq + 1 }}</ion-col
+          >
+          <ion-col class="ion-text-center">{{ shift_Pattern }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-grid *ngIf="scheduleData" class="data">
+        <ion-grid *ngIf="selected_shift_duration != 9; else nineHoursForm">
+          <form
+            [formGroup]="editScheduleDataForm"
+            class="ion-justify-content-center ion-font-secondary-color ion-text-center ion-no margin"
+          >
+            <ion-row
+              class="ion-no-padding ion-no-margin"
+              style="width: 100%;"
+            >
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group"
+              >
+                <ion-label class="app-font-size-14px" style="font-weight: bold"
+                  ><b>Sun</b></ion-label
+                >
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintion()"
+                  class="form-control app-border-mercurius-secondary-color"
+                  id="work-prefrence-day"
+                  formControlName="Sun"
+                  name="Sun"
+                  value="{{ scheduleData.Sun }}"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    ><b
+                      class="font-normal"
+                      *ngIf="sn.shiftName != 'X'; else shiftName"
+                      >{{ sn.shiftName }} - {{ sn.shift_StartTime }} -
+                      {{ sn.shift_category_name }}</b
+                    ><ng-template #shiftName
+                      ><b class="font-normal">{{ sn.shiftName }}</b></ng-template
+                    ></ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group"
+              >
+                <ion-label class="app-font-size-14px" style="font-weight: bold"
+                  ><b>Mon</b></ion-label
+                >
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintion()"
+                  id="work-prefrence-day"
+                  formControlName="Mon"
+                  name="Mon"
+                  class="app-border-mercurius-secondary-color form-control"
+                  value="{{ scheduleData.Mon }}"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    ><b
+                      class="font-normal"
+                      *ngIf="sn.shiftName != 'X'; else shiftName"
+                      >{{ sn.shiftName }} - {{ sn.shift_StartTime }} -
+                      {{ sn.shift_category_name }}</b
+                    ><ng-template #shiftName
+                      ><b class="font-normal">{{ sn.shiftName }}</b></ng-template
+                    ></ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group"
+              >
+                <ion-label class="app-font-size-14px" style="font-weight: bold"
+                  ><b>Tue</b></ion-label
+                >
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintion()"
+                  class="form-control app-border-mercurius-secondary-color"
+                  id="work-prefrence-day"
+                  formControlName="Tue"
+                  name="Tue"
+                  value="{{ scheduleData.Tue }}"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    ><b
+                      class="font-normal"
+                      *ngIf="sn.shiftName != 'X'; else shiftName"
+                      >{{ sn.shiftName }} - {{ sn.shift_StartTime }} -
+                      {{ sn.shift_category_name }}</b
+                    ><ng-template #shiftName
+                      ><b class="font-normal">{{ sn.shiftName }}</b></ng-template
+                    ></ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group"
+              >
+                <ion-label class="app-font-size-14px" style="font-weight: bold"
+                  ><b>Wed</b></ion-label
+                >
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintion()"
+                  class="form-control app-border-mercurius-secondary-color"
+                  id="work-prefrence-day"
+                  formControlName="Wed"
+                  name="Wed"
+                  value="{{ scheduleData.Wed }}"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    ><b
+                      class="font-normal"
+                      *ngIf="sn.shiftName != 'X'; else shiftName"
+                      >{{ sn.shiftName }} - {{ sn.shift_StartTime }} -
+                      {{ sn.shift_category_name }}</b
+                    ><ng-template #shiftName
+                      ><b class="font-normal">{{ sn.shiftName }}</b></ng-template
+                    ></ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group"
+              >
+                <ion-label class="app-font-size-14px" style="font-weight: bold"
+                  ><b>Thu</b></ion-label
+                >
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintion()"
+                  class="form-control app-border-mercurius-secondary-color"
+                  id="work-prefrence-day"
+                  formControlName="Thu"
+                  name="Thu"
+                  value="{{ scheduleData.Thu }}"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    ><b
+                      class="font-normal"
+                      *ngIf="sn.shiftName != 'X'; else shiftName"
+                      >{{ sn.shiftName }} - {{ sn.shift_StartTime }} -
+                      {{ sn.shift_category_name }}</b
+                    ><ng-template #shiftName
+                      ><b class="font-normal">{{ sn.shiftName }}</b></ng-template
+                    ></ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group"
+              >
+                <ion-label class="app-font-size-14px" style="font-weight: bold"
+                  ><b>Fri</b></ion-label
+                >
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintion()"
+                  class="form-control app-border-mercurius-secondary-color"
+                  id="work-prefrence-day"
+                  formControlName="Fri"
+                  name="Fri"
+                  value="{{ scheduleData.Fri }}"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    ><b
+                      class="font-normal"
+                      *ngIf="sn.shiftName != 'X'; else shiftName"
+                      >{{ sn.shiftName }} - {{ sn.shift_StartTime }} -
+                      {{ sn.shift_category_name }}</b
+                    ><ng-template #shiftName
+                      ><b class="font-normal">{{ sn.shiftName }}</b></ng-template
+                    ></ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group"
+              >
+                <ion-label class="app-font-size-14px" style="font-weight: bold"
+                  ><b>Sat</b></ion-label
+                >
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintion()"
+                  class="form-control app-border-mercurius-secondary-color"
+                  id="work-prefrence-day"
+                  formControlName="Sat"
+                  name="Sat"
+                  value="{{ scheduleData.Sat }}"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    ><b
+                      class="font-normal"
+                      *ngIf="sn.shiftName != 'X'; else shiftName"
+                      >{{ sn.shiftName }} - {{ sn.shift_StartTime }} -
+                      {{ sn.shift_category_name }}</b
+                    ><ng-template #shiftName
+                      ><b class="font-normal">{{ sn.shiftName }}</b></ng-template
+                    ></ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+            </ion-row>
+          </form>
+        </ion-grid>
+        <ng-template #nineHoursForm>
+          <!-- 9 Hours -->
+          <form
+            [formGroup]="addScheduleDataFormForNineHours"
+            class="ion-justify-content-center ion-font-secondary-color ion-text-center ion-no margin"
+          >
+            <!-- Week 1 -->
+            <ion-row
+              class="px-1 ion-no-margin app-font-secondary-color"
+            >
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group app-font-secondary-color"
+              >
+                <ion-label><b>Sun</b></ion-label>
+                <ion-select
+                  id="work-prefrence-day"
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Sun1"
+                  class="app-border-mercurius-secondary-color form-control"
+                  name="Sun1"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} - {{ sn.shift_category_name }}
+                  </ion-select-option>
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Mon</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Mon1"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Mon1"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Tue</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Tue1"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Tue1"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Wed</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Wed1"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Wed1"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Thu</b></ion-label>
+                <ion-select
+                  appNoArrow
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Thu1"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Thu1"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Fri</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Fri1"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Fri1"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Sat</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Sat1"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Sat1"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+            </ion-row>
+            <!-- Week 2 -->
+            <ion-row
+              class=" px-1 ion-no-margin app-font-secondary-color"
+            >
+              <ion-col
+                size="1.7"
+                class="ion-no-margin form-group app-font-secondary-color"
+              >
+                <ion-label><b>Sun</b></ion-label>
+                <ion-select
+                  id="work-prefrence-day"
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Sun2"
+                  class="app-border-mercurius-secondary-color form-control"
+                  name="Sun2"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Mon</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Mon2"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Mon2"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} <sup>({{ sn.shift_duration }})</sup> -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Tue</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Tue2"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Tue2"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Wed</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Wed2"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Wed2"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Thu</b></ion-label>
+                <ion-select
+                  appNoArrow
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Thu2"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Thu2"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Fri</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Fri2"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Fri2"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+              <ion-col size="1.7" class="ion-no-margin form-group">
+                <ion-label><b>Sat</b></ion-label>
+                <ion-select
+                  (ionChange)="checkAddNewShiftDefintionForNineHours()"
+                  formControlName="Sat2"
+                  class="app-border-mercurius-secondary-color form-control"
+                  id="work-prefrence-day"
+                  name="Sat2"
+                  value="X"
+                  interface="popover"
+                  *ngIf="allShiftName.length > 0; else shiftLoaded"
+                >
+                  <ion-select-option
+                    value="add"
+                    class="app-font-mercurius-secondary-color"
+                    >Add New..
+                  </ion-select-option>
+                  <ion-select-option value="X">X - RDO </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let sn of allShiftName"
+                    value="{{ sn.shiftData }}"
+                    >{{ sn.shiftName }} ({{ sn.shift_duration }}) -
+                    {{ sn.shift_StartTime }} -
+                    {{ sn.shift_category_name }}</ion-select-option
+                  >
+                </ion-select>
+                <ng-template #shiftLoaded>
+                  <ion-spinner name="dots"></ion-spinner>
+                </ng-template>
+              </ion-col>
+            </ion-row>
+          </form>
+        </ng-template>
+
+        <!-- <br /> -->
+
+        <ion-row style="margin-bottom: 5px" class="ion-no-padding ion-no-margin">
+          <ion-col
+            size="4"
+            class="ion-text-center"
+            style="
+              padding-left: 0px !important;
+              padding-right: 0px !important;
+              margin-left: 0px !important;
+              margin-right: 0px !important;
+            "
+          >
+            <ion-row
+              class="ion-text-center"
+              style="
+                padding-left: 0px !important;
+                padding-right: 0px !important;
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+              "
+            >
+              <ion-col size="12" class="ion-text-center"
+                ><p
+                  class="ion-header-title data font-size-14px app-font-black-color"
+                  style="font-weight: bold"
+                >
+                  Hrs
+                </p></ion-col
+              >
+              <ion-col size="12" class="ion-text-center"
+                ><p
+                  class="ion-header-title data font-size-18px app-font-black-color"
+                >
+                  {{ hrs }}
+                </p></ion-col
+              >
+            </ion-row>
+          </ion-col>
+          <ion-col
+            size="4"
+            class="ion-text-center"
+            style="
+              padding-left: 0px !important;
+              padding-right: 0px !important;
+              margin-left: 0px !important;
+              margin-right: 0px !important;
+            "
+          >
+            <ion-row
+              class="ion-text-center"
+              style="
+                padding-left: 0px !important;
+                padding-right: 0px !important;
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+              "
+            >
+              <ion-col size="12" class="ion-text-center"
+                ><p
+                  class="ion-header-title data font-size-14px app-font-black-color"
+                  style="font-weight: bold"
+                >
+                  Work-Pattern
+                </p></ion-col
+              >
+              <ion-col
+                size="12"
+                style="
+                  padding-left: 0px !important;
+                  padding-right: 0px !important;
+                  margin-left: 0px !important;
+                  margin-right: 0px !important;
+                "
+                class="ion-header-title data font-size-18px app-font-black-color"
+                ><b *ngIf="hrs > 0">{{ work_Pattern }}</b
+                ><b *ngIf="hrs < 1">--</b></ion-col
+              >
+            </ion-row>
+          </ion-col>
+          <ion-col
+            size="4"
+            class="ion-text-center"
+            style="
+              padding-left: 0px !important;
+              padding-right: 0px !important;
+              margin-left: 0px !important;
+              margin-right: 0px !important;
+            "
+          >
+            <ion-row
+              class="ion-text-center"
+              style="
+                padding-left: 0px !important;
+                padding-right: 0px !important;
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+              "
+            >
+              <ion-col size="12" class="ion-text-center">
+                <p
+                  class="ion-header-title data font-size-14px app-font-black-color"
+                  style="font-weight: bold"
+                >
+                  Rules?
+                </p></ion-col
+              >
+              <ion-col size="4.5"></ion-col>
+              <ion-col size="3" class="d-flex justify-content-center">
+                <ion-img *ngIf="valid === true" class="w-auto" alt="true" src="assets/img/true.png"></ion-img>
+                <ion-img *ngIf="valid === false" class="w-auto" alt="false" src="assets/img/false.png"></ion-img>
+              </ion-col>
+              <ion-col size="4.5"></ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          class="ion-justify-content-center ion-text-center ion-no-padding ion-no-margin"
+        >
+          <ion-col size="1" class="ion-text-end">
+          </ion-col>
+          <ion-col size="2" class="ion-text-end">
+            <ion-button
+              class="app-button shiftline-button w-100"
+              shape="round"
+              [disabled]="disableAddButton == true"
+              (click)="update(editScheduleDataForm)"
+              >Update
+            </ion-button>
+          </ion-col>
+          <ion-col size="2" class="ion-text-center">
+            <ion-button
+              class="app-button shiftline-button w-100"
+              shape="round"
+              (click)="reset()"
+              >Reset</ion-button
+            >
+          </ion-col>
+          <ion-col size="2" class="ion-text-start">
+            <ion-button
+              class="app-button shiftline-button w-100"
+              shape="round"
+              (click)="removeItem(0)"
+              >Delete</ion-button
+            >
+          </ion-col>
+          <ion-col size="1" class="ion-text-end">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <p (click)="BusinessRulesPdf()" 
+              class="cursor-pointer" 
+              style="float: right; font-size: 16px"
+            >
+              <i>More >></i>
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid *ngIf="showHideText" class="ion-no-padding ion-no-margin">
+        <mat-divider  style="border-top-width: 2px;width: 98%;" ></mat-divider>
+        <div class="p-2 text-start">
+          <ion-row class="ion-no-padding ion-no-margin ion-justify-content-center ion-text-center d-flex d-block d-md-none" style="margin-top: 2%;" >
+            <ion-col size="0.6" class="ion-no-padding ion-no-margin" >
+              <ion-img class="ion-no-padding  ion-no-margin"  alt="MID" style="width: 16px;height: 16px;position:relative;" src="assets/img/night.png"></ion-img>
+            </ion-col>
+            <ion-col size="2.4" class="ion-no-padding ion-no-margin" >
+              <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">MID 11 PM</b>
+            </ion-col>
+            <ion-col size="1.3" ></ion-col>
+            <ion-col size="0.6" class="ion-no-padding ion-no-margin" >
+              <ion-img class="ion-no-padding  ion-no-margin"  alt="DAY" style="width: 16px;height: 16px;position:relative;" src="assets/img/morning.png"></ion-img>
+            </ion-col>
+            <ion-col size="2.4" class="ion-no-padding ion-no-margin" >
+              <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">DAY 6 AM</b>
+            </ion-col>
+            <ion-col size="1.3"  ></ion-col>
+            <ion-col size="0.6" class="ion-no-padding ion-no-margin" >
+              <ion-img class="ion-no-padding  ion-no-margin"  alt="EVE" style="width: 16px;height: 16px;position:relative;" src="assets/img/evening.png"></ion-img>
+            </ion-col>
+            <ion-col size="2.4" class="ion-no-padding ion-no-margin" >
+              <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">EVE 3 PM</b>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-no-padding ion-no-margin d-none d-lg-block">
+            <ion-grid class="d-flex">
+              <ion-col size="0.4" class="ion-no-padding ion-no-margin" >
+                <ion-img class="ion-no-padding  ion-no-margin"  alt="MID" style="width: 16px;height: 16px;position:relative;" src="assets/img/night.png"></ion-img>
+              </ion-col>
+              <ion-col size="0.9" class="ion-no-padding ion-no-margin" >
+                <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">MID 11 PM</b>
+              </ion-col>
+              <ion-col size="0.3" ></ion-col>
+              <ion-col size="0.4" class="ion-no-padding ion-no-margin" >
+                <ion-img class="ion-no-padding  ion-no-margin"  alt="DAY" style="width: 16px;height: 16px;position:relative;" src="assets/img/morning.png"></ion-img>
+              </ion-col>
+              <ion-col size="0.7" class="ion-no-padding ion-no-margin" >
+                <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">DAY 6 AM</b>
+              </ion-col>
+              <ion-col size="0.3"  ></ion-col>
+              <ion-col size="0.4" class="ion-no-padding ion-no-margin" >
+                <ion-img class="ion-no-padding  ion-no-margin"  alt="EVE" style="width: 16px;height: 16px;position:relative;" src="assets/img/evening.png"></ion-img>
+              </ion-col>
+              <ion-col size="0.7" class="ion-no-padding ion-no-margin" >
+                <b class="font-normal ion-no-margin ion-no-padding" style="bottom:0%">EVE 3 PM</b>
+              </ion-col>
+            </ion-grid>
+          </ion-row>
+          <ion-row class="pt-1">
+            <ul class="ps-4 m-0">
+              <li>8 hours between ANY shift except.</li>
+              <li>9 hours between end of EVE shift to start of DAY shift.</li>
+              <li>12 hours between end of MID shift to start of ANY shift.</li>
+            </ul>
+          </ion-row>
+        </div>
+      </ion-grid>
+    </ion-grid>
+  </ion-card>
+</ion-content>

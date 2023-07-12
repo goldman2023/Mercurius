@@ -1,0 +1,48 @@
+.card {
+    padding: 0px !important;
+}
+.card-header {
+    align-items: center;
+    background-color: #f5aa41;
+    height: 60px;
+    color: white;
+    font-size: 15px;
+    font-weight: 400;
+}
+.card-content {
+    padding: 16px;
+    .employ_item {
+        padding: 12px;
+        margin-top: 6px;
+        cursor: move;
+    }
+    .schedule_item {
+        padding: 12px;
+        margin-top: 6px;
+        cursor: default;
+    }
+}
+
+.entered {
+    border:2px solid #f5aa41;
+    transition:  scale 1s ease-out;
+    scale: 1 1.2;
+    z-index: 1000;
+    // height: 100px;
+}
+.cdk-drag-animating {
+  }
+.cdk-drag-placeholder {
+    // position: absolute;
+    visibility: hidden;
+    // display: none;
+    height: 1px !important;
+    margin: 0px !important;
+    font-size: 1px !important;
+    padding: 0 !important;
+    
+}
+.new_item span {
+    float: right;
+    
+}

@@ -1,0 +1,108 @@
+#top{
+  height: 20%;
+}
+#list{
+height: 80%;
+}
+
+@media(min-height:639px){
+  #top{
+    height: 18%;
+  }
+  #list{
+  height: 82%;
+}
+}
+@media(min-height:799px){
+  #top{
+    height: 14%;
+  }
+  #list{
+  height: 86%;
+}
+}
+@media(min-height:899px){
+  #top{
+    height: 12%;
+  }
+  #list{
+  height: 88%;
+}
+}
+
+#year{
+  width: 100%;
+}
+
+
+
+/* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 10 !important;
+  bottom: 115%;
+  left: 50%;
+  margin-left: -50%;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: solid;
+  opacity: 1;
+  border-color: #000 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+@media screen and (max-width: 993px) {
+  .heading-font-size {
+    font-size: 20px;
+  }
+}
+
+.neg-mt-5 {
+  margin-top: -0.313rem;
+}
+
+.disabled{
+
+  .app-font-mercurius-secondary-color{
+    color: #6b6b6b !important;
+  }
+}

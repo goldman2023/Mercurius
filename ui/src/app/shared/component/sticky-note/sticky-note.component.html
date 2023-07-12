@@ -1,0 +1,51 @@
+<form [formGroup]="noteForm" >
+    <div class="dial-wrap" [ngStyle]="{ 'margin-left.px': clientX, 'margin-top.px': clientY }" onclick="event.stopPropagation()" cdkDragBoundary=".app-sticky" cdkDrag>
+        <div class="d-flex justify-content-between align-items-center pb-2 mb-2 head">
+            <button  (click)="addNew()" *ngIf="!isNoteShow && noteDetails.length > 0 "> New </button>
+            <button  *ngIf="  noteDetails.length == 0 || isNoteShow " (click)="saveNote()">
+                <mat-icon class="back-icon" >keyboard_backspace</mat-icon>
+            </button>
+            <p class="emp-head">{{ stickyDetails.empLastName }}, {{ stickyDetails.empFirstName }} ({{stickyDetails.empinitials}}) - {{ noteEmpIdAndDate.date | date : 'MMM dd, YYYY'}}</p>
+            
+            <mat-icon class="close-icon" (click)="closeSticky(false)"> close </mat-icon>
+        </div>
+        <div  class="form-box">
+           <div class="notes" *ngIf="noteDetails.length != 0 && !isNoteShow">
+                <div  *ngFor="let note of noteDetails"> 
+                    <div class="note-list" *ngIf="note.description || note.title"  [style.background-color]="note.colors">
+                       <div class="note-details" (click)="showNote(note)">
+                        <p class="title">{{note.title}}</p>
+                        <p>{{note.description}}</p>
+                       </div>
+                        <mat-icon class="delete-icon" (click)="deleteNote(note)">delete</mat-icon>
+                    </div>
+                </div>
+           </div>
+            <div class="new-note" *ngIf="isNoteShow || noteDetails.length == 0">
+                <input type="text"  placeholder="Note Title " formControlName="title"  [style.background-color]="showNoteDetails ? showNoteDetails.colors : ''"/>
+                <textarea
+                #editor
+                id="input"
+                [style.background-color]="showNoteDetails ? showNoteDetails.colors : ''"
+                formControlName="notes"
+                ></textarea>
+           
+            </div>
+            <!-- <div  *ngIf="isNoteShow || noteDetails.length == 0" class="d-flex justify-content-between align-items-center pt-2  footer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <button id="btnBold" (click)="executeCommand('bold')">
+                        <mat-icon> format_bold</mat-icon>
+                    </button>
+                    <button id="btnUnderline"  (click)="executeCommand('underline')"><mat-icon> format_underlined</mat-icon></button>
+                    <button id="btnItalic" (click)="executeCommand('italic')"><mat-icon> format_italic</mat-icon></button> 
+                </div>
+                <div>
+                    <button  (click)="executeCommand('insertUnorderedList')"><mat-icon> format_list_bulleted</mat-icon></button>
+                    <button  (click)="executeCommand('insertOrderedList')"><mat-icon> format_list_numbered</mat-icon></button>
+                    <button  (click)="executeCommand('outdent')"><mat-icon> format_list_bulleted</mat-icon></button> 
+                    <button  (click)="executeCommand('indent')"><mat-icon> format_list_bulleted</mat-icon></button>   
+                </div>
+               </div> -->
+        </div>
+    </div>
+</form>

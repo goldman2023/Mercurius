@@ -1,0 +1,157 @@
+<ion-header>
+  <ion-row
+    class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+  >
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label
+        class="app-font-primary-color app-font-size-14px ion-text-center"
+        ><b></b
+      ></ion-label>
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label
+        style="cursor: pointer; font-size: 12px"
+        class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="close()"
+        ><b>Close</b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content>
+  <ion-grid *ngIf="spinner === false" class="ion-text-center container">
+    <ion-grid *ngFor="let month of currentSource">
+      <ion-row class="data ion-text-center font-size-14px">
+        <ion-col size="12">
+          <b>{{ month[15].startTime | date : "MMMM YYYY" }}</b>
+        </ion-col>
+      </ion-row>
+      <ion-row class="data ion-no-margin ion-no-padding">
+        <ion-col
+          class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+          size="1.7"
+        >
+          <b> S</b>
+        </ion-col>
+        <ion-col
+          class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+          size="1.7"
+        >
+          <b> M</b>
+        </ion-col>
+        <ion-col
+          class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+          size="1.7"
+        >
+          <b> T</b>
+        </ion-col>
+        <ion-col
+          class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+          size="1.7"
+        >
+          <b>W</b>
+        </ion-col>
+        <ion-col
+          class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+          size="1.7"
+        >
+          <b> T</b>
+        </ion-col>
+        <ion-col
+          class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+          size="1.7"
+        >
+          <b> F</b>
+        </ion-col>
+        <ion-col
+          class="ion-no-margin ion-no-padding app-background-mercurius-primary-color"
+          size="1.7"
+        >
+          <b> S</b>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-margin ion-no-padding data">
+        <ion-col
+          (click)="selectDate(da)"
+          size="1.7"
+          class="ss ion-no-margin ion-no-padding"
+          *ngFor="let da of month"
+          style="border: 1px solid lightgray"
+        >
+          <!-- RDO -->
+          <ion-grid
+            class=""
+            *ngIf="da != undefined"
+            class="ion-no-margin ion-no-padding"
+            style="height: 100%"
+          >
+            <ion-grid
+              *ngIf="da.title == 'rdo'"
+              class="sat-sun ion-no-margin"
+              style="height: 100%"
+            >
+              <ion-row class="" style="padding-bottom: 3.5px">
+                <div style="padding-top: 5px; padding-bottom: 5px">
+                  {{ da.startTime | date : "d" }}
+                </div>
+              </ion-row>
+              <ion-row style="text-align: center" *ngIf="da.emp.length > 0">
+                <div style="text-align: center; width: 100%">
+                  <b>{{ da.emp[0] }}</b>
+                </div>
+              </ion-row>
+            </ion-grid>
+            <!-- Others -->
+            <!-- <ion-grid class="ion-no-margin  app-background-mercurius-secondary-color" *ngIf=""> -->
+            <ion-grid
+              class="ion-no-margin selected-leave-background-color"
+              *ngIf="
+                da.title == '' && checkEmpExist(da.emp) == true;
+                else bgBlock
+              "
+              style="height: 100%"
+            >
+              <ion-row class="" style="padding-bottom: 3.5px">
+                <div style="width: 100%">
+                  <div
+                    style="padding-top: 5px; padding-bottom: 5px; float: left"
+                  >
+                    {{ da.startTime | date : "d" }}
+                  </div>
+                  <div style="text-align: right; font-size: 9px; float: right">
+                    {{ checkShiftDuration(da.startTime) }}hr
+                  </div>
+                </div>
+              </ion-row>
+              <ion-row style="text-align: center" *ngIf="da.emp.length > 0">
+                <div style="text-align: center; width: 100%">
+                  <b>{{ da.emp[0] }}</b>
+                </div>
+              </ion-row>
+            </ion-grid>
+          </ion-grid>
+          <ng-template #bgBlock>
+            <ion-grid class="ion-no-margin ion-no-padding">
+              <ion-grid *ngIf="da.title == ''">
+                <ion-row class="" style="padding-bottom: 3.5px">
+                  <div style="padding-top: 5px; padding-bottom: 5px">
+                    {{ da.startTime | date : "d" }}
+                  </div>
+                </ion-row>
+                <ion-row style="text-align: center" *ngIf="da.emp.length > 0">
+                  <div style="text-align: center; width: 100%">
+                    <b>{{ da.emp[0] }}</b>
+                  </div>
+                </ion-row>
+              </ion-grid>
+            </ion-grid>
+          </ng-template>
+          <!-- </ion-grid> -->
+          <ion-label *ngIf="da == undefined"> </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-grid>
+</ion-content>

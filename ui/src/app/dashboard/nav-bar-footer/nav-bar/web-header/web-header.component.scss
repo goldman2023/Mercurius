@@ -1,0 +1,20 @@
+.web-header-logo {
+  width: 33px;
+  height: 33px;
+}
+.in-toolbar {
+  contain: inherit !important;
+  overflow: visible !important;
+}
+.user-name{
+  font-size: 18px;
+  margin: 0;
+  margin-right: 10px;
+}
+.fac-are{
+  font-size: 16px;
+}
+
+ion-header{
+  z-index: 0 !important;
+}

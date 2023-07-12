@@ -1,0 +1,105 @@
+.fixed[scrollx=true], div[scrolly=true] {
+  position: relative;
+  overflow: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+.fixed[scrollx=true] {
+  overflow-x: auto;
+}
+.disable-color{
+  color:rgb(178, 168, 168)
+}
+.padding-1px{
+  padding-top: 3px !important;
+  padding-left:0px !important;
+  padding-right: 0px !important;
+  margin: 0px I !important;
+  padding-bottom: 3px !important;
+}
+.changeShiftToPlot{display:none}
+.change_Shift_To_Plot{padding:3px; margin:4px; background:#fff;color:rgb(178, 168, 168) }
+.changeShiftToPlot:checked + .change_Shift_To_Plot{
+  color: #ff6700;
+  background:#fff;margin-left: auto;margin-right: auto;padding:3px; margin:4px;
+}
+
+.ion-underline-p{
+  border-bottom: 1px solid #ff6700;
+}
+
+.ion-underline-p1{
+  border-bottom: 2px solid #fff;
+}
+.active {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  padding: 2px;
+
+  // color: #0194e3;
+  text-align: center;
+  font-size: 19px;
+  color: white;
+  background-color: #57818A;
+}
+
+
+
+.small {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  padding: 2px;
+
+  // color: #0194e3;
+  text-align: center;
+  font-size: 19px;
+  color: white;
+  background-color: #aab5b8;
+}
+
+.top-grid{
+  top: -1px;
+  z-index: 10;
+  background: #fff;
+}
+
+div.scrollmenu {
+  overflow-x: auto;
+  white-space: nowrap;
+
+  .scrollmenu-box{
+    width: 85%;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+  }
+}
+
+.scrollmenu::-webkit-scrollbar {
+  display: none;
+}
+
+
+@media screen and (min-width: 769px) {
+  div.scrollmenu {
+    display: flex;
+    justify-content: center;
+
+  }
+}
+
+@media screen and (max-width: 769px) {
+  div.scrollmenu {
+  .scrollmenu-box{
+    width: 100%;
+    justify-content: left;
+  }
+}
+}
+.disabled{
+  color: #d0d0d0 !important;
+}

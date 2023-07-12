@@ -1,0 +1,150 @@
+<div class="add-dialog">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>Update {{ editName }}</h2>
+    <mat-icon mat-dialog-close (click)="close()"> close </mat-icon>
+  </div>
+  <form
+    [formGroup]="updateRoleForm"
+    (ngSubmit)="update()"
+    *ngIf="editName == 'Role'"
+  >
+    <mat-dialog-content class="mat-typography" *ngIf="editName == 'Role'">
+      <div class="from-part">
+        <div class="level">
+          <label for="first-name"
+            ><span class="required-asterisk">*</span> {{ editName }} Name:
+          </label>
+        </div>
+
+        <div class="level">
+          <div class="flex align-items-center">
+            <input
+              id="role_name"
+              role_name="role_name"
+              type="text"
+              formControlName="role_name"
+              placeholder="Enter {{ editName }} Name"
+              required
+              [ngClass]="{
+                warning_input:
+                  (add_form_roleNam.invalid &&
+                    (add_form_roleNam.dirty || add_form_roleNam.touched)) ||
+                  (add_form_roleNam.errors && add_form_roleNam.touched)
+              }"
+            />
+          </div>
+          <div
+            *ngIf="
+              add_form_roleNam.invalid &&
+              (add_form_roleNam.dirty || add_form_roleNam.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="add_form_roleNam.errors">Role Name is required.</div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="start_date"
+            ><span class="required-asterisk">*</span> Effective Start Date:
+          </label>
+        </div>
+        <div class="level">
+          <div class="d-flex align-items-center" (click)="picker.open()">
+            <input
+              id="start_date"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="start_date"
+              required
+              [matDatepicker]="picker"
+              [ngClass]="{
+                warning_input:
+                  (add_form_startDate.invalid &&
+                    (add_form_startDate.dirty || add_form_startDate.touched)) ||
+                  (add_form_startDate.errors && add_form_startDate.touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+
+          <div
+            *ngIf="
+              add_form_startDate.invalid &&
+              (add_form_startDate.dirty || add_form_startDate.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="add_form_startDate.errors">
+              Effective Start Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="end_date"
+            ><span class="required-asterisk">*</span> Expiration Date:
+          </label>
+        </div>
+        <div class="level">
+          <div class="d-flex align-items-center" (click)="picker1.open()">
+            <input
+              id="last-name"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="end_date"
+              required
+              [matDatepicker]="picker1"
+              [min]="add_form_startDate.value"
+              [max]=""
+              [ngClass]="{
+                warning_input:
+                  (add_form_endDate.invalid &&
+                    (add_form_endDate.dirty || add_form_endDate.touched)) ||
+                  (add_form_endDate.errors && add_form_endDate.touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker1></mat-datepicker>
+          </div>
+          <div
+            *ngIf="
+              add_form_endDate.invalid &&
+              (add_form_endDate.dirty || add_form_endDate.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="add_form_endDate.errors">
+              Expiration Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-success" *ngIf="updateSuccess">
+        <p>Role has been updated successfully !!</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button
+        mat-button
+        mat-raised-button
+        type="submit"
+        [disabled]="updateRoleForm.invalid || !updateRoleForm.touched"
+      >
+        Save
+      </button>
+      <button
+        mat-button
+        mat-raised-button
+        type="button"
+        (click)="resetcf()"
+        dkFocusInitial
+      >
+        Reset
+      </button>
+    </mat-dialog-actions>
+  </form>
+  </div>

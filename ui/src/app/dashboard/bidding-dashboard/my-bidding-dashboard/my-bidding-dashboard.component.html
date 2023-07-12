@@ -1,0 +1,45 @@
+<div class="container">
+  <ion-grid class="w-100 position-sticky top-grid ">
+    <ion-grid class="app-font-primary-color content-data main">
+      <ion-row class="d-md-none" *ngIf="this.user_data.role==='bidmanager';else elseBlock">
+        <ion-col class="ion-text-center font-weight-500 app-font-primary-color ion-justify-content-center" size="6">
+          <ion-label (click)="manageBidSchedul()" class="clickable" [class]="getUnderlineClassRoot(2)">MANAGE BID
+            SCHEDULE
+          </ion-label>
+        </ion-col>
+        <ion-col class="ion-text-center font-weight-500 app-font-primary-color ion-justify-content-center" size="6">
+          <ion-label (click)="myBidding()" class="clickable" [class]="getUnderlineClassRoot(1)">MY BIDDING</ion-label>
+        </ion-col>
+
+      </ion-row>
+      <ng-template #elseBlock>
+        <ion-row>
+          <ion-col class="ion-text-center font-weight-500 app-font-primary-color ion-justify-content-center" size="6">
+            <ion-label class="change_Shift_To_Plot clickable" for="plot">MANAGE BID SCHEDULE</ion-label>
+          </ion-col>
+          <ion-col class="ion-text-center font-weight-500 app-font-primary-color ion-justify-content-center" size="6">
+            <ion-label class=" font-size-12px  app-font-mercurius-secondary-color ion-underline clickable" for="shifts"
+              (click)="home()">MY BIDDING
+            </ion-label>
+          </ion-col>
+
+        </ion-row>
+      </ng-template>
+    </ion-grid>
+    <ion-grid class="app-background-mercurius-primary-color pb-auto main">
+      <div class="scrollmenu">
+        <div class="scrollmenu-box">
+          <ion-grid *ngFor="let action of permission_action_names; index as id;">
+            <div
+              [ngClass]="getClass(id + 1)" 
+              (click)="viewList(id)">
+              {{action.linkName}}
+            </div>
+          </ion-grid>
+        </div>
+      </div>
+    </ion-grid>
+  </ion-grid>
+</div>
+
+<router-outlet (activate)="onActivate($event)"></router-outlet>

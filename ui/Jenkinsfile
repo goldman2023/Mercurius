@@ -1,0 +1,47 @@
+pipeline {
+    agent  any
+    environment {
+       BRANCH = "${env.BRANCH_NAME == "development" ? "dev" : "test"}"
+        EC2_HOST = "${env.BRANCH_NAME == "development" ? "3.13.254.87" : "ec2-52-14-8-217.us-east-2.compute.amazonaws.com"}"
+    }
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '10', artifactNumToKeepStr: '5', daysToKeepStr: '10', numToKeepStr: '5')
+    }
+     tools {nodejs "NodeJS"}
+    stages {
+        stage("INSTALL")
+        {
+            steps {
+                timeout(time:1,unit:'HOURS')
+                {
+                    sh 'npm install'
+                }
+            }
+        }
+        stage("BUILD")
+        {
+            steps {
+                sh 'npm run jenkins_build'
+            }
+        }
+        stage("DEPLOY")
+        {
+            steps {
+                slackSend message: "Starting build number ${env.BUILD_NUMBER} of Angular-${env.BRANCH_NAME}"
+                echo "transferring files to DEV EC2 instance"
+                withCredentials([sshUserPrivateKey(credentialsId: "23b415d8-23c3-458c-9a32-c1cdd2b427d3", keyFileVariable: 'keyfile')]) {
+                    sh 'scp -i ${keyfile} -r ./dist/straightline-io/ ubuntu@${EC2_HOST}:/usr/share/nginx'
+                    }
+            }
+        }
+    }
+    post {
+        always {
+            slackSend message: "Angular-${env.BRANCH_NAME} build result: ${currentBuild.currentResult}"
+        }
+        cleanup {
+            echo "Cleanup workspace"
+            cleanWs()
+        }
+    }
+}

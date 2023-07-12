@@ -1,0 +1,46 @@
+<ion-grid style="width: 100%; overflow-y: scroll; height: 100%">
+  <ion-row
+    class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+  >
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label
+        class="app-font-primary-color app-font-size-14px ion-text-center"
+        ><b>Selected Employee</b></ion-label
+      >
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label
+        style="cursor: pointer; font-size: 12px"
+        class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="dismiss()"
+        ><b>Close</b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+  <ion-grid style="margin-bottom: 0%">
+    <ion-item lines="none">
+      <ion-row
+        class="content-data"
+        style="width: 100%; margin-bottom: 0%; padding-bottom: 0%"
+      >
+        <ion-col size="3" class="app-font-primary-color">Initials</ion-col>
+        <ion-col size="9" class="app-font-primary-color">Name</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-grid>
+  <ion-grid
+    style="width: 100%; overflow-y: scroll; height: 100%; margin-top: 0%"
+  >
+    <ion-item *ngFor="let el of Emp_list">
+      <ion-row class="content-data" style="width: 100%">
+        <ion-col size="3" style="width: 100%">{{
+          el.initials | uppercase
+        }}</ion-col>
+        <ion-col size="9" style="width: 100%"
+          >{{ el.fname | titlecase }} {{ el.lname | titlecase }}</ion-col
+        >
+      </ion-row>
+    </ion-item>
+  </ion-grid>
+</ion-grid>

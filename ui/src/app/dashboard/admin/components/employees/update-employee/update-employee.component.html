@@ -1,0 +1,244 @@
+<div class="add-dialog">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>Update {{ modalName }}</h2>
+    <mat-icon mat-dialog-close (click)="close()"> close </mat-icon>
+  </div>
+  <form [formGroup]="employeeForm" (ngSubmit)="addUserShift()">
+    <mat-dialog-content class="mat-typography">
+      <div class="from-part">
+        <div class="level">
+          <label><span class="required-asterisk">*</span> First Name </label>
+          <input
+            type="text"
+            formControlName="fname"
+            placeholder="First Name"
+            required
+            [ngClass]="{warning_input:(fname.invalid && (fname.dirty || fname.touched)) || (fname.errors && fname.touched)}"/>
+          <div *ngIf="fname.invalid && (fname.dirty || fname.touched)">
+            <div *ngIf="fname.errors && fname.touched">
+              <div class="check alert alert-warning">
+                First Name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="level">
+          <label><span class="required-asterisk">*</span> Last Name </label>
+          <input
+            type="text"
+            formControlName="lname"
+            placeholder="Last Name"
+            required
+            [ngClass]="{
+              warning_input:
+                (lname.invalid && (lname.dirty || lname.touched)) ||
+                (lname.errors && lname.touched)
+            }"
+          />
+          <div *ngIf="lname.invalid && (lname.dirty || lname.touched)">
+            <div *ngIf="lname.errors && lname.touched">
+              <div class="check alert alert-warning">
+                Last Name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label
+            ><span class="required-asterisk">*</span> Operating Initials
+          </label>
+          <input
+            type="text"
+            formControlName="initials"
+            placeholder="Initials"
+            (focusout)="checkInitialName()"
+            required
+            [ngClass]="{warning_input: (initials.invalid && (initials.dirty || initials.touched)) ||(initials.errors && initials.touched)}"/>
+          <div
+            class="check alert alert-warning"
+            *ngIf="initalCheck.message == 'Initials Exist' && !addEmployssSuccess && modal_data.initials != employeeForm.controls.initials.value">
+            Operating Initials is already exist!
+          </div>
+          <div *ngIf="initials.invalid && (initials.dirty || initials.touched)">
+            <div *ngIf="initials.errors && initials.touched">
+              <div class="check alert alert-warning">Initials is required.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="level">
+          <label
+            ><span class="required-asterisk">*</span> Seniority Ranking
+          </label>
+          <input
+            type="text"
+            formControlName="seniority"
+            placeholder="Seniority Ranking"
+            [readOnly]="true"
+            required
+          />
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label><span class="required-asterisk">*</span> Facility </label>
+          <mat-form-field [floatLabel]="'never'" appearance="fill">
+            <mat-select
+              placeholder="Facility"
+              formControlName="facility"
+              [(value)]="facilitySelected"
+              (selectionChange)="getAreaByFacility($event)"
+            >
+              <mat-option
+                *ngFor="let facility of this.allData.Facility"
+                [value]="facility"
+              >
+                {{ facility.facilityname }} ({{ facility.facilityabbr }})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div *ngIf="facility.invalid && (facility.dirty || facility.touched)">
+            <div *ngIf="facility.errors && facility.touched">
+              <div class="check alert alert-warning">Facility is required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="level">
+          <label><span class="required-asterisk">*</span> Area</label>
+          <mat-form-field [floatLabel]="'never'" appearance="fill">
+            <mat-select
+              placeholder="Select Area"
+              formControlName="area"
+              [(value)]="areaSelected"
+              (selectionChange)="getArea($event)"
+            >
+              <mat-option
+                *ngFor="let area of facilityArea"
+                [value]="area.areaid"
+              >
+                {{ area.areaname }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div *ngIf="area.invalid && (area.dirty || area.touched)">
+            <div *ngIf="area.errors && area.touched">
+              <div class="check alert alert-warning">Area is required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label><span class="required-asterisk">*</span> Email </label>
+          <input
+            type="email"
+            (focusout)="emailCheck()"
+            formControlName="email"
+            placeholder="Enter Email"
+            [readonly]="true"
+            required
+          />
+          <div
+            class="check alert alert-warning"
+            *ngIf="
+              isemailCheck.message == 'email exists!' && !addEmployssSuccess
+            "
+          >
+            This email is already exist!
+          </div>
+
+          <div *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors && email.touched">
+              <div class="check alert alert-warning">Email is required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="level">
+          <label><span class="required-asterisk"></span> Cell Number</label>
+          <example-tel-input
+            [item]="phoneNumtoSendChild"
+            (phoneNumber)="receiveAutoMsgHandler($event)"
+          ></example-tel-input>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label
+            ><span class="required-asterisk">*</span> Vacation Leave (Hours)
+          </label>
+          <input
+            type="number"
+            formControlName="vacation"
+            placeholder="Vacation Leave (Hours)"
+            required
+            [ngClass]="{
+              warning_input:
+                (vacation.invalid && (vacation.dirty || vacation.touched)) ||
+                (vacation.errors && vacation.touched)
+            }"
+          />
+        </div>
+        <div class="level">
+          <label
+            ><span class="required-asterisk"></span> Accumulated Leave (Hours)
+          </label>
+          <input
+            type="number"
+            formControlName="accumulatedleave"
+            placeholder="Accumulated Leave (Hours)"
+            required
+            max="208"
+            [ngClass]="{warning_input: (accumulatedleave.invalid && (accumulatedleave.dirty || accumulatedleave.touched)) ||(accumulatedleave.errors && accumulatedleave.touched)}"
+          />
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label><span class="required-asterisk">*</span> Qualification </label>
+          <mat-form-field [floatLabel]="'never'" appearance="fill">
+            <mat-select
+              placeholder="Qualification"
+              formControlName="qualification"
+            >
+              <mat-option
+                *ngFor="let qualification of this.allData.Qualifications"
+                [value]="qualification.qual_description"
+              >
+                {{ qualification.qual_description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="level">
+          <label><span class="required-asterisk">*</span> Role </label>
+          <mat-form-field [floatLabel]="'never'" appearance="fill">
+            <mat-select placeholder="Role" formControlName="role">
+              <mat-option
+                *ngFor="let role of this.allData.role"
+                [value]="role.id"
+              >
+                {{ role.role_name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button
+        mat-button
+        mat-raised-button
+        type="submit"
+        [disabled]="addSuccess"
+      >
+        Update
+      </button>
+      <button mat-button mat-raised-button (click)="reset()">Reset</button>
+    </mat-dialog-actions>
+  </form>
+</div>
+
+<!-- [disabled]="employeeForm.invalid || addEmployssSuccess" -->

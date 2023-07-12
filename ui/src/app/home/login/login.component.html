@@ -1,0 +1,254 @@
+<ion-content
+  id="root-content"
+  style="background-color: #ffaa00; --background: #ffaa00"
+>
+  <form
+    [formGroup]="loginForm"
+    class="d-flex justify-content-center align-items-center"
+    style="min-height: 80%; margin-top: 5rem"
+    id="root-form"
+  >
+    <ion-grid
+      id="logo-background"
+      class="ion-text-center ion-no-margin position-fixed fixed-top"
+    >
+      <ion-row class="ion-justify-content-center ion-text-center">
+        <ion-col size="12" class="ion-text-center">
+          <ion-img
+            class="img-fluid"
+            id="app-main-logo"
+            src="assets/img/mlogo.png"
+          ></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- StraightLines-tagline -->
+
+    <ion-grid class="ion-no-margin ion-no-padding" id="StraightLines-lable">
+      <ion-grid id="StraightLines-white-bg" class="shadow">
+        <ion-img
+          alt="StraightLines.io"
+          style="width: 100% !important"
+          src="assets/img/StraightLines-tagline.png"
+        ></ion-img>
+        <!-- <ion-row  class="ion-justify-content-center  ion-text-center straightline-font-size " >
+            <ion-col size="12"  id="StraightLines-title-box">
+              <ion-label class="app-title" id="StraightLines-title"  style="font-weight: bold !important;">StraightLines</ion-label>
+            </ion-col>
+            <ion-col size="12" class="ion-no-margin ion-no-padding">
+              <ion-label class="content-data-14px ">Every Employee Deserves Desirable Moves</ion-label>
+            </ion-col>
+          </ion-row> -->
+        <ion-grid
+          class="ion-no-padding ion-no-margin"
+          style="margin-bottom: 0% !important"
+        >
+          <div
+            style="
+              position: relative;
+              margin: 0% !important;
+              padding: 0% !important;
+            "
+          >
+            <ion-img
+              id="home-image"
+              alt="WE DO YOUR BIDDING"
+              src="assets/img/new-home.png"
+            ></ion-img>
+          </div>
+          <ion-grid class="ion-no-padding ion-no-margin">
+            <ion-row
+              id="login-form"
+              class="content-data app-font-primary-color ion-no-margin ion-no-padding"
+            >
+              <ion-col size="1"></ion-col>
+              <ion-col
+                size="10"
+                class="app-font-primary-color ion-no-padding ion-no-margin"
+              >
+                <ion-item
+                  lines="none"
+                  id="register-input-ion-item"
+                  class="app-font-primary-color ion-justify-content-center"
+                >
+                  <ion-row
+                    style="width: 100%"
+                    class="ion-no-padding ion-no-margin"
+                  >
+                    <ion-col
+                      class="ion-no-padding ion-no-margin"
+                      size="12"
+                      style="width: 100%"
+                    >
+                      <ion-input
+                        type="text"
+                        :clear-input="true"
+                        placeholder="Username"
+                        (keyup.enter)="gotoNextField(password)"
+                        formControlName="username"
+                        class="ion-border-1px-mercurius-secondary-color app-font-primary-color ion-no-margin ion-no-padding p-1"
+                        style="border-radius: 5px"
+                      ></ion-input>
+                    </ion-col>
+                    <ion-col
+                      class="ion-no-padding ion-no-margin"
+                      *ngIf="emailValid"
+                      size="12"
+                      style="width: 100%"
+                    >
+                      <p
+                        class="app-font-red-color content-data"
+                        style="margin-bottom: 0%; padding-bottom: 0%"
+                        *ngIf="emailValid"
+                      >
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        Invalid username!!
+                      </p>
+                    </ion-col>
+                  </ion-row>
+                </ion-item>
+              </ion-col>
+              <ion-col size="1"> </ion-col>
+              <ion-col
+                size="10.5"
+                class="ion-justify-content-center straightline-font-size ion-no-padding ion-no-margin"
+                style="text-align: right"
+              >
+                <ion-label
+                  class="app-font-primary-color content-data-14px ion-no-padding ion-no-margin d-flex align-items-center justify-content-end gap-2"
+                  ><ion-checkbox
+                    style="--size: 14px"
+                    formControlName="remberMe"
+                  ></ion-checkbox>
+                  Remember me
+                </ion-label>
+              </ion-col>
+              <ion-col size="1.5"></ion-col>
+            </ion-row>
+            <ion-row class="ion-no-padding ion-no-margin">
+              <ion-col size="1"></ion-col>
+              <ion-col size="10" class="ion-no-padding ion-no-margin">
+                <ion-item
+                  lines="none"
+                  class="app-font-primary-color ion-justify-content-center ion-no-margin"
+                >
+                  <ion-row
+                    style="width: 100%"
+                    class="ion-no-padding ion-no-margin"
+                  >
+                    <ion-col
+                      class="ion-no-padding ion-no-margin"
+                      size="12"
+                      style="width: 100%"
+                    >
+                      <ion-input
+                        type="passowrd"
+                        :clear-on-edit="true"
+                        (focusin)="selectInput($event)"
+                        #password
+                        (keyup.enter)="checkLoggedInPerson()"
+                        placeholder="Password"
+                        class="ion-border-1px-mercurius-secondary-color ion-no-margin ion-no-padding p-1 d-flex align-items-center"
+                        formControlName="password"
+                        [class]="passWordClass(classId)"
+                        style="
+                          border-radius: 5px;
+                          z-index: 1;
+                          position: relative;
+                        "
+                      >
+                      </ion-input>
+                      <ion-icon
+                        *ngIf="hidePassword"
+                        class="app-font-primary-color"
+                        style="
+                          position: absolute;
+                          right: 6%;
+                          font-size: 20px;
+                          bottom: 10px;
+                          z-index: 1;
+                        "
+                        (click)="passWord()"
+                        name="eye-off-outline"
+                      ></ion-icon>
+                      <ion-icon
+                        *ngIf="!hidePassword"
+                        class="app-font-primary-color"
+                        style="
+                          position: absolute;
+                          right: 6%;
+                          font-size: 20px;
+                          bottom: 10px;
+                          z-index: 1;
+                        "
+                        (click)="passWord()"
+                        name="eye-outline"
+                      ></ion-icon>
+                    </ion-col>
+                    <ion-col
+                      class="ion-no-padding ion-no-margin"
+                      size="12"
+                      style="width: 100%"
+                    >
+                      <p
+                        class="app-font-red-color content-data"
+                        style="margin-bottom: -2%; padding-bottom: 0%"
+                        *ngIf="invalid_email_password"
+                      >
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        Invalid username or password!!
+                      </p>
+                    </ion-col>
+                  </ion-row>
+                </ion-item> </ion-col
+              ><ion-col size="1"></ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-center">
+              <ion-button
+                shape="round"
+                class="app-button-primary my-3 col-12 px-5"
+                id="sign-in"
+                (click)="checkLoggedInPerson()"
+                >Sign In</ion-button
+              >
+            </ion-row>
+            <ion-row
+              id="sign-up"
+              class="ion-justify-content-center straightline-font-size ion-no-padding-bottom ion-no-margin-bottom"
+            >
+              <p class="app-font-primary-color content-data-14px">
+                Don't have an account?
+                <a
+                  class="link link-dark fw-bold"
+                  style="cursor: pointer"
+                  (click)="signUp()"
+                  >Sign Up</a
+                >
+              </p>
+            </ion-row>
+            <ion-row
+              class="ion-justify-content-center straightline-font-size mb-2"
+            >
+              <a
+                class="app-font-primary-color content-data-14px link link-dark fw-medium"
+                style="cursor: pointer"
+                (click)="passwordReset()"
+              >
+                Forgot Password?
+              </a>
+            </ion-row>
+          </ion-grid>
+        </ion-grid>
+      </ion-grid>
+      <div class="d-flex justify-content-center gap-4 small py-3">
+        <div (click)="video()" size="6" class="ion-text-center btn">
+          <p><u>What is Straightlines?</u></p>
+        </div>
+        <div size="6" (click)="onClickFeedback()" class="ion-text-center btn">
+          <p><u>Send Feedback </u></p>
+        </div>
+      </div>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-header *ngIf="isModal">
+  <ion-row class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative">
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label class="app-font-primary-color app-font-size-14px ion-text-center"><b>Select Shiftline
+          Schedule</b></ion-label>
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label style="cursor: pointer; font-size: 12px" class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="close()"><b>Close</b></ion-label>
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content [ngClass]="!isModal ? 'content' : ''">
+  <ion-grid>
+    <form [formGroup]="scheduleListForm">
+      <ion-grid id="workload-details" style="width: 100%" class="ion-no-margin app-font-secondary-color"
+        formArrayName="allScheduleListData" *ngFor="let wD of allScheduleListData.controls; let i = index">
+        <ion-row [formGroupName]="i" class="border-bottom border-secondary ion-align-items-center d-md-none">
+          <!-- <ion-col size="5" style="width: 100%;"></ion-col> -->
+          <ion-col sizeXs="2" sizeMd="0.5" class="ion-no-padding ion-no-margin" style="width: 100%">
+            <ion-checkbox  [disabled]="true"  (ionChange)="showOptions(i)" class="app-font-primary-color ion-no-padding ion-no-margin"
+              style="--size: 16px" formControlName="scheduleselected"
+              [checked]="wD.value.scheduleselected"></ion-checkbox>
+          </ion-col>
+          <ion-col size="11" class="app-font-primary-color" style="font-size: 14px"><ion-label><b>Shiftline Schedule {{
+                i + 1 }}:</b>
+              {{ wD.value.scheduleName }}</ion-label></ion-col>
+          <ion-col *ngIf="wD.value.scheduleselected === true" sizeXs="4" sizeMd="1" style="font-size: 12px"><ion-label
+              class="app-font-primary-color"><b>Date Range</b></ion-label>
+            <span class="required">*</span></ion-col>
+          <ion-col sizeXs="8" sizeMd="4" *ngIf="wD.value.scheduleselected === true">
+            <mat-date-range-input style="font-size: 12px" class="form-control ion-border-1px-mercurius-secondary-color"
+              [min]="minDate" [rangePicker]="select" (click)="select.open()" matSuffix>
+              <input matStartDate #dateRangeStart formControlName="startDate" name="startDate"
+                placeholder="Start Date"  [disabled]="true" />
+              <input matEndDate #dateRangeEnd formControlName="endDate" (dateChange)="showOptions(i)" name="endDate"
+                placeholder="End Date"  [disabled]="true" />
+            </mat-date-range-input>
+            <mat-date-range-picker  [disabled]="true"  color="primary" #select></mat-date-range-picker>
+          </ion-col>
+          <ion-col size="4" *ngIf="wD.value.scheduleselected === true"></ion-col>
+          <ion-col size="8" *ngIf="oldindex == i && wD.value.scheduleselected === true"
+            class="app-font-red-color data"><ion-label>Shiftline Schedule dates should not overlap</ion-label></ion-col>
+        </ion-row>
+
+        <ion-row [formGroupName]="i" class="border-bottom border-secondary ion-align-items-center d-none d-md-flex">
+          <ion-checkbox  [disabled]="true"  (ionChange)="showOptions(i)" class="app-font-primary-color ion-no-padding ion-no-margin"
+            style="--size: 16px" formControlName="scheduleselected"
+            [checked]="wD.value.scheduleselected"></ion-checkbox>
+          <ion-col size="11"><ion-label>
+              {{ wD.value.scheduleName }}</ion-label></ion-col>
+          <ion-col *ngIf="wD.value.scheduleselected === true" sizeXs="4" sizeMd="1" style="font-size: 12px"><ion-label
+              class="app-font-primary-color"><b>Date Range</b></ion-label>
+            <span class="required">*</span></ion-col>
+          <ion-col sizeXs="8" sizeMd="4" *ngIf="wD.value.scheduleselected === true">
+            <mat-date-range-input [disabled]="true"  style="font-size: 12px" class="form-control ion-border-1px-mercurius-secondary-color"
+              [min]="minDate" [rangePicker]="select" (click)="select.open()" matSuffix>
+              <input matStartDate  [disabled]="true"  #dateRangeStart formControlName="startDate" name="startDate"
+                placeholder="Start Date" />
+              <input matEndDate  [disabled]="true"  #dateRangeEnd formControlName="endDate" (dateChange)="showOptions(i)" name="endDate"
+                placeholder="End Date" />
+            </mat-date-range-input>
+            <mat-date-range-picker  [disabled]="true"  color="primary" #select></mat-date-range-picker>
+          </ion-col>
+          <ion-col size="4" *ngIf="wD.value.scheduleselected === true"></ion-col>
+          <ion-col size="8" *ngIf="oldindex == i && wD.value.scheduleselected === true"
+            class="app-font-red-color data"><ion-label>Shiftline Schedule dates should not overlap</ion-label></ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-grid>
+</ion-content>
+

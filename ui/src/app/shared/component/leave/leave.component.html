@@ -1,0 +1,157 @@
+<div class="request mt-2">
+  <!-- <div class="header mb-2">Requests</div> -->
+  <div class="box table-responsive">
+    <table mat-table 
+      [dataSource]="dataSource" 
+      matSort 
+      matSortActive="requestSubmittedDate" 
+      matSortDirection="asc"
+      class="mat-elevation-z8 ">
+      <!-- s_name Column -->
+      <ng-container matColumnDef="requestType">
+        <th mat-header-cell *matHeaderCellDef class="widh-150">Request Type
+          <mat-form-field>
+            <mat-select (selectionChange)="filterChange($event)">
+              <mat-option [value]="">None</mat-option>
+              <mat-option *ngFor="let inspectionType of filterUniqueRequestTypes(filter,'requestType')" [value]="inspectionType">{{
+                inspectionType }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.requestType }}
+        </td>
+      </ng-container>
+
+      <!-- s_time Column -->
+      <ng-container matColumnDef="leaveStartDate" class="d-none-sm">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none-sm">
+          Start Date
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center d-none-sm">
+          {{ element.leaveStartDate | date : "MM/dd/YYYY" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="leaveEndDate" class="d-none-sm">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none-sm">
+          End Date
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center d-none-sm">
+          {{ element.leaveEndDate | date : "MM/dd/YYYY" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="shiftTimeChangeFrom" class="d-none-sm">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none-sm">
+          Change From
+        </th>
+        <td mat-cell *matCellDef="let element" class="d-none-sm">
+          <span *ngIf="element.shiftChangeFromDate != null"> {{ element.shiftChangeFromDate | date: "MM/dd/YYYY" }} </span>
+          <span *ngIf="element.shiftTimeChangeFrom != null"> ({{ element.shiftTimeChangeFrom?.split(':')[0] }}:{{element.shiftTimeChangeFrom?.split(':')[1]}})</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="shiftTimeChangeTo" class="d-none-sm">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none-sm">
+          Change To
+        </th>
+        <td mat-cell *matCellDef="let element" class="d-none-sm">
+          <span *ngIf="element.shiftChangeToDate != null">{{ element.shiftChangeToDate | date: "MM/dd/YYYY" }} </span>
+          <span *ngIf="element.shiftTimeChangeTo != null">({{ element.shiftTimeChangeTo?.split(':')[0] }}:{{element.shiftTimeChangeTo?.split(':')[1]}})</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="requestSubmittedDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">
+          Submitted Date
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center ">
+          {{ element.requestSubmittedDate | date : "MM/dd/YYYY"}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef  class="text-center">
+          Status
+          <mat-form-field>
+            <mat-select (selectionChange)="filterChange($event)">
+              <mat-option [value]="">None</mat-option>
+              <mat-option *ngFor="let inspectionType of filterUniqueRequestTypes(filter,'status')" [value]="inspectionType">{{
+                inspectionType }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          {{ element.status }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="empId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="d-none-sm">
+          Submitted To
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center d-none-sm">
+          {{ element.managerLname }}, {{ element.managerFname }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element" class="widh-77">
+          <div class="d-flex justify-content-center gap">
+            <button mat-mini-fab color="green" aria-label="Example icon button with a menu icon" title="View Details"
+              (click)="viewRequests(element)">
+              <mat-icon class="material-icons-outlined" style="margin-top: 3px;">visibility</mat-icon>
+            </button>
+            <!-- <button mat-mini-fab color="green" aria-label="Example icon button with a menu icon" title="Approve" (click)="aproveRequests(element)">
+              <mat-icon>done</mat-icon>
+            </button>
+            <button mat-mini-fab color="red" aria-label="Example icon button with a menu icon" title="Deny" (click)="denyRequests(element)">
+              <mat-icon>close</mat-icon>
+            </button> -->
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+        appStylePaginator
+        (page)="handlePageEvent($event)"
+        [length]="length"
+        [pageSize]="pageSize"
+        [disabled]="disabled"
+        [showFirstLastButtons]="showFirstLastButtons"
+        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+        [hidePageSize]="hidePageSize"
+        [pageIndex]="pageIndex"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+  </div>
+
+  <div class="total-leave">
+    <div class="header">Total Leave</div>
+    <div class="box  py-2">
+      <div class="container-fluid">
+        <div class="row my-2">
+          <div class="col-4 p-1">
+            <div class="d-flex border-1px p-1 align-items-center">
+              <p class="leave-total-by-name">A<span class="d-none-sm">nnual</span><span class="d-sm-none">...</span>
+                Leave : {{leaveCount(filter,'Annual Leave')}} Hours</p>
+            </div>
+          </div>
+          <div class="col-4 p-1">
+            <div class="d-flex border-1px p-1  align-items-center ">
+              <p class="leave-total-by-name">Sick Leave : {{leaveCount(filter,'Sick Leave')}} Hours</p>
+            </div>
+          </div>
+          <div class="col-4 p-1">
+            <div class="d-flex border-1px p-1 align-items-center ">
+              <p class="leave-total-by-name ">LWOP :</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,121 @@
+<div class="admin-table-wrapper">
+  <div class="top-bar">
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="checkActive" (ngModelChange)="radioChange()">
+      <mat-radio-button value="Active">Active</mat-radio-button>
+      <mat-radio-button value="Inactive">Inactive</mat-radio-button>
+    </mat-radio-group>
+    <button mat-raised-button mat-button (click)="addNewRole()" [disabled]="!getPermissionActionName('Add Facility')">
+      <div class="add-button">
+        <p>Add Facility</p>
+      </div>
+    </button>
+  </div>
+  <div class="list">
+    <table
+      #table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      class="mat-elevation-z8"
+      matSortActive="facilityname" matSortDirection="asc"
+    >
+      <ng-container matColumnDef="facilitytypenameref">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">
+          Type
+          <mat-form-field  onclick="event.stopPropagation()">
+            <mat-select (selectionChange)="filterChange($event)">
+              <mat-option [value]="">None</mat-option>
+              <mat-option
+                *ngFor="let inspectionType of facilityTypesName"
+                [value]="inspectionType.facilitytypenameref"
+                >{{ inspectionType.facilitytypenameref }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center">{{ element.facilitytypenameref }}</td>
+      </ng-container>
+      <ng-container matColumnDef="facilityabbr">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Facility ABBR</th>
+        <td mat-cell *matCellDef="let element" class="text-center">{{ element.facilityabbr }}</td>
+      </ng-container>
+      <ng-container matColumnDef="facilityname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header >Facility Name
+          <mat-form-field  onclick="event.stopPropagation()">
+            <mat-select (selectionChange)="filterChangeByName($event)">
+              <mat-option [value]="">None</mat-option>
+              <mat-option
+                *ngFor="let allData of facilityNameDropdown"
+                [value]="allData.facilityname"
+                >{{ allData.facilityname }} ({{ allData.facilityabbr }})</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </th>
+        <td mat-cell *matCellDef="let element" >{{ element.facilityname }}</td>
+      </ng-container>
+      <ng-container matColumnDef="facilitycity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">City</th>
+        <td mat-cell *matCellDef="let element" class="text-center">{{ element.facilitycity }}</td>
+      </ng-container>
+      <ng-container matColumnDef="facilitystate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">State</th>
+        <td mat-cell *matCellDef="let element" class="text-center">{{ element.facilitystate }}</td>
+      </ng-container>
+      <ng-container matColumnDef="start_date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Start Date</th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          {{ element.start_date | date : "MM/dd/YYYY" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="end_date" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">
+          Expiration Date
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          {{ element.end_date | date : "MM/dd/YYYY" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status" class="d-none">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center d-none">Status</th>
+        <td mat-cell *matCellDef="let element" class="text-center d-none">{{ element.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="action flex jutify-content-center">
+            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="left" matTooltip="Update, Manage Area"  aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item (click)="updateRole(element)" [disabled]="!getPermissionActionName('Update Facility')">
+                <span>Update</span>
+              </button>
+              <button mat-menu-item  (click)="manageArea(element)" [disabled]="!getPermissionActionName('Manage Area')">
+                <span>Manage Area</span>
+              </button>
+            </mat-menu>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      #paginator
+      class="demo-paginator"
+      (page)="handlePageEvent($event)"
+      [length]="length"
+      [pageSize]="pageSize"
+      [disabled]="disabled"
+      [showFirstLastButtons]="showFirstLastButtons"
+      [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+      [hidePageSize]="hidePageSize"
+      [pageIndex]="pageIndex"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

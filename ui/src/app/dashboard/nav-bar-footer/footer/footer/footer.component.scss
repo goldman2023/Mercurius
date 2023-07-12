@@ -1,0 +1,25 @@
+.footer {
+  background-color: #f6aa3b;
+}
+.footer .box-links {
+  text-align: center;
+}
+.footer .box-links h3 {
+  margin: 0px;
+  cursor: pointer;
+}
+
+.copyright {
+  width: 100%;
+  text-align: center;
+  padding: 25px;
+}
+.copyright h3 {
+  font-size: 21px;
+}
+.copyright p {
+  margin-bottom: 5px;
+}
+ion-footer{
+  z-index: 0 !important;
+}

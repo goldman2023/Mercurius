@@ -1,0 +1,149 @@
+<div class="add-dialog">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>Update {{ editName }}</h2>
+    <mat-icon mat-dialog-close (click)="close()"> close </mat-icon>
+  </div>
+  <form
+    [formGroup]="shiftCategoryForm"
+    (ngSubmit)="updateShiftCategoty()"
+  >
+    <mat-dialog-content
+      class="mat-typography"
+    >
+      <div class="from-part">
+        <div class="level">
+          <label for="first-name"
+            ><span class="required-asterisk">*</span> {{ editName }} Name:
+          </label>
+        </div>
+
+        <div class="level">
+          <input
+            id="shcategory_name"
+            role_name="shcategory_name"
+            type="text"
+            formControlName="shcategory_name"
+            placeholder="Enter {{ editName }} Name"
+            required
+            [ngClass]="{
+              warning_input:
+                (shcategory_name.invalid &&
+                  (shcategory_name.dirty || shcategory_name.touched)) ||
+                (shcategory_name.errors && shcategory_name.touched)
+            }"
+          />
+          <div
+            *ngIf="
+              shcategory_name.invalid &&
+              (shcategory_name.dirty || shcategory_name.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="shcategory_name.errors">Role Name is required.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="from-part">
+        <div class="level">
+          <label for="start_date"
+            ><span class="required-asterisk">*</span> Effective Start Date:
+          </label>
+        </div>
+        <div class="level" (click)="picker.open()">
+          <div class="d-flex align-items-center" (click)="picker.open()">
+            <input
+              id="start_date"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="start_date"
+              required
+              [matDatepicker]="picker"
+              [ngClass]="{
+                warning_input:
+                  (system_shift_start_date.invalid &&
+                    (system_shift_start_date.dirty || system_shift_start_date.touched)) ||
+                  (system_shift_start_date.errors && system_shift_start_date.touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+          <div
+            *ngIf="
+              system_shift_start_date.invalid &&
+              (system_shift_start_date.dirty || system_shift_start_date.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="system_shift_start_date.errors">
+              Effective Start Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="from-part">
+        <div class="level">
+          <label for="end_date"
+            ><span class="required-asterisk">*</span> Expiration Date:
+          </label>
+        </div>
+        <div class="level" (click)="picker1.open()">
+          <div class="d-flex align-items-center" (click)="picker1.open()">
+            <input
+              id="last-name"
+              type="text"
+              placeholder="mm/dd/yyyy"
+              formControlName="end_date"
+              required
+              [min]="system_shift_start_date.value"
+              [max]=""
+              [matDatepicker]="picker1"
+              [ngClass]="{
+                warning_input:
+                  (system_shift_end_date.invalid &&
+                    (system_shift_end_date.dirty || system_shift_end_date.touched)) ||
+                  (system_shift_end_date.errors && system_shift_end_date.touched)
+              }"
+            />
+            <mat-icon>calendar_month</mat-icon>
+            <mat-datepicker #picker1></mat-datepicker>
+          </div>
+          <div
+            *ngIf="
+              system_shift_end_date.invalid &&
+              (system_shift_end_date.dirty || system_shift_end_date.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="system_shift_end_date.errors">
+              Expiration Date is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-success" *ngIf="updateSuccess">
+        <p>Shift Category has been updated successfully !!</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button
+        mat-button
+        mat-raised-button
+        type="submit"
+        [disabled]="!shiftCategoryForm.valid || !shiftCategoryForm.touched"
+      >
+        Save
+      </button>
+      <button
+        mat-button
+        mat-raised-button
+        type="button"
+        (click)="resetcf()"
+        dkFocusInitial
+      >
+        Reset
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

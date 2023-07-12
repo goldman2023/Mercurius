@@ -1,0 +1,43 @@
+<div class="employee-info">
+  <div class="d-flex justify-content-between align-items-center modal-header">
+    <div class="close-button" >
+    Employee Schedule - <span *ngIf="wroksheetData">{{  wroksheetData.empLastName}}, 
+      {{ wroksheetData.empFirstName }} 
+      ({{wroksheetData.empinitials}})</span>
+  </div>
+  <mat-icon mat-dialog-close class="close-icon" (click)="close()"> close </mat-icon>
+  </div>
+  
+  
+   <div >
+      <div class="container-fluid"  *ngIf="wroksheetData else loading">
+        <div class="row ">
+          <div class="col-md-12">
+            <div class="outlet-container">
+              <div class=" mb-2" >
+  
+                      <mat-tab-group class="new-tab" mat-align-tabs="start" [selectedIndex]="0">
+                      
+                        <mat-tab active label="Schedule">
+                          <app-schedule [wroksheetData]="wroksheetData" [fullEmpDetails]="presentEmployee"></app-schedule>
+                        </mat-tab>
+                        <mat-tab label="Requests"> 
+                          <app-leave [empId]="presentEmployee.empid"></app-leave>
+                           </mat-tab>
+                        <mat-tab label="Overtime"> <app-overtime></app-overtime> </mat-tab>
+                        <mat-tab label="Notes"> <app-other-duties [empId]="presentEmployee.empid"></app-other-duties> </mat-tab>
+                      </mat-tab-group>
+                </div>
+              <!-- <router-outlet></router-outlet> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #loading >
+        <div class="loading-content">
+          <img class="loader" src="../../../../assets/img/loading.gif" alt="" />
+        </div>
+      </ng-template>
+    </div> 
+    
+</div>

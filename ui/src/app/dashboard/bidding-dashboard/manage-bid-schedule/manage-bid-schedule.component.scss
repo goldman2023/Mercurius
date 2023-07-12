@@ -1,0 +1,209 @@
+#top {
+  height: 20%;
+}
+#list {
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.text {
+  width: 90%;
+  white-space: nowrap;
+  float: left;
+  padding: 5px 0px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.items {
+  border-radius: 10px;
+  padding: 3px 5px;
+}
+.add-icon {
+  font-size: 28px;
+}
+.button-box {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: auto;
+  padding-bottom: auto;
+}
+.icon {
+  color: orange;
+  margin-left: 1px;
+  font-size: 16px;
+  margin-right: -2px;
+}
+.enent-name {
+  margin-top: auto !important;
+  margin-bottom: auto;
+}
+.event-icon {
+  font-size: 20px;
+}
+.h-data {
+  font-size: 14px;
+  margin-top: -5px;
+}
+
+.mt-neg5 {
+  margin-top: -5px;
+}
+
+@media (max-height: 639px) {
+  #list {
+    height: 77%;
+    display: inherit;
+  }
+}
+@media (min-height: 639px) {
+  #top {
+    height: 23%;
+  }
+  #list {
+    height: 77%;
+  }
+}
+@media (min-height: 799px) {
+  #top {
+    height: 14%;
+  }
+  #list {
+    height: 86%;
+  }
+}
+@media (min-height: 899px) {
+  #top {
+    height: 12%;
+  }
+  #list {
+    height: 88%;
+  }
+}
+
+#year {
+  width: 100%;
+}
+.changeShiftToPlot {
+  display: none;
+}
+.change_Shift_To_Plot {
+  padding: 3px;
+  margin: 4px;
+  background: #fff;
+  color: rgb(178, 168, 168);
+}
+.changeShiftToPlot:checked + .change_Shift_To_Plot {
+  color: #ff6700;
+  background: #fff;
+  border-bottom: 1px solid #ff6700;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.action-sheets-groups-page {
+  color: #ff6700;
+  --background: #fff;
+  --button-background: #fff;
+}
+
+.disable-color {
+  color: rgb(178, 168, 168);
+}
+
+.changeShiftToPlot {
+  display: none;
+}
+.change_Shift_To_Plot {
+  padding: 3px;
+  margin: 4px;
+  background: #fff;
+  color: rgb(178, 168, 168);
+}
+.changeShiftToPlot:checked + .change_Shift_To_Plot {
+  color: #ff6700;
+  background: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3px;
+  margin: 4px;
+}
+.ion-underline {
+  text-decoration-line: underline;
+  --text-decoration-thickness: 3px;
+}
+.ion-underline-p {
+  border-bottom: 1px solid #ff6700;
+}
+
+/* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 10 !important;
+  bottom: 115%;
+  left: 50%;
+  margin-left: -50%;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: solid;
+  opacity: 1;
+  border-color: #000 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.disabled{
+
+  .app-font-mercurius-secondary-color{
+    color: #6b6b6b !important;
+  }
+}
+::ng-deep .mat-tab-body-content{
+  height: unset !important;
+}

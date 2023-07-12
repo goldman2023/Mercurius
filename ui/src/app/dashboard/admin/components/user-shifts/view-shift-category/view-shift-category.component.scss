@@ -1,0 +1,110 @@
+.system-shift-view ::ng-deep.mat-dialog-title {
+  font: 500 20px/22px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.head .mat-icon {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+}
+
+.mat-dialog-content {
+  height: 414px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+.from_part {
+  width: 95%;
+  display: flex;
+  gap: 50px;
+}
+
+.from_part .level {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.from_part .value {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.from_part .level p {
+  margin-bottom: 20px;
+}
+
+.from_part .value p {
+  margin-bottom: 20px;
+}
+
+.from_part2 {
+  width: 95%;
+  margin-top: 20px;
+}
+
+.from_part2 h3 {
+  font-size: 18px;
+  padding: 2px 10px;
+  display: block;
+  border-left: 5px solid #ff6700;
+}
+
+.list {
+  width: 100%;
+  margin-top: -7px;
+}
+
+table {
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: none;
+  border: 1px solid rgb(193 193 193);
+}
+
+table tr td,
+table tr td .mat-button {
+  font-size: 18px;
+  text-align: center;
+}
+
+.mat-header-row {
+  height: 37px;
+}
+
+.mat-header-cell {
+  background-color: #f7aa05;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.mat-row {
+  height: 37px;
+}
+
+.system-shift-view ::ng-deep .mat-sort-header-arrow {
+  width: 15px;
+  height: 15px;
+  color: #000;
+}
+
+th.mat-column-position,
+td.mat-column-position {
+  padding-left: 8px;
+}
+
+.mat-mdc-table-sticky-border-elem-right {
+  border-left: 1px solid rgb(193 193 193);
+}
+
+.mat-mdc-table-sticky-border-elem-left {
+  border-right: 1px solid rgb(193 193 193);
+}
+
+.user-shift {
+  justify-content: center;
+}

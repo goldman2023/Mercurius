@@ -1,0 +1,33 @@
+<ion-grid style="width: 100%;" >
+  <ion-row class="app-font-primary-color content-data content-center ion-justify-content-center">
+    <ion-col  class="app-font-primary-color content-data content-center ion-text-center ion-justify-content-center" size="12">Import Schedule</ion-col>
+    <!-- <ion-col size="1"></ion-col> -->
+  </ion-row>
+  <!-- <div style="width: 100%;"  > -->
+    <ion-row style="width: 100%;" class="app-font-primary-color content-data content-center ion-justify-content-center">
+
+      <ion-col style="width: 100%;" >
+        <ion-input onclick="document.getElementById('file').click();" style="border: 1px solid;border-radius:10px;" value="{{currentFileName}}" size="8">
+
+        </ion-input>
+        </ion-col>
+        <ion-col size="4" style="width: 100%;" >
+          <ion-button class="app-button" style="width: 100%;font-size: 14px !important;"
+            shape="round"  onclick="document.getElementById('file').click();">Choose</ion-button>
+        <input type="file" style="display:none;" accept=".xlsx"  id="file" (change)="fileChange($event)" name="file"/>
+        </ion-col>
+    </ion-row>
+
+    <!-- <ion-row class="app-font-primary-color content-data content-center ion-justify-content-center">
+
+    <ion-input class="app-font-primary-color" type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".xlsx" ></ion-input>
+  </ion-row> -->
+    <ion-row >
+      <ion-col *ngIf="continueButton==true">
+        <ion-button class="app-button" style="width: 60%;margin-top: 6%;margin-bottom: auto;"
+        shape="round"  (click)="submit()">Upload</ion-button>
+      </ion-col>
+    </ion-row>
+
+  <!-- </div> -->
+  </ion-grid>

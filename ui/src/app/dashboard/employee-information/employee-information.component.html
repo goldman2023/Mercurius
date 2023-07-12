@@ -1,0 +1,35 @@
+<div class="emp-info">
+  <div class="header mb-3 text-center p-3" >
+    Daily Worksheet
+  </div>
+<div class="container-fluid emp-info-row">
+  <div class="row py-2 ">
+    <div class="col-md-2 p-1">
+     <app-employee-list ></app-employee-list>
+    </div>
+    <div class="col-md-10  p-1">
+      <div class="outlet-container">
+        <div class="header mb-2">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3  d-flex align-items-center">
+                <div  *ngIf="presentEmployee">
+                  {{ presentEmployee.lname }}, 
+                {{ presentEmployee.fname }} 
+                ({{presentEmployee.initials}}) 
+                ({{presentEmployee.rank}})
+                </div>
+                </div>
+              <div class="col-md-9 ">
+                <app-navigation></app-navigation>
+              </div>
+            </div>
+          </div>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,284 @@
+<div class="add-dialog">
+  <div class="head d-flex justify-content-between">
+    <h2 mat-dialog-title>Add {{ addFunctionName }}</h2>
+    <mat-icon mat-dialog-close (click)="close()"> close </mat-icon>
+  </div>
+  <form
+[formGroup]="facilityForm"
+(ngSubmit)="addFacility()"
+
+>
+<mat-dialog-content
+  class="mat-typography"
+>
+<div class="from-part">
+  <div class="level">
+    <label
+      ><span class="required-asterisk">*</span>
+      {{ addFunctionName }} Name:
+    </label>
+  </div>
+  <div class="level">
+    <input
+      id="facilityname"
+      type="text"
+      formControlName="facilityname"
+      placeholder="Enter {{ addFunctionName }}  Name"
+      required
+      [ngClass]="{
+        warning_input:
+          (facility_name.invalid &&
+            (facility_name.dirty || facility_name.touched)) ||
+          (facility_name.errors && facility_name.touched)
+      }"
+    />
+    <div
+      *ngIf="
+        facility_name.invalid &&
+        (facility_name.dirty || facility_name.touched)
+      "
+      class="text-danger"
+    >
+      <div *ngIf="facility_name.errors">Role Name is required.</div>
+    </div>
+  </div>
+</div>
+  <div class="from-part">
+    <div class="level">
+      <label
+        ><span class="required-asterisk">*</span>
+        {{ addFunctionName }} Type:
+      </label>
+    </div>
+    <div class="level">
+      <mat-form-field
+        [floatLabel]="'never'"
+        appearance="fill"
+        [ngClass]="{
+          warning_input:
+            (facility_type_nameref.invalid &&
+              (facility_type_nameref.dirty ||
+                facility_type_nameref.touched)) ||
+            (facility_type_nameref.errors && facility_type_nameref.touched)
+        }"
+      >
+        <mat-select
+          placeholder="Select {{ addFunctionName }} Type"
+          formControlName="facilitytypenameref"
+        >
+          <mat-option *ngFor="let role of facilityTypesName" [value]="role">
+            {{ role.facilitytype_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div
+        *ngIf="
+          facility_type_nameref.invalid &&
+          (facility_type_nameref.dirty || facility_type_nameref.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="facility_type_nameref.errors">
+          Facility Type is required.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="from-part">
+    <div class="level">
+      <label f
+        ><span class="required-asterisk">*</span>
+        {{ addFunctionName }} ABBR:
+      </label>
+    </div>
+    <div class="level">
+      <input
+        id="facilityabbr"
+        type="text"
+        formControlName="facilityabbr"
+        placeholder="Enter {{ addFunctionName }} ABBR"
+        required
+        [ngClass]="{
+          warning_input:
+            (facility_abbr.invalid &&
+              (facility_abbr.dirty || facility_abbr.touched)) ||
+            (facility_abbr.errors && facility_abbr.touched)
+        }"
+      />
+      <div
+        *ngIf="
+          facility_abbr.invalid &&
+          (facility_abbr.dirty || facility_abbr.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="facility_abbr.errors">Facility ABBR is required.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="from-part">
+    <div class="level">
+      <label for="facilitycity"
+        ><span class="required-asterisk">*</span> City:
+      </label>
+    </div>
+    <div class="level">
+      <input
+        id="facilitycity"
+        type="text"
+        formControlName="facilitycity"
+        placeholder="Enter City"
+        required
+        [ngClass]="{
+          warning_input:
+            (facility_city.invalid &&
+              (facility_city.dirty || facility_city.touched)) ||
+            (facility_city.errors && facility_city.touched)
+        }"
+      />
+      <div
+        *ngIf="
+          facility_city.invalid &&
+          (facility_city.dirty || facility_city.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="facility_city.errors">Facility City is required.</div>
+      </div>
+    </div>
+  </div>
+  <div class="from-part">
+    <div class="level">
+      <label for="facilitystate"
+        ><span class="required-asterisk">*</span> State:
+      </label>
+    </div>
+    <div class="level">
+      <input
+        id="facilitystate"
+        type="text"
+        formControlName="facilitystate"
+        placeholder="Enter State"
+        required
+        [ngClass]="{
+          warning_input:
+            (facility_state.invalid &&
+              (facility_state.dirty || facility_state.touched)) ||
+            (facility_state.errors && facility_state.touched)
+        }"
+      />
+      <div
+        *ngIf="
+          facility_state.invalid &&
+          (facility_state.dirty || facility_state.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="facility_state.errors">Facility State is required.</div>
+      </div>
+    </div>
+  </div>
+  <div class="from-part">
+    <div class="level">
+      <label for="last-name"
+        ><span class="required-asterisk">*</span> Effective Start Date:
+      </label>
+    </div>
+    <div class="level" (click)="picker.open()">
+      <div class="d-flex align-items-center" (click)="picker.open()">
+        <input
+          id="last-name"
+          type="text"
+          placeholder="mm/dd/yyyy"
+          formControlName="start_date"
+          required
+          [matDatepicker]="picker"
+          [ngClass]="{
+            warning_input:
+              (facility_start_date.invalid &&
+                (facility_start_date.dirty ||
+                  facility_start_date.touched)) ||
+              (facility_start_date.errors && facility_start_date.touched)
+          }"
+        />
+        <mat-icon>calendar_month</mat-icon>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+      <div
+        *ngIf="
+          facility_start_date.invalid &&
+          (facility_start_date.dirty || facility_start_date.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="facility_start_date.errors">
+          Effective Start Date is required.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="from-part">
+    <div class="level">
+      <label for="expirationDate"
+        ><span class="required-asterisk">*</span> Expiration Date:
+      </label>
+    </div>
+    <div class="level" (click)="picker1.open()">
+      <div class="d-flex align-items-center" (click)="picker1.open()">
+        <input
+          id="end_date"
+          type="text"
+          placeholder="mm/dd/yyyy"
+          formControlName="end_date"
+          required
+          [min]="facility_start_date.value"
+          [max]=""
+          [matDatepicker]="picker1"
+          [ngClass]="{
+            warning_input:
+              (facility_end_date.invalid &&
+                (facility_end_date.dirty || facility_end_date.touched)) ||
+              (facility_end_date.errors && facility_end_date.touched)
+          }"
+        />
+        <mat-icon>calendar_month</mat-icon>
+        <mat-datepicker #picker1></mat-datepicker>
+      </div>
+      <div
+        *ngIf="
+          facility_end_date.invalid &&
+          (facility_end_date.dirty || facility_end_date.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="facility_end_date.errors">
+          Expiration Date is required.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-success" *ngIf="addSuccess">
+    <p>Role has been added successfully !!</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button
+    mat-button
+    mat-raised-button
+    type="submit"
+    [disabled]="facilityForm.invalid"
+  >
+    Save
+  </button>
+  <button
+    mat-button
+    mat-raised-button
+    (click)="facilityForm.reset()"
+    dkFocusInitial
+  >
+    Reset
+  </button>
+</mat-dialog-actions>
+</form>
+</div>

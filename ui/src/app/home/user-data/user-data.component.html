@@ -1,0 +1,23 @@
+<app-blank-header></app-blank-header>
+
+<ion-content class="ion-no-margin ion-no-padding" >
+  <ion-grid id="content" class="ion-no-margin ion-no-padding">
+    <ion-avatar id="profile-info" class="ion-no-margin ion-no-padding">
+      <img id="profile-image" src="assets/img/a.png">
+    </ion-avatar>
+  </ion-grid>
+  <ion-grid style="padding: 10px;">
+    <ion-row>
+      <ion-col size="2"></ion-col>
+      <ion-col size="4"><ion-label class="data">Username </ion-label></ion-col>
+      <ion-col size="6"><ion-label class="data">: {{username}}</ion-label></ion-col>
+      <ion-col size="2"></ion-col>
+      <ion-col size="4"><ion-label class="data" *ngIf="user_data.empid!=undefined">Name</ion-label></ion-col>
+      <ion-col size="6"><ion-label class="data" *ngIf="user_data.empid!=undefined">: {{fname | titlecase}} {{lname |titlecase}}</ion-label></ion-col>
+      <ion-col size="2"></ion-col>
+      <ion-col size="4"><ion-label class="data" *ngIf="user_data.empid!=undefined">Initials</ion-label></ion-col>
+      <ion-col size="6"><ion-label class="data" *ngIf="user_data.empid!=undefined">: {{initials}}</ion-label></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<app-footer></app-footer>

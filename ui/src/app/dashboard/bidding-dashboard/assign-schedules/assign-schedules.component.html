@@ -1,0 +1,85 @@
+
+<ion-grid class="ion-text-center">
+    <ion-row *ngIf="spinner">
+      <ion-col size="12">
+        <ion-spinner name="bubbles"></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center" *ngIf="!spinner" cdkDropListGroup>
+        <ion-col size="4">
+            <mat-card class="card">
+                <mat-card-header class="card-header">Shiftline Schedules</mat-card-header>
+                <mat-card-content class="card-content">
+                    <mat-expansion-panel *ngFor="let items of schedules; let index = index " [expanded]="step === index" (opened)="setStep(index)">
+                        <mat-expansion-panel-header>
+                           <mat-checkbox>{{items.schedulename}}</mat-checkbox> 
+                        </mat-expansion-panel-header>
+                        <mat-form-field appearance="fill" >
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
+                              <input matStartDate placeholder="Start date" formControlName="start">
+                              <input matEndDate placeholder="End date" formControlName="end">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
+                        <div *ngFor="let container of items.schild; let ind = index">
+                            <div cdkDropList
+                                [cdkDropListData]="container"
+                                class="example-list"
+                                (cdkDropListDropped)="drop($event)"
+                            >
+                                <mat-card class="schedule_item d-flex justify-content-between" [ngClass]="handleClass(container)">
+                                    <div>
+                                        {{container.length > 1 ? container[1].shiftname:container[0].shiftname}}
+                                    </div>
+                                    <div>
+                                        {{container.length > 1 ? container[1].sun :container[0].sun}}
+                                        {{container.length > 1 ? container[1].mon :container[0].mon}}
+                                        {{container.length > 1 ? container[1].tue :container[0].tue}}
+                                        {{container.length > 1 ? container[1].wed :container[0].wed}}
+                                        {{container.length > 1 ? container[1].thu :container[0].thu}}
+                                        {{container.length > 1 ? container[1].fri :container[0].fri}}
+                                        {{container.length > 1 ? container[1].sat :container[0].sat}}
+                                    </div>
+                                    <div>
+                                        {{container.length > 1 ? container[1].pattern:container[0].pattern}}
+                                    </div>
+                                    <div *ngIf="container.length >1" class="d-flex align-items-center">
+                                        {{container[0].fname}} {{container[0].lname}}
+                                        <mat-icon style="z-index: 1000;"  (click)="handleDelete(container[0],ind,index)">close</mat-icon>
+                                    </div>
+                                </mat-card>
+                            </div>
+                        </div>
+                        <ion-grid class="edit-shift-line-btn-group p-0 bottom-0">
+
+                            <ion-row size="12" class="ion-justify-content-center" >
+                              <ion-col class="ion-text-center">
+                                  <ion-button class="app-button w-auto mt-2 mx-1" (click)="save(index)" shape="round" style="margin-top:1%;" [disabled]="isEnableSubmit(index)" id="export">Save Assign Schedule</ion-button>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
+                </mat-expansion-panel>
+                </mat-card-content>
+            </mat-card>
+        </ion-col>
+        <ion-col size="4" style="padding-left: 30px;">
+            <mat-card class="card">
+                <mat-card-header class="card-header">Employees</mat-card-header>
+                <mat-card-content class="card-content">
+                    <div
+                        cdkDropList
+                        [cdkDropListData]="employeers"
+                        class="example-list"
+                        
+                    >
+                        <mat-card class="employ_item" (cdkDragEntered)="handleEntered($event)" *ngFor="let item of employeers" cdkDrag >{{item.fname}} {{item.lname}}</mat-card>
+                    </div>
+                </mat-card-content>
+                
+            </mat-card>
+
+        </ion-col>
+    </ion-row>
+</ion-grid>

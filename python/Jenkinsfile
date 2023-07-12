@@ -1,0 +1,60 @@
+pipeline {
+    agent  any
+    environment {
+        BRANCH = "${env.BRANCH_NAME == "development" ? "dev" : "test"}"
+        EC2_HOST = "${env.BRANCH_NAME == "development" ? "3.13.254.87" : "ec2-52-14-8-217.us-east-2.compute.amazonaws.com"}"
+        db_name = "${env.BRANCH_NAME == "development" ? "ST-AWS-DEV" : "ST-AWS-TEST"}"
+        db_ip_address = "${env.BRANCH_NAME == "development" ? "3.13.254.87" : "52.14.8.217"}"
+    }
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '10', artifactNumToKeepStr: '5', daysToKeepStr: '10', numToKeepStr: '5')
+    }
+    stages {
+        stage('Write DB_CONFIG') {
+           steps {
+               script {
+                   def data = "{\n  \"db_ip_address\": \"${db_ip_address}\",\n  \"db_name\": \"${db_name}\"\n}"
+                   writeFile(file: 'db_config.json', text: data)
+                   sh "ls -l"
+               }
+           }
+       }
+
+        stage("BUILD")
+        {
+            steps{
+                slackSend message: "Starting build number ${env.BUILD_NUMBER} of python-${BRANCH}"
+                echo "building docker image"
+                sh "docker build -t python-${BRANCH}:latest ."
+
+                echo "pushing docker image to ECR"
+                script {
+                docker.withRegistry('https://274428758712.dkr.ecr.us-east-2.amazonaws.com', 'ecr:us-east-2:aws_credentials') {
+                        docker.image("python-${BRANCH}").push('latest')
+                    }
+                }
+            }
+        }
+        stage("DEPLOY")
+        {
+            steps {
+                echo "connecting to DEV EC2 instance"
+                withCredentials([sshUserPrivateKey(credentialsId: "23b415d8-23c3-458c-9a32-c1cdd2b427d3", keyFileVariable: 'keyfile')]) {
+                    sh 'ssh -i ${keyfile} ubuntu@${EC2_HOST} "sudo aws ecr get-login-password --region us-east-2 --profile davismercier | docker login --username AWS --password-stdin 274428758712.dkr.ecr.us-east-2.amazonaws.com"'
+                    sh 'ssh -i ${keyfile} ubuntu@${EC2_HOST} "sudo docker pull 274428758712.dkr.ecr.us-east-2.amazonaws.com/python-${BRANCH}:latest"'
+                    sh 'ssh -i ${keyfile} ubuntu@${EC2_HOST} "sudo docker rm -f stlines-python-container"'
+                    sh 'ssh -i ${keyfile} ubuntu@${EC2_HOST} "sudo docker run -d -p 5000:5000 --name stlines-python-container --restart always 274428758712.dkr.ecr.us-east-2.amazonaws.com/python-${BRANCH}:latest"'
+                    }
+            }
+        }
+    }
+    post {
+        always {
+            slackSend message: "Python-${BRANCH} build result: ${currentBuild.currentResult}"
+        }
+        cleanup {
+            echo "Cleanup workspace"
+            cleanWs()
+        }
+    }
+}

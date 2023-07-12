@@ -1,0 +1,79 @@
+<ion-footer
+  class="footer ion-no-border d-md-none"
+  style="border-top: 1px solid rgb(245, 237, 237)"
+>
+  <ion-toolbar class="footer ion-no-border">
+    <ion-row
+      class="ion-text-center ion-no-margin ion-no-padding ion-justify-content-center"
+    >
+      <ion-col size="1"></ion-col>
+      <ion-col size="3" class="btn">
+        <ion-icon
+          name="home-outline"
+          class="fs-3"
+          [class]="checkhomebuttonCss()"
+          (click)="home()"
+        ></ion-icon
+        ><br />
+        <b [class]="checkhomeLabelCss()">Home</b>
+      </ion-col>
+      <!-- <ion-col
+        size="1"
+        class="ion-text-center ion-justify-content-center"
+      ></ion-col> -->
+      <ion-col size="4" class="ion-text-center ion-justify-content-center btn">
+        <ion-icon class="fs-3" name="person-outline"></ion-icon><br />
+        <b class="data">{{ user }}</b>
+      </ion-col>
+      <!-- <ion-col
+        size="1"
+        class="ion-text-center ion-justify-content-center"
+      ></ion-col> -->
+      <ion-col size="3" class="btn">
+        <ion-icon
+          name="log-out-outline"
+          class="fs-3"
+          [class]="logoutbutton()"
+          (click)="logOut()"
+        ></ion-icon
+        ><br />
+        <b [class]="logoutlabelbutton()">Log Out</b>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
+<ion-footer class="d-none d-md-block bg-white">
+  <div class="footer text-center">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col box-links">
+          <h3>Supports</h3>
+        </div>
+        <div class="col box-links">
+          <h3>
+            <a
+              href="https://www.mercuriusinc.com"
+              target="_blank"
+              class="btn link link-dark p-0"
+              >About Us</a
+            >
+          </h3>
+        </div>
+        <div class="col box-links">
+          <h3>Demo</h3>
+        </div>
+        <div class="col box-links">
+          <h3>Our Products</h3>
+        </div>
+        <div class="col box-links">
+          <h3>Partners</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-2 text-center">
+    <p class="fs-6">© 2021 Mercurius inc. ® All Rights Reserved.</p>
+    <p class="fs-6"><a>Privacy Policy </a>| <a>Terms and Conditions</a></p>
+  </div>
+</ion-footer>

@@ -1,0 +1,102 @@
+.area-form {
+  .head {
+    &.mat-icon {
+      width: 30px;
+      height: 30px;
+      font-size: 30px;
+    }
+    &.area ::ng-deep.mat-dialog-title {
+      font: 500 20px/22px Roboto, "Helvetica Neue", sans-serif;
+    }
+  }
+  .mat-typography {
+    height: 330px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+
+    .alert {
+      margin-top: 38px;
+
+      p {
+        margin: 0;
+        font-size: 20px;
+      }
+    }
+
+    .from-part {
+      width: 67%;
+      display: flex;
+      gap: 15px;
+      margin-bottom: 10px;
+
+      .level {
+        width: 50%;
+        padding: 4px;
+
+        label {
+          font-weight: 500;
+          font-size: 16px;
+
+          .required-asterisk {
+            color: red;
+            font-weight: bold;
+            font-size: 1.2em;
+          }
+
+          .mat-icon {
+            margin-left: -40px;
+            margin-top: 5px;
+            color: #000;
+          }
+        }
+
+        input {
+          width: 100%;
+          padding: 8px 10px;
+          font-size: 14px;
+          font-weight: 500;
+          margin-right: 15px;
+          background-color: #f4f5f7;
+          border: none;
+          border-radius: 3px;
+          outline: 3px solid rgb(206, 206, 206);
+
+          &:focus-visible {
+            outline: 3px solid rgb(59, 59, 190);
+          }
+        }
+
+        .text-danger {
+          padding: 10px 5px 0px 5px;
+        }
+      }
+    }
+  }
+
+  .mat-dialog-actions {
+    gap: 20px;
+
+    .mat-raised-button {
+      border-radius: 20px;
+      min-width: 145px;
+      color: #fff;
+      padding: 3px 16px;
+      background-color: #ff6700;
+      box-shadow: 1px 1px 1px 1px #ffaa00;
+    }
+    .mat-button-disabled {
+      background-color: rgba(0, 0, 0, 0.12);
+      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.12);
+    }
+    .mat-button {
+      font-size: 18px;
+    }
+    .mat-button-disabled {
+      background-color: rgba(0, 0, 0, 0.12);
+      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.12);
+    }
+  }
+}

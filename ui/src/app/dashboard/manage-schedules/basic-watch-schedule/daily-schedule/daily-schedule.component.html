@@ -1,0 +1,328 @@
+
+<div class="day-schedule">
+  <div class="row py-2 px-3">
+    <div class="col d-flex app-font-mercurius-secondary-color grid-btn">
+      <!-- <div>
+        
+      </div> -->
+      <div class="cursor-pointer justify-content-start d-flex align-items-center">
+        <mat-icon
+          (click)="reset()"
+          class="app-font-mercurius-secondary-color cursor-pointer reset-btn"
+          >restore</mat-icon
+        >
+        <mat-label (click)="reset()">Reset All</mat-label>
+      </div>
+    </div>
+  </div>
+  <div
+    class="row justify-content-center font-bold-size padding-2px py-2 day-schedule-header "
+    *ngIf="dailyWorkForce"
+  >
+    <div class="col-2 text-center d-none-sm"><span class="d-none-sm">Shifts and Workforce </span>Count</div>
+    <div class="col table-title-box text-center">
+      <mat-label class="font-size-15px font-bold-size" *ngIf="startDate">
+        {{ startDate | date : "EEEE MMMM d, yyyy" }}
+      </mat-label>
+      <!-- <div *ngFor="let date of weekDates">
+        <mat-label class="font-size-12px font-bold-size" *ngIf="date">{{
+          date | date : "EEEE"
+        }}</mat-label>
+      </div> -->
+      <div *ngFor="let date of weekDates">
+        {{ getCorrectReqWorkforceCount(date).length }}/<b>{{
+          getCorrectGenWorkforceCount(date)
+        }}</b>
+      </div>
+    </div>
+  </div>
+
+  <div cdkDropListGroup  class="app-padding-margin-0 daily-content" *ngIf="dailyWorkForce">
+    <div class="container-fluid pb-3">
+      <div
+        class="row justify-content-center text-align-center font-bold-size font-size-12px app-padding-margin-0 vertical-align-middle"
+        *ngFor="let wD of dailyWorkForce"
+      >
+        <div class="col-2 app-padding-margin-0 vertical-align-middle py-3 px-1 count-content d-none-sm" >
+          <div
+            class="app-padding-margin-0 vertical-align-middle text-center text-align-center gap side-count"
+          >
+            <div
+              class="p-0 count-tab"
+              [class]="getBackgroundColorForShiftCategory(wD.shiftTime)"
+            >
+              <mat-label>{{ getStartHour(wD.shiftTime) }}</mat-label
+              ><br />
+              <mat-label
+                ><i>({{ wD.shiftDuration }} hrs)</i></mat-label
+              >
+            </div>
+            <div
+              class="category count-tab"
+              [class]="getBorderColorForShiftCategory(wD.shiftTime)"
+            >
+              <mat-label>
+                {{ getReq(wD) }}/<b
+                  [class]="getGLcolor(wD.req, wD.countOfEmp)"
+                  >{{ wD.countOfEmp }}</b
+                ></mat-label
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="col app-padding-margin-0 text-align-left app-border-1px-ligth-gray-color drag-body"
+          cdkDropList
+          (cdkDropListDropped)="drop($event, wD.shiftTime)"
+          *ngFor="let date of weekDates"
+        >
+        <div
+        class="app-padding-margin-0 vertical-align-middle text-center text-align-center gap side-count mobile-side-count d-block-sm"
+      >
+        <div
+          class="p-0 count-tab"
+          [class]="getBackgroundColorForShiftCategory(wD.shiftTime)"
+        >
+        <mat-label>{{ getStartHour(wD.shiftTime) }}</mat-label
+          ><br />
+          <mat-label
+            ><i>({{ wD.shiftDuration }} hrs)&nbsp; </i></mat-label
+          >
+           - (<mat-label>
+            {{ getReq(wD) }}/<b
+              [class]="getGLcolor(wD.req, wD.countOfEmp)"
+              >{{ wD.countOfEmp }}</b
+            ></mat-label
+          >)
+        </div>
+
+        </div>
+          <div [class]="detectDevice()">
+            <mat-card
+              cdkDrag
+              [cdkDragDisabled]="selectedDate < currentDate"
+              [cdkDragData]="emp"
+              [title]="getTooltime(emp.empLastName, emp.empFirstName)"
+              *ngFor="let emp of getEmpL(wD, date, wD.shiftTime); let i = index"
+              [class]=" 'drag-content ' +
+                getBorderColorForDragandDropShiftCategory(
+                  wD.shiftTime,
+                  emp.updated,
+                  emp
+                )
+              "
+            >
+            <div *ngIf="emp.rule" class="rule">
+              <img *ngIf="emp.rule.length == 0" src="assets/img/true.png" width="20px" height="20px"/>
+              <img id="click-trigger" *ngIf="emp.rule.length>0" src="assets/img/false.png" width="20px" height="20px" matTooltip="{{emp.rule[0]}}" matTooltipPosition="above" />
+            </div>
+              <div
+                class="box-cart-zx py-1 pl-2 justify-content-between align-items-center"
+              >
+                <mat-label class="cursor-pointer" (click)="openDialog(emp)" >
+                  <mat-icon [class]="getDragandDropColor(wD.time, emp.countOfEmp, emp)" class="icon-custom-size mr-2"
+                  cdkDragHandle> 
+                  open_with
+                </mat-icon> 
+                <span class="pe-none mr-2 d-block-lg d-none-sm" name="ellipsis-vertical-outline" (click)="openDialog(emp)">
+                  {{ emp.empLastName }}, {{ emp.empFirstName }}
+                </span>
+                <span class="pe-none mr-2 d-none d-sm-block" name="ellipsis-vertical-outline" (click)="openDialog(emp)">
+                  {{ emp.empinitials }}
+                </span>
+                  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="left"   aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+                    <mat-icon [class]="getDragandDropColor(wD.time, emp.countOfEmp, emp)">more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="stickyNote(emp,$event)" >
+                      <span>Add/View Note</span>
+                    </button>
+                    <button mat-menu-item  (click)="submitRequest(emp)">
+                      <span>Submit Request</span>
+                    </button>
+                    <button mat-menu-item  (click)="openDialog(emp)">
+                      <span>Employee Schedule</span>
+                    </button>
+                  </mat-menu>
+                  
+                </mat-label>
+
+                
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" *ngIf="getRdoEmpL().length">
+      <div
+        class="head-top row justify-content-center text-align-center font-bold-size padding-2px font-size-12px app-margin-0 py-2 "
+      >
+        <div class="col app-padding-margin-0"><b>RDO <span class="d-none-sm">Summary</span></b></div>
+        <div class="col app-padding-margin-0" *ngFor="let date of weekDates">
+          Count {{ getRdoEmpL().length }}
+        </div>
+      </div>
+    </div>
+    <div
+      cdkDropListGroup
+      class="app-padding-margin-0"
+      *ngIf="getRdoEmpL().length"
+    >
+      <div class="container-fluid pb-3">
+        <div
+          class="row justify-content-center text-align-center font-bold-size font-size-12px app-padding-margin-0 vertical-align-middle"
+        >
+          <div
+            class="col-2 app-padding-margin-0 vertical-align-middle justify-content-center py-2 px-1 text-center d-none-sm"
+          >
+            <mat-label>Staff on RDO</mat-label>
+          </div>
+          <div
+            class="col app-padding-margin-0 text-align-left app-border-1px-ligth-gray-color py-2 px-1"
+            cdkDropList
+          >
+          
+            <div [class]="detectDevice()">
+              <mat-card
+              cdkDrag
+              [cdkDragDisabled]="selectedDate < currentDate"
+              [cdkDragData]="emp"
+              [title]="getTooltime(emp['empLastName'], emp['empFirstName'])"
+              *ngFor="let emp of getRdoEmpL(); let i = index"
+              
+            >
+              <div
+                class="box-cart-zx py-1 pl-2 justify-content-between align-items-center"
+              >
+                <mat-label class="cursor-pointer" (click)="openDialog(emp)" >
+                  <mat-icon  class="icon-custom-size app-font-primary-color mr-2"
+                    cdkDragHandle> 
+                      open_with
+                  </mat-icon> 
+                  <span class="pe-none mr-2 d-block-lg d-none-sm" name="ellipsis-vertical-outline" (click)="openDialog(emp)">
+                    {{ emp.empLastName }}, {{ emp.empFirstName }}
+                  </span>
+                  <span class="pe-none mr-2 d-none d-sm-block" name="ellipsis-vertical-outline" (click)="openDialog(emp)">
+                    {{ emp.empinitials }}
+                  </span>
+                  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="right" matTooltip="Add Note, Employee Schedule"  aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+                    <mat-icon class="app-font-primary-color">more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="after">
+                    <button mat-menu-item  (click)="stickyNote(emp,$event)">
+                      <span>Add/View Note</span>
+                    </button>
+                    <button mat-menu-item  (click)="submitRequest(emp)">
+                      <span>Submit Request</span>
+                    </button>
+                    <button mat-menu-item  (click)="openDialog(emp)">
+                      <span>Employee Schedule</span>
+                    </button>
+                  </mat-menu>
+                  
+                </mat-label>
+
+                
+              </div>
+            </mat-card>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" *ngIf="vacationWatchSchedule.empinfo.length">
+      <div
+        class="head-top row justify-content-center text-align-center font-bold-size padding-2px font-size-12px app-margin-0 py-2"
+      >
+        <div class="col app-padding-margin-0"><b>Vacation<span class="d-none-sm">Summary</span></b></div>
+        <div class="col app-padding-margin-0" *ngFor="let date of weekDates">
+          Count {{ vacationWatchSchedule.empinfo.length }}
+        </div>
+      </div>
+    </div>
+    <div
+      cdkDropListGroup
+      class="app-padding-margin-0"
+      *ngIf="vacationWatchSchedule.empinfo.length"
+    >
+      <div class="container-fluid pb-3">
+        <div
+          class="row justify-content-center text-align-center font-bold-size font-size-12px app-padding-margin-0 vertical-align-middle"
+        >
+          <div
+            class="col-2 app-padding-margin-0 vertical-align-middle justify-content-center py-2 px-1 text-center d-none-sm"
+          >
+            <mat-label>Staff on Vacation</mat-label>
+          </div>
+          <div
+            class="col app-padding-margin-0 text-align-left app-border-1px-ligth-gray-color py-2 px-1"
+            cdkDropList
+          >
+            <div [class]="detectDevice()">
+              <mat-card
+              cdkDrag
+              [cdkDragDisabled]="selectedDate < currentDate"
+              [cdkDragData]="emp"
+              [title]="getTooltime(emp['empLastName'], emp['empFirstName'])"
+              *ngFor="let emp of vacationWatchSchedule.empinfo; let i = index"
+              
+            >
+              <div
+                class="box-cart-zx py-1 pl-2 justify-content-between align-items-center"
+              >
+                <mat-label class="cursor-pointer" (click)="openDialog(emp)" >
+                  <mat-icon  class="icon-custom-size app-font-primary-color mr-2"
+                  cdkDragHandle> 
+                    open_with
+                </mat-icon> 
+                <span class="pe-none mr-2 d-block-lg d-none-sm" name="ellipsis-vertical-outline" (click)="openDialog(emp)">
+                  {{ emp.empLastName }}, {{ emp.empFirstName }}
+                </span>
+                <span class="pe-none mr-2 d-none d-sm-block" name="ellipsis-vertical-outline" (click)="openDialog(emp)">
+                  {{ emp.empInitials }}
+                </span>
+                
+                  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltipPosition="right" matTooltip="Add Note, Employee Schedule"  aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+                    <mat-icon class="app-font-primary-color">more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="after">
+                    <button mat-menu-item #stickyButton  (click)="stickyNote(emp,$event)">
+                      <span>Add/View Note</span>
+                    </button>
+                    <button mat-menu-item  (click)="submitRequest(emp)">
+                      <span>Submit Request</span>
+                    </button>
+                    <button mat-menu-item  (click)="openDialog(emp)">
+                      <span>Employee Schedule</span>
+                    </button>
+                  </mat-menu>
+                 
+                </mat-label>
+
+                
+              </div>
+            </mat-card>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-sticky-note  [noteEmpIdAndDate]="noteEmpIdAndDate" [stickyDetails]="stickyDetails" [clientX]="clientX" [clientY]="clientY"  (stickyNotes)="closeSticky($event)"  *ngIf="stickyNotes" class="app-sticky" (click)="stickyNotes = false"></app-sticky-note>
+<!-- <div class="note-update" *ngIf="noteUpdate">
+  <div class="note-details">
+    <div class="note-head">
+      <div class="d-flex justify-content-between head">
+        <p class="emp-head">&nbsp;</p>
+        <mat-icon class="close-icon" (click)="noteUpdate = false"> close </mat-icon>
+    </div>
+    </div>
+    <div class="note-body">
+      {{message}}
+    </div>
+  </div>
+</div> -->

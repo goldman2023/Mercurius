@@ -1,0 +1,87 @@
+<ion-content>
+  <ion-grid>
+    <ion-row
+      class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+    >
+      <ion-col size="2"></ion-col>
+      <ion-col size="8" class="ion-text-center">
+        <ion-label
+          class="app-font-primary-color app-font-size-14px ion-text-center"
+          ><b>Bid Schedule Name</b></ion-label
+        >
+      </ion-col>
+      <ion-col size="2">
+        <ion-label
+          style="cursor: pointer; font-size: 12px"
+          class="app-font-mercurius-secondary-color ion-text-center"
+          (click)="close()"
+          ><b>Close</b></ion-label
+        >
+      </ion-col>
+    </ion-row>
+    <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+  </ion-grid>
+  <ion-grid>
+    <form [formGroup]="scheduleNameForm">
+      <!-- Select Shiftline Schedules -->
+
+      <ion-item
+        lines="none"
+        class="app-font-primary-color ion-justify-content-center"
+      >
+        <ion-label class="data" position="stacked" style="margin-bottom: 5px"
+          >Please enter the Bid Schedule Name</ion-label
+        >
+        <ion-input
+          (ionChange)="scheduleShiftLine()"
+          formControlName="schedule_name"
+          name="schedule_name"
+          class="form-control app-font-primary-color ion-border-1px-primary-color ion-no-margin"
+          style="border-radius: 5px"
+          [class.is-invalid]="schedule_name?.invalid && schedule_name?.touched"
+          required
+          interface="popover"
+        >
+        </ion-input>
+        <div
+          class="content-data app-font-red-color"
+          style="text-align: left"
+          *ngIf="schedule_name?.errors && schedule_name?.touched"
+        >
+          <p class="app-font-red-color" *ngIf="schedule_name?.errors?.required">
+            <ion-icon name="alert-circle-outline"></ion-icon> Bid schedule name
+            is required!
+          </p>
+        </div>
+        <div
+          class="content-data app-font-red-color"
+          style="text-align: left"
+          *ngIf="scheduleNameUnique == false"
+        >
+          <p class="app-font-red-color">
+            <ion-icon name="alert-circle-outline"></ion-icon> Please enter the
+            unique name!
+          </p>
+        </div>
+      </ion-item>
+
+      <ion-row>
+        <!-- <ion-col size="6">
+            <ion-button class="app-button-secondary" (click)="close()" style="margin-top:10px;width:90%;" id="export">Cancel</ion-button>
+          </ion-col> -->
+        <ion-col size="3"></ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <!-- <ion-button  [disabled]="scheduleNameForm.invalid" shape="round"  class="app-button-primary"  style="margin-top:1%;width:90%;" (click)="submit()" >Done</ion-button> -->
+          <ion-button
+            [disabled]="scheduleNameForm.invalid"
+            shape="round"
+            class="app-button-primary"
+            style="margin-top: 10px; width: 90%"
+            (click)="submit()"
+            >Submit</ion-button
+          >
+        </ion-col>
+        <ion-col size="3"></ion-col>
+      </ion-row></form
+  ></ion-grid>
+</ion-content>

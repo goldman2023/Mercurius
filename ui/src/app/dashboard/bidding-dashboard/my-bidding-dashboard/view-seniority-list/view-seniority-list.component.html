@@ -1,0 +1,186 @@
+<ion-grid class="main container">
+  <ion-grid
+    class="app-font-primary-color content-data-14px"
+  >
+    <ion-row>
+      <ion-col size="11">
+        <ion-label
+          *ngIf="user_data.empid === undefined"
+          class="data float-left"
+          >Reorder Rank </ion-label
+        ><ion-toggle
+          toggle-class="MyCustomClass"
+          [class]="toggleCss()"
+          *ngIf="user_data.empid === undefined"
+          [(ngModel)]="changeToggleValue"
+          (ionChange)="changeToggle($event)"
+        ></ion-toggle>
+      </ion-col>
+
+      <ion-col size="1">
+        <ion-icon
+          (click)="generateDocument()"
+          class="app-font-mercurius-secondary-color clickable float-right fs-5"
+          name="download-outline"
+        ></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="app-font-primary-color">
+      <ion-col size="5" class="app-font-primary-color ion-text-start"
+        ><b>Name </b></ion-col
+      >
+      <ion-col size="3" class="app-font-primary-color ion-text-center"
+        ><b>Rank</b></ion-col
+      >
+      <ion-col size="4" class="app-font-primary-color ion-text-center"
+        ><b>Vacation (Hours)</b></ion-col
+      >
+
+      <!-- <ion-col size="4.5" class="app-font-primary-color content-data  ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom">Name</ion-col>
+      <ion-col size="4" class="app-font-primary-color  ion-text-center"> Initials</ion-col>
+      <ion-col size="2.5" class="app-font-primary-color   ion-text-center">Rank</ion-col>
+      <ion-col size="1"></ion-col> -->
+    </ion-row>
+  </ion-grid>
+  <div
+    class="app-background-mercurius-primary-color w-100 py-1 mx-2"
+  ></div>
+  <ion-grid *ngIf="user_data.empid === undefined; else elseBlock">
+    <ion-grid
+      id="all-shift-list"
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="allEmployee"
+      [cdkDragStartDelay]="1000"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <!-- <ion-grid    > -->
+      <ion-item
+        [cdkDragDisabled]="editlist"
+        [ngClass]="!editlist ? 'clickable' : ''"
+        class="ion-no-padding"
+        cdkDrag
+        *ngFor="let sL of allEmployee; let i = index"
+      >
+        <ion-row
+          class="data w-100 ion-no-margin ion-no-padding"
+          *ngIf="sL.role == 2; else empElseBlock"
+        >
+          <ion-col
+            class="data w-100 ion-no-margin ion-no-padding d-flex aling-items-center"
+            size="5"
+          >
+            <ion-label
+              >{{ sL.fname | titlecase }} {{ sL.lname | titlecase }} ({{
+                sL.initials | uppercase
+              }})</ion-label
+            >
+          </ion-col>
+          <ion-col
+            class="data w-100 ion-text-center ion-no-margin ion-no-padding"
+            size="3"
+          >
+            <ion-label>{{ sL.rank }}</ion-label>
+          </ion-col>
+          <ion-col
+            class="data w-100 ion-no-margin ion-no-padding ion-text-center"
+            size="4"
+          >
+            <ion-label>{{ sL.vacation }}</ion-label>
+          </ion-col>
+          <!-- <ion-col class="data ion-no-margin ion-no-padding"  size="4.5" style="width: 100%;" >{{sL.fname | titlecase}} {{sL.lname | titlecase}}</ion-col>
+              <ion-col class="data ion-text-center ion-no-margin ion-no-padding"  size="4" style="width: 100%;" >{{sL.initials |uppercase}}</ion-col>
+              <ion-col class="data ion-no-margin ion-no-padding ion-text-center"  size="2.5" style="width: 100%;" >{{sL.rank}}</ion-col>
+              <ion-col size="1"><ion-icon cdkDragHandle name="menu-outline"></ion-icon></ion-col> -->
+        </ion-row>
+        <ng-template #empElseBlock>
+          <ion-col class="data w-100 ion-no-margin ion-no-padding" size="5">
+            <ion-label
+              ><b
+                >{{ sL.fname | titlecase }} {{ sL.lname | titlecase }} ({{
+                  sL.initials | uppercase
+                }})</b
+              ></ion-label
+            >
+          </ion-col>
+          <ion-col
+            class="data w-100 ion-text-center ion-no-margin ion-no-padding"
+            size="3"
+          >
+            <ion-label
+              ><b>{{ sL.rank }}</b></ion-label
+            >
+          </ion-col>
+          <ion-col
+            class="data w-100 ion-no-margin ion-no-padding ion-text-center"
+            size="4"
+          >
+            <ion-label
+              ><b>{{ sL.vacation }}</b></ion-label
+            >
+          </ion-col>
+        </ng-template>
+      </ion-item>
+    </ion-grid>
+  </ion-grid>
+  <ng-template #elseBlock>
+    <ion-grid class="seniority-list-div">
+      <ion-item
+        *ngFor="let sL of allEmployee; let i = index"
+        class="ion-no-padding"
+      >
+        <ion-row
+          class="data w-100 ion-no-margin ion-no-padding"
+          *ngIf="sL.role == 2; else emplElseBlock"
+        >
+          <ion-col class="data w-100 ion-no-margin ion-no-padding" size="5">
+            <ion-label
+              >{{ sL.fname | titlecase }} {{ sL.lname | titlecase }} ({{
+                sL.initials | uppercase
+              }})</ion-label
+            >
+          </ion-col>
+          <ion-col
+            class="data w-100 ion-text-center ion-no-margin ion-no-padding"
+            size="3"
+          >
+            <ion-label>{{ sL.rank }}</ion-label>
+          </ion-col>
+          <ion-col
+            class="data w-100 ion-no-margin ion-no-padding ion-text-center"
+            size="4"
+          >
+            <ion-label>{{ sL.vacation }}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ng-template #emplElseBlock>
+          <ion-col class="data w-100 ion-no-margin ion-no-padding" size="5">
+            <ion-label
+              ><b
+                >{{ sL.fname | titlecase }} {{ sL.lname | titlecase }} ({{
+                  sL.initials | uppercase
+                }})</b
+              ></ion-label
+            >
+          </ion-col>
+          <ion-col
+            class="data w-100 ion-text-center ion-no-margin ion-no-padding"
+            size="3"
+          >
+            <ion-label
+              ><b>{{ sL.rank }}</b></ion-label
+            >
+          </ion-col>
+          <ion-col
+            class="data w-100 ion-no-margin ion-no-padding ion-text-center"
+            size="4"
+          >
+            <ion-label
+              ><b>{{ sL.vacation }}</b></ion-label
+            >
+          </ion-col>
+        </ng-template>
+      </ion-item>
+    </ion-grid>
+  </ng-template>
+</ion-grid>

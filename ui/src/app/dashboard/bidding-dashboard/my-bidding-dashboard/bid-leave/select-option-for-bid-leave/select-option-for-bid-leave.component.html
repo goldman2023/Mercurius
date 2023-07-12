@@ -1,0 +1,310 @@
+<ion-grid  class="ion-text-center" *ngIf="spinner === true">
+  <ion-row>
+    <ion-col size="12">
+      <ion-spinner name="bubbles"></ion-spinner>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>
+<ion-grid (click)="updateCss()" *ngIf="spinner === false"  class="ion-no-margin app-font-primary-color content-data main">
+  <ion-grid>
+
+  <ion-row class="ion-text-center">
+    <ion-col size="12" class="ion-text-center">
+      <ion-col size="12" class="app-font-primary-color ion-text-center "><b>BID VACATION LEAVE</b><b *ngIf="currentEmpData!=undefined"> for {{currentEmpData.fname | titlecase}} {{currentEmpData.lname| titlecase}} ({{currentEmpData.initials}})</b></ion-col>
+</ion-col>
+<ion-col class="ion-text-center ion-no-padding ion-no-margin" size="12" *ngIf="dailyEndTIme!=undefined"><ion-label><b>Daily Bid Period:</b> {{formatAMPM(dailyStartTIme)}} - {{formatAMPM(dailyEndTIme)}} ({{bidShculeTimeZoneacronym}})</ion-label></ion-col>
+</ion-row>
+
+  <ion-grid class="container" *ngIf="bid_schedule_length>0 && all_SBP_rounds_length>0; else elseBlock">
+
+    <ion-grid class="ion-no-padding ion-no-margin" style="width: 100%;" >
+      <ion-slides id="ion-slides"  (ionSlideDidChange)="slideChange()"  class=" ion-no-margin app-white-background-color round-slides" pager="false" [options]="slideOption" >
+        <ion-slide   *ngFor="let rounds of all_SBP_rounds;let i=index"  >
+          <ion-grid>
+          <ion-card  [class]="getIndicatorClassForCard(i)" class="ion-no-padding ion-no-margin active-box round-card" >
+          <ion-grid class="title-background-color ion-no-margin ">
+            <ion-row style="padding: 5px;">
+              <ion-col size="12"><ion-label class="data font-size-14px"><b>Round {{i+1}} of {{all_SBP_rounds.length}}</b></ion-label> </ion-col>
+              </ion-row>
+              <ion-row style="padding: 5px;">
+                <!-- <ion-col size="1"></ion-col> -->
+              <ion-col size="6" >
+                <ion-label class="data"><b>Start</b></ion-label><br>
+                <ion-label class="data">{{roundStartDate |date:'EEE, MMM d, y'}}<br> {{formatAMPM(roundStartTime)}} {{bidShculeTimeZoneacronym}}</ion-label><br>
+              </ion-col>
+              <ion-col size="6" >
+                <ion-label class="data"><b>Duration</b></ion-label><br>
+                <ion-label class="data"><b style="font-weight: normal;" *ngIf="roundDuration>1">{{roundDuration}} Minutes</b><b style="font-weight: normal;" *ngIf="roundDuration<2">{{roundDuration}} Minute</b> </ion-label><br>
+              </ion-col>
+            </ion-row>
+            <ion-row style="padding: 5px;">
+              <ion-col size="6" >
+                <ion-label class="data"><b>Status</b></ion-label><br>
+                <ion-label class="data app-font-mercurius-secondary-color">{{roundStatus}} </ion-label><br>
+              </ion-col>
+              <ion-col size="6" >
+
+                <ion-row class="ion-no-margin ion-no-padding">
+                  <ion-col class="ion-no-margin ion-no-padding" size="12">
+                    <ion-label class="data"><b>Bid Status</b></ion-label>
+                  </ion-col>
+                  <ion-col class="ion-no-margin app-font-mercurius-secondary-color ion-no-padding" size="12" >
+                    <ion-row  class="ion-no-margin ion-no-padding" *ngIf="shiftlinebidstatus=='Completed' ||vacationbidstatus=='Completed' ||shiftlinebidstatus=='System Completed' ||vacationbidstatus=='System Completed'||shiftlinebidstatus=='Manager Completed' ||vacationbidstatus=='Manager Completed' || vacationbidstatus=='Not Eligible' ;else mainBidStatus" >
+                      <!-- <ion-row  class="ion-no-margin ion-no-padding" *ngIf="roundbidStatus=='System Completed' || roundbidStatus=='Manager Completed'  || roundbidStatus=='Completed';else elseBlockStatus"> -->
+                      <ion-col size="8" class="ion-no-margin ion-no-padding text-align-right">
+                        <ion-label class="data app-font-mercurius-secondary-color"><ion-label *ngIf="shiftlinebidstatus=='Eligible' || vacationbidstatus=='Eligible';else statusElse"> Eligible </ion-label><ng-template #statusElse><ion-label *ngIf="shiftlinebidstatus=='Incomplete' || vacationbidstatus=='Incomplete';else stausChildElse"><ion-label *ngIf="shiftlinebidstatus!='Incomplete'">Completed</ion-label><ion-label *ngIf="shiftlinebidstatus=='Incomplete'"> Incomplete</ion-label> </ion-label><ng-template #stausChildElse><ion-label *ngIf="vacationbidstatus!='Not Eligible';else elsenotEligibleBlock "> Completed</ion-label><ng-template #elsenotEligibleBlock>Not Eligible</ng-template></ng-template></ng-template>
+
+                           </ion-label>
+                      </ion-col>
+                      <ion-col size="4" class="ion-no-margin text-align-left ion-no-padding app-font-mercurius-secondary-color" >
+                          <div class="popupStatus " (click)="myFunctionStatus(i)" ><b >
+                          <ion-icon class="pe-none" name="information-circle-outline" style="font-size: 16px;padding:3px" ></ion-icon></b>
+
+                          <span class="popuptextStatusZero" *ngIf="vacationbidstatus!='Not Eligible' && i==0;else popubElse" id="popupStatus{{i}}" style="font-size: 12px;">
+                            <ion-row class="ion-no-padding">
+                              <ion-col class="ion-no-padding ion-no-margin" size="8" >ShiftLine Bid: </ion-col><ion-col class="ion-no-padding ion-no-margin" size="1.2" *ngIf="shiftlinebidstatus=='Eligible' || shiftlinebidstatus=='Incomplete';else shiftlinebidstatusElse"><ion-img alt="False" src="assets/img/false.png"></ion-img></ion-col><ng-template #shiftlinebidstatusElse><ion-col class="ion-no-padding ion-no-margin" size="1.2"> <ion-img alt="True" src="assets/img/true.png" ></ion-img></ion-col></ng-template><ion-col size="2.8"></ion-col>
+                              <ion-col class="ion-no-padding ion-no-margin" size="8" >Vacation Bid: </ion-col><ion-col class="ion-no-padding ion-no-margin" size="1.2" *ngIf="vacationbidstatus=='Eligible' || vacationbidstatus=='Incomplete';else vacationbidstatusElse"><ion-img alt="False" src="assets/img/false.png"></ion-img></ion-col><ng-template #vacationbidstatusElse> <ion-col class="ion-no-padding ion-no-margin" size="1.2"> <ion-img alt="True" src="assets/img/true.png" ></ion-img></ion-col></ng-template><ion-col size="2.8"></ion-col>
+                                <ion-col class="ion-no-padding ion-no-margin ion-text-center" size="12"><ion-label>Bid by: </ion-label><ion-label  *ngIf="shiftlinebidstatus=='Completed'||vacationbidstatus=='Completed'">Self</ion-label> <ion-label  *ngIf="shiftlinebidstatus=='System Completed'||vacationbidstatus=='System Completed'">System</ion-label> <ion-label *ngIf="shiftlinebidstatus=='Manager Completed'||vacationbidstatus=='Manager Completed'">Bid Manager</ion-label> </ion-col>
+                            </ion-row>
+                          </span>
+                          <ng-template #popubElse>
+                              <span class="popuptextStatus" *ngIf="vacationbidstatus!='Not Eligible'"  id="popupStatus{{i}}" style="font-size: 12px;">
+                                <ion-row class="ion-no-padding">
+                                  <ion-col class="ion-no-padding ion-no-margin" size="8" ><ion-label>Vacation Bid: </ion-label></ion-col><ion-col class="ion-no-padding ion-no-margin" size="1.2" *ngIf="vacationbidstatus=='Eligible' || vacationbidstatus=='Incomplete';else vacationbidstatusElse"><ion-img alt="False" src="assets/img/false.png"></ion-img></ion-col><ng-template #vacationbidstatusElse><ion-col size="1.2" class="ion-no-padding ion-no-margin"> <ion-img alt="True" src="assets/img/true.png" ></ion-img></ion-col></ng-template><ion-col size="2.8"></ion-col>
+                                  <ion-col class="ion-no-padding ion-no-margin ion-text-center" size="12"><ion-label>Bid by: </ion-label><ion-label  *ngIf="vacationbidstatus=='Completed'">Self</ion-label> <ion-label  *ngIf="vacationbidstatus=='System Completed'">System</ion-label> <ion-label *ngIf="vacationbidstatus=='Manager Completed'">Bid Manager</ion-label> </ion-col>
+                                </ion-row>
+                              </span>
+
+                              <span class="popuptextStatus"*ngIf="vacationbidstatus=='Not Eligible'"  id="popupStatus{{i}}" style="font-size: 12px;">
+                                <ion-row class="ion-no-padding">
+                                  <ion-col class="ion-no-padding ion-no-margin ion-text-center" size="12"><ion-label>Your vacation leave</ion-label></ion-col>
+                                  <ion-col class="ion-no-padding ion-no-margin ion-text-center" size="12"><ion-label>are exhausted</ion-label></ion-col>
+                                </ion-row>
+                              </span>
+                          </ng-template>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+
+
+                  </ion-col>
+                </ion-row>
+
+            <ng-template #mainBidStatus>
+              <ion-row  class="ion-no-margin ion-no-padding"  >
+                <ion-col size="" class="ion-no-margin ion-no-padding ion-text-center">
+                  <ion-label class="data app-font-mercurius-secondary-color"><ion-label *ngIf="shiftlinebidstatus=='Eligible' && vacationbidstatus=='Eligible';else statusElse"> Eligible </ion-label><ng-template #statusElse>{{vacationbidstatus}} </ng-template></ion-label>
+                </ion-col>
+            </ion-row>
+            </ng-template>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+            <ion-row  [class]="getIndicatorClassForCard(i)" class="round-timer" >
+              <ion-col size="12" class="ion-text-center" *ngIf="roundStatus==='Open'">
+
+                <ion-label id="timer-alert" class="content-data timer-alert" style="font-size: 18px;" *ngIf="  (convertNumber(minutes)<5 && convertNumber(hours)<1)"><b>{{hours}}:{{minutes}}:{{seconds}}</b></ion-label>
+                <ion-label class="content-data app-font-primary-color" style="font-size: 18px;" *ngIf=" (convertNumber(minutes)>4 || convertNumber(hours)>0)"><b>{{hours}}:{{minutes}}:{{seconds}}</b></ion-label>
+                <br>
+                <ion-label class="app-font-primary-color"><i>Time Remaining to Bid</i></ion-label>
+              </ion-col>
+              <ion-col size="12" class="ion-text-center" *ngIf="roundStatus==='Closed'">
+
+                <ion-label class="content-data " style="font-size: 18px;color: gray;" ><b>00:{{roundDuration}}:00</b></ion-label>
+                <br>
+                <ion-label style="color: gray;" class="app-font-primary-color"><i>Time Remaining to Bid</i></ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-grid>
+        </ion-slide>
+      </ion-slides>
+      <ion-grid style="margin-top: 5px;">
+      <ion-row>
+      <ion-col size="12" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-text-center ion-no-margin-bottom">
+        <div style="padding: 0%;margin-bottom: 0%;">
+          <ol style="margin: 0%;padding: 0%;">
+            <li [class]="getIndicatorClass(i)" (click)="schedule(i)" *ngFor="let all_SBP_rounds of all_SBP_rounds;let i=index" ></li>
+          </ol>
+        </div>
+      </ion-col>
+      </ion-row>
+      </ion-grid>
+    </ion-grid>
+
+
+
+    <ion-grid style="margin-bottom: 50px;" *ngIf="activeRoundData==true;">
+      <ion-row style="margin-top: 25px;">
+        <ion-col size="12" class="ion-text-center">
+          <ion-button shape="round"  class="app-button w-auto"  style="width: 80%;" (click)="selectBidLeave()">{{'Select Vacation Leave' | titlecase}}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 10px;">
+        <ion-col size="12" class="ion-text-center">
+          <ion-button shape="round"  class="app-button-secondary w-auto" (click)="skipBidLeave()" style="width: 80%;" >{{'Skip Vacation Leave' | titlecase}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+
+
+      <lib-ionic-pullup *ngIf="activeRoundData==false;" (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState" [toolbarTopMargin]="bid_summary_popup_margin" [minBottomVisible]="bid_summary_popup">
+
+        <ion-toolbar class="animate"  (click)="toggleFooter()" #ionDragFooter>
+          <ion-row style="width: 100%;" >
+            <ion-col size="12" class="ion-text-center"   *ngIf="footerState==0" >
+              <div style="width: 35px;height: 3px;border-radius: 5%;background-color: lightgray;margin-right: auto;margin-left: auto;margin-top: 5px;"></div>
+            </ion-col>
+            <ion-col size="12" class="text-align-right"  *ngIf="footerState==1" >
+              <ion-label   class="app-font-mercurius-secondary-color data " style="margin-right: 5px;" ><b>Close</b></ion-label>
+            </ion-col>
+            <ion-col size="12" class="ion-text-center" style="width: 100%;">
+              <ion-label class="content-data ion-text-center app-font-primary-color"><b>BID SUMMARY</b></ion-label>
+            </ion-col>
+          </ion-row>
+          <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+        </ion-toolbar>
+        <ion-content style="position: fixed !important;">
+          <ion-grid class=" bottom move container"   style="bottom: 0% !important;" id="bid-summary" >
+            <ion-grid style="height: 250px;">
+              <ion-row>
+                <ion-col size="7" class="ion-no-margin ion-no-padding" style="width: 100%;">
+                  <ion-label class="content-data  app-font-primary-color"><b>Shiftlines Bid</b></ion-label>
+                </ion-col>
+                <ion-col size="5" class="ion-no-margin ion-no-padding text-align-right" style="width: 100%;">
+                  <ion-label class="content-data text-align-right  app-font-primary-color" style="color:rgb(141, 140, 140)">
+                    <div>
+                      <div style="float:right;margin-right:5px"><ion-icon style="font-size:14px;padding-top: 2px;" name="arrow-forward-circle-outline"></ion-icon></div>
+                      <div style="float:right;">Scroll </div>
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-grid class="ion-no-margin ion-no-padding">
+                <div class="scrollTwo">
+                  <table>
+                    <tr class="ion-text-center">
+                      <td *ngFor="let bidSummary of bid_summary;let index=index" (click)="onClickBidSummary(1)">
+                        <div class="app-border-mercurius-secondary-color app-font-primary-color scrollWidth">
+                          <div class="scheduleBidSummary" >
+                            <ion-label>{{bidSummary.schedulename}}</ion-label><br>
+                          <ion-label>{{bidSummary.startDate|date:'M/d'}} - {{bidSummary.endDate|date:'M/d'}}</ion-label>
+                          </div>
+                          <div class="app-border-top-mercurius-secondary-color app-font-mercurius-secondary-color" style="background-color:lightgray;padding: 5px;">
+
+                          <div class="popupIndex app-font-mercurius-secondary-color"  (click)="myFunctionBidSummary(index)">
+                            <ion-label class="app-font-mercurius-secondary-color "><b  *ngIf="bidSummary.shiftline =='Not Selected'">{{bidSummary.shiftline}}</b><b *ngIf="bidSummary.shiftline !='Not Selected'">{{bidSummary.shiftline}} - {{bidSummary.getSeqId}}</b></ion-label>
+
+                            <span class="popuptextIndexLeft" id="myPopupIndex{{index}}" *ngIf="index==0;else popupElseBlock">
+                              <ion-label>Shiftline: {{bidSummary.shiftData}}</ion-label>
+                            </span>
+                            <ng-template #popupElseBlock>
+                              <span class="popuptextIndexRight" id="myPopupIndex{{index}}" *ngIf="index==(bid_summary.length -1) && index >1;else popupElseBlockTwo">
+                                <ion-label>Shiftline: {{bidSummary.shiftData}}</ion-label>
+                              </span>
+                            </ng-template>
+                            <ng-template #popupElseBlockTwo>
+                              <span class="popuptextIndex" id="myPopupIndex{{index}}" >
+                                <ion-label>Shiftline: {{bidSummary.shiftData}}</ion-label>
+                              </span>
+                            </ng-template>
+                          </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </ion-grid>
+              <ion-row>
+              <ion-col size="12" class="ion-no-padding ion-no-margin"  style="width: 100%;">
+                <ion-label class="content-data  app-font-primary-color"><b>Vacation Leave Bid</b></ion-label>
+              </ion-col>
+
+            </ion-row>
+            <ion-grid class="ion-no-margin ion-no-padding">
+              <div class="scrollTwo">
+                <table *ngIf="vacationBidSummary.length>0;else elseBlock">
+                  <tr class="ion-text-center">
+                    <td *ngFor=" let vacationSummary of vacationBidSummary;let vs=index" (click)="onClickBidSummary(vacationSummary.roundseq_id)">
+
+                      <div class="app-border-mercurius-secondary-color app-font-primary-color scrollWidthLeave" style="width: 100% auto;">
+                        <ion-label style="text-align: left;"><b>Round {{vacationSummary.roundseq_id}}</b></ion-label>
+                        <div class="scheduleBidSummary" *ngIf="vacationSummary.bidstatus==='No Vacation' || vacationSummary.bidstatus==='Skipped';else elseBlockVacation">
+                        <ion-label>{{vacationSummary.bidstatus|titlecase}}</ion-label>
+                        </div>
+                        <ng-template #elseBlockVacation>
+
+                          <ion-row style="padding:2px;padding-top: 5px;">
+                            <ion-col size="10" class="ion-text-center ion-content-justify-center">
+                            <div style="width: 100%;text-align: center !important;">
+                              <table style="width: 100%;text-align: center !important;">
+                                <tr style="width: 100%;text-align: center !important;">
+                                  <td  style="  display:         flex;
+                                  flex-wrap:       wrap;
+                                  justify-content: center;">
+
+                                        <div *ngFor="let date of vacationSummary.date;let t=index" style="margin-left:0px auto !important ;margin-right: 0px auto !important;">
+                                        <ion-label *ngIf="!checkSameDate(date.vacationstartdate,date.vacationenddate );"> {{ date.vacationstartdate | date:'M/d'}} - {{date.vacationenddate | date:'M/d'}}<b class="font-normal" *ngIf="vacationSummary.date.length!=(t+ + +1)" style="margin-right: 2px;">, </b> </ion-label>
+                                        <ion-label *ngIf="checkSameDate(date.vacationstartdate,date.vacationenddate );">{{date.vacationstartdate | date:'M/d'}} <b class="font-normal" *ngIf="vacationSummary.date.length!=(t+ + +1)" style="margin-right: 2px;">, </b></ion-label>
+                                      </div>
+
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                          </ion-col>
+                          <ion-col size="2" class="ion-text-center">
+                            <div style="margin-left: 10px;">
+                              <ion-label style="font-size: 16px;top: 50% !important;"><b   (click)="openCalendar(vs,vacationSummary)" class=" app-font-mercurius-secondary-color"><ion-icon name="calendar-outline"></ion-icon></b></ion-label>
+                            </div></ion-col>
+                          </ion-row>
+                          </ng-template>
+                        <div class="app-border-top-mercurius-secondary-color " style="background-color:lightgray;padding: 5px;">
+                          <ion-label>Total Leave Picked: <b>{{vacationSummary.vcationhours}} Hours </b></ion-label>
+                          <!-- <br>
+                          <ion-label><b>{{vacationSummary.vcationhours}} Hours</b></ion-label> -->
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </ion-grid>
+
+          </ion-grid>
+          <ion-grid  class=" data">
+            <ion-row class="ion-no-padding ion-no-margin ion-text-center" style="padding: 5px 15px">
+              <ion-col size="12" class="app-background-mercurius-primary-color" style="padding: 7px;">
+               <ion-label class="data content-data-14px"><b>Total Leave Picked: {{totalVacationHours}} <b *ngIf="totalVacationHours>0;else hoursTemplate">Hours</b></b></ion-label><ng-template #hoursTemplate>Hour</ng-template>
+              </ion-col>
+              <!-- <ion-col size="12" class="ion-no-padding ion-no-margin">
+                <ion-label class="data content-data-14px"><b>Total RDO: {{totalRdos}} <b  *ngIf="totalRdos>0;else rdoTemplate">Days</b></b></ion-label><ng-template #rdoTemplate>Day</ng-template>
+              </ion-col> -->
+            </ion-row>
+          </ion-grid>
+          </ion-grid>
+
+        </ion-content>
+      </lib-ionic-pullup>
+    </ion-grid>
+    <ng-template #elseBlock>
+        <ion-row class="ion-text-center data">
+          <ion-col size="12">
+            <ion-label>Data Not Available</ion-label>
+
+          </ion-col>
+          </ion-row>
+      </ng-template>
+</ion-grid>
+
+
+
+
+
+
+
+<!--  -->

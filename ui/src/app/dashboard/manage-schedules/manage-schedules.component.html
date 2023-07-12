@@ -1,0 +1,10 @@
+<div class="tab-wrapper">
+  <mat-tab-group>
+    <mat-tab label="Basic Watch Schedule" [disabled]="!getPermissionFunctionName('Basic Watch Schedule')">
+      <app-basic-watch-schedule></app-basic-watch-schedule>
+    </mat-tab>
+    <mat-tab label="Posted Watch Schedule" [disabled]="!getPermissionFunctionName('Posted Watch Schedule')">
+      <app-basic-watch-schedule></app-basic-watch-schedule>
+    </mat-tab>
+  </mat-tab-group>
+</div>

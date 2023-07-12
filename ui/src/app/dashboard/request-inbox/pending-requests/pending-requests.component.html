@@ -1,0 +1,143 @@
+<div class="list">
+    <table
+      #table
+      mat-table
+      matSort
+      matSortActive="requestSubmittedDate"
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      matSortDirection="asc"
+    >
+      <!-- s_name Column -->
+      <ng-container matColumnDef="requestType">
+        <th mat-header-cell *matHeaderCellDef  class="widh-150">Request Type 
+          <mat-form-field>
+          <mat-select (selectionChange)="filterChange($event)">
+            <mat-option [value]="">None</mat-option>
+            <mat-option
+              *ngFor="let inspectionType of filter"
+              [value]="inspectionType.requestType"
+              >{{ inspectionType.requestType }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field></th>
+        <td mat-cell *matCellDef="let element" >
+          {{ element.requestType }}
+        </td>
+      </ng-container>
+
+      <!-- s_time Column -->
+      <ng-container matColumnDef="leaveStartDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          
+        >
+          Start Date
+        </th>
+        <td mat-cell *matCellDef="let element" >
+            {{ element.leaveStartDate | date : "MM/dd/YYYY" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="leaveEndDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          
+        >
+          End Date
+        </th>
+        <td mat-cell *matCellDef="let element" >
+            {{ element.leaveEndDate | date : "MM/dd/YYYY" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="shiftTimeChangeFrom">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          
+        >
+          Change From
+        </th>
+        <td mat-cell *matCellDef="let element" >
+         <span *ngIf="element?.shiftChangeFromDate"> {{ element?.shiftChangeFromDate | date: "MM/dd/YYYY"  }} ({{ element.shiftTimeChangeFrom?.toString().padStart(4, '0')  }})</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="shiftTimeChangeTo">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          
+        >
+          Change To
+        </th>
+        <td mat-cell *matCellDef="let element" >
+          <span *ngIf="element?.shiftChangeToDate">{{ element?.shiftChangeToDate | date: "MM/dd/YYYY" }} ({{ element.shiftTimeChangeTo?.toString().padStart(4, '0')  }})</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="requestSubmittedDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+
+          class="text-center"
+        >
+        Submitted Date
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          {{ element.requestSubmittedDate  | date : "MM/dd/YYYY"}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="empId">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+        Submitted By
+        </th>
+        <td mat-cell *matCellDef="let element" >
+          {{ element.empLname  }}, {{ element.empFname  }}
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element" class="widh-77">
+          <div class="d-flex justify-content-center gap">
+            <button mat-mini-fab color="green" aria-label="Example icon button with a menu icon" title="View Details" (click)="viewRequests(element)">
+                <mat-icon class="material-icons-outlined" style="margin-top: 3px;">visibility</mat-icon>
+              </button>
+            <button mat-mini-fab color="green" aria-label="Example icon button with a menu icon" title="Approve" (click)="aproveRequests(element)">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-mini-fab color="red" aria-label="Example icon button with a menu icon" title="Deny" (click)="denyRequests(element)">
+                <mat-icon>close</mat-icon>
+              </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      appStylePaginator
+      (page)="pendingEvent($event)"
+      [length]="length"
+      [pageSize]="pageSize"
+      [disabled]="disabled"
+      [showFirstLastButtons]="showFirstLastButtons"
+      [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+      [hidePageSize]="hidePageSize"
+      [pageIndex]="pageIndex"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>

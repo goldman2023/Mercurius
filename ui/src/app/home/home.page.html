@@ -1,0 +1,120 @@
+
+  <ion-content style="overflow: hidden;height: 100%;position: absolute;">
+
+<ion-grid class="app-primary-background-color" style="margin:0;padding: 8% 0% 0% 0%;position: fixed;width: 100%;" >
+    <ion-grid  style="height:100%;padding:0%;margin:0% -1% -1% -1%;background-color:white;border-radius:70% 70% 0 0/ 30% 30% 0 0;border-width: 0;border: 0;">
+
+
+    <ion-grid class="straightline-font-size" style="height: 100%;" >
+
+      <ion-row style="margin-top: 7%;"  class="ion-justify-content-center ion-no-padding ion-no-margin " id="title-straightline" ><p class="app-title "><b class="app-font-primary-color ">StraightLines</b><b class="app-font-secondary-color">.io</b></p></ion-row>
+      <ion-row class="ion-no-margin ion-no-padding">
+        <ion-col size="5.5" class="ion-no-padding ion-no-margin">
+          <ion-row class="ion-no-padding">
+            <ion-col size="3"></ion-col>
+            <ion-col size="9" >
+            <div style="height: 2px;" class="app-secondary-background-color"></div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-no-padding">
+            <ion-col size="5"></ion-col>
+            <ion-col size="7" >
+            <div style="height: 2px;" class="app-secondary-background-color"></div>
+            </ion-col>
+          </ion-row >
+          <ion-row class="ion-no-padding">
+            <ion-col size="7"></ion-col>
+            <ion-col size="5" >
+            <div style="height: 2px;" class="app-secondary-background-color"></div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="1" class="ion-no-padding ion-no-margin">
+          <ion-img id="home-page-header mercurius-logo " class="ion-no-padding ion-no-margin" src="assets/img/mercurius-logo.png"></ion-img>
+        </ion-col>
+        <ion-col size="5.5" class="ion-no-padding ion-no-margin">
+          <ion-row class="ion-no-padding">
+            <ion-col size="9" >
+            <div style="height: 2px;" class="app-primary-background-color"></div>
+            </ion-col>
+            <ion-col size="3"></ion-col>
+          </ion-row>
+          <ion-row class="ion-no-padding">
+            <ion-col size="7" >
+            <div style="height: 2px;" class="app-primary-background-color"></div>
+          </ion-col>
+          <ion-col size="5"></ion-col>
+          </ion-row>
+          <ion-row class="ion-no-padding">
+            <ion-col size="5" >
+            <div style="height: 2px;" class="app-primary-background-color"></div>
+          </ion-col>
+          <ion-col size="7"></ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row  class="ion-justify-content-center">
+          <ion-img class="cal-img"  alt="" src="assets/img/home-page-header.png"></ion-img>
+      </ion-row>
+      <ion-row  id="content"  class="ion-justify-content-center ion-text-center ">
+          <p class="app-font-secondary-color " ><b class="app-font-primary-color">E</b>very <b class="app-font-primary-color">E</b>mployee <b class="app-font-primary-color">D</b>eserves <b class="app-font-primary-color">D</b>esirable <b class="app-font-primary-color">M</b>oves</p>
+      </ion-row>
+
+      <ion-row  class="ion-justify-content-center">
+        <ion-button shape="round"  class="app-button" id="get-start"  (click)="start()" >Get Started</ion-button>
+      </ion-row>
+      <!-- <video [src]='safeURL' width="560" height="315" frameborder="0" ></video> -->
+
+      <ion-row (click)="video()" class="ion-justify-content-center  app-font-black-color" style="margin-top: 2%;font-size: 14px;"
+      ><ion-label>What is Straightlines.io?</ion-label></ion-row>
+      <ion-row  class="ion-justify-content-center app-font-black-color" style="margin-top: 2%;font-size: 14px;"
+       (click)="onClickFeedback()">
+       <ion-label>Send  Feedback </ion-label><ion-icon style="font-size:20px;margin-left: 1%;" name="mail-outline"></ion-icon>
+      </ion-row>
+      <!-- <ion-col></ion-col> -->
+      </ion-grid>
+
+
+  </ion-grid>
+</ion-grid>
+</ion-content>
+<ion-footer style="position: fixed;bottom: 0 !important;">
+<ion-row  id="footer-home-page" class="app-primary-background-color app-font-primary-color" style="margin-left:0%;padding-left: 0%;left:0%  !important;bottom: 0;height: 180px;"  >
+
+  <ion-img  alt="AI & ML" style=" opacity: 0.8;" src="assets/aiml1.png" class="image-1"></ion-img>
+  <ion-img  alt="AI & ML" src="assets/aiml2.png" style=" opacity: 0.8;"  class="image-2"></ion-img>
+  <ion-img  alt="AI & ML" src="assets/aiml3.png"   class="image-3" style=" opacity: 0.8;"></ion-img>
+  <div   class="on-image-text ">
+    <p class="ion-text-center" id="ALMI-text" style="font-size: 20px;padding-top: 3%;">
+       Cyclical Scheduling <br>powered by One Click
+    </p>
+  <ion-row class="ion-justify-content-center ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom">
+      <ion-col size="6" id="footer-text " class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom">
+        <i><p  id="footer-text-size"> Shift Assignments </p></i>
+      </ion-col>
+      <ion-col size="6" id="footer-text " class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom">
+        <i><p style="float: right;margin-right: 3%;" id="footer-text-size">  Days-Off Assignment</p></i>
+      </ion-col>
+  </ion-row>
+  <ion-row class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom">
+    <ion-col id="footer-text" size="6" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom">
+      <i><p style="float: left;" id="footer-text-size"> Schedule Generation </p></i>
+    </ion-col>
+    <ion-col id="footer-text " size="6" class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom">
+      <i><p style="float: right;margin-right: 3%;" id="footer-text-size">  Export & Visualize</p></i>
+    </ion-col>
+  </ion-row>
+  <ion-row id="footer-text" class="ion-justify-content-center ion-no-padding-top ion-no-padding-bottom ion-no-margin-top ion-no-margin-bottom">
+    <a href="http://www.mercuriusinc.com" class="ion-text-center" style="color: white;text-decoration: none;text-decoration: underline;" id="footer-text-size">&copy; Copyright by Mercurius Inc.</a>
+  </ion-row>
+    <!-- <p class="ion-text-right" style="margin-right: 5%;"><i>
+      Working time of the week - Days Off</i>
+    </p> -->
+  </div>
+
+
+</ion-row>
+
+</ion-footer>

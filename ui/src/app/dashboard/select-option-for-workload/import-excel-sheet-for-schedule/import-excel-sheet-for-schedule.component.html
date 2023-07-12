@@ -1,0 +1,14 @@
+<ion-grid>
+<div >
+  <ion-row class="app-font-primary-color content-data content-center ion-justify-content-center">
+  <ion-input class="app-font-primary-color" type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".xlsx"></ion-input>
+</ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button class="app-button" style="width: 60%;margin-top: 6%;margin-bottom: auto;"
+      shape="round"  (click)="submit()">Generate</ion-button>
+    </ion-col>
+  </ion-row>
+
+</div>
+</ion-grid>

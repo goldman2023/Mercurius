@@ -1,0 +1,249 @@
+<ion-grid class="ion-no-margin ion-no-padding">
+  <div class="d-block d-md-none">
+    <ion-grid
+      class="ion-no-margin content-data-14px app-background-mercurius-secondary-color"
+      style="height: 25px"
+    ></ion-grid>
+    <ion-grid
+      class="ion-no-margin content-data-14px"
+      style="height: 10px"
+    ></ion-grid>
+  </div>
+  <div
+    class="text-align-left d-none d-md-block"
+    style="background-color: #f6aa3b; padding-left: 10px"
+  >
+    <img
+      src="assets/img/StraightLines-tagline-reg-2.png"
+      width="140"
+      height="40"
+      class="vertical-align-middle"
+      alt=""
+    />
+  </div>
+  <ion-grid
+    class="ion-no-margin content-data-14px app-background-mercurius-primary-color d-md-none"
+  >
+    <ion-row style="margin-top: 7px 0px 35px 0px" class="ion-text-center">
+      <ion-col size="1"></ion-col>
+      <ion-col
+        size="10"
+        class="ion-text-center"
+        style="width: 80%; text-align: center !important"
+      >
+        <ion-img
+          class="ion-text-center"
+          style=" width: 100%; text-align: center; height: auto; padding: 0px 0px 5px 0px"
+          alt="StraightLines tagline"
+          src="assets/img/StraightLines-tagline.png"
+        ></ion-img>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div
+    class="ion-text-center ion-justify-content-center d-block d-md-none dashboard"
+  >
+    <!-- <ion-row
+      class="ion-text-center content-data-14px ion-justify-content-center"
+      style="padding: 45px 0px 12px 0px"
+    >
+      <ion-col size="12" class="ion-no-margin ion-no-padding ion-text-center">
+        <ion-label style="font-size: 16px"></ion-label>
+      </ion-col>
+    </ion-row> -->
+
+     <div class="mobile-dashboard">
+     
+      <ion-button
+        class="dashboard-button "
+        shape="round"
+        (click)="start()"
+        >  <button (click)="start()" class="btn btn-default btn-circle btn-lg">
+          <ion-img class="dashboard-btn-icon"
+            alt="Generate Schedule"
+            src="assets/img/Generate Schedule Icon 3x.png"
+          ></ion-img>
+        </button><b>Generate Schedule</b></ion-button
+      >
+     </div>
+     <div class="mobile-dashboard">
+            
+          <ion-button
+            class="dashboard-button "
+            shape="round"
+            (click)="bidding()"
+            alt="Bidding"
+            > <button
+            type="button"
+            (click)="bidding()"
+            class="btn btn-default btn-circle btn-lg"
+          >
+            <ion-img class="dashboard-btn-icon" alt="Bidding" src="assets/img/BiddingIcon3x.png"></ion-img>
+          </button><b>Bidding</b></ion-button
+          >
+        </div>
+        <div class="mobile-dashboard">
+        
+          <ion-button
+            class="dashboard-button "
+            shape="round"
+            (click)="manageSchedule()"
+            alt="Bidding"
+            >  <button
+            type="button"
+            (click)="manageSchedule()"
+            class="btn btn-default btn-circle btn-lg"
+          >
+            <ion-img class="dashboard-btn-icon" alt="Bidding" src="assets/img/BiddingIcon3x.png"></ion-img>
+          </button><b>Manage Schedule</b></ion-button
+          >
+        </div>
+        <div class="mobile-dashboard">
+          
+          <ion-button
+            class="dashboard-button"
+            shape="round"
+            (click)="myWorksheet()"
+            alt="Bidding"
+            ><button
+            type="button"
+            (click)="myWorksheet()"
+            class="btn btn-default btn-circle btn-lg"
+          >
+            <ion-img class="dashboard-btn-icon" alt="Bidding" src="assets/img/BiddingIcon3x.png"></ion-img>
+          </button><b>My Worksheet</b></ion-button
+          >
+        </div>
+  </div>
+
+  <div class="d-none d-md-block ">
+    <div class="dashboards py-4">
+      <div class="dashbord-links">
+        <!-- <div class="btn">
+          <a [routerLink]="['./inbox']" routerLinkActive="router-link-active">
+            <div class="links">
+              <img src="assets/icon/worksheet.png" alt="Daily Worksheet" />
+              <span>Inbox</span>
+            </div>
+          </a>
+        </div> -->
+        <div class="btn"   >
+          <div class="links" (click)="inbox()" [ngClass]="{'disabled' : !getPermission('Inbox')}">
+            <img src="assets/icon/worksheet.png" alt="Inbox" />
+            <span>Inbox</span>
+          </div>
+        </div>
+        <div class="btn"   >
+          <div class="links" (click)="start()" [ngClass]="{'disabled' : !getPermission('Generate Schedule')}">
+            <img height="35" src="assets/icon/scheduleb.png" alt="" />
+            <span>Generate Schedule</span>
+          </div>
+        </div>
+        <div class="btn">
+          <div class="links" (click)="bidding()"  [ngClass]="{'disabled' : !getPermission('Bidding')}">
+            <img height="35" src="assets/icon/bid-scheduleb.png" alt="Bid Schedule" />
+            <span>Assign / Bid Schedule</span>
+          </div>
+        </div>
+        <div class="btn" >
+          <a [routerLink]="getPermission('Manage Schedule') ? [ './manage-schedules'] : './'" routerLinkActive="router-link-active">
+            <div class="links"  [ngClass]="{'disabled' : !getPermission('Manage Schedule')}">
+
+              <img height="35" src="assets/icon/hammer.png" alt="Manage Schedule" />
+              <span>Manage Schedule</span>
+            </div>
+          </a>
+        </div>
+        <div class="btn" >
+          <a [routerLink]="getPermission('Daily Worksheet') ? ['./daily-worksheet/schedule-worksheet'] : './'" routerLinkActive="router-link-active">
+            <div class="links" [ngClass]="{'disabled' : !getPermission('Daily Worksheet')}">
+              <img src="assets/icon/worksheet.png" alt="Daily Worksheet" />
+              <span>Daily Worksheet</span>
+            </div>
+          </a>
+        </div>
+        <div class="btn"  >
+          <div class="links" (click)="myWorksheet()" [ngClass]="{'disabled' : !getPermission('My Worksheet') }">
+             <img src="assets/icon/worksheet.png" alt="Daily Worksheet" />
+              <span>My Worksheet</span>
+          </div>
+        </div>
+        <div class="btn">
+          <a [routerLink]="getPermission('Admin') ? ['./admin'] : './'" routerLinkActive="router-link-active">
+            <div class="links" [ngClass]="{'disabled' : !getPermission('Admin')}">
+              <img src="assets/icon/unnamedb.png" alt="Admin" />
+              <span>Admin</span>
+            </div>
+          </a>
+        </div>
+        <div class="btn" >
+          <!-- [routerLink]="['/routePath']" routerLinkActive="router-link-active" -->
+          <div class="links " [ngClass]="{'disabled' : !getPermission('Reports')}">
+            <img height="35" src="assets/icon/reportsb.png" alt="Reports" />
+            <span>Reports</span>
+          </div>
+        </div>
+        <div class="btn" >
+          <!-- [routerLink]="['/routePath']" routerLinkActive="router-link-active" -->
+          <div class="links " [ngClass]="{'disabled' : !getPermission('Requests')}">
+            <img height="35" src="assets/icon/requestb.png" alt="Requests" />
+            <span>Requests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-grid>
+<div class="d-none d-md-block text-center">
+  <div class="shift_info">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box">
+            <h2>Upcoming Next</h2>
+            <p>Custom Shift Features to be add in the schedule.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box">
+            <h2>Tips Of The Day</h2>
+            <p>You can delete shift by category</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <button
+  type="button"
+  (click)="start()"
+  class="btn btn-dark btn-circle btn-lg rounded-circle bg-yellow"
+  alt="Generate Schedule"
+>
+  <img alt="Generate Schedule" height="35" src="assets/icon/scheduleb.png" />
+</button>
+<button
+  type="button"
+  (click)="bidding()"
+  class="btn btn-dark btn-circle btn-lg rounded-circle bg-yellow"
+  alt="Bidding"
+>
+  <img alt="Bidding" height="35" src="assets/icon/bid-scheduleb.png" />
+</button> -->
+</div>
+<ion-grid
+  id="footer"
+  class="content-data-14px app-background-mercurius-primary-color d-none-md p-abs-bottom"
+  style="padding: 15px 0px 17px 0px"
+>
+  <ion-row class="ion-text-center ion-justify-content-center">
+    <ion-col size="12" style="font-size: 16px">
+      <ion-label
+        class="content-data-14px"
+        style="font-size: 14px !important"
+        >Bid Shifts, Vacations<b> Anytime Anywhere </b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+</ion-grid>

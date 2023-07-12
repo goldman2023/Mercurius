@@ -1,0 +1,73 @@
+<form class="area-form" [formGroup]="manageArea" (ngSubmit)="addArea()">
+  <div class="head d-flex justify-content-between area">
+    <h2 mat-dialog-title>Add Area</h2>
+    <mat-icon mat-dialog-close > close </mat-icon>
+  </div>
+  <mat-dialog-content class="mat-typography">
+    <div class="from-part">
+      <div class="level">
+        <label><span class="required-asterisk">*</span> Area Name: </label>
+      </div>
+      <div class="level">
+        <input
+          id="areaname"
+          type="text"
+          formControlName="areaname"
+          placeholder="Enter Area Name"
+          required
+          [ngClass]="{
+            warning_input:
+              (manage_area_name.invalid &&
+                (manage_area_name.dirty || manage_area_name.touched)) ||
+              (manage_area_name.errors && manage_area_name.touched)
+          }"
+        />
+        <div
+          *ngIf="
+            manage_area_name.invalid &&
+            (manage_area_name.dirty || manage_area_name.touched)
+          "
+          class="text-danger"
+        >
+          <div *ngIf="manage_area_name.errors">Area name is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="from-part">
+      <div class="level">
+        <label
+          ><span class="required-asterisk">&nbsp;</span> Area Description:
+        </label>
+      </div>
+      <div class="level">
+        <input
+          id="areadescription"
+          type="text"
+          formControlName="areadescription"
+          placeholder="Enter Area Description"
+        />
+      </div>
+    </div>
+    <div class="alert alert-success" *ngIf="addSuccess">
+      <p>Role has been added successfully !!</p>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button
+      mat-button
+      mat-raised-button
+      [disabled]="manageArea.invalid"
+      type="submit"
+    >
+      Save
+    </button>
+    <button
+      mat-button
+      mat-raised-button
+      type="button"
+      (click)="manageArea.reset()"
+    >
+      Reset
+    </button>
+  </mat-dialog-actions>
+</form>

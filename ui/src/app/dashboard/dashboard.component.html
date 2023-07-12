@@ -1,0 +1,13 @@
+<div class="d-block d-md-none">
+  <app-blank-header></app-blank-header>
+</div>
+<div class="d-none d-md-block">
+  <app-web-header></app-web-header>
+  <div class="w-100 container">
+    <app-blank-header></app-blank-header>
+  </div>
+</div>
+<div class="stlines-scrollable inner-scroll scroll-y" (scroll)="onScroll($event)" >
+    <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>

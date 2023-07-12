@@ -1,0 +1,267 @@
+<ion-header>
+  <ion-row
+    class="ion-no-margin-top ion-no-padding-top ion-no-margin-bottom ion-no-padding-bottom position-relative"
+  >
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label
+        class="app-font-primary-color app-font-size-14px ion-text-center"
+        ><b>New Shift</b></ion-label
+      >
+    </ion-col>
+    <ion-col size="2" class="text-end">
+      <ion-label
+        style="cursor: pointer; font-size: 12px"
+        class="app-font-mercurius-secondary-color ion-text-center"
+        (click)="dismiss()"
+        ><b>Close</b></ion-label
+      >
+    </ion-col>
+  </ion-row>
+  <mat-divider class="app-background-mercurius-secondary-color"></mat-divider>
+</ion-header>
+<ion-content>
+  <ion-grid class="ion-no-margin">
+    <ion-row class="data font-size-14px">
+      <ion-col size="3"></ion-col>
+      <ion-col size="8" style="text-align: right">
+        <ion-label>Shift Category Start Times </ion-label>
+      </ion-col>
+      <ion-col size="1">
+        <ion-img
+          (click)="shiftCategoryStartTime()"
+          style="height: 100%; width: 100%"
+          class="ion-no-margin-top ion-no-margin-bottom"
+          alt="clock"
+          src="assets/img/clock.png"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-grid style="padding: auto">
+      <ion-item class="app-font-secondary-color">
+        <ion-label class="app-font-secondary-color"
+          >Select Start Time</ion-label
+        >
+        <ion-datetime
+          presentation="time"
+          displayFormat="h:mm A"
+          [(ngModel)]="start_time"
+          (ionChange)="changeShiftTime()"
+          [showDefaultButtons]="true"
+          doneText="Save"
+          cancelText="Reset"
+          color="primary"
+        >
+        </ion-datetime>
+      </ion-item>
+      <p
+        *ngIf="status_text"
+        class="data text-align-left app-font-red-color"
+      >
+        <ion-icon name="alert-circle-outline"></ion-icon> {{status_text}}
+      </p>
+      <ion-item class="app-font-secondary-color">
+        <ion-label class="app-font-secondary-color"
+          >Select Shift Alias</ion-label
+        >
+        <ion-select
+          name="shiftAlias"
+          [(ngModel)]="addnewShiftDefinition.sh_category"
+          interface="popover"
+        >
+          <ion-select-option *ngFor="let s of allShiftName" value="{{s}}"
+            >{{s}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item class="app-font-secondary-color">
+        <ion-label class="app-font-secondary-color">Shift Length</ion-label>
+        <ion-label class="text-align-right" style="color: gray"
+          >{{shift_duration}} hours</ion-label
+        >
+        <!-- <ion-select [disabled]="true" [(ngModel)]="shift_duration" class="app-font-secondary-color"  interface="popover">
+        <ion-select-option value="8">8 hours</ion-select-option>
+        <ion-select-option value="9">9 hours</ion-select-option>
+        <ion-select-option value="10">10 hours</ion-select-option> -->
+        <!-- </ion-select> -->
+      </ion-item>
+      <!-- #TODO -->
+      <ion-item class="app-font-secondary-color">
+        <ion-label class="app-font-secondary-color">Activation Date</ion-label>
+        <div class="d-flex align-items-center" (click)="picker.open()">
+          <input
+                id="user_shift_activation_date"
+                type="text"
+                placeholder="mm/dd/yyyy"
+                [min]="today"
+                [max]=""
+                required
+                class="shift_calendar"
+                (dateChange)="changeDate('activation',$event)"
+                [matDatepicker]="picker"
+                
+          />
+          <mat-icon>calendar_month</mat-icon>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </ion-item>
+      <ion-item class="app-font-secondary-color">
+        <ion-label class="app-font-secondary-color">Expiration Date</ion-label>
+        <div class="d-flex align-items-center" (click)="picker1.open()">
+          <input
+                id="user_shift_activation_date"
+                type="text"
+                placeholder="mm/dd/yyyy"
+                required
+                [min]="activation_date"
+                [max] = ""
+                [matDatepicker]="picker1"
+                (dateChange)="changeDate('expiration',$event)"
+                class="shift_calendar"
+                
+          />
+          <mat-icon>calendar_month</mat-icon>
+          <mat-datepicker #picker1></mat-datepicker>
+        </div>
+      </ion-item>
+    </ion-grid>
+    <ion-grid>
+      <ion-row class="ion-text-center p-0">
+        <ion-col
+          size="12"
+          lines="none"
+          id="shift-alias"
+          style="text-align: right"
+        >
+          <ion-label style="text-align: right; float: right; font-size: 16px"
+            ><ion-icon
+              (click)="shiftCategoryInfo()"
+              class="pe-none"
+              name="information-circle-outline"
+            ></ion-icon
+          ></ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-row
+      class="ion-border-2px-primary-color"
+      style="margin: 0% 7% 0% 7%; border-radius: 15px"
+    >
+      <ion-col size="6">
+        <ion-row class="data ion-text-center ion-justify-content-center">
+          <ion-label>Start</ion-label>
+        </ion-row>
+
+        <ion-row
+          class="content-data-black-color font-size-14px font-normal ion-text-center ion-justify-content-center"
+        >
+          <label>{{start_time_summary}}</label>
+        </ion-row>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-row
+          class="data ion-text-center font-size-14px ion-justify-content-center"
+        >
+          <ion-label>End</ion-label>
+        </ion-row>
+        <ion-row
+          class="content-data-black-color font-normal ion-text-center font-size-14px ion-justify-content-center"
+        >
+          <label>{{end_time}}</label>
+        </ion-row>
+      </ion-col>
+      <ion-col size="6">
+        <ion-row
+          class="data font-size-14px ion-text-center ion-justify-content-center"
+        >
+          <ion-label>Category</ion-label>
+        </ion-row>
+        <ion-row class="ion-text-center">
+          <ion-img
+            *ngIf="s_category=='M'"
+            class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"
+            alt="Mid"
+            style="width: 13px; height: 13px; position: relative; margin: auto"
+            src="assets/img/night.png"
+          ></ion-img>
+          <ion-img
+            *ngIf="s_category=='D'"
+            class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"
+            alt="Day"
+            style="width: 13px; height: 13px; position: relative; margin: auto"
+            src="assets/img/morning.png"
+          ></ion-img>
+          <ion-img
+            *ngIf="s_category=='E'"
+            class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"
+            alt="Eve"
+            style="width: 13px; height: 13px; position: relative; margin: auto"
+            src="assets/img/evening.png"
+          ></ion-img>
+          <ion-img
+            *ngIf="s_category=='DE'"
+            class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"
+            alt="Day-Eve"
+            style="width: 16px; height: 18px; position: relative; margin: auto"
+            src="assets/img/morning-evening.png"
+          ></ion-img>
+          <ion-img
+            *ngIf="s_category=='EM'"
+            class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"
+            alt="Eve-Mid"
+            style="width: 16px; height: 18px; position: relative; margin: auto"
+            src="assets/img/evening-night.png"
+          ></ion-img>
+          <ion-img
+            *ngIf="s_category=='MD'"
+            class="ion-no-padding-top ion-no-padding-bottom ion-no-margin-bottom"
+            alt="Mid-Day"
+            style="width: 16px; height: 18px; position: relative; margin: auto"
+            src="assets/img/night-morning.png"
+          ></ion-img>
+        </ion-row>
+      </ion-col>
+      <ion-col size="6">
+        <ion-row
+          class="data ion-text-center font-size-14px ion-justify-content-center"
+        >
+          <ion-label>Alias</ion-label>
+        </ion-row>
+        <ion-row
+          class="content-data-black-color ion-text-center font-size-14px ion-justify-content-center"
+        >
+          <label>
+            <b class="font-normal">{{addnewShiftDefinition.sh_category}}</b>
+          </label>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-grid>
+      <ion-row class="ion-justify-content-around">
+        <ion-col class="ion-text-center d-flex justify-content-end pe-4">
+          <ion-button
+            class="app-button"
+            style="width: 60%; float: left"
+            [disabled]="checkValidation()"
+            shape="round"
+            (click)="set()"
+            >Save</ion-button
+          >
+          
+        </ion-col>
+        <ion-col class="ion-text-center d-flex justify-content-start ps-2">
+          <ion-button
+            class="app-button"
+            style="width: 60%; float: right"
+            shape="round"
+            (click)="ngOnInit()"
+            >Reset</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-grid>
+</ion-content>

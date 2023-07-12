@@ -1,0 +1,165 @@
+.manage-area ::ng-deep.mat-dialog-title {
+  font: 500 20px/22px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.head .mat-icon {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+}
+
+.mat-typography label {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.mat-typography input {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 15px;
+  background-color: #f4f5f7;
+  border: none;
+  border-radius: 3px;
+  outline: 3px solid rgb(206, 206, 206);
+}
+
+.mat-dialog-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  padding-bottom: 10px;
+}
+
+table {
+  overflow: auto;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 510px;
+  margin-top: 50px;
+
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+  -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+  -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.11);
+}
+
+.manage-area ::ng-deep .mat-sort-header-container {
+  justify-content: center;
+}
+
+.manage-area ::ng-deep table tr th,
+table tr th:first-child .mat-sort-header-container {
+  justify-content: flex-start;
+  text-align: center;
+}
+
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type {
+  padding-left: 0px;
+}
+
+th.mat-header-cell:last-of-type,
+td.mat-cell:last-of-type {
+  padding-right: 0px;
+}
+
+table tr td,
+table tr td .mat-button {
+  font-size: 16px;
+  text-align: center;
+}
+
+.manage-area ::ng-deep .mat-form-field-infix {
+  width: auto;
+}
+
+.mat-header-row {
+  height: 47px;
+}
+
+.mat-header-cell {
+  background-color: #f7aa05;
+  font-size: 18px;
+  text-align: center;
+  width: 33.333333333%;
+}
+
+.mat-cell {
+  width: 33.333333333%;
+}
+
+.mat-column-action {
+  text-align: center;
+}
+
+.action {
+  gap: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.mat-row {
+  text-align: center;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #fff;
+}
+
+.top-bar {
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.add-new {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-raised-button {
+  border-radius: 20px;
+  color: #fff;
+  min-width: 145px;
+  padding: 3px 16px;
+  background-color: #ff6700;
+  box-shadow: 1px 1px 1px 1px #ffaa00;
+  text-align: center;
+}
+
+.add-button p {
+  margin: 0px;
+  font-size: 18px;
+  padding: 0 10px;
+  color: #fff;
+}
+
+.add-button .mat-icon {
+  color: #fff;
+  border-radius: 50%;
+  background-color: #ff6700;
+}
+
+.list {
+  margin: 0 auto;
+}
+::ng-deep button.mat-menu-item{
+  height: 36px;
+  line-height: 36px;
+}
+::ng-deep .mat-menu-panel {
+  min-height: 52px;
+}

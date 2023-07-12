@@ -1,0 +1,108 @@
+
+<div class="permissions">
+  <div class="list">
+    <div class="part">
+      <div class="top-bar">
+        <div class="select-box">
+          <h3>Roles :</h3>
+          <mat-form-field [floatLabel]="'never'" appearance="fill">
+            <mat-select
+              placeholder="Select Role"
+              [(value)]="selected"
+              (selectionChange)="filterChange($event)"
+            >
+              <mat-option *ngFor="let role of activeRoles" [value]="role.id">
+                {{ role.role_name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="example-action-buttons">
+          <button
+            mat-button
+            *ngIf="openAll == false"
+            (click)="accordion.openAll(); openAll = true"
+          >
+            Expand All
+          </button>
+          <button
+            mat-button
+            *ngIf="openAll == true"
+            (click)="accordion.closeAll(); openAll = false"
+          >
+            Collapse All
+          </button>
+        </div>
+      </div>
+        <img *ngIf="Permissions.length === 0" class="loader" src="../../../../../assets/img/loading.gif">
+      <div *ngIf="Permissions.length > 0" class="permissions_actions">
+        <mat-accordion multi>
+          <mat-expansion-panel expanded opened *ngFor="let item of Permissions">
+            <mat-expansion-panel-header>
+              <div class="schedule">
+                <mat-checkbox
+                  class="example-margin"
+                  [checked]="isCheckedAnyChild(item)"
+                  (change)="selectAll(item, $event)"
+                  (keydown)="$event.stopPropagation()"
+                  (click)="$event.stopPropagation()"
+                >
+                  {{ item.modu_name }}
+                </mat-checkbox>
+              </div>
+            </mat-expansion-panel-header>
+
+            <div class="options">
+              <ul class="module-ul">
+                <li class="module-class" *ngFor="let subtask of item.actions">
+                  <mat-accordion multi>
+                    <mat-expansion-panel expanded opened >
+                      <mat-expansion-panel-header>
+                        <div class="schedule">
+                          <mat-checkbox
+                            class="example-margin"
+                            [checked]="isCheckedAnyChildFunctions(subtask)"
+                            (change)="selectAllChild(subtask, $event)"
+                            (keydown)="$event.stopPropagation()"
+                            (click)="$event.stopPropagation()"
+                          >
+                            {{ subtask.func_name}}
+                          </mat-checkbox>
+                        </div>
+                      </mat-expansion-panel-header>
+          
+                      <div class="options">
+                        <ul class="submodule-ul">
+                          <li class="submodule-class" *ngFor="let func_array_item of subtask.func_name_arry">
+                            <mat-checkbox 
+                              [(ngModel)]="func_array_item.status"
+                            >
+                              {{ func_array_item.act_name }}
+                            </mat-checkbox>
+                          </li>
+                        </ul>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </li>
+              </ul>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div class="manage-area">
+          <button
+            mat-button
+            mat-raised-button
+            type="submit"
+            (click)="getPermissionActionName('Save Permissions') ? permissionForm() : false"
+            cdkFocusInitial
+            [disabled]="!getPermissionActionName('Save Permissions')"
+          >
+            Save
+          </button>
+          <button mat-button mat-raised-button cdkFocusInitial (click)="reset()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,161 @@
+
+.dashboard-button {
+  font-size: 17px !important;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  position: relative;
+  top: 25px;
+  width: 20rem;
+  --background: #ff6700;
+  --box-shadow: 0px 2px 10px #f5aa41;
+}
+
+#button1,
+#button2 {
+  margin-top: 15px !important;
+}
+
+@media (min-width: 700px) and (orientation: landscape) {
+  #button2 {
+    margin-top: 25px !important;
+  }
+  #button1 {
+    margin-top: 25px !important;
+  }
+}
+@media (min-width: 750px) and (orientation: landscape) {
+  #button1 {
+    margin-top: 50px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 15px !important;
+  }
+}
+@media (min-width: 800px) and (orientation: landscape) {
+  #button1 {
+    margin-top: 50px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 25px !important;
+  }
+}
+@media (min-width: 826px) and (orientation: landscape) {
+  #button1 {
+    margin-top: 100px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 25px !important;
+  }
+}
+@media (min-width: 855px) and (orientation: landscape) {
+  #button1 {
+    margin-top: 100px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 25px !important;
+  }
+}
+
+@media (min-width: 900px) and (orientation: landscape) {
+  #button1 {
+    margin-top: 100px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 25px !important;
+  }
+}
+
+@media (min-height: 700px) and (orientation: portrait) {
+  #button2 {
+    margin-top: 25px !important;
+  }
+  #button1 {
+    margin-top: 25px !important;
+  }
+}
+@media (min-height: 750px) and (orientation: portrait) {
+  #button1 {
+    margin-top: 50px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 15px !important;
+  }
+}
+@media (min-height: 800px) and (orientation: portrait) {
+  #button1 {
+    margin-top: 50px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 25px !important;
+  }
+}
+@media (min-height: 826px) and (orientation: portrait) {
+  #button1 {
+    margin-top: 100px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 25px !important;
+  }
+}
+@media (min-height: 855px) and (orientation: portrait) {
+  #button1 {
+    margin-top: 100px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 25px !important;
+  }
+}
+
+@media (min-height: 900px) and (orientation: portrait) {
+  #button1 {
+    margin-top: 100px !important;
+  }
+  #button2 {
+    margin-top: 50px !important;
+  }
+  #button3 {
+    margin-top: 25px !important;
+  }
+}
+.btn-circle.btn-lg {
+  width: 80px;
+  height: 80px;
+  z-index: 1;
+  position: absolute;
+  color: black;
+  margin-top: 10px;
+  padding: 0px;
+  margin-left: -4px;
+}
+.disabled{
+  background-color: #c5c5c5 !important;
+  box-shadow: none !important;
+}
